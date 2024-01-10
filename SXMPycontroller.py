@@ -1,6 +1,7 @@
 # This file is the to make a user-friendly module for SXM controlling
 from RemoteSXM import SXMRemote
 import time
+import pyvisa
 
 
 class SXMController:
@@ -12,6 +13,34 @@ class SXMController:
         self.tip_pos_Y = None
         self.scan_status = None
         self.re_scan_status = None
+        self.rm = pyvisa.ResourceManager()
+
+    def addsmu(self, smu):
+        self.smu = self.rm.open_resource(smu)
+        self.smu_voltage_read = 0
+        self.smu_current_read = 0
+
+    # voltage in V
+    def smu_set_voltage(self, voltage):
+        self.smu.write(':SOURCE:VOLTAGE:LEVEL ' + str(voltage))
+
+    # Enable output
+    def smu_output_on(self):
+        self.smu.write(':OUTPUT ON')
+
+    # Read voltage, current
+    def smu_read_voltage(self):
+        self.smu_voltage_read = self.smu.query(':MEASURE:VOLTAGE?')
+        return self.smu_voltage_read
+
+    def smu_read_current(self):
+        self.smu_current_read = self.smu.query(':MEASURE:CURRENT?')
+        return self.smu_current_read
+
+    # Disable output
+    def smu_output_off(self):
+        self.smu.write(':OUTPUT OFF')
+
     #     self.MySXM.SaveIsDone = self.MyNewFileIsWritten  # use it
 
     # def MyNewFileIsWritten(FileName):  # new callback function
@@ -52,7 +81,7 @@ class SXMController:
     # Move the tip
     def move_tip(self, x, y):
         self.MySXM.SendWait("SpectPara(1, " + str(x) + ");")
-        self.MySXM.SendWait("SpectPara(1, " + str(y) + ");")
+        self.MySXM.SendWait("SpectPara(2, " + str(y) + ");")
 
     def spectroscopy_on(self):
         self.MySXM.SendWait("SpectStart;")
@@ -97,6 +126,36 @@ class SXMController:
         x = self.MySXM.GetScanPara('X')
         y = self.MySXM.GetScanPara('Y')
         print('X = ', x, 'Y = ', y)
+        return
+
+    # Mixed functions
+
+    # Conduct a spectroscopy measurement at a given position
+    # after turn off the feedback loop, conduct the command for SMU, then do STS
+    # after STS, turn on the feedback loop
+
+    def STSxSMU(self, x, y):
+
+        # move the tip
+        self.MySXM.SendWait("SpectPara(1, " + str(x) + ");")
+        self.MySXM.SendWait("SpectPara(2, " + str(y) + ");")
+
+        # turn off the feedback loop
+        self.feedback_off()
+
+        # conduct the command for SMU
+        self.smu_set_voltage(0.3)
+        self.smu_output_on()
+
+        # conduct STS
+        self.spectroscopy_on()
+
+        # turn off the SMU
+        self.smu_output_off()
+
+        # turn on the feedback loop
+        self.feedback_on()
+
         return
 
 
@@ -151,3 +210,40 @@ for i in range(3):
 
 # MySXM = SXMRemote.DDEClient("SXM", "Remote")
 # print(MySXM.GetScanPara('Angle'))
+
+
+# def automoveScanArea(SXM, movelist, distance, waittime, repeat=0):
+#     SXM_status = SXM.GetScanPara('Scan')
+#     x, y = getXYcenter(SXM)
+
+#     # move the scan area
+#     for i in range(len(movelist)):
+#         print("move to " + str(i) + "th scan area")
+#         if movelist[i] == 'R':
+#             x += distance
+#             setXYcenter(SXM, x, y)
+#         elif movelist[i] == 'L':
+#             x -= distance
+#             setXYcenter(SXM, x, y)
+#         elif movelist[i] == 'U':
+#             y += distance
+#             setXYcenter(SXM, x, y)
+#         elif movelist[i] == 'D':
+#             y -= distance
+#             setXYcenter(SXM, x, y)
+#         else:
+#             print("Wrong input")
+
+#         # stay for a while to wait for the tip to be stable
+#         time.sleep(waittime)
+
+#         # repeat the scan
+#         for repeat_time in range(repeat+1):
+#             print("scan " + str(repeat_time+1) + " times")
+#             startScan(SXM)
+#             SXM_status = SXM.GetScanPara('Scan')
+
+#             while SXM_status == 1.:
+#                 SXM_status = SXM.GetScanPara('Scan')
+
+# automoveScanArea(MySXM, ['R', 'U', 'L','L','D','D','R','R'], 5, 5)
