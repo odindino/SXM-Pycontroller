@@ -3,7 +3,6 @@ from RemoteSXM import SXMRemote
 import time
 import pyvisa
 
-
 class SXMController:
     def __init__(self):
         self.MySXM = SXMRemote.DDEClient("SXM", "Remote")
@@ -14,6 +13,7 @@ class SXMController:
         self.scan_status = None
         self.re_scan_status = None
         self.rm = pyvisa.ResourceManager()
+
 
     def addsmu(self, smu):
         self.smu = self.rm.open_resource(smu)
@@ -162,21 +162,21 @@ class SXMController:
 SXM = SXMController()
 
 # I want to scan 3 times, after sending scan_on, I will check the scan status every 2 minutes, once the scan is done, I will send the next scan_on command, and also print the current time.
-for i in range(3):
-    SXM.scan_on()
-    SXM.check_scan()
-    print("Scan on", i)
-    time.sleep(5)
-    while SXM.scan_status == 1.0:
-        print("Scan is not done")
-        time.sleep(10)
-        SXM.check_scan()
-    print("Scan is done")
-    time.sleep(5)
-    SXM.check_scan()
-    SXM.check_scanXY()
-    print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
-    time.sleep(5)
+# for i in range(3):
+#     SXM.scan_on()
+#     SXM.check_scan()
+#     print("Scan on", i)
+#     time.sleep(5)
+#     while SXM.scan_status == 1.0:
+#         print("Scan is not done")
+#         time.sleep(10)
+#         SXM.check_scan()
+#     print("Scan is done")
+#     time.sleep(5)
+#     SXM.check_scan()
+#     SXM.check_scanXY()
+#     print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+#     time.sleep(5)
 
 # # # scan 3 times
 # # for i in range(6):
