@@ -168,7 +168,7 @@ class SXMController:
 
         return
 
-    # ===================================================== #
+    # ========== CITS section ========== #
     def CITS(self, start_x, start_y, dx, dy, nx, ny, sts_params=None):
         """
         Perform Current Imaging Tunneling Spectroscopy (CITS) measurement.
@@ -289,7 +289,7 @@ class SXMController:
             self.scan_off()
             self.feedback_on()
             print("CITS measurement completed")
-    # ===================================================== #
+    # ========== CITS section END ========== #
 
 
 SXM = SXMController()
