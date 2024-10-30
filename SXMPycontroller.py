@@ -108,6 +108,9 @@ class SXMController:
         # 用於事件記錄的佇列
         self.event_queue = queue.Queue()
 
+        # 控制事件監聽器的運行
+        self._stop_event = threading.Event()
+
         # 啟動事件監聽器
         self._start_event_listener()
 
@@ -119,12 +122,13 @@ class SXMController:
 
     def _event_listener_loop(self):
         """背景事件處理循環"""
-        while True:
+        while not self._stop_event.is_set():
             try:
-                event = self.event_queue.get(timeout=1.0)  # 1秒超時
+                # 使用較短的超時時間以便及時響應停止信號
+                event = self.event_queue.get(timeout=0.1)
                 event_type = event.get('type')
                 event_data = event.get('data')
-
+                
                 if event_type == 'scan_off':
                     self._process_scan_off(event_data)
                 elif event_type == 'save_done':
@@ -197,23 +201,47 @@ class SXMController:
     def wait_for_scan_complete(self, timeout=None):
         """
         等待掃描完成
-
+        
         Parameters
         ----------
         timeout : float, optional
             等待超時時間（秒）
-
+            
         Returns
         -------
         bool
             True if scan completed, False if timeout
         """
         start_time = time.time()
-        while self.scan_status.is_scanning:
-            if timeout and (time.time() - start_time > timeout):
-                return False
-            time.sleep(0.5)
-        return True
+        try:
+            while True:
+                # 檢查掃描狀態
+                current_status = self.check_scan(verbose=True)
+                
+                # 如果收到掃描結束的信號
+                if not self.scan_status.is_scanning and self.scan_status.scan_finished_time:
+                    print(f"Scan completed at {self.scan_status.scan_finished_time}")
+                    return True
+                
+                # 檢查超時
+                if timeout and (time.time() - start_time > timeout):
+                    print("Scan monitoring timeout")
+                    return False
+                
+                # Windows消息處理
+                SXMRemote.loop()
+                
+                # 短暫休息以減少CPU使用
+                time.sleep(0.1)
+                
+        except KeyboardInterrupt:
+            print("\nMonitoring interrupted by user")
+            return False
+            
+    def stop_monitoring(self):
+        """停止事件監聽"""
+        self._stop_event.set()
+        self.event_listener.join(timeout=1.0)
 
     def _parse_response(self, response, param_name=None, param_type=None):
         """
@@ -456,16 +484,78 @@ class SXMController:
         self.MySXM.SendWait("SpectStart;")
 
     # Scan
+    # def check_scan(self):
+    #     # self.scan_status = self.MySXM.execute(
+    #     #     "a:=GetScanPara('Scan');\r\n" +
+    #     #     "Writeln(a);\r\n", 5000)
+    #     self.scan_status = self.MySXM.GetScanPara('Scan')
+    #     # self.MySXM.ScanOffCallBack()
+    #     # a = self.MySXM.execute("GetScanPara('angle');", 5000)
+    #     # print(a)
+    #     print(self.scan_status)
+    #     return self.scan_status
+
     def check_scan(self):
-        # self.scan_status = self.MySXM.execute(
-        #     "a:=GetScanPara('Scan');\r\n" +
-        #     "Writeln(a);\r\n", 5000)
-        self.scan_status = self.MySXM.GetScanPara('Scan')
-        # self.MySXM.ScanOffCallBack()
-        # a = self.MySXM.execute("GetScanPara('angle');", 5000)
-        # print(a)
-        print(self.scan_status)
-        return self.scan_status
+        """
+        檢查掃描狀態
+        
+        Returns
+        -------
+        bool or None
+            True if scanning, False if not scanning, None if error
+        """
+        try:
+            command = "a:=GetScanPara('Scan');\r\n  writeln(a);"
+            self.MySXM.execute(command, 5000)
+            
+            wait_count = 0
+            while self.MySXM.NotGotAnswer and wait_count < 50:
+                SXMRemote.loop()
+                time.sleep(0.1)
+                wait_count += 1
+
+            response = self.MySXM.LastAnswer
+            
+            if isinstance(response, bytes):
+                response_str = str(response, 'utf-8').strip()
+                
+                # 檢查掃描行信息 (f123, b123)
+                if response_str[:1] in ['f', 'b']:
+                    direction = 'forward' if response_str[0] == 'f' else 'backward'
+                    try:
+                        line_number = int(response_str[1:])
+                        self.scan_status.is_scanning = True
+                        self.scan_status.direction = direction
+                        self.scan_status.line_number = line_number
+                        if self.debug_mode:
+                            print(f"Scanning: {direction} line {line_number}")
+                        return True
+                    except ValueError:
+                        pass
+                
+                # 檢查數字回應
+                if response_str.isdigit():
+                    value = int(response_str)
+                    self.scan_status.is_scanning = bool(value)
+                    if not value:
+                        self.scan_status.direction = None
+                        self.scan_status.line_number = 0
+                    if self.debug_mode:
+                        print("Scan status:", "On" if value else "Off")
+                    return bool(value)
+                    
+            elif isinstance(response, int):
+                self.scan_status.is_scanning = bool(response)
+                if self.debug_mode:
+                    print("Scan status:", "On" if response else "Off")
+                return bool(response)
+                
+        except Exception as e:
+            if self.debug_mode:
+                print(f"Error checking scan status: {str(e)}")
+            return None
+            
+        return None
 
     def scan_on(self):
         # self.MySXM.execute(
@@ -649,37 +739,77 @@ class SXMController:
             self.feedback_on()
             print("CITS measurement completed")
     # ========== CITS section END ========== #
-
+    def wait_for_scan_complete(self, timeout=None):
+        """
+        等待掃描完成
+        
+        Parameters
+        ----------
+        timeout : float, optional
+            等待超時時間（秒）
+            
+        Returns
+        -------
+        bool
+            True if scan completed, False if timeout
+        """
+        start_time = time.time()
+        try:
+            while True:
+                # 檢查掃描狀態
+                current_status = self.check_scan()
+                
+                # 如果掃描已結束
+                if current_status is False:
+                    print("Scan completed")
+                    return True
+                    
+                # 檢查超時
+                if timeout and (time.time() - start_time > timeout):
+                    print("Scan monitoring timeout")
+                    return False
+                
+                # Windows消息處理
+                SXMRemote.loop()
+                
+                # 短暫休息以減少CPU使用
+                time.sleep(0.1)
+                
+        except KeyboardInterrupt:
+            print("\nMonitoring interrupted by user")
+            return False
 
 # SXM = SXMController()
 # SXM.scan_on()
 
-def scan_with_monitoring():
-    sxm = SXMController()
-    sxm.debug_mode = True
-
-    print("Starting scan...")
-    sxm.scan_on()
-
+def main():
     try:
-        # 設定最長等待時間（例如30分鐘）
-        if sxm.wait_for_scan_complete(timeout=1800):
-            print("Scan completed normally")
+        sxm = SXMController()
+        sxm.debug_mode = True
+        
+        print("Starting scan...")
+        sxm.scan_on()
+        print("Waiting for scan to complete...")
+        
+        # 等待掃描完成（可以按Ctrl+C中斷）
+        if sxm.wait_for_scan_complete(timeout=1800):  # 30分鐘超時
             scan_history = sxm.get_scan_history()
-            print(
-                f"Scan finished at: {scan_history['last_scan_finished']}")
+            print(f"Scan finished at: {scan_history['last_scan_finished']}")
             print(f"File saved as: {scan_history['last_saved_file']}")
         else:
-            print("Scan timeout")
-    except KeyboardInterrupt:
-        print("Monitoring interrupted by user")
+            print("Scan monitoring ended without completion")
+            
+    except Exception as e:
+        print(f"Error during scan monitoring: {str(e)}")
+    finally:
+        # 確保正確清理資源
+        sxm.stop_monitoring()
 
-    # 即使中斷監控，之後仍然可以查詢歷史記錄
-    scan_history = sxm.get_scan_history()
-    print("Final scan status:", str(sxm.scan_status))
+if __name__ == "__main__":
+    main()
 
 
-scan_with_monitoring()
+# scan_with_monitoring()
 # I want to scan 3 times, after sending scan_on, I will check the scan status every 2 minutes, once the scan is done, I will send the next scan_on command, and also print the current time.
 # for i in range(3):
 #     SXM.scan_on()
