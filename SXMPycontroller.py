@@ -168,9 +168,132 @@ class SXMController:
 
         return
 
+    # ========== CITS section ========== #
+    def CITS(self, start_x, start_y, dx, dy, nx, ny, sts_params=None):
+        """
+        Perform Current Imaging Tunneling Spectroscopy (CITS) measurement.
+
+        This function combines STM imaging with STS measurements. It scans the surface
+        line by line, and performs STS at specified intervals during the scan.
+
+        Parameters
+        ----------
+        start_x : float
+            Starting X position for the CITS measurement (in nm)
+        start_y : float
+            Starting Y position for the CITS measurement (in nm)
+        dx : float
+            Distance between STS points along X axis (in nm)
+        dy : float
+            Distance between scan lines where STS will be performed (in nm)
+        nx : int
+            Number of STS points along X axis
+        ny : int
+            Number of scan lines where STS will be performed
+        sts_params : dict, optional
+            Dictionary containing STS measurement parameters:
+            {
+                'start_bias': float,  # Starting bias voltage (V)
+                'end_bias': float,    # Ending bias voltage (V)
+                'points': int,        # Number of points in STS
+                'delay': float        # Delay time between points (ms)
+            }
+        """
+        # Check if scan is already running
+        if self.check_scan() == 1:
+            print("Warning: Scan is already running. Stopping current scan...")
+            self.scan_off()
+            time.sleep(2)
+
+        # Set default STS parameters if not provided
+        if sts_params is None:
+            sts_params = {
+                'start_bias': -2.0,
+                'end_bias': 2.0,
+                'points': 200,
+                'delay': 100
+            }
+
+        # Configure STS parameters
+        # Set to I(V) spectroscopy mode
+        self.MySXM.SendWait(f"SpectPara(0, 1);")
+        self.MySXM.SendWait(f"SpectPara('Points', {sts_params['points']});")
+        self.MySXM.SendWait(
+            f"SpectPara(7, {sts_params['start_bias']});")  # Start bias
+        self.MySXM.SendWait(
+            f"SpectPara(8, {sts_params['end_bias']});")    # End bias
+        self.MySXM.SendWait(
+            f"SpectPara(4, {sts_params['delay']});")       # Delay time
+
+        # Calculate total scan range
+        total_x_range = dx * (nx - 1)
+        total_y_range = dy * (ny - 1)
+
+        # Set scan parameters
+        self.MySXM.SendWait(
+            f"ScanPara('Range', {max(total_x_range, total_y_range)});")
+        self.MySXM.SendWait(f"ScanPara('X', {start_x});")
+        self.MySXM.SendWait(f"ScanPara('Y', {start_y});")
+
+        try:
+            # Start the scan
+            self.scan_on()
+
+            # Monitor scan progress line by line
+            for y_idx in range(ny):
+                current_y = start_y + y_idx * dy
+
+                # Wait until scanner reaches the current y position
+                while True:
+                    current_line = self.MySXM.GetScanPara('LineNr')
+                    if current_line >= y_idx:
+                        break
+                    time.sleep(0.1)
+
+                # Perform STS measurements along the line
+                for x_idx in range(nx):
+                    current_x = start_x + x_idx * dx
+
+                    # Pause the scan
+                    self.scan_off()
+                    time.sleep(0.5)  # Wait for scanner to stabilize
+
+                    # Move to exact position
+                    self.move_tip(current_x, current_y)
+                    time.sleep(0.5)
+
+                    # Perform STS
+                    self.feedback_off()  # Turn off feedback
+                    time.sleep(0.2)
+                    self.spectroscopy_on()  # Start spectroscopy
+
+                    # Wait for spectroscopy to complete
+                    time.sleep((sts_params['points'] *
+                               sts_params['delay']) / 1000 + 1)
+
+                    self.feedback_on()  # Turn feedback back on
+                    time.sleep(0.2)
+
+                    # Resume scanning
+                    self.scan_on()
+
+                print(f"Completed line {y_idx + 1} of {ny}")
+
+        except Exception as e:
+            print(f"Error during CITS measurement: {str(e)}")
+            self.feedback_on()  # Ensure feedback is on
+            raise
+
+        finally:
+            # Ensure proper cleanup
+            self.scan_off()
+            self.feedback_on()
+            print("CITS measurement completed")
+    # ========== CITS section END ========== #
+
 
 SXM = SXMController()
-
+SXM.scan_on()
 # I want to scan 3 times, after sending scan_on, I will check the scan status every 2 minutes, once the scan is done, I will send the next scan_on command, and also print the current time.
 # for i in range(3):
 #     SXM.scan_on()
@@ -257,3 +380,28 @@ SXM = SXMController()
 #                 SXM_status = SXM.GetScanPara('Scan')
 
 # automoveScanArea(MySXM, ['R', 'U', 'L','L','D','D','R','R'], 5, 5)
+
+
+# ==== CITS test ==== #
+# 創建SXM控制器實例
+# sxm_controller = SXMController()
+
+# # 設定CITS參數
+# sts_settings = {
+#     'start_bias': -1.5,    # 起始偏壓 -1.5V
+#     'end_bias': 1.5,       # 結束偏壓 1.5V
+#     'points': 200,         # 每條STS曲線的點數
+#     'delay': 50            # 每點的延遲時間(ms)
+# }
+
+# # 執行CITS量測
+# sxm_controller.CITS(
+#     start_x=0,      # 起始X座標 (nm)
+#     start_y=0,      # 起始Y座標 (nm)
+#     dx=5,           # X方向點間距 (nm)
+#     dy=5,           # Y方向線間距 (nm)
+#     nx=100,         # X方向點數
+#     ny=100,         # Y方向線數
+#     sts_params=sts_settings
+# )
+# ==== CITS test ==== #
