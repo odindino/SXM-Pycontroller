@@ -22,10 +22,11 @@ class SXMController:
         self.tip_pos_Y = None
         self.scan_status = None
         self.re_scan_status = None
-        self.rm = pyvisa.ResourceManager()
+        
 
 
     def addsmu(self, smu):
+        self.rm = pyvisa.ResourceManager()
         self.smu = self.rm.open_resource(smu)
         self.smu_voltage_read = 0
         self.smu_current_read = 0
@@ -294,6 +295,25 @@ class SXMController:
 
 SXM = SXMController()
 SXM.scan_on()
+print('scan on')
+# time.sleep(5)
+# SXM.check_scan()
+# print('check scan')
+# time.sleep(5)
+# SXM.check_scan()
+# print('check scan')
+# SXM.check_scanXY()
+# print('check scanXY')
+# time.sleep(5)
+# SXM.scan_off()
+# print('scan off')
+# time.sleep(5)
+for i in range(20):
+    SXM.check_scan()
+    print('check scan')
+    time.sleep(1)
+# SXM.check_scan()
+# print('check scan')
 # I want to scan 3 times, after sending scan_on, I will check the scan status every 2 minutes, once the scan is done, I will send the next scan_on command, and also print the current time.
 # for i in range(3):
 #     SXM.scan_on()
