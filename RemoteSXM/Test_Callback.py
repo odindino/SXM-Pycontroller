@@ -22,8 +22,8 @@ print("SXM remote control")
 
 MySXM= SXMRemote.DDEClient("SXM","Remote");
 
-string="FeedPara('Bias',-10);"
-MySXM.execute(string, 5000);
+# string="FeedPara('Bias',-10);"
+# MySXM.execute(string, 5000);
 
 def MyScanIsOn():
     print('myScan is on');
@@ -34,6 +34,7 @@ def MyScanIsOff():
 MySXM.ScanOnCallBack = MyScanIsOn
 MySXM.ScanOffCallBack = MyScanIsOff
 
-GoXYStr="Goxy(0.2,0.7);"
-MySXM.execute(GoXYStr, 5000);
+# GoXYStr="Goxy(0.2,0.7);"
+# MySXM.execute(GoXYStr, 5000);
+MySXM.callback(b"ScanOn")
 
