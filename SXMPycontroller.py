@@ -131,7 +131,7 @@ class SXMController:
                 event = self.event_queue.get(timeout=0.1)
                 event_type = event.get('type')
                 event_data = event.get('data')
-                
+
                 if event_type == 'scan_off':
                     self._process_scan_off(event_data)
                 elif event_type == 'save_done':
@@ -171,7 +171,6 @@ class SXMController:
     # ========== Scan on/off Callbacks END ========== #
 
     # ========== Event processing ========== #
-
     def _process_scan_off(self, data):
         """處理掃描結束事件"""
         self.scan_status.update(
@@ -214,12 +213,12 @@ class SXMController:
     def wait_for_scan_complete(self, timeout=None):
         """
         等待掃描完成
-        
+
         Parameters
         ----------
         timeout : float, optional
             等待超時時間（秒）
-            
+
         Returns
         -------
         bool
@@ -230,31 +229,128 @@ class SXMController:
             while True:
                 # 檢查掃描狀態
                 current_status = self.check_scan(verbose=True)
-                
+
                 # 如果收到掃描結束的信號
                 if not self.scan_status.is_scanning and self.scan_status.scan_finished_time:
-                    print(f"Scan completed at {self.scan_status.scan_finished_time}")
+                    print(
+                        f"Scan completed at {self.scan_status.scan_finished_time}")
                     return True
-                
+
                 # 檢查超時
                 if timeout and (time.time() - start_time > timeout):
                     print("Scan monitoring timeout")
                     return False
-                
+
                 # Windows消息處理
                 SXMRemote.loop()
-                
+
                 # 短暫休息以減少CPU使用
                 time.sleep(0.1)
-                
+
         except KeyboardInterrupt:
             print("\nMonitoring interrupted by user")
             return False
-            
+
     def stop_monitoring(self):
         """停止事件監聽"""
         self._stop_event.set()
         self.event_listener.join(timeout=1.0)
+
+    # ========== General calculations ========== #
+    def rotate_coordinates(self, x, y, angle_deg, center_x=0, center_y=0):
+        """
+        旋轉座標系
+
+        Parameters
+        ----------
+        x, y : float
+            原始座標
+        angle_deg : float
+            旋轉角度（度），逆時針為正
+        center_x, center_y : float
+            旋轉中心點
+
+        Returns
+        -------
+        tuple (float, float)
+            旋轉後的座標
+        """
+        # 轉換到弧度
+        angle_rad = math.radians(angle_deg)
+
+        # 平移到原點
+        x_shifted = x - center_x
+        y_shifted = y - center_y
+
+        # 旋轉
+        x_rot = x_shifted * math.cos(angle_rad) - \
+            y_shifted * math.sin(angle_rad)
+        y_rot = x_shifted * math.sin(angle_rad) + \
+            y_shifted * math.cos(angle_rad)
+
+        # 平移回原位
+        x_final = x_rot + center_x
+        y_final = y_rot + center_y
+
+        return x_final, y_final
+
+    def get_real_coordinates(self, x_nm, y_nm):
+        """
+        將物理座標（nm）轉換為當前掃描範圍內的實際座標，考慮掃描角度
+
+        Parameters
+        ----------
+        x_nm, y_nm : float
+            目標座標（nm）
+
+        Returns
+        -------
+        tuple (float, float)
+            在當前掃描範圍內的實際座標
+        """
+        try:
+            # 獲取當前掃描參數
+            center_x = self.GetScanPara('X')
+            center_y = self.GetScanPara('Y')
+            scan_range = self.GetScanPara('Range')
+            angle = self.GetScanPara('Angle')
+
+            # 計算掃描範圍的邊界（未旋轉時的）
+            half_range = scan_range / 2
+
+            # 將目標點相對於中心點進行反向旋轉
+            # （因為我們要在旋轉的掃描框中確定位置）
+            x_rot, y_rot = self.rotate_coordinates(
+                x_nm, y_nm,
+                -angle,  # 使用負角度進行反向旋轉
+                center_x, center_y
+            )
+
+            # 檢查是否在未旋轉的範圍內
+            if (abs(x_rot - center_x) > half_range or
+                    abs(y_rot - center_y) > half_range):
+                print(f"Warning: Point ({x_nm}, {y_nm}) outside scan range")
+
+                # 限制在範圍內
+                x_rot = max(center_x - half_range,
+                            min(center_x + half_range, x_rot))
+                y_rot = max(center_y - half_range,
+                            min(center_y + half_range, y_rot))
+
+            # 將限制後的點旋轉回去
+            x_final, y_final = self.rotate_coordinates(
+                x_rot, y_rot,
+                angle,  # 使用正角度旋轉回原方向
+                center_x, center_y
+            )
+
+            return x_final, y_final
+
+        except Exception as e:
+            print(f"Error calculating coordinates: {str(e)}")
+            return None
+
+    # ========== General calculations END ========== #
 
     # ========== Get parameter (General) ========== #
     # ========== Parse response ========== #
@@ -582,7 +678,7 @@ class SXMController:
         self.MySXM.SendWait("FeedPara('Enable', 1);")  # feedback on
         self.FbOn = 1
 
-    # Spectrocopy
+    # ========== Spectroscopy Section ========== #
     # Move the tip
     def move_tip(self, x, y):
         self.MySXM.SendWait("SpectPara(1, " + str(x) + ");")
@@ -591,22 +687,15 @@ class SXMController:
     def spectroscopy_on(self):
         self.MySXM.SendWait("SpectStart;")
 
-    # Scan
-    # def check_scan(self):
-    #     # self.scan_status = self.MySXM.execute(
-    #     #     "a:=GetScanPara('Scan');\r\n" +
-    #     #     "Writeln(a);\r\n", 5000)
-    #     self.scan_status = self.MySXM.GetScanPara('Scan')
-    #     # self.MySXM.ScanOffCallBack()
-    #     # a = self.MySXM.execute("GetScanPara('angle');", 5000)
-    #     # print(a)
-    #     print(self.scan_status)
-    #     return self.scan_status
+    # ========== Spectroscopy Section END ========== #
+
+    # ========== Scan Section ========== #
+    # ========== Check scan status ========== #
 
     def check_scan(self):
         """
         檢查掃描狀態
-        
+
         Returns
         -------
         bool or None
@@ -615,7 +704,7 @@ class SXMController:
         try:
             command = "a:=GetScanPara('Scan');\r\n  writeln(a);"
             self.MySXM.execute(command, 5000)
-            
+
             wait_count = 0
             while self.MySXM.NotGotAnswer and wait_count < 50:
                 SXMRemote.loop()
@@ -623,10 +712,10 @@ class SXMController:
                 wait_count += 1
 
             response = self.MySXM.LastAnswer
-            
+
             if isinstance(response, bytes):
                 response_str = str(response, 'utf-8').strip()
-                
+
                 # 檢查掃描行信息 (f123, b123)
                 if response_str[:1] in ['f', 'b']:
                     direction = 'forward' if response_str[0] == 'f' else 'backward'
@@ -640,7 +729,7 @@ class SXMController:
                         return True
                     except ValueError:
                         pass
-                
+
                 # 檢查數字回應
                 if response_str.isdigit():
                     value = int(response_str)
@@ -651,37 +740,85 @@ class SXMController:
                     if self.debug_mode:
                         print("Scan status:", "On" if value else "Off")
                     return bool(value)
-                    
+
             elif isinstance(response, int):
                 self.scan_status.is_scanning = bool(response)
                 if self.debug_mode:
                     print("Scan status:", "On" if response else "Off")
                 return bool(response)
-                
+
         except Exception as e:
             if self.debug_mode:
                 print(f"Error checking scan status: {str(e)}")
             return None
-            
+
         return None
 
+    def perform_scan_sequence(self, repeat_count=1):
+        """
+        在當前位置執行指定次數的掃描
+
+        Parameters
+        ----------
+        repeat_count : int
+            掃描重複次數
+        """
+        for i in range(repeat_count):
+            print(f"Starting scan {i+1}/{repeat_count}")
+            self.scan_on()
+
+            # 等待掃描完成
+            if self.wait_for_scan_complete():
+                print(f"Scan {i+1} completed")
+            else:
+                print(f"Scan {i+1} failed or interrupted")
+                break
+
     def scan_on(self):
-        # self.MySXM.execute(
-        #     "ScanPara('Scan', 1);\r\n", 5000)
         self.MySXM.execute(
             "ScanPara('Scan', 1);\r\n", 5000)
-        # "a:=GetScanPara('Scan');\r\n" +
-        # "Writeln(a);\r\n", 5000)
-        # "Wait(3);\r\n" +
-        # "ScanPara('Scan', 0);\r\n" +
-        # "a:=GetScanPara('Scan');\r\n" +
-        # "Writeln(a);", 5000)
-        # self.checkscan()
 
     def scan_off(self):
         self.MySXM.execute(
             "ScanPara('Scan', 0);\r\n", 5000)
-        # self.checkscan()
+
+    def scan_lines(self, num_lines):
+        """
+        掃描指定行數
+
+        Parameters
+        ----------
+        num_lines : int
+            要掃描的行數
+
+        Returns
+        -------
+        bool
+            掃描是否成功完成
+        """
+        try:
+            self.MySXM.SendWait(f"ScanLine({num_lines});")
+
+            # 等待掃描完成
+            current_line = 0
+            while True:
+                status = self.check_scan()
+                if status is False:
+                    return True  # 掃描完成
+
+                # 獲取當前掃描行數
+                new_line = self.GetScanPara('LineNr')
+                if new_line != current_line:
+                    current_line = new_line
+                    print(f"Scanning line {current_line}")
+
+                time.sleep(0.1)
+
+        except Exception as e:
+            print(f"Error during line scan: {str(e)}")
+            return False
+
+    # ========== Scan Section END ========== #
 
     def clear_memo(self):
         self.MySXM.execute("ClrScr;", 5000)
@@ -725,7 +862,268 @@ class SXMController:
 
         return
 
+    # ========= Special functions ========= #
     # ========== CITS section ========== #
+    def calculate_cits_parameters(self, num_points_x, num_points_y, scan_direction=1):
+        """
+        計算CITS的基本參數
+
+        Parameters
+        ----------
+        num_points_x : int
+            X方向的測量點數
+        num_points_y : int
+            Y方向的測量點數
+        scan_direction : int
+            掃描方向: 1表示向上掃描, -1表示向下掃描
+
+        Returns
+        -------
+        dict
+            CITS參數，包含起始點、間距等
+        """
+        try:
+            # 獲取掃描參數
+            scan_range = self.GetScanPara('Range')
+            scan_angle = self.GetScanPara('Angle')
+            pixels = self.GetScanPara('Pixel')
+
+            # 獲取當前中心位置
+            center_x, center_y = self.get_center_position()
+            print(f"Scan center: ({center_x:.3f}, {center_y:.3f})")
+            print(f"Scan angle: {scan_angle}°")
+
+            # 計算實際範圍（稍微縮小以避免超出範圍）
+            safe_margin = 0.02
+            effective_range = scan_range * (1 - safe_margin)
+            half_range = effective_range / 2
+
+            # 計算起始點（相對於中心點）
+            if scan_direction == 1:  # 向上掃描
+                rel_x = -half_range  # 從左邊開始
+                rel_y = -half_range  # 從下面開始
+            else:  # 向下掃描
+                rel_x = -half_range  # 從左邊開始
+                rel_y = half_range   # 從上面開始
+
+            # 將相對座標旋轉到實際角度（以中心點為旋轉中心）
+            start_x, start_y = self.rotate_coordinates(
+                rel_x, rel_y,
+                scan_angle,
+                center_x, center_y  # 使用實際的掃描中心
+            )
+
+            # 計算步長（在旋轉座標系中）
+            dx = effective_range / (num_points_x - 1)
+            dy = effective_range / (num_points_y - 1)
+            if scan_direction == -1:
+                dy = -dy
+
+            # 步長向量需要旋轉到實際角度
+            dx_rot, dy_temp = self.rotate_coordinates(
+                dx, 0,
+                scan_angle,
+                0, 0  # 步長是相對量，不需要考慮中心點
+            )
+            temp_x, dy_rot = self.rotate_coordinates(
+                0, dy,
+                scan_angle,
+                0, 0
+            )
+
+            return {
+                'start_x': start_x,
+                'start_y': start_y,
+                'dx': dx_rot,                   # 旋轉後的X步長
+                'dy': dy_rot,                   # 旋轉後的Y步長
+                'center_x': center_x,           # 掃描中心X
+                'center_y': center_y,           # 掃描中心Y
+                'lines_per_sts': pixels // (num_points_y + 1),
+                'scan_angle': scan_angle,
+                'total_lines': pixels,
+                'effective_range': effective_range,
+                'scan_direction': scan_direction
+            }
+
+        except Exception as e:
+            print(f"Error calculating CITS parameters: {str(e)}")
+            return None
+
+    def standard_cits(self, num_points_x, num_points_y, scan_direction=1, sts_params=None):
+        """
+        執行標準CITS測量
+        """
+        try:
+            # 檢查當前掃描狀態
+            if self.check_scan():
+                print("Scan in progress, continuing with CITS")
+            else:
+                print("Starting new scan")
+                self.scan_on()
+                time.sleep(0.5)  # 給予掃描啟動的時間
+
+            params = self.calculate_cits_parameters(
+                num_points_x, num_points_y, scan_direction
+            )
+            if not params:
+                raise ValueError("Failed to calculate CITS parameters")
+
+            print(f"\nStarting standard CITS measurement:")
+            print(
+                f"Center position: ({params['center_x']:.3f}, {params['center_y']:.3f})")
+            print(
+                f"Starting position: ({params['start_x']:.3f}, {params['start_y']:.3f})")
+            print(f"Step sizes: dx={params['dx']:.3f}, dy={params['dy']:.3f}")
+            print(f"Number of points: {num_points_x}x{num_points_y}")
+            print(f"Lines between STS: {params['lines_per_sts']}")
+            print(f"Scan direction: {'Up' if scan_direction == 1 else 'Down'}")
+
+            current_line = 0
+            completed_points = 0
+            total_points = num_points_x * num_points_y
+
+            for y_idx in range(num_points_y):
+                # 計算當前行的位置
+                current_y = params['start_y'] + y_idx * params['dy']
+
+                # 掃描到適當的行
+                lines_to_scan = params['lines_per_sts']
+                print(
+                    f"\nScanning {lines_to_scan} lines before STS line {y_idx + 1}/{num_points_y}")
+                if not self.scan_lines(lines_to_scan):
+                    raise RuntimeError("Failed to scan lines")
+
+                current_line += lines_to_scan
+                print(
+                    f"Current scan line: {current_line}/{params['total_lines']}")
+
+                # 在當前行進行STS測量
+                print(f"Performing STS measurements on line {y_idx + 1}")
+                for x_idx in range(num_points_x):
+                    # 直接使用旋轉後的步長計算位置
+                    current_x = params['start_x'] + x_idx * params['dx']
+
+                    # 執行STS
+                    completed_points += 1
+                    progress = (completed_points / total_points) * 100
+                    print(f"STS point {completed_points}/{total_points} "
+                          f"({progress:.1f}%) at ({current_x:.3f}, {current_y:.3f})")
+                    self.perform_sts(current_x, current_y, sts_params)
+
+                # 檢查是否接近圖像結束
+                remaining_lines = params['total_lines'] - current_line
+                if remaining_lines < params['lines_per_sts']:
+                    print("Warning: Approaching end of scan, stopping CITS")
+                    break
+
+            print("\nCITS measurement completed")
+            print(f"Total points measured: {completed_points}/{total_points}")
+
+        except Exception as e:
+            print(f"Error during standard CITS: {str(e)}")
+            # 確保掃描繼續
+            self.scan_on()
+
+    def define_cits_area(self, start_x, start_y, width, height):
+        """
+        定義CITS測量區域，考慮掃描角度
+
+        Parameters
+        ----------
+        start_x, start_y : float
+            起始座標（nm）
+        width, height : float
+            區域寬度和高度（nm）
+
+        Returns
+        -------
+        dict
+            CITS區域的定義，包含旋轉後的四個角點座標
+        """
+        try:
+            # 獲取當前掃描角度
+            angle = self.GetScanPara('Angle')
+            center_x = self.GetScanPara('X')
+            center_y = self.GetScanPara('Y')
+
+            # 計算矩形四個角點（相對於起始點）
+            corners = [
+                (start_x, start_y),                    # 左下
+                (start_x + width, start_y),            # 右下
+                (start_x + width, start_y + height),   # 右上
+                (start_x, start_y + height)            # 左上
+            ]
+
+            # 轉換所有角點到實際座標
+            real_corners = []
+            for x, y in corners:
+                real_x, real_y = self.get_real_coordinates(x, y)
+                if real_x is None or real_y is None:
+                    raise ValueError("Invalid coordinates")
+                real_corners.append((real_x, real_y))
+
+            # 計算旋轉後的寬度和高度
+            # （使用對角線點的距離）
+            actual_width = math.sqrt(
+                (real_corners[1][0] - real_corners[0][0])**2 +
+                (real_corners[1][1] - real_corners[0][1])**2
+            )
+            actual_height = math.sqrt(
+                (real_corners[3][0] - real_corners[0][0])**2 +
+                (real_corners[3][1] - real_corners[0][1])**2
+            )
+
+            return {
+                'corners': real_corners,
+                'start_x': real_corners[0][0],
+                'start_y': real_corners[0][1],
+                'width': actual_width,
+                'height': actual_height,
+                'angle': angle
+            }
+
+        except Exception as e:
+            print(f"Error defining CITS area: {str(e)}")
+            return None
+
+    def perform_cits(self, cits_area, lines_between_sts, points_per_line, sts_params=None):
+        """
+        執行CITS測量，考慮掃描角度
+        """
+        try:
+            # 獲取掃描參數
+            angle = cits_area['angle']
+
+            # 計算每個測量點的位置
+            for line in range(lines_between_sts):
+                # 計算當前行的起點和終點
+                t = line / (lines_between_sts - 1)
+                start = (
+                    cits_area['corners'][0][0] *
+                        (1-t) + cits_area['corners'][3][0] * t,
+                    cits_area['corners'][0][1] *
+                        (1-t) + cits_area['corners'][3][1] * t
+                )
+                end = (
+                    cits_area['corners'][1][0] *
+                    (1-t) + cits_area['corners'][2][0] * t,
+                    cits_area['corners'][1][1] *
+                    (1-t) + cits_area['corners'][2][1] * t
+                )
+
+                # 在當前行上執行測量
+                for point in range(points_per_line):
+                    t = point / (points_per_line - 1)
+                    x = start[0] * (1-t) + end[0] * t
+                    y = start[1] * (1-t) + end[1] * t
+
+                    self.perform_sts(x, y, sts_params)
+
+            # 其餘執行邏輯...
+
+        except Exception as e:
+            print(f"Error during CITS: {str(e)}")
+
     def CITS(self, start_x, start_y, dx, dy, nx, ny, sts_params=None):
         """
         Perform Current Imaging Tunneling Spectroscopy (CITS) measurement.
@@ -846,16 +1244,18 @@ class SXMController:
             self.scan_off()
             self.feedback_on()
             print("CITS measurement completed")
+
     # ========== CITS section END ========== #
+
     def wait_for_scan_complete(self, timeout=None):
         """
         等待掃描完成
-        
+
         Parameters
         ----------
         timeout : float, optional
             等待超時時間（秒）
-            
+
         Returns
         -------
         bool
@@ -866,39 +1266,91 @@ class SXMController:
             while True:
                 # 檢查掃描狀態
                 current_status = self.check_scan()
-                
+
                 # 如果掃描已結束
                 if current_status is False:
                     print("Scan completed")
                     return True
-                    
+
                 # 檢查超時
                 if timeout and (time.time() - start_time > timeout):
                     print("Scan monitoring timeout")
                     return False
-                
+
                 # Windows消息處理
                 SXMRemote.loop()
-                
+
                 # 短暫休息以減少CPU使用
                 time.sleep(0.1)
-                
+
         except KeyboardInterrupt:
             print("\nMonitoring interrupted by user")
             return False
 
+    # ========== Auto move and scan area ========== #
+    def auto_move_scan_area(self, movement_script, distance, wait_time, repeat_count=1):
+        """
+        執行自動移動和掃描序列
+
+        Parameters
+        ----------
+        movement_script : str
+            移動指令序列，如 "RULLDDRR"
+        distance : float
+            每次移動的距離
+        wait_time : float
+            每次移動後的等待時間（秒）
+        repeat_count : int, optional
+            每個位置的掃描重複次數
+        """
+        # 獲取初始位置和角度
+        self.get_scan_angle()
+        x, y = self.get_center_position()
+        print(f"Starting position: ({x}, {y}), Angle: {self.current_angle}°")
+
+        # 執行初始位置的掃描
+        self.perform_scan_sequence(repeat_count)
+
+        # 執行移動和掃描序列
+        for i, direction in enumerate(movement_script):
+            print(f"\nMoving to position {i+1}/{len(movement_script)}")
+
+            try:
+                # 計算新位置
+                dx, dy = self.calculate_movement(direction, distance)
+                new_x = x + dx
+                new_y = y + dy
+
+                print(f"Moving to: ({new_x}, {new_y})")
+                self.move_to_position(new_x, new_y, wait_time)
+
+                # 更新當前位置
+                x, y = new_x, new_y
+
+                # 執行掃描
+                self.perform_scan_sequence(repeat_count)
+
+            except Exception as e:
+                print(f"Error at position {i+1}: {str(e)}")
+                break
+
+        print("\nMovement sequence completed")
+    # ========== Auto move and scan area END ========== #
+
+
 # SXM = SXMController()
 # SXM.scan_on()
+
 
 def main():
     try:
         sxm = SXMController()
         sxm.debug_mode = True
-        
+
         print("Starting scan...")
         sxm.scan_on()
         print("Waiting for scan to complete...")
-        
+
         # 等待掃描完成（可以按Ctrl+C中斷）
         if sxm.wait_for_scan_complete(timeout=1800):  # 30分鐘超時
             scan_history = sxm.get_scan_history()
@@ -906,12 +1358,13 @@ def main():
             print(f"File saved as: {scan_history['last_saved_file']}")
         else:
             print("Scan monitoring ended without completion")
-            
+
     except Exception as e:
         print(f"Error during scan monitoring: {str(e)}")
     finally:
         # 確保正確清理資源
         sxm.stop_monitoring()
+
 
 if __name__ == "__main__":
     main()
