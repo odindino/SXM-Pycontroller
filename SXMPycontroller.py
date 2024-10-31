@@ -15,6 +15,7 @@ import ksb2902bsmu as smu
 import threading
 import queue
 import datetime
+import math
 
 
 class SXMParameters:
@@ -93,6 +94,7 @@ class SXMController:
         self.FbOn = 0
         self.tip_pos_X = None
         self.tip_pos_Y = None
+        self.current_angle = 0  # 儲存當前掃描角度
         self.scan_status = None
         self.re_scan_status = None
 
@@ -111,6 +113,7 @@ class SXMController:
         # 啟動事件監聽器
         self._start_event_listener()
 
+    # ========== Event handling ========== #
     def _start_event_listener(self):
         """啟動背景事件監聽器"""
         self.event_listener = threading.Thread(
@@ -136,6 +139,9 @@ class SXMController:
             except Exception as e:
                 if self.debug_mode:
                     print(f"Event listener error: {str(e)}")
+    # ========== Event handling END ========== #
+
+    # ========== Scan on/off Callbacks ========== #
 
     def _handle_scan_off(self):
         """掃描結束回調"""
@@ -158,6 +164,9 @@ class SXMController:
             'type': 'scan_on',
             'data': {'time': datetime.datetime.now()}
         })
+    # ========== Scan on/off Callbacks END ========== #
+
+    # ========== Event processing ========== #
 
     def _process_scan_off(self, data):
         """處理掃描結束事件"""
@@ -184,6 +193,9 @@ class SXMController:
         )
         if self.debug_mode:
             print(f"Scan started at {data['time']}")
+    # ========== Event processing END ========== #
+
+    # ========== Scan history ========== #
 
     def get_scan_history(self):
         """獲取掃描歷史記錄"""
@@ -193,6 +205,7 @@ class SXMController:
                 'last_saved_file': self.scan_status.last_saved_file,
                 'missed_callbacks': self.scan_status.missed_callbacks.copy()
             }
+    # ========== Scan history END ========== #
 
     def wait_for_scan_complete(self, timeout=None):
         """
@@ -215,6 +228,8 @@ class SXMController:
             time.sleep(0.5)
         return True
 
+    # ========== Get parameter (General) ========== #
+    # ========== Parse response ========== #
     def _parse_response(self, response, param_name=None, param_type=None):
         """
         通用回應解析器
@@ -288,6 +303,7 @@ class SXMController:
             return None
 
         return None
+    # ========== Parse response END ========== #
 
     def get_parameter(self, command, param_name, param_type=None, max_retries=3):
         """
@@ -381,6 +397,7 @@ class SXMController:
 
         command = f"a:=GetScanPara('{param}');\r\n  writeln(a);"
         return self.get_parameter(command, param, self.parameters.SCAN_PARAMS[param])
+    # ========== Get parameter (General) END ========== #
 
     def addsmu(self, smu):
         self.rm = pyvisa.ResourceManager()
@@ -430,6 +447,97 @@ class SXMController:
     def show_tip_position(self):
         print("Tip position: X = " + str(self.tip_pos_X) +
               " Y = " + str(self.tip_pos_Y))
+
+    def get_center_position(self):
+        """
+        獲取當前掃描區域的中心座標
+
+        Returns
+        -------
+        tuple (float, float)
+            (x, y) 中心座標，單位為當前物理單位（如nm）
+        """
+        x = self.GetScanPara('X')
+        y = self.GetScanPara('Y')
+        return x, y
+
+    def get_scan_angle(self):
+        """
+        獲取當前掃描角度
+
+        Returns
+        -------
+        float
+            掃描角度（度），逆時針方向為正
+        """
+        angle = self.GetScanPara('Angle')
+        self.current_angle = angle
+        return angle
+
+    def calculate_movement(self, direction, distance):
+        """
+        根據掃描角度計算實際的移動向量
+
+        Parameters
+        ----------
+        direction : str
+            移動方向 ('R', 'L', 'U', 'D')
+        distance : float
+            移動距離
+
+        Returns
+        -------
+        tuple (float, float)
+            (dx, dy) 需要移動的x和y分量
+        """
+        angle_rad = math.radians(self.current_angle)
+        cos_angle = math.cos(angle_rad)
+        sin_angle = math.sin(angle_rad)
+
+        if direction == 'R':
+            dx = distance * cos_angle
+            dy = distance * sin_angle
+        elif direction == 'L':
+            dx = -distance * cos_angle
+            dy = -distance * sin_angle
+        elif direction == 'U':
+            dx = -distance * sin_angle
+            dy = distance * cos_angle
+        elif direction == 'D':
+            dx = distance * sin_angle
+            dy = -distance * cos_angle
+        else:
+            raise ValueError(f"Unknown direction: {direction}")
+
+        return dx, dy
+
+    def move_to_position(self, x, y, wait_time=1):
+        """
+        移動掃描中心到指定座標
+
+        Parameters
+        ----------
+        x : float
+            目標X座標
+        y : float
+            目標Y座標
+        wait_time : float, optional
+            移動後的等待時間（秒）
+        """
+        try:
+            self.MySXM.SendWait(f"ScanPara('X', {x});")
+            self.MySXM.SendWait(f"ScanPara('Y', {y});")
+
+            # 快速掃描以移動到新位置
+            self.scan_on()
+            time.sleep(0.5)  # 給予足夠時間開始移動
+            self.scan_off()
+
+            # 等待指定時間以穩定
+            time.sleep(wait_time)
+
+        except Exception as e:
+            print(f"Error moving to position ({x}, {y}): {str(e)}")
 
     # Feedback loop
     def get_feedback_state(self):
