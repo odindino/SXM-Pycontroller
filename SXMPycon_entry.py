@@ -2,27 +2,38 @@ from SXMPycontroller import SXMController
 
 
 def main():
-    try:
-        sxm = SXMController()
-        sxm.debug_mode = True
+    # try:
+    #     sxm = SXMController()
+    #     sxm.debug_mode = True
 
-        print("Starting scan...")
-        sxm.scan_on()
-        print("Waiting for scan to complete...")
+    #     print("Starting scan...")
+    #     sxm.scan_on()
+    #     print("Waiting for scan to complete...")
 
-        # 等待掃描完成（可以按Ctrl+C中斷）
-        if sxm.wait_for_scan_complete(timeout=1800):  # 30分鐘超時
-            scan_history = sxm.get_scan_history()
-            print(f"Scan finished at: {scan_history['last_scan_finished']}")
-            print(f"File saved as: {scan_history['last_saved_file']}")
-        else:
-            print("Scan monitoring ended without completion")
+    #     # 等待掃描完成（可以按Ctrl+C中斷）
+    #     if sxm.wait_for_scan_complete(timeout=1800):  # 30分鐘超時
+    #         scan_history = sxm.get_scan_history()
+    #         print(f"Scan finished at: {scan_history['last_scan_finished']}")
+    #         print(f"File saved as: {scan_history['last_saved_file']}")
+    #     else:
+    #         print("Scan monitoring ended without completion")
 
-    except Exception as e:
-        print(f"Error during scan monitoring: {str(e)}")
-    finally:
-        # 確保正確清理資源
-        sxm.stop_monitoring()
+    # except Exception as e:
+    #     print(f"Error during scan monitoring: {str(e)}")
+    # finally:
+    #     # 確保正確清理資源
+    #     sxm.stop_monitoring()
+    controller = SXMController()
+
+    # 使用直接I/O讀取位置
+    x, y = controller.get_real_position()
+    z = controller.get_real_topography()
+    print(f"Tip position: ({x}, {y}, {z})")
+
+    # 讀取電流和偏壓
+    current = controller.get_real_current()
+    bias = controller.get_real_bias()
+    print(f"Tunneling current: {current}, Bias: {bias}")
 
 
 if __name__ == "__main__":
