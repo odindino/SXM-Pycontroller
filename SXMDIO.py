@@ -64,12 +64,12 @@ class SXMDIO:
                 0
             )
 
-            self.GOXY_Event = win32event.CreateEvent(
-                None,
-                1,
-                0,
-                'Global\\GOXYWAIT\\0'
-            )
+            # self.GOXY_Event = win32event.CreateEvent(
+            #     None,
+            #     1,
+            #     0,
+            #     'Global\\GOXYWAIT\\0'
+            # )
             return True
         except Exception as e:
             print(f"Error initializing SXM driver: {str(e)}")
