@@ -779,34 +779,41 @@ class SXMController:
             print("\nMonitoring interrupted by user")
             return False
 
-# SXM = SXMController()
+    def goxy(self, x, y):
+        self.MySXM.SendWait("GoXY(" + str(x) + ", " + str(y) + ");")
+
+SXM = SXMController()
+for i in range(20):
+    SXM.goxy(1/(i+1), 1/(i+1))
+    SXM.get_tip_position()
+    time.sleep(1)
 # SXM.scan_on()
 
-def main():
-    try:
-        sxm = SXMController()
-        sxm.debug_mode = True
+# def main():
+#     try:
+#         sxm = SXMController()
+#         sxm.debug_mode = True
         
-        print("Starting scan...")
-        sxm.scan_on()
-        print("Waiting for scan to complete...")
+#         print("Starting scan...")
+#         sxm.scan_on()
+#         print("Waiting for scan to complete...")
         
-        # 等待掃描完成（可以按Ctrl+C中斷）
-        if sxm.wait_for_scan_complete(timeout=1800):  # 30分鐘超時
-            scan_history = sxm.get_scan_history()
-            print(f"Scan finished at: {scan_history['last_scan_finished']}")
-            print(f"File saved as: {scan_history['last_saved_file']}")
-        else:
-            print("Scan monitoring ended without completion")
+#         # 等待掃描完成（可以按Ctrl+C中斷）
+#         if sxm.wait_for_scan_complete(timeout=1800):  # 30分鐘超時
+#             scan_history = sxm.get_scan_history()
+#             print(f"Scan finished at: {scan_history['last_scan_finished']}")
+#             print(f"File saved as: {scan_history['last_saved_file']}")
+#         else:
+#             print("Scan monitoring ended without completion")
             
-    except Exception as e:
-        print(f"Error during scan monitoring: {str(e)}")
-    finally:
-        # 確保正確清理資源
-        sxm.stop_monitoring()
+#     except Exception as e:
+#         print(f"Error during scan monitoring: {str(e)}")
+#     finally:
+#         # 確保正確清理資源
+#         sxm.stop_monitoring()
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
 
 
 # scan_with_monitoring()
