@@ -71,10 +71,13 @@ class SXMScanControl(SXMEventHandler):
         """
         for _ in range(max_retries):
             current_x, current_y = self.get_position()
+            print(f"Current position: ({current_x}, {current_y})")
             if (current_x is not None and current_y is not None and
                 abs(current_x - x) < tolerance and 
                 abs(current_y - y) < tolerance):
                 return True
+            print(f"abs(current_x - x): {abs(current_x - x)}")
+            print(f"abs(current_y - y): {abs(current_y - y)}")
             time.sleep(0.5)
         return False
     
