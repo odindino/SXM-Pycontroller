@@ -75,5 +75,47 @@ def perform_measurement_sequence():
         print(f"\nError during measurement: {str(e)}")
         stm.safe_shutdown()
 
+def test():
+    """
+    做一個簡單的scan
+    """
+    try:
+        # 初始化控制器
+        print("Initializing STM controller...")
+        stm = SXMController(debug_mode=True)
+        stm.scan_on()
+        
+    #     if not stm.initialize_system():
+    #         print("Initialization failed")
+    #         return
+            
+    #     # 1. 執行初始掃描
+    #     print("\n=== Starting initial scan ===")
+    #     stm.setup_scan_area(
+    #         center_x=0.0,
+    #         center_y=0.0,
+    #         scan_range=100.0,  # nm
+    #         angle=0,
+    #     )
+        
+    #     stm.scan_on()
+    #     if stm.wait_for_scan_complete(timeout=300):  # 5分鐘超時
+    #         print("Initial scan completed")
+    #     else:
+    #         print("Initial scan failed or timed out")
+    #         return
+            
+    #     # 安全關閉系統
+    #     print("\n=== Measurement sequence completed ===")
+    #     stm.safe_shutdown()
+        
+    except KeyboardInterrupt:
+        print("\nMeasurement interrupted by user")
+        stm.safe_shutdown()
+    except Exception as e:
+        print(f"\nError during measurement: {str(e)}")
+        stm.safe_shutdown()
+
 if __name__ == "__main__":
-    perform_measurement_sequence()
+    # perform_measurement_sequence()
+    test()

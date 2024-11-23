@@ -1,6 +1,6 @@
 import time
 import math
-import SXMRemote
+from . import SXMRemote
 from .SXMPyEvent import SXMEventHandler
 
 
@@ -99,7 +99,7 @@ class SXMScanControl(SXMEventHandler):
         scan_value = self.GetScanPara('Scan')
         return bool(scan_value) if scan_value is not None else False
 
-    def setup_scan_area(self, center_x, center_y, scan_range, angle=0, pixels=256):
+    def setup_scan_area(self, center_x, center_y, scan_range, angle=0):
         """
         設定掃描區域
         
@@ -126,7 +126,7 @@ class SXMScanControl(SXMEventHandler):
             success &= self.SetScanPara('Y', center_y)
             success &= self.SetScanPara('Range', scan_range)
             success &= self.SetScanPara('Angle', angle)
-            success &= self.SetScanPara('Pixel', pixels)
+        
             
             if success:
                 self.current_angle = angle

@@ -24,7 +24,6 @@ class SXMController(SXMCITSControl):
             
             # 設定一些基本參數
             self.SetScanPara('Speed', 2.0)     # 掃描速度
-            self.SetScanPara('Pixel', 256)     # 像素數
             self.SetScanPara('Range', 100.0)   # 掃描範圍 (nm)
             
             # 讀取當前位置

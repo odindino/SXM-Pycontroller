@@ -1,4 +1,4 @@
-import SXMRemote
+from . import SXMRemote
 import time
 from config.SXMParameters import SXMParameters
 
@@ -22,7 +22,7 @@ class SXMBase:
             'range': None,      # 掃描範圍 (nm)
             'angle': None,      # 掃描角度 (degrees)
             'scan_state': None, # 掃描狀態
-            'pixels': None,     # 像素數
+            
             'speed': None      # 掃描速度
         }
         
