@@ -58,19 +58,21 @@ class SXMScanControl(SXMEventHandler):
                         print(f"Position set failed on attempt {attempt + 1}")
                     time.sleep(retry_delay)
                     continue
-                    
-                # 驗證位置
-                if verify:
-                    verification_success = self.verify_position(x, y)
-                    if verification_success:
-                        if self.debug_mode:
-                            print(f"Position verified at ({x}, {y})")
-                        return True
-                        
-                    if self.debug_mode:
-                        print(f"Position verification failed on attempt {attempt + 1}")
-                else:
+                if success:
                     return True
+                    
+                # # 驗證位置
+                # if verify:
+                #     verification_success = self.verify_position(x, y)
+                #     if verification_success:
+                #         if self.debug_mode:
+                #             print(f"Position verified at ({x}, {y})")
+                #         return True
+                        
+                #     if self.debug_mode:
+                #         print(f"Position verification failed on attempt {attempt + 1}")
+                # else:
+                #     return True
                     
             except Exception as e:
                 if self.debug_mode:
@@ -210,16 +212,14 @@ class SXMScanControl(SXMEventHandler):
                 print(f"Error during line scan: {str(e)}")
             return False
 
-    def wait_for_scan_complete(self, timeout=None, check_interval=1):
+    def wait_for_scan_complete(self, timeout=None):
         """
-        等待掃描完成，增強版本
+        等待掃描完成
         
         Parameters
         ----------
         timeout : float, optional
             等待超時時間（秒）
-        check_interval : float
-            狀態檢查間隔（秒）
             
         Returns
         -------
@@ -227,38 +227,16 @@ class SXMScanControl(SXMEventHandler):
             True表示掃描完成，False表示超時或被中斷
         """
         start_time = time.time()
-        last_line_number = None
-        stable_count = 0
-        required_stable_counts = 3  # 需要連續幾次確認才算真的停止
-        
         try:
             while True:
                 # 檢查掃描狀態
-                scan_status = self.check_scan()
+                current_status = self.check_scan()
                 
-                if scan_status is None:
+                # 如果掃描已結束
+                if current_status is False:
                     if self.debug_mode:
-                        print("Error checking scan status")
-                    return False
-                    
-                # 如果明確返回False（掃描已停止）
-                if scan_status is False:
-                    if self.debug_mode:
-                        print("Scan explicitly reported as stopped")
+                        print("Scan completed")
                     return True
-                    
-                # 檢查是否正在掃描
-                current_line = self.GetScanPara('LineNr')
-                
-                if current_line == last_line_number:
-                    stable_count += 1
-                    if stable_count >= required_stable_counts:
-                        if self.debug_mode:
-                            print(f"Scan line number stable at {current_line} for {required_stable_counts} checks")
-                        return True
-                else:
-                    stable_count = 0
-                    last_line_number = current_line
                     
                 # 檢查超時
                 if timeout and (time.time() - start_time > timeout):
@@ -268,13 +246,13 @@ class SXMScanControl(SXMEventHandler):
                     
                 # Windows消息處理
                 SXMRemote.loop()
-
-                # 減少CPU使用率
-                time.sleep(check_interval)
                 
-        except Exception as e:
+                # 短暫休息以減少CPU使用
+                time.sleep(1)
+                
+        except KeyboardInterrupt:
             if self.debug_mode:
-                print(f"Error in wait_for_scan_complete: {str(e)}")
+                print("\nMonitoring interrupted by user")
             return False
         
     def check_scan(self):
