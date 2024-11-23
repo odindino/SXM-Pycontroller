@@ -220,6 +220,68 @@ class SXMScanControl(SXMEventHandler):
             if self.debug_mode:
                 print("\nMonitoring interrupted by user")
             return False
+        
+    def check_scan(self):
+        """
+        檢查掃描狀態
+
+        Returns
+        -------
+        bool or None
+            True if scanning, False if not scanning, None if error
+        """
+        try:
+            command = "a:=GetScanPara('Scan');\r\n  writeln(a);"
+            self.MySXM.execute(command, 5000)
+
+            wait_count = 0
+            while self.MySXM.NotGotAnswer and wait_count < 50:
+                SXMRemote.loop()
+                time.sleep(0.1)
+                wait_count += 1
+
+            response = self.MySXM.LastAnswer
+
+            if isinstance(response, bytes):
+                response_str = str(response, 'utf-8').strip()
+
+                # 檢查掃描行信息 (f123, b123)
+                if response_str[:1] in ['f', 'b']:
+                    direction = 'forward' if response_str[0] == 'f' else 'backward'
+                    try:
+                        line_number = int(response_str[1:])
+                        self.scan_status.is_scanning = True
+                        self.scan_status.direction = direction
+                        self.scan_status.line_number = line_number
+                        if self.debug_mode:
+                            print(f"Scanning: {direction} line {line_number}")
+                        return True
+                    except ValueError:
+                        pass
+
+                # 檢查數字回應
+                if response_str.isdigit():
+                    value = int(response_str)
+                    self.scan_status.is_scanning = bool(value)
+                    if not value:
+                        self.scan_status.direction = None
+                        self.scan_status.line_number = 0
+                    if self.debug_mode:
+                        print("Scan status:", "On" if value else "Off")
+                    return bool(value)
+
+            elif isinstance(response, int):
+                self.scan_status.is_scanning = bool(response)
+                if self.debug_mode:
+                    print("Scan status:", "On" if response else "Off")
+                return bool(response)
+
+        except Exception as e:
+            if self.debug_mode:
+                print(f"Error checking scan status: {str(e)}")
+            return None
+
+        return None
 
     # ========== 座標轉換功能 ========== #
     def rotate_coordinates(self, x, y, angle_deg, center_x=0, center_y=0):
