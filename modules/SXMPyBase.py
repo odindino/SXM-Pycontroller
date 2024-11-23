@@ -205,7 +205,7 @@ class SXMBase:
             if success:
                 # 驗證設定
                 current_value = self.GetScanPara(param)
-                if current_value is not None and abs(float(current_value) - float(value)) < 1e-6:
+                if current_value is not None and abs(float(current_value) - float(value)) < 1e-2:
                     self._update_state(param.lower(), value)
                     return True
             return False
