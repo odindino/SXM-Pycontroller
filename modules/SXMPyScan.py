@@ -27,29 +27,58 @@ class SXMScanControl(SXMEventHandler):
         y = self.GetScanPara('Y')
         return (x, y)
 
-    def set_position(self, x, y, verify=True):
+    def set_position(self, x, y, verify=True, max_retries=3, retry_delay=1.0):
         """
-        設定掃描位置
+        增強版位置設定功能
         
         Parameters
         ----------
         x, y : float
             目標座標
-        verify : bool, optional
-            是否驗證位置設定，默認True
+        verify : bool
+            是否驗證位置設定
+        max_retries : int
+            最大重試次數
+        retry_delay : float
+            重試間隔時間（秒）
             
         Returns
         -------
         bool
             設定是否成功
         """
-        success = (self.SetScanPara('X', x) and 
-                  self.SetScanPara('Y', y))
-        
-        if success and verify:
-            success = self.verify_position(x, y)
+        for attempt in range(max_retries):
+            try:
+                # 發送位置設定命令
+                success = (self.SetScanPara('X', x) and 
+                        self.SetScanPara('Y', y))
+                
+                if not success:
+                    if self.debug_mode:
+                        print(f"Position set failed on attempt {attempt + 1}")
+                    time.sleep(retry_delay)
+                    continue
+                    
+                # 驗證位置
+                if verify:
+                    verification_success = self.verify_position(x, y)
+                    if verification_success:
+                        if self.debug_mode:
+                            print(f"Position verified at ({x}, {y})")
+                        return True
+                        
+                    if self.debug_mode:
+                        print(f"Position verification failed on attempt {attempt + 1}")
+                else:
+                    return True
+                    
+            except Exception as e:
+                if self.debug_mode:
+                    print(f"Error in set_position attempt {attempt + 1}: {str(e)}")
+                    
+            time.sleep(retry_delay)
             
-        return success
+        return False
 
     def verify_position(self, x, y, tolerance=1e-3, max_retries=3):
         """
@@ -181,14 +210,16 @@ class SXMScanControl(SXMEventHandler):
                 print(f"Error during line scan: {str(e)}")
             return False
 
-    def wait_for_scan_complete(self, timeout=None):
+    def wait_for_scan_complete(self, timeout=None, check_interval=1):
         """
-        等待掃描完成
+        等待掃描完成，增強版本
         
         Parameters
         ----------
         timeout : float, optional
             等待超時時間（秒）
+        check_interval : float
+            狀態檢查間隔（秒）
             
         Returns
         -------
@@ -196,16 +227,38 @@ class SXMScanControl(SXMEventHandler):
             True表示掃描完成，False表示超時或被中斷
         """
         start_time = time.time()
+        last_line_number = None
+        stable_count = 0
+        required_stable_counts = 3  # 需要連續幾次確認才算真的停止
+        
         try:
             while True:
                 # 檢查掃描狀態
-                current_status = self.check_scan()
+                scan_status = self.check_scan()
                 
-                # 如果掃描已結束
-                if current_status is False:
+                if scan_status is None:
                     if self.debug_mode:
-                        print("Scan completed")
+                        print("Error checking scan status")
+                    return False
+                    
+                # 如果明確返回False（掃描已停止）
+                if scan_status is False:
+                    if self.debug_mode:
+                        print("Scan explicitly reported as stopped")
                     return True
+                    
+                # 檢查是否正在掃描
+                current_line = self.GetScanPara('LineNr')
+                
+                if current_line == last_line_number:
+                    stable_count += 1
+                    if stable_count >= required_stable_counts:
+                        if self.debug_mode:
+                            print(f"Scan line number stable at {current_line} for {required_stable_counts} checks")
+                        return True
+                else:
+                    stable_count = 0
+                    last_line_number = current_line
                     
                 # 檢查超時
                 if timeout and (time.time() - start_time > timeout):
@@ -215,13 +268,13 @@ class SXMScanControl(SXMEventHandler):
                     
                 # Windows消息處理
                 SXMRemote.loop()
+
+                # 減少CPU使用率
+                time.sleep(check_interval)
                 
-                # 短暫休息以減少CPU使用
-                time.sleep(1)
-                
-        except KeyboardInterrupt:
+        except Exception as e:
             if self.debug_mode:
-                print("\nMonitoring interrupted by user")
+                print(f"Error in wait_for_scan_complete: {str(e)}")
             return False
         
     def check_scan(self):
@@ -234,25 +287,27 @@ class SXMScanControl(SXMEventHandler):
             True if scanning, False if not scanning, None if error
         """
         try:
-            # command = "a:=GetScanPara('Scan');\r\n  writeln(a);"
-            # self.MySXM.execute(command, 5000)
-            self.GetScanPara('Scan')
 
-            wait_count = 0
-            while self.MySXM.NotGotAnswer and wait_count < 50:
-                SXMRemote.loop()
-                time.sleep(0.1)
-                wait_count += 1
-
+            # 檢查掃描參數
+            scan_value = self.GetScanPara('Scan')
+            
+            # 處理直接的數值回應
+            if isinstance(scan_value, (int, float)):
+                is_scanning = bool(scan_value)
+                self.scan_status.is_scanning = is_scanning
+                if self.debug_mode:
+                    print(f"Scan status from direct value: {'On' if is_scanning else 'Off'}")
+                return is_scanning
+                
+            # 檢查行掃描訊息
             response = self.MySXM.LastAnswer
-
             if isinstance(response, bytes):
                 response_str = str(response, 'utf-8').strip()
-
-                # 檢查掃描行信息 (f123, b123)
-                if response_str[:1] in ['f', 'b']:
-                    direction = 'forward' if response_str[0] == 'f' else 'backward'
+                
+                # 檢查掃描行訊息格式
+                if len(response_str) > 1 and response_str[0] in ['f', 'b']:
                     try:
+                        direction = 'forward' if response_str[0] == 'f' else 'backward'
                         line_number = int(response_str[1:])
                         self.scan_status.is_scanning = True
                         self.scan_status.direction = direction
@@ -262,30 +317,13 @@ class SXMScanControl(SXMEventHandler):
                         return True
                     except ValueError:
                         pass
-
-                # 檢查數字回應
-                if response_str.isdigit():
-                    value = int(response_str)
-                    self.scan_status.is_scanning = bool(value)
-                    if not value:
-                        self.scan_status.direction = None
-                        self.scan_status.line_number = 0
-                    if self.debug_mode:
-                        print("Scan status:", "On" if value else "Off")
-                    return bool(value)
-
-            elif isinstance(response, int):
-                self.scan_status.is_scanning = bool(response)
-                if self.debug_mode:
-                    print("Scan status:", "On" if response else "Off")
-                return bool(response)
-
+                        
+            return False
+        
         except Exception as e:
             if self.debug_mode:
-                print(f"Error checking scan status: {str(e)}")
+                print(f"Error in check_scan: {str(e)}")
             return None
-
-        return False
 
     # ========== 座標轉換功能 ========== #
     def rotate_coordinates(self, x, y, angle_deg, center_x=0, center_y=0):
