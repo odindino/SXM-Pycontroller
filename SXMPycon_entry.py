@@ -163,21 +163,22 @@
 
 
 from SXMPycontroller import SXMController
-from SXMDiagnosizer import create_diagnostics
+from SXMDiagnosizer import run_diagnostics
 
-def test_sxm_connection():
-    try:
-        # 建立控制器實例
-        sxm = SXMController()
-        
-        # 建立診斷工具
-        diagnostics = create_diagnostics(sxm)
-        
-        # 執行診斷
-        diagnostics.run_full_diagnosis()
-        
-    except Exception as e:
-        print(f"測試過程發生錯誤: {str(e)}")
+def main():
+    # 基本使用
+    sxm = SXMController()
+    x, y = sxm.get_position()
+    print(f"當前位置: ({x}, {y})")
+
+    # 獲取完整狀態
+    state = sxm.get_current_state()
+    print(f"掃描範圍: {state['Range']}")
+    print(f"掃描角度: {state['Angle']}")
+
+    # 檢查掃描狀態
+    if sxm.is_scanning():
+        print("正在掃描中...")
 
 if __name__ == "__main__":
-    test_sxm_connection()
+    main()

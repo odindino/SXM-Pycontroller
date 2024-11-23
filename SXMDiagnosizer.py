@@ -1,127 +1,213 @@
 import time
 from RemoteSXM import SXMRemote
+import win32ui
+import win32gui
+import win32process
+import win32con
+from typing import Optional, Tuple, List
 
-class SXMDiagnostics:
-    """SXM診斷工具類別"""
-    
+class SXMDiagsizer:
+    """SXM系統診斷工具"""
     def __init__(self, sxm_controller):
         self.controller = sxm_controller
         self.MySXM = sxm_controller.MySXM
-        self.debug_log = []
+        self.diagnostic_results = []
         
-    def test_dde_connection(self):
-        """測試DDE連接狀態"""
-        try:
-            print("\n=== 測試DDE連接 ===")
-            
-            # 檢查DDE客戶端是否已初始化
-            if not self.MySXM:
-                print("錯誤: DDE客戶端未初始化")
-                return False
+    def find_sxm_window(self) -> Tuple[bool, Optional[int]]:
+        """
+        尋找SXM程式視窗
+        
+        Returns:
+            Tuple[bool, Optional[int]]: (是否找到, 視窗handle)
+        """
+        def enum_window_callback(hwnd, result):
+            window_text = win32gui.GetWindowText(hwnd)
+            if "SXM" in window_text and win32gui.IsWindowVisible(hwnd):
+                result.append(hwnd)
                 
-            # 嘗試執行簡單命令
-            print("正在測試DDE基本命令...")
+        windows = []
+        win32gui.EnumWindows(enum_window_callback, windows)
+        
+        if windows:
+            return True, windows[0]
+        return False, None
+        
+    def check_sxm_process(self) -> dict:
+        """
+        檢查SXM程序狀態
+        
+        Returns:
+            dict: 包含程序狀態信息
+        """
+        result = {
+            'running': False,
+            'window_found': False,
+            'responding': False,
+            'details': ''
+        }
+        
+        try:
+            # 檢查視窗
+            window_found, hwnd = self.find_sxm_window()
+            result['window_found'] = window_found
+            
+            if window_found:
+                # 檢查程序響應狀態
+                result['responding'] = win32gui.SendMessageTimeout(
+                    hwnd, 
+                    win32con.WM_NULL, 
+                    0, 0, 
+                    win32con.SMTO_ABORTIFHUNG, 
+                    1000
+                ) is not None
+                
+                # 獲取程序ID
+                _, process_id = win32process.GetWindowThreadProcessId(hwnd)
+                result['running'] = process_id > 0
+                result['details'] = f"進程ID: {process_id}"
+                
+        except Exception as e:
+            result['details'] = f"檢查過程發生錯誤: {str(e)}"
+            
+        return result
+        
+    def test_dde_connection(self) -> Tuple[bool, str]:
+        """
+        測試DDE連接狀態
+        
+        Returns:
+            Tuple[bool, str]: (測試結果, 詳細訊息)
+        """
+        print("\n=== DDE連接測試 ===")
+        
+        # 檢查SXM程序狀態
+        process_status = self.check_sxm_process()
+        if not process_status['running']:
+            return False, "SXM程序未運行"
+            
+        if not process_status['responding']:
+            return False, "SXM程序無響應"
+            
+        try:
+            # 測試基本DDE命令
+            print("測試DDE基本命令...")
             self.MySXM.execute("ClrScr;", 5000)
             time.sleep(0.5)
             
             if self.MySXM.NotGotAnswer:
-                print("警告: 未收到命令回應")
-                return False
+                return False, "DDE命令無回應"
                 
-            print("DDE基本連接測試通過")
-            return True
+            return True, "DDE連接正常"
             
         except Exception as e:
-            print(f"DDE連接測試失敗: {str(e)}")
-            return False
+            return False, f"DDE測試異常: {str(e)}"
             
-    def test_parameter_reading(self, param_name, param_type):
-        """測試特定參數讀取"""
-        print(f"\n=== 測試參數讀取: {param_name} ===")
+    def test_parameter_access(self, parameter: str) -> Tuple[bool, str, Optional[str]]:
+        """
+        測試參數讀取
+        
+        Args:
+            parameter: 要測試的參數名稱
+            
+        Returns:
+            Tuple[bool, str, Optional[str]]: (成功與否, 錯誤訊息, 參數值)
+        """
+        print(f"\n測試參數: {parameter}")
         
         try:
-            # 構建測試命令
-            command = f"a:=GetScanPara('{param_name}');\r\n  writeln(a);"
-            print(f"執行命令: {command}")
-            
-            # 執行命令
+            command = f"a:=GetScanPara('{parameter}');\r\n  writeln(a);"
             self.MySXM.execute(command, 5000)
             
-            # 等待並檢查回應
+            # 等待回應
             wait_count = 0
             while self.MySXM.NotGotAnswer and wait_count < 50:
                 SXMRemote.loop()
                 time.sleep(0.1)
                 wait_count += 1
-                print(f"等待回應... ({wait_count}/50)")
+                print(f"等待回應... {wait_count}/50")
                 
-            if wait_count >= 50:
-                print("錯誤: 命令超時")
-                return False
+            if self.MySXM.NotGotAnswer:
+                return False, "參數讀取超時", None
                 
-            # 檢查回應
             response = self.MySXM.LastAnswer
-            print(f"原始回應: {response}")
-            
             if response is None:
-                print("錯誤: 沒有收到回應")
-                return False
+                return False, "無回應", None
                 
-            # 分析回應
             if isinstance(response, bytes):
-                response_str = str(response, 'utf-8').strip()
-                print(f"解碼回應: {response_str}")
+                value = str(response, 'utf-8').strip()
+                return True, "成功", value
                 
-                try:
-                    # 嘗試轉換為指定類型
-                    if param_type == bool:
-                        value = bool(int(float(response_str)))
-                    elif param_type == int:
-                        value = int(float(response_str))
-                    elif param_type == float:
-                        value = float(response_str)
-                    print(f"轉換後的值: {value} (類型: {type(value)})")
-                    return True
-                except ValueError as ve:
-                    print(f"值轉換失敗: {str(ve)}")
-                    return False
-                    
+            return True, "成功", str(response)
+            
         except Exception as e:
-            print(f"參數讀取測試失敗: {str(e)}")
-            return False
+            return False, f"參數存取錯誤: {str(e)}", None
             
-    def run_full_diagnosis(self):
-        """執行完整診斷"""
-        print("開始SXM診斷程序...")
+    def run_diagnostics(self) -> List[dict]:
+        """
+        執行完整診斷
         
-        # 測試DDE連接
-        if not self.test_dde_connection():
-            print("DDE連接測試失敗，終止診斷")
-            return False
-            
-        # 測試基本參數讀取
-        test_params = [
-            ('X', float),
-            ('Y', float),
-            ('Range', float),
-            ('Scan', bool),
-            ('Angle', float)
-        ]
-        
+        Returns:
+            List[dict]: 診斷結果列表
+        """
         results = []
-        for param_name, param_type in test_params:
-            result = self.test_parameter_reading(param_name, param_type)
-            results.append((param_name, result))
-            time.sleep(0.5)  # 避免發送命令太快
+        
+        # 1. 檢查SXM程序
+        process_status = self.check_sxm_process()
+        results.append({
+            'test': 'SXM程序檢查',
+            'success': process_status['running'] and process_status['responding'],
+            'details': process_status
+        })
+        
+        # 如果程序檢查失敗，直接返回
+        if not (process_status['running'] and process_status['responding']):
+            return results
             
-        # 顯示診斷結果
-        print("\n=== 診斷結果摘要 ===")
-        for param_name, result in results:
-            status = "通過" if result else "失敗"
-            print(f"參數 {param_name}: {status}")
+        # 2. 測試DDE連接
+        dde_success, dde_message = self.test_dde_connection()
+        results.append({
+            'test': 'DDE連接測試',
+            'success': dde_success,
+            'details': dde_message
+        })
+        
+        # 如果DDE連接失敗，直接返回
+        if not dde_success:
+            return results
             
-        return all(result for _, result in results)
+        # 3. 測試基本參數
+        test_parameters = ['X', 'Y', 'Range', 'Scan', 'Angle']
+        for param in test_parameters:
+            success, message, value = self.test_parameter_access(param)
+            results.append({
+                'test': f'參數測試: {param}',
+                'success': success,
+                'details': {
+                    'message': message,
+                    'value': value
+                }
+            })
+            
+        return results
 
-def create_diagnostics(controller):
-    """建立診斷工具實例"""
-    return SXMDiagnostics(controller)
+def run_diagnostics(controller):
+    """
+    執行診斷的便捷函數
+    
+    Args:
+        controller: SXM控制器實例
+    """
+    diagsizer = SXMDiagsizer(controller)
+    results = diagsizer.run_diagnostics()
+    
+    print("\n=== 診斷結果摘要 ===")
+    for result in results:
+        status = "✓" if result['success'] else "✗"
+        print(f"{status} {result['test']}")
+        if isinstance(result['details'], dict):
+            for key, value in result['details'].items():
+                print(f"  - {key}: {value}")
+        else:
+            print(f"  - {result['details']}")
+            
+    return results

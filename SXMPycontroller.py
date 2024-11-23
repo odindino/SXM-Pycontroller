@@ -89,7 +89,16 @@ class ScanStatus:
 
 
 class SXMController:
-    def __init__(self):
+    def __init__(self, debug_mode=False):
+        """
+        初始化SXM控制器
+        
+        Parameters
+        ----------
+        debug_mode : bool, optional
+            是否啟用除錯模式，預設為False
+        """
+
         self.MySXM = SXMRemote.DDEClient("SXM", "Remote")
         self.dio = SXMDIO()
 
@@ -117,6 +126,32 @@ class SXMController:
 
         # 啟動事件監聽器
         self._start_event_listener()
+
+    def get_current_state(self):
+        """
+        獲取當前掃描器狀態
+        
+        Returns
+        -------
+        dict
+            包含所有基本參數的字典
+        """
+        state = {}
+        basic_params = ['X', 'Y', 'Range', 'Scan', 'Angle']
+        
+        for param in basic_params:
+            state[param] = self.GetScanPara(param)
+            
+        return state
+    
+    def print_current_state(self):
+        """
+        打印當前掃描器狀態
+        """
+        state = self.get_current_state()
+        print("\n=== 當前掃描器狀態 ===")
+        for param, value in state.items():
+            print(f"{param}: {value}")
 
     # ========== Event handling ========== #
     def _start_event_listener(self):
@@ -507,22 +542,75 @@ class SXMController:
     def GetScanPara(self, param):
         """
         獲取掃描參數
-
+        
         Parameters
         ----------
         param : str
             參數名稱
-
+            
         Returns
         -------
-        Any
+        float or None
             參數值
         """
-        if param not in self.parameters.SCAN_PARAMS:
-            raise ValueError(f"Unknown scan parameter: {param}")
+        try:
+            # 使用驗證過的命令格式
+            command = (
+                "a := 0.0;\n"
+                f"a := GetScanPara('{param}');\n"
+                "Writeln(a);"
+            )
+            
+            self.MySXM.execute(command, 5000)
+            
+            # 等待回應
+            wait_count = 0
+            while self.MySXM.NotGotAnswer and wait_count < 50:
+                SXMRemote.loop()
+                time.sleep(0.1)
+                wait_count += 1
+            
+            # 處理回應
+            if not self.MySXM.NotGotAnswer and isinstance(self.MySXM.LastAnswer, bytes):
+                response_lines = self.MySXM.LastAnswer.decode('utf-8').split('\r\n')
+                
+                # 尋找第一個可轉換為數值的行
+                for line in response_lines:
+                    if line.startswith('DDE Cmd'):
+                        continue
+                    try:
+                        if line.strip():
+                            return float(line.strip())
+                    except ValueError:
+                        continue
+                        
+            return None
+            
+        except Exception as e:
+            if self.debug_mode:
+                print(f"GetScanPara error for {param}: {str(e)}")
+            return None
 
-        command = f"a:=GetScanPara('{param}');\r\n  writeln(a);"
-        return self.get_parameter(command, param, self.parameters.SCAN_PARAMS[param])
+    def print_current_state(self):
+        """
+        打印當前掃描器狀態（包含除錯資訊）
+        """
+        print("\n=== 當前掃描器狀態 ===")
+        self.debug_mode = True  # 臨時開啟除錯模式
+        
+        basic_params = ['X', 'Y', 'Range', 'Scan', 'Angle']
+        results = {}
+        
+        for param in basic_params:
+            print(f"\n讀取 {param} 參數:")
+            value = self.GetScanPara(param)
+            results[param] = value
+            print(f"{param}: {value}")
+            print("-" * 50)
+            
+        self.debug_mode = False  # 恢復原始除錯模式設置
+        
+        return results
     # ========== Get parameter (General) END ========== #
 
     # ========== SXMDIO ========== #
@@ -741,7 +829,18 @@ class SXMController:
 
     # ========== Scan Section ========== #
     # ========== Check scan status ========== #
-
+    def is_scanning(self):
+        """
+        檢查是否正在掃描
+        
+        Returns
+        -------
+        bool
+            True表示正在掃描，False表示未在掃描
+        """
+        scan_value = self.GetScanPara('Scan')
+        return bool(scan_value) if scan_value is not None else False
+    
     def check_scan(self):
         """
         檢查掃描狀態
@@ -803,6 +902,194 @@ class SXMController:
             return None
 
         return None
+    
+    def SetScanPara(self, param, value):
+        """
+        設定掃描參數（改進的版本）
+        
+        Parameters
+        ----------
+        param : str
+            參數名稱
+        value : float
+            參數值
+            
+        Returns
+        -------
+        bool
+            設定是否成功
+        """
+        try:
+            # 記錄原始值
+            original_value = self.GetScanPara(param)
+            
+            if self.debug_mode:
+                print(f"\n=== 設定參數 {param} ===")
+                print(f"目前值: {original_value}")
+                print(f"目標值: {value}")
+            
+            # 嘗試不同的命令格式
+            commands = [
+                # 格式1: 基本格式
+                f"ScanPara('{param}', {value});",
+                
+                # 格式2: begin-end 區塊
+                f"begin\nScanPara('{param}', {value});\nend.",
+                
+                # 格式3: 使用變數
+                f"a := {value};\nScanPara('{param}', a);",
+                
+                # 格式4: 完整程式區塊
+                f"begin\na := {value};\nScanPara('{param}', a);\nend."
+            ]
+            
+            success = False
+            for i, cmd in enumerate(commands, 1):
+                if self.debug_mode:
+                    print(f"\n嘗試命令格式 #{i}:")
+                    print(cmd)
+                    
+                self.MySXM.execute(cmd, 5000)
+                time.sleep(0.5)  # 給系統一些反應時間
+                
+                # 驗證設定
+                new_value = self.GetScanPara(param)
+                
+                if self.debug_mode:
+                    print(f"執行後的值: {new_value}")
+                    if isinstance(self.MySXM.LastAnswer, bytes):
+                        print(f"原始回應: {self.MySXM.LastAnswer.decode('utf-8')}")
+                    
+                # 檢查值是否正確設定（允許小誤差）
+                if new_value is not None:
+                    if abs(float(new_value) - float(value)) < 1e-6:
+                        success = True
+                        if self.debug_mode:
+                            print(f"命令格式 #{i} 成功")
+                        break
+                    else:
+                        if self.debug_mode:
+                            print(f"值不符合預期")
+                            
+            if self.debug_mode:
+                print(f"\n設定{'成功' if success else '失敗'}")
+                print(f"最終值: {new_value}")
+                
+            return success
+            
+        except Exception as e:
+            if self.debug_mode:
+                print(f"SetScanPara錯誤: {str(e)}")
+                import traceback
+                traceback.print_exc()
+            return False
+
+    def verify_parameter_change(self, param, value, max_retries=3):
+        """
+        驗證參數變更
+        
+        Parameters
+        ----------
+        param : str
+            參數名稱
+        value : float
+            預期值
+        max_retries : int
+            最大重試次數
+            
+        Returns
+        -------
+        bool
+            驗證是否成功
+        """
+        for i in range(max_retries):
+            actual_value = self.GetScanPara(param)
+            if actual_value is not None and abs(float(actual_value) - float(value)) < 1e-6:
+                return True
+            time.sleep(0.5)  # 等待系統響應
+        return False
+
+    def setup_scan_area(self, center_x, center_y, scan_range, angle=0):
+        """
+        設定掃描區域
+        
+        Parameters
+        ----------
+        center_x : float
+            掃描中心X座標
+        center_y : float
+            掃描中心Y座標
+        scan_range : float
+            掃描範圍（nm）
+        angle : float, optional
+            掃描角度（度），預設為0
+            
+        Returns
+        -------
+        bool
+            設定是否全部成功
+        """
+        try:
+            success = True
+            # 設定各項參數
+            success &= self.SetScanPara('X', center_x)
+            success &= self.SetScanPara('Y', center_y)
+            success &= self.SetScanPara('Range', scan_range)
+            success &= self.SetScanPara('Angle', angle)
+            
+            if self.debug_mode:
+                if success:
+                    print("掃描區域設定成功")
+                else:
+                    print("部分參數設定失敗")
+                    
+            return success
+            
+        except Exception as e:
+            if self.debug_mode:
+                print(f"Setup scan area error: {str(e)}")
+            return False
+
+    def move_to_position(self, x, y, wait_time=1.0):
+        """
+        移動到指定位置
+        
+        Parameters
+        ----------
+        x : float
+            目標X座標
+        y : float
+            目標Y座標
+        wait_time : float, optional
+            移動後的等待時間（秒），預設為1秒
+            
+        Returns
+        -------
+        bool
+            移動是否成功
+        """
+        try:
+            # 設定新位置
+            if not (self.SetScanPara('X', x) and self.SetScanPara('Y', y)):
+                return False
+                
+            # 等待系統響應
+            time.sleep(wait_time)
+            
+            # 驗證位置
+            current_x, current_y = self.get_position()
+            if current_x is None or current_y is None:
+                return False
+                
+            # 檢查是否到達目標位置（允許些微誤差）
+            position_tolerance = 1e-3  # 1 nm的容差
+            return (abs(current_x - x) < position_tolerance and 
+                    abs(current_y - y) < position_tolerance)
+                    
+        except Exception as e:
+            if self.debug_mode:
+                print(f"Move to position error: {str(e)}")
+            return False
 
     def perform_scan_sequence(self, repeat_count=1):
         """
@@ -867,6 +1154,19 @@ class SXMController:
         except Exception as e:
             print(f"Error during line scan: {str(e)}")
             return False
+        
+    def get_position(self):
+        """
+        獲取當前位置
+        
+        Returns
+        -------
+        tuple
+            (X座標, Y座標)，如果讀取失敗則返回(None, None)
+        """
+        x = self.GetScanPara('X')
+        y = self.GetScanPara('Y')
+        return (x, y)
 
     # ========== Scan Section END ========== #
 
