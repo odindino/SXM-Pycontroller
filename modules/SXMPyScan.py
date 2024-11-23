@@ -214,7 +214,7 @@ class SXMScanControl(SXMEventHandler):
                 SXMRemote.loop()
                 
                 # 短暫休息以減少CPU使用
-                time.sleep(0.1)
+                time.sleep(1)
                 
         except KeyboardInterrupt:
             if self.debug_mode:
@@ -231,8 +231,9 @@ class SXMScanControl(SXMEventHandler):
             True if scanning, False if not scanning, None if error
         """
         try:
-            command = "a:=GetScanPara('Scan');\r\n  writeln(a);"
-            self.MySXM.execute(command, 5000)
+            # command = "a:=GetScanPara('Scan');\r\n  writeln(a);"
+            # self.MySXM.execute(command, 5000)
+            self.GetScanPara('Scan')
 
             wait_count = 0
             while self.MySXM.NotGotAnswer and wait_count < 50:
@@ -281,7 +282,7 @@ class SXMScanControl(SXMEventHandler):
                 print(f"Error checking scan status: {str(e)}")
             return None
 
-        return None
+        return False
 
     # ========== 座標轉換功能 ========== #
     def rotate_coordinates(self, x, y, angle_deg, center_x=0, center_y=0):
@@ -372,7 +373,7 @@ class SXMScanControl(SXMEventHandler):
                     print(f"Starting scan {i+1}/{repeat_count}")
                 
                 # 開始掃描
-                if not self.scan_on():
+                if not self.is_scanning():
                     if self.debug_mode:
                         print(f"Failed to start scan {i+1}")
                     success = False
