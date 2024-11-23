@@ -23,17 +23,19 @@ def main():
     # finally:
     #     # 確保正確清理資源
     #     sxm.stop_monitoring()
-    controller = SXMController()
+    # controller = SXMController()
 
-    # 使用直接I/O讀取位置
-    x, y = controller.get_real_position()
-    z = controller.get_real_topography()
-    print(f"Tip position: ({x}, {y}, {z})")
+    # # 使用直接I/O讀取位置
+    # x, y = controller.get_real_position()
+    # z = controller.get_real_topography()
+    # print(f"Tip position: ({x}, {y}, {z})")
 
-    # 讀取電流和偏壓
-    current = controller.get_real_current()
-    bias = controller.get_real_bias()
-    print(f"Tunneling current: {current}, Bias: {bias}")
+    # # 讀取電流和偏壓
+    # current = controller.get_real_current()
+    # bias = controller.get_real_bias()
+    # print(f"Tunneling current: {current}, Bias: {bias}")
+    sxm = SXMController()
+    sxm.standard_cits(50, 50, scan_direction=1, sts_params=None)
 
 
 if __name__ == "__main__":
