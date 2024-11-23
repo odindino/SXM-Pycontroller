@@ -40,6 +40,10 @@ class SXMDIO:
                                              self.FILE_ANY_ACCESS)
 
         # Scaling factors
+        self.x_SF = 6.60667E-6
+        self.y_SF = 6.60667E-6
+        # self.x_SF = 0.0000106
+        # self.y_SF = 0.0000106
         self.TOPO_SF = -8.92967E-7
         self.BIAS_SF = 9.397E-6
         self.ITTOPC_SF = 8.47371E-18
@@ -138,7 +142,8 @@ class SXMDIO:
         try:
             x = self.get_channel(-2)
             y = self.get_channel(-3)
-            return x, y
+            print(x, y)
+            return x*self.x_SF, y*self.y_SF
         except Exception as e:
             print(f"Error getting position: {str(e)}")
             return None, None
@@ -201,7 +206,7 @@ class SXMDIO:
         """
         try:
             topo_raw = self.get_channel(0)
-            return topo_raw * self.TOPO_SF
+            return topo_raw * -self.TOPO_SF
         except Exception as e:
             print(f"Error reading topography: {str(e)}")
             return None
