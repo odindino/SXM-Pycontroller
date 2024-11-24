@@ -84,7 +84,7 @@ def test():
         print("Initializing STM controller...")
         stm = SXMController(debug_mode=True)
         # stm.scan_on()
-        stm.auto_move_scan_area("RULD", 20.0, 10, 2)
+        stm.auto_move_scan_area("RULD", 20.0, 10, 1)
         
     #     if not stm.initialize_system():
     #         print("Initialization failed")
