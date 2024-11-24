@@ -61,18 +61,18 @@ class SXMScanControl(SXMEventHandler):
                 if success:
                     return True
                     
-                # # 驗證位置
-                # if verify:
-                #     verification_success = self.verify_position(x, y)
-                #     if verification_success:
-                #         if self.debug_mode:
-                #             print(f"Position verified at ({x}, {y})")
-                #         return True
+                # 驗證位置
+                if verify:
+                    verification_success = self.verify_position(x, y)
+                    if verification_success:
+                        if self.debug_mode:
+                            print(f"Position verified at ({x}, {y})")
+                        return True
                         
-                #     if self.debug_mode:
-                #         print(f"Position verification failed on attempt {attempt + 1}")
-                # else:
-                #     return True
+                    if self.debug_mode:
+                        print(f"Position verification failed on attempt {attempt + 1}")
+                else:
+                    return True
                     
             except Exception as e:
                 if self.debug_mode:
