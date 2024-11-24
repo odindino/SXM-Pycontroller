@@ -392,6 +392,7 @@ class SXMScanControl(SXMEventHandler):
                     print(f"Starting scan {i+1}/{repeat_count}")
                 
                 # 開始掃描
+                self.scan_on()
                 if not self.is_scanning():
                     if self.debug_mode:
                         print(f"Failed to start scan {i+1}")
