@@ -2,6 +2,7 @@ import time
 import math
 from . import SXMRemote
 from .SXMPyEvent import SXMEventHandler
+from utils.logger import get_logger, track_function
 
 
 class SXMScanControl(SXMEventHandler):
@@ -14,6 +15,7 @@ class SXMScanControl(SXMEventHandler):
         self.current_angle = 0
     
     # ========== 位置控制功能 ========== #
+    @track_function
     def get_position(self):
         """
         獲取當前位置
@@ -26,7 +28,8 @@ class SXMScanControl(SXMEventHandler):
         x = self.GetScanPara('X')
         y = self.GetScanPara('Y')
         return (x, y)
-
+    
+    @track_function
     def set_position(self, x, y, verify=True, max_retries=3, retry_delay=1.0):
         """
         增強版位置設定功能
@@ -82,6 +85,7 @@ class SXMScanControl(SXMEventHandler):
             
         return False
 
+    @track_function
     def verify_position(self, x, y, tolerance=1e-3, max_retries=3):
         """
         驗證位置設定
@@ -113,14 +117,17 @@ class SXMScanControl(SXMEventHandler):
         return False
     
     # ========== 掃描控制功能 ========== #
+    @track_function
     def scan_on(self):
         """開始掃描"""
         return self.SetScanPara('Scan', 1)
         
+    @track_function
     def scan_off(self):
         """停止掃描"""
         return self.SetScanPara('Scan', 0)
 
+    @track_function
     def is_scanning(self):
         """
         檢查是否正在掃描
@@ -133,6 +140,7 @@ class SXMScanControl(SXMEventHandler):
         scan_value = self.GetScanPara('Scan')
         return bool(scan_value) if scan_value is not None else False
 
+    @track_function
     def setup_scan_area(self, center_x, center_y, scan_range, angle=0):
         """
         設定掃描區域
@@ -212,6 +220,7 @@ class SXMScanControl(SXMEventHandler):
                 print(f"Error during line scan: {str(e)}")
             return False
 
+    @track_function
     def wait_for_scan_complete(self, timeout=None):
         """
         等待掃描完成
@@ -255,6 +264,7 @@ class SXMScanControl(SXMEventHandler):
                 print("\nMonitoring interrupted by user")
             return False
         
+    @track_function
     def check_scan(self):
         """
         檢查掃描狀態
@@ -370,7 +380,7 @@ class SXMScanControl(SXMEventHandler):
                 print(f"Coordinate conversion error: {str(e)}")
             return None
         
-
+    @track_function
     def perform_scan_sequence(self, repeat_count=1):
         """
         在當前位置執行指定次數的掃描
@@ -418,7 +428,8 @@ class SXMScanControl(SXMEventHandler):
             if self.debug_mode:
                 print(f"Error during scan sequence: {str(e)}")
             return False
-
+   
+    @track_function
     def auto_move_scan_area(self, movement_script, distance, wait_time, repeat_count=1):
         """
         執行自動移動和掃描序列
