@@ -1,0 +1,13 @@
+2024-11-24 14:03:06,788 - DEBUG - [debug] STM Controller initialized
+2024-11-24 14:03:06,788 - DEBUG - [debug] 開始執行函數: auto_move_scan_area
+2024-11-24 14:03:06,788 - DEBUG - [debug] 參數: args=(<SXMPycontroller.SXMController object at 0x000001CEC0B6DBB0>,), kwargs={'movement_script': 'RULD', 'distance': 20.0, 'wait_time': 10, 'repeat_count': 1}
+2024-11-24 14:03:06,788 - DEBUG - [debug] Starting auto move scan:
+Movement script: RULD
+Distance: 20.0 nm
+Wait time: 10 s
+Repeat count: 1
+2024-11-24 14:05:16,966 - DEBUG - [debug] 函數 auto_move_scan_area 執行成功
+2024-11-24 14:05:16,966 - DEBUG - [debug] 開始執行函數: safe_shutdown
+2024-11-24 14:05:16,967 - DEBUG - [debug] 參數: args=(<SXMPycontroller.SXMController object at 0x000001CEC0B6DBB0>,), kwargs={}
+2024-11-24 14:05:17,741 - DEBUG - [debug] System safely shut down
+2024-11-24 14:05:17,741 - DEBUG - [debug] 函數 safe_shutdown 執行成功
