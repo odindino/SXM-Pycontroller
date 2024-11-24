@@ -1,5 +1,5 @@
 from SXMPycontroller import SXMController
-from utils.SXMPyLogger import log_execution, get_logger
+from utils.logger import log_execution, get_logger
 
 @log_execution()
 def test():
