@@ -19,20 +19,6 @@ class ksb2902bsmu:
             print('Connect')
 
         self.smu.write(":syst:beep:stat on")
-        # self.set_compliance()
-        # self.set_timestep()
-
-        # self.pushButton_ch1_on.setDisabled(False)
-        # self.pushButton_set_output1volt.setDisabled(False)
-        # self.pushButton_measurech1.setDisabled(False)
-        # self.pushButton_ch2_on.setDisabled(False)
-        # self.pushButton_set_output2volt.setDisabled(False)
-        # self.pushButton_measurech2.setDisabled(False)
-
-        # self.set_output_volt('1', '0')
-        # self.set_output_volt('2', '0')
-        # self.output_off('1')
-        # voltage in V
 
     # 發出beep警示聲
     def beep(self):
@@ -122,3 +108,5 @@ class ksb2902bsmu:
         # self.smu.write(':TRIG:BLOC:BUFF:CLE')
         # self.smu.write(':TRIG:BLOC:BUFF:CLE')
         # self.smu.write(':TRIG:BLOC:BUFF:CLE')
+
+
