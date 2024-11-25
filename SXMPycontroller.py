@@ -1,14 +1,16 @@
 from modules.SXMPyCITS import SXMCITSControl
 from utils.logger import track_function
 
+
 class SXMController(SXMCITSControl):
     """
     STM控制器主類別
     整合所有功能模組並提供統一的操作介面
     """
+
     def __init__(self, debug_mode=False):
         super().__init__(debug_mode)
-        
+
     @track_function
     def initialize_system(self):
         try:
@@ -21,7 +23,7 @@ class SXMController(SXMCITSControl):
         except Exception as e:
             print(f"Initialization Error: {str(e)}")
             return False
-    
+
     @track_function
     def safe_shutdown(self):
         try:
@@ -31,10 +33,10 @@ class SXMController(SXMCITSControl):
             print("System safely shut down")
         except Exception as e:
             print(f"Shutdown Error: {str(e)}")
-            
+
     @track_function
     def auto_move_scan_area(self, movement_script: str, distance: float,
-                           wait_time: float, repeat_count: int = 1) -> bool:
+                            wait_time: float, repeat_count: int = 1) -> bool:
         try:
             print(
                 f"Starting auto move scan:\n"
