@@ -384,48 +384,137 @@ class DDEClient(object):  # 'self.' in whole class
         while self.NotGotAnswer:
             loop()
 
-    def GetPara(self, TopicItem):
-        self.execute(TopicItem, 5000)
+    # def GetPara(self, TopicItem):
+    #     self.execute(TopicItem, 5000)
 
-        while self.NotGotAnswer:
-            loop()
+    #     while self.NotGotAnswer:
+    #         loop()
 
-        BackStr = self.LastAnswer
+    #     BackStr = self.LastAnswer
 
-        # check for BackStr by Zi-Liang Yang 2024/01/01
-        # Found that in some cases, such as after a scan, it will send back the message like " b'b470\r\n' ", and do not contain the topic item.
-        # In this case, we need to send the command again to get the correct value.
-        # After scan is off, it will send back a int 0, which is not a string, so we need to check the type of BackStr.
-        print("BackStr")
-        print(BackStr)
-        if BackStr != 0:
-            BackStr = str(BackStr, 'utf-8').split('\r\n')
-        print('BackStr after split')
-        print(BackStr)
-        # BackStr[1] should put after BackStr == 0, otherwise it will raise error(TypeError: 'int' object is not subscriptable)
-        if BackStr == 0 or not BackStr[1]:
-            print('Redo command')
-            return self.GetPara(TopicItem)
-            # self.execute(TopicItem, 5000)
-            # while self.NotGotAnswer:
-            #     loop()
-            # BackStr = self.LastAnswer
-            # BackStr = str(BackStr, 'utf-8').split('\r\n')
-            # print('Redo command')
-            # print('BackStr after split')
-            # print(BackStr)
-            # if len(BackStr) >= 2:
-            #     NrStr = BackStr[1].replace(',', '.')
-            #     # print(NrStr)
-            #     val = float(NrStr)
-            #     return val
+    #     # check for BackStr by Zi-Liang Yang 2024/01/01
+    #     # Found that in some cases, such as after a scan, it will send back the message like " b'b470\r\n' ", and do not contain the topic item.
+    #     # In this case, we need to send the command again to get the correct value.
+    #     # After scan is off, it will send back a int 0, which is not a string, so we need to check the type of BackStr.
+    #     print("BackStr")
+    #     print(BackStr)
+    #     if BackStr != 0:
+    #         BackStr = str(BackStr, 'utf-8').split('\r\n')
+    #     print('BackStr after split')
+    #     print(BackStr)
+    #     # BackStr[1] should put after BackStr == 0, otherwise it will raise error(TypeError: 'int' object is not subscriptable)
+    #     if BackStr == 0 or not BackStr[1]:
+    #         print('Redo command')
+    #         return self.GetPara(TopicItem)
+    #         # self.execute(TopicItem, 5000)
+    #         # while self.NotGotAnswer:
+    #         #     loop()
+    #         # BackStr = self.LastAnswer
+    #         # BackStr = str(BackStr, 'utf-8').split('\r\n')
+    #         # print('Redo command')
+    #         # print('BackStr after split')
+    #         # print(BackStr)
+    #         # if len(BackStr) >= 2:
+    #         #     NrStr = BackStr[1].replace(',', '.')
+    #         #     # print(NrStr)
+    #         #     val = float(NrStr)
+    #         #     return val
 
-        elif len(BackStr) >= 2:
-            NrStr = BackStr[1].replace(',', '.')
-            # print(NrStr)
-            val = float(NrStr)
-            return val
-        return
+    #     elif len(BackStr) >= 2:
+    #         NrStr = BackStr[1].replace(',', '.')
+    #         # print(NrStr)
+    #         val = float(NrStr)
+    #         return val
+    #     return
+
+    # ========== GetPara ========== #
+    def GetPara(self, TopicItem, max_retries=3):
+        """
+        Get parameter value from SXM with improved error handling and retry mechanism.
+
+        Parameters
+        ----------
+        TopicItem : str
+            The command to execute
+        max_retries : int, optional
+            Maximum number of retry attempts (default is 3)
+
+        Returns
+        -------
+        float or None
+            The parameter value if successful, None if failed after retries
+        """
+        def parse_response(response):
+            """Helper function to parse SXM response"""
+            if isinstance(response, int):
+                return response
+
+            try:
+                if isinstance(response, bytes):
+                    response_str = str(response, 'utf-8')
+                else:
+                    response_str = str(response)
+
+                # Split response into lines
+                lines = response_str.split('\r\n')
+
+                # Check if we have valid data in the expected format
+                if len(lines) >= 2 and lines[1]:
+                    # Convert string number (with possible comma) to float
+                    value = float(lines[1].replace(',', '.'))
+                    return value
+
+            except (UnicodeDecodeError, ValueError, IndexError) as e:
+                print(f"Parse error: {str(e)}")
+                return None
+
+            return None
+
+        retries = 0
+        while retries < max_retries:
+            try:
+                # Execute command
+                self.execute(TopicItem, 5000)
+
+                # Wait for response
+                timeout = 0
+                while self.NotGotAnswer and timeout < 50:  # 5 second timeout
+                    loop()
+                    time.sleep(0.1)
+                    timeout += 1
+
+                if timeout >= 50:
+                    print(
+                        f"Timeout waiting for response, attempt {retries + 1}/{max_retries}")
+                    retries += 1
+                    continue
+
+                # Get and parse response
+                result = parse_response(self.LastAnswer)
+
+                # Handle special cases
+                if result == 0:
+                    # Verify if this is a valid zero response
+                    if TopicItem.find("GetScanPara('Scan')") != -1:
+                        return 0  # Valid response for scan status
+
+                if result is not None:
+                    return result
+
+                print(
+                    f"Invalid response format, attempt {retries + 1}/{max_retries}")
+                print(f"Response was: {self.LastAnswer}")
+
+            except Exception as e:
+                print(
+                    f"Error in GetPara: {str(e)}, attempt {retries + 1}/{max_retries}")
+
+            retries += 1
+            time.sleep(0.5)  # Short delay between retries
+
+        print(f"Failed to get parameter after {max_retries} attempts")
+        return None
+    # ========== GetPara End ========== #
 
     def GetScanPara(self, item):
         TopicItem = "a:=GetScanPara('"+item+"');\r\n  writeln(a);"
