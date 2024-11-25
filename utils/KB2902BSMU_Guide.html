@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keysight B2902B SMU 控制函式庫文件</title>
+    <style>
+        /* 基本樣式 */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --background-color: #ffffff;
+            --code-background: #f8f9fa;
+            --text-color: #333333;
+            --border-color: #e9ecef;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--background-color);
+        }
+
+        /* 標題樣式 */
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5em;
+            margin-top: 1.5em;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        h2 {
+            font-size: 2em;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* 程式碼樣式 */
+        pre {
+            background-color: var(--code-background);
+            padding: 1em;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            margin: 1em 0;
+        }
+
+        code {
+            font-family: 'Source Code Pro', 'Consolas', monospace;
+            background-color: var(--code-background);
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        /* 表格樣式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1em 0;
+        }
+
+        th, td {
+            padding: 0.75em;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--code-background);
+            font-weight: bold;
+        }
+
+        /* 提示區塊樣式 */
+        .note {
+            background-color: #e1f5fe;
+            border-left: 5px solid #03a9f4;
+            padding: 1em;
+            margin: 1em 0;
+        }
+
+        .warning {
+            background-color: #fff3e0;
+            border-left: 5px solid #ff9800;
+            padding: 1em;
+            margin: 1em 0;
+        }
+
+        /* 導航樣式 */
+        .toc {
+            background-color: var(--code-background);
+            padding: 1em;
+            border-radius: 5px;
+            margin: 1em 0;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding-left: 1em;
+        }
+
+        .toc li {
+            margin: 0.5em 0;
+        }
+
+        /* 區塊樣式 */
+        .section {
+            margin: 2em 0;
+            padding: 1em;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* 範例區塊樣式 */
+        .example {
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            margin: 1em 0;
+            padding: 1em;
+        }
+
+        .example-title {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 0.5em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Keysight B2902B SMU 控制函式庫文件</h1>
+
+    <div class="toc">
+        <h2>目錄</h2>
+        <ul>
+            <li><a href="#intro">基本介紹</a></li>
+            <li><a href="#requirements">系統需求與安裝</a></li>
+            <li><a href="#core-concepts">核心概念</a></li>
+            <li><a href="#architecture">程式架構</a></li>
+            <li><a href="#class-details">類別與函式完整說明</a></li>
+            <li><a href="#examples">使用範例</a></li>
+            <li><a href="#troubleshooting">故障排除</a></li>
+        </ul>
+    </div>
+
+    <div class="section" id="intro">
+        <h2>基本介紹</h2>
+        <p>這個函式庫的開發目的是為了提供一個安全且易於使用的介面，用於控制 Keysight B2902B Source Measure Unit (SMU)。
+           SMU 是一種精密的量測儀器，能夠同時作為電壓/電流源和量測設備，常用於半導體元件特性的量測。</p>
+
+        <h3>主要功能</h3>
+        <ul>
+            <li>建立與 SMU 的通訊連線</li>
+            <li>控制電壓/電流輸出</li>
+            <li>執行精確的電氣量測</li>
+            <li>錯誤處理與安全保護</li>
+            <li>系統狀態監控</li>
+            <li>詳細的操作記錄</li>
+        </ul>
+
+        <div class="note">
+            <h4>設計理念</h4>
+            <ul>
+                <li><strong>安全性優先：</strong>
+                    <ul>
+                        <li>所有操作都有完整的錯誤檢查</li>
+                        <li>異常情況下會自動關閉輸出</li>
+                        <li>內建多重保護機制</li>
+                    </ul>
+                </li>
+                <li><strong>易用性：</strong>
+                    <ul>
+                        <li>直覺的函式命名</li>
+                        <li>完整的型別提示</li>
+                        <li>豐富的使用範例</li>
+                    </ul>
+                </li>
+                <li><strong>可靠性：</strong>
+                    <ul>
+                        <li>完整的錯誤處理</li>
+                        <li>詳細的操作記錄</li>
+                        <li>狀態監控機制</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 接續前一部分的內容 -->
+    <div class="section" id="requirements">
+        <h2>系統需求與安裝</h2>
+        
+        <div class="subsection">
+            <h3>軟體需求</h3>
+            <pre class="code-block">
+Python >= 3.7
+pyvisa >= 1.11.0
+pyvisa-py >= 0.5.2</pre>
+        </div>
+
+        <div class="subsection">
+            <h3>硬體需求</h3>
+            <ul>
+                <li>Keysight B2902B SMU</li>
+                <li>支援以下任一連線方式：
+                    <ul>
+                        <li>網路連線（LAN）</li>
+                        <li>USB 連線</li>
+                    </ul>
+                </li>
+                <li>支援 VISA 的電腦系統</li>
+            </ul>
+        </div>
+
+        <div class="subsection">
+            <h3>安裝步驟</h3>
+            <ol>
+                <li>
+                    <h4>安裝 Python 套件</h4>
+                    <pre class="code-block">
+# 安裝 pyvisa 和 pyvisa-py
+pip install pyvisa pyvisa-py</pre>
+                </li>
+                <li>
+                    <h4>函式庫檔案放置</h4>
+                    <pre class="code-block">
+your_project/
+├── utils/
+│   └── KB2902BSMU.py  # 將函式庫檔案放在這裡
+└── your_script.py</pre>
+                </li>
+                <li>
+                    <h4>VISA 位址設定</h4>
+                    <table>
+                        <tr>
+                            <th>連線類型</th>
+                            <th>位址格式</th>
+                            <th>範例</th>
+                        </tr>
+                        <tr>
+                            <td>LAN 連線</td>
+                            <td><code>TCPIP0::<IP_ADDRESS>::inst0::INSTR</code></td>
+                            <td><code>TCPIP0::172.30.32.98::inst0::INSTR</code></td>
+                        </tr>
+                        <tr>
+                            <td>USB 連線</td>
+                            <td><code>USB0::0x0957::0x8B18::<SERIAL_NUMBER>::0::INSTR</code></td>
+                            <td><code>USB0::0x0957::0x8B18::MY12345678::0::INSTR</code></td>
+                        </tr>
+                    </table>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="section" id="core-concepts">
+        <h2>核心概念</h2>
+
+        <div class="subsection">
+            <h3>列舉類別說明</h3>
+            
+            <div class="example">
+                <h4>Channel 列舉</h4>
+                <pre class="code-block">
+class Channel(Enum):
+    CH1 = 1  # SMU 通道 1
+    CH2 = 2  # SMU 通道 2</pre>
+                <div class="note">
+                    <p><strong>使用列舉的優點：</strong></p>
+                    <ol>
+                        <li><strong>型別安全：</strong>避免使用者輸入無效的通道號碼</li>
+                        <li><strong>程式碼提示：</strong>IDE 可以提供自動完成</li>
+                        <li><strong>可讀性：</strong>程式碼更容易理解</li>
+                        <li><strong>維護性：</strong>集中管理通道定義</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="example">
+                <h4>OutputMode 列舉</h4>
+                <pre class="code-block">
+class OutputMode(Enum):
+    VOLTAGE = 'VOLT'  # 電壓輸出模式
+    CURRENT = 'CURR'  # 電流輸出模式</pre>
+                <div class="note">
+                    <p><strong>輸出模式說明：</strong></p>
+                    <ul>
+                        <li><strong>VOLTAGE（電壓源模式）：</strong>
+                            <ul>
+                                <li>設定電壓值</li>
+                                <li>限制（compliance）為電流值</li>
+                            </ul>
+                        </li>
+                        <li><strong>CURRENT（電流源模式）：</strong>
+                            <ul>
+                                <li>設定電流值</li>
+                                <li>限制（compliance）為電壓值</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>異常類別說明</h3>
+            <pre class="code-block">
+class ConnectionError(Exception):
+    """連線相關錯誤
+    
+    當發生以下情況時拋出：
+    1. VISA 資源名稱無效
+    2. 無法建立連線
+    3. 通訊逾時
+    4. 連線意外中斷
+    """
+    pass
+
+class MeasurementError(Exception):
+    """測量相關錯誤
+    
+    當發生以下情況時拋出：
+    1. 測量範圍溢出
+    2. 達到 compliance 限制
+    3. 測量數據無效
+    4. 測量時發生通訊錯誤
+    """
+    pass</pre>
+            <div class="note">
+                <p><strong>自訂異常類別的優點：</strong></p>
+                <ul>
+                    <li>區分不同類型的錯誤</li>
+                    <li>提供更準確的錯誤訊息</li>
+                    <li>方便進行特定類型的錯誤處理</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>記錄器設定</h3>
+            <div class="example">
+                <h4>基本配置</h4>
+                <pre class="code-block">
+# 記錄器配置
+self.logger = logging.getLogger(__name__)
+self.logger.setLevel(logging.INFO)
+
+# 記錄格式
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)</pre>
+                <table>
+                    <tr>
+                        <th>記錄等級</th>
+                        <th>說明</th>
+                        <th>使用時機</th>
+                    </tr>
+                    <tr>
+                        <td>DEBUG</td>
+                        <td>詳細的除錯資訊</td>
+                        <td>開發測試階段</td>
+                    </tr>
+                    <tr>
+                        <td>INFO</td>
+                        <td>一般操作資訊</td>
+                        <td>正常操作記錄</td>
+                    </tr>
+                    <tr>
+                        <td>WARNING</td>
+                        <td>警告訊息</td>
+                        <td>可能的問題</td>
+                    </tr>
+                    <tr>
+                        <td>ERROR</td>
+                        <td>錯誤訊息</td>
+                        <td>操作失敗</td>
+                    </tr>
+                    <tr>
+                        <td>CRITICAL</td>
+                        <td>嚴重錯誤</td>
+                        <td>系統級錯誤</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="class-details">
+        <h2>類別與函式完整說明</h2>
+
+        <div class="subsection">
+            <h3>KeysightB2902B 類別</h3>
+
+            <div class="example" id="init-method">
+                <h4>初始化函式</h4>
+                <pre class="code-block">
+def __init__(self, resource_name: str = None, timeout: int = 10000):
+    """初始化 SMU 控制器
+    
+    這個函式會建立 SMU 控制器的實例，但不會立即建立連線。
+    連線需要另外呼叫 connect() 函式。"""</pre>
+
+                <div class="parameters">
+                    <h5>參數說明</h5>
+                    <table>
+                        <tr>
+                            <th>參數名稱</th>
+                            <th>類型</th>
+                            <th>說明</th>
+                        </tr>
+                        <tr>
+                            <td>resource_name</td>
+                            <td>str</td>
+                            <td>
+                                VISA 資源名稱<br>
+                                - LAN 連線格式: 'TCPIP0::<IP_ADDRESS>::inst0::INSTR'<br>
+                                - USB 連線格式: 'USB0::0x0957::0x8B18::<SERIAL_NUMBER>::0::INSTR'
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>timeout</td>
+                            <td>int</td>
+                            <td>
+                                通訊超時時間（毫秒）<br>
+                                - 預設值: 10000 (10秒)<br>
+                                - 建議值: 一般操作 5000-10000，長時間測量 30000+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="example-code">
+                    <h5>使用範例</h5>
+                    <pre class="code-block">
+# 基本初始化
+smu = KeysightB2902B('TCPIP0::172.30.32.98::inst0::INSTR')
+
+# 使用自訂超時時間
+smu = KeysightB2902B(
+    'TCPIP0::172.30.32.98::inst0::INSTR',
+    timeout=30000
+)</pre>
+                </div>
+
+                <div class="note">
+                    <h5>注意事項</h5>
+                    <ul>
+                        <li>初始化不會檢查資源名稱的有效性</li>
+                        <li>不會實際建立連線</li>
+                        <li>超時時間建議根據操作類型調整</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example" id="connect-method">
+                <h4>連線管理函式</h4>
+                
+                <div class="function-doc">
+                    <h5>connect</h5>
+                    <pre class="code-block">
+def connect(self, resource_name: str = None) -> bool:
+    """建立與 SMU 的連線
+    
+    這個函式執行連線建立的完整流程，包括：
+    1. 建立 VISA 資源管理器
+    2. 開啟與儀器的連線
+    3. 重設儀器狀態
+    4. 清除錯誤佇列
+    5. 驗證儀器識別"""</pre>
+
+                    <div class="parameters">
+                        <h6>參數</h6>
+                        <table>
+                            <tr>
+                                <th>參數名稱</th>
+                                <th>類型</th>
+                                <th>說明</th>
+                            </tr>
+                            <tr>
+                                <td>resource_name</td>
+                                <td>str</td>
+                                <td>VISA 資源名稱（可選）<br>
+                                    - 如果在初始化時已提供，可以省略<br>
+                                    - 如果提供，會覆蓋初始化時的設定</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="returns">
+                        <h6>返回值</h6>
+                        <table>
+                            <tr>
+                                <th>類型</th>
+                                <th>說明</th>
+                            </tr>
+                            <tr>
+                                <td>bool</td>
+                                <td>連線是否成功</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="exceptions">
+                        <h6>異常</h6>
+                        <table>
+                            <tr>
+                                <th>異常類型</th>
+                                <th>可能原因</th>
+                            </tr>
+                            <tr>
+                                <td>ConnectionError</td>
+                                <td>
+                                    <ul>
+                                        <li>VISA 資源名稱無效</li>
+                                        <li>儀器未開機或無法連線</li>
+                                        <li>通訊逾時</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="example-code">
+                        <h6>使用範例</h6>
+                        <pre class="code-block">
+smu = KeysightB2902B()
+try:
+    smu.connect('TCPIP0::172.30.32.98::inst0::INSTR')
+    print("Connected successfully")
+except ConnectionError as e:
+    print(f"Connection failed: {e}")</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 延續上一部分，繼續說明其他函式 -->
+    <div class="section" id="control-functions">
+        <h2>控制函式說明</h2>
+
+        <div class="subsection">
+            <h3>配置與控制函式</h3>
+
+            <div class="example" id="configure-source">
+                <h4>configure_source</h4>
+                <pre class="code-block">
+def configure_source(self,
+                    channel: Channel,
+                    mode: OutputMode,
+                    level: float,
+                    compliance: float,
+                    auto_range: bool = True) -> bool:
+    """配置 SMU 的輸出參數
+    
+    這個函式用於設定 SMU 的輸出模式和相關參數，包括：
+    - 輸出模式（電壓/電流）
+    - 輸出等級
+    - 限制值（compliance）
+    - 量程設定"""</pre>
+
+                <div class="parameters">
+                    <h5>參數說明</h5>
+                    <table>
+                        <tr>
+                            <th>參數名稱</th>
+                            <th>類型</th>
+                            <th>說明</th>
+                        </tr>
+                        <tr>
+                            <td>channel</td>
+                            <td>Channel</td>
+                            <td>要配置的通道 (CH1 或 CH2)</td>
+                        </tr>
+                        <tr>
+                            <td>mode</td>
+                            <td>OutputMode</td>
+                            <td>輸出模式 (VOLTAGE 或 CURRENT)</td>
+                        </tr>
+                        <tr>
+                            <td>level</td>
+                            <td>float</td>
+                            <td>
+                                輸出等級<br>
+                                - 電壓模式：單位為 V，範圍 ±210V<br>
+                                - 電流模式：單位為 A，範圍 ±3.03A
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>compliance</td>
+                            <td>float</td>
+                            <td>
+                                限制值<br>
+                                - 電壓模式時：電流限制值（A）<br>
+                                - 電流模式時：電壓限制值（V）
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>auto_range</td>
+                            <td>bool</td>
+                            <td>
+                                是否啟用自動量程<br>
+                                - True：自動選擇最適合的量程（預設）<br>
+                                - False：使用固定量程
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="example-code">
+                    <h5>使用範例</h5>
+                    <pre class="code-block">
+# 配置為 1V 電壓源，限制電流 100mA
+smu.configure_source(
+    channel=Channel.CH1,
+    mode=OutputMode.VOLTAGE,
+    level=1.0,
+    compliance=0.1
+)
+
+# 配置為 10mA 電流源，限制電壓 5V，固定量程
+smu.configure_source(
+    Channel.CH2,
+    OutputMode.CURRENT,
+    0.01,
+    5.0,
+    auto_range=False
+)</pre>
+                </div>
+
+                <div class="note">
+                    <h5>注意事項</h5>
+                    <ul>
+                        <li>電壓/電流值不要超過儀器規格</li>
+                        <li>Compliance 值要設定適當，避免損壞待測元件</li>
+                        <li>使用固定量程可能會影響測量精確度</li>
+                        <li>配置時輸出不會自動開啟，需要另外呼叫 enable_output</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="example" id="output-control">
+                <h4>輸出控制函式</h4>
+        
+                <div class="function-doc">
+                    <h5>enable_output</h5>
+                    <pre class="code-block">
+        def enable_output(self, channel: Channel) -> bool:
+            """開啟指定通道的輸出
+            
+            這個函式用於安全地開啟 SMU 的輸出。包含以下安全機制：
+            1. 檢查連線狀態
+            2. 確認輸出配置正確
+            3. 等待輸出穩定
+            4. 驗證輸出狀態"""</pre>
+        
+                    <div class="implementation-details">
+                        <h6>內部操作流程</h6>
+                        <ol>
+                            <li>發送開啟命令：<code>:OUTP{channel} ON</code></li>
+                            <li>等待穩定（100ms）</li>
+                            <li>驗證狀態：<code>:OUTP{channel}?</code></li>
+                        </ol>
+                    </div>
+        
+                    <div class="example-code">
+                        <h6>使用範例</h6>
+                        <pre class="code-block">
+        # 開啟通道 1
+        if smu.enable_output(Channel.CH1):
+            print("Output enabled")
+        else:
+            print("Failed to enable output")</pre>
+                    </div>
+        
+                    <div class="warning">
+                        <h6>安全注意事項</h6>
+                        <ul>
+                            <li>開啟輸出前確保設定正確</li>
+                            <li>觀察待測裝置反應</li>
+                            <li>異常時會自動關閉輸出</li>
+                            <li>建議使用 try-except 處理可能的錯誤</li>
+                        </ul>
+                    </div>
+                </div>
+        
+                <div class="function-doc">
+                    <h5>disable_output</h5>
+                    <pre class="code-block">
+        def disable_output(self, channel: Channel) -> bool:
+            """關閉指定通道的輸出
+            
+            這個函式會安全地關閉 SMU 的輸出，包括：
+            1. 緩慢降低輸出（避免突波）
+            2. 關閉輸出
+            3. 確認輸出已關閉"""</pre>
+        
+                    <div class="implementation-details">
+                        <h6>內部操作流程</h6>
+                        <ol>
+                            <li>發送關閉命令：<code>:OUTP{channel} OFF</code></li>
+                            <li>等待穩定（100ms）</li>
+                            <li>驗證狀態：<code>:OUTP{channel}?</code></li>
+                        </ol>
+                    </div>
+        
+                    <div class="example-code">
+                        <h6>使用範例</h6>
+                        <pre class="code-block">
+        try:
+            smu.disable_output(Channel.CH1)
+            print("Output disabled successfully")
+        except Exception as e:
+            print(f"Error while disabling output: {e}")</pre>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="example" id="measurement-functions">
+                <h4>測量函式</h4>
+        
+                <div class="function-doc">
+                    <h5>measure</h5>
+                    <pre class="code-block">
+        def measure(self,
+                   channel: Channel,
+                   parameters: List[str] = None) -> Union[float, Tuple[float, ...]]:
+            """執行測量操作
+            
+            這個函式可以進行單一或多重參數的測量，支援：
+            - 電壓測量
+            - 電流測量
+            - 電阻測量（需要適當配置）"""</pre>
+        
+                    <div class="parameters">
+                        <h6>參數說明</h6>
+                        <table>
+                            <tr>
+                                <th>參數名稱</th>
+                                <th>類型</th>
+                                <th>說明</th>
+                            </tr>
+                            <tr>
+                                <td>channel</td>
+                                <td>Channel</td>
+                                <td>要測量的通道</td>
+                            </tr>
+                            <tr>
+                                <td>parameters</td>
+                                <td>List[str]</td>
+                                <td>
+                                    要測量的參數列表：<br>
+                                    - ['VOLT']: 僅測量電壓<br>
+                                    - ['CURR']: 僅測量電流<br>
+                                    - ['RES']: 僅測量電阻<br>
+                                    - ['VOLT', 'CURR']: 同時測量電壓和電流
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+        
+                    <div class="returns">
+                        <h6>返回值</h6>
+                        <table>
+                            <tr>
+                                <th>類型</th>
+                                <th>說明</th>
+                            </tr>
+                            <tr>
+                                <td>float</td>
+                                <td>單一參數測量結果</td>
+                            </tr>
+                            <tr>
+                                <td>Tuple[float, ...]</td>
+                                <td>多參數測量結果，順序與參數列表相同</td>
+                            </tr>
+                        </table>
+                    </div>
+        
+                    <div class="example-code">
+                        <h6>使用範例</h6>
+                        <pre class="code-block">
+        # 測量電流
+        current = smu.measure(Channel.CH1, ['CURR'])
+        print(f"Current: {current:.9f} A")
+        
+        # 同時測量電壓和電流
+        voltage, current = smu.measure(
+            Channel.CH1, 
+            ['VOLT', 'CURR']
+        )
+        print(f"V: {voltage:.6f} V, I: {current:.9f} A")</pre>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="example" id="utility-functions">
+                <h4>輔助功能函式</h4>
+        
+                <div class="function-doc">
+                    <h5>set_nplc</h5>
+                    <pre class="code-block">
+        def set_nplc(self, channel: Channel, nplc: float):
+            """設定積分時間（Number of Power Line Cycles, NPLC）"""</pre>
+        
+                    <div class="implementation-note">
+                        <p>NPLC 是決定測量精確度和速度的重要參數：</p>
+                        <ul>
+                            <li>較大的 NPLC 值提供更高的精確度，但測量較慢</li>
+                            <li>較小的 NPLC 值測量較快，但可能較不精確</li>
+                        </ul>
+                    </div>
+        
+                    <div class="parameters">
+                        <table>
+                            <tr>
+                                <th>NPLC 值</th>
+                                <th>建議用途</th>
+                                <th>特性</th>
+                            </tr>
+                            <tr>
+                                <td>0.01</td>
+                                <td>最快速量測</td>
+                                <td>較不精確，適合動態測量</td>
+                            </tr>
+                            <tr>
+                                <td>0.1</td>
+                                <td>快速量測</td>
+                                <td>平衡速度和精確度</td>
+                            </tr>
+                            <tr>
+                                <td>1.0</td>
+                                <td>標準量測</td>
+                                <td>一般用途（預設）</td>
+                            </tr>
+                            <tr>
+                                <td>10.0</td>
+                                <td>高精確度量測</td>
+                                <td>最高精確度，速度較慢</td>
+                            </tr>
+                        </table>
+                    </div>
+        
+                    <div class="example-code">
+                        <h6>使用範例</h6>
+                        <pre class="code-block">
+        # 設定標準測量速度
+        smu.set_nplc(Channel.CH1, 1.0)
+        
+        # 設定高速測量
+        smu.set_nplc(Channel.CH1, 0.1)
+        
+        # 設定高精確度測量
+        smu.set_nplc(Channel.CH1, 10.0)</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="practical-examples">
+                <h2>實用範例</h2>
+        
+                <div class="example" id="basic-measurement">
+                    <h3>基本電壓輸出和電流測量</h3>
+                    <pre class="code-block">
+        with KeysightB2902B('TCPIP0::172.30.32.98::inst0::INSTR') as smu:
+            # 配置通道 1 為電壓源
+            smu.configure_source(
+                Channel.CH1,
+                OutputMode.VOLTAGE,
+                level=1.0,    # 輸出 1V
+                compliance=0.1 # 限制電流為 100mA
+            )
+            
+            # 開啟輸出
+            smu.enable_output(Channel.CH1)
+            
+            # 測量電流
+            current = smu.measure(Channel.CH1, ['CURR'])
+            print(f"Measured current: {current:.9f} A")</pre>
+                </div>
+        
+                <div class="example" id="dual-channel">
+                    <h3>雙通道操作</h3>
+                    <pre class="code-block">
+        with KeysightB2902B('TCPIP0::172.30.32.98::inst0::INSTR') as smu:
+            # 配置通道 1 為電壓源
+            smu.configure_source(
+                Channel.CH1,
+                OutputMode.VOLTAGE,
+                level=5.0,
+                compliance=0.1
+            )
+            
+            # 配置通道 2 為電流源
+            smu.configure_source(
+                Channel.CH2,
+                OutputMode.CURRENT,
+                level=0.001,  # 1mA
+                compliance=10 # 10V 限制
+            )
+            
+            # 開啟兩個通道
+            smu.enable_output(Channel.CH1)
+            smu.enable_output(Channel.CH2)
+            
+            # 測量兩個通道
+            v1, i1 = smu.measure(Channel.CH1, ['VOLT', 'CURR'])
+            v2, i2 = smu.measure(Channel.CH2, ['VOLT', 'CURR'])
+            
+            print(f"CH1: {v1:.3f}V, {i1:.6f}A")
+            print(f"CH2: {v2:.3f}V, {i2:.6f}A")</pre>
+                </div>
+        
+                <div class="example" id="error-handling">
+                    <h3>錯誤處理</h3>
+                    <pre class="code-block">
+        try:
+            with KeysightB2902B('TCPIP0::172.30.32.98::inst0::INSTR') as smu:
+                # 配置和測量
+                smu.configure_source(Channel.CH1, OutputMode.VOLTAGE, 1.0, 0.1)
+                smu.enable_output(Channel.CH1)
+                
+                # 檢查錯誤
+                error = smu.get_error()
+                if error:
+                    print(f"Error occurred: {error}")
+                    
+        except ConnectionError as e:
+            print(f"Connection failed: {e}")
+        except MeasurementError as e:
+            print(f"Measurement failed: {e}")
+        except Exception as e:
+            print(f"Unexpected error: {e}")</pre>
+                </div>
+            </div>
+        
+            <div class="section" id="troubleshooting">
+                <h2>故障排除</h2>
+        
+                <div class="problems-solutions">
+                    <table>
+                        <tr>
+                            <th>問題</th>
+                            <th>可能原因</th>
+                            <th>解決方案</th>
+                        </tr>
+                        <tr>
+                            <td>無法連接到儀器</td>
+                            <td>
+                                <ul>
+                                    <li>VISA 資源名稱錯誤</li>
+                                    <li>網路連線問題</li>
+                                    <li>儀器未開機</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li>確認 VISA 位址是否正確</li>
+                                    <li>檢查網路連線</li>
+                                    <li>確認儀器電源狀態</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>測量結果異常</td>
+                            <td>
+                                <ul>
+                                    <li>Compliance 設定不當</li>
+                                    <li>量程設定不合適</li>
+                                    <li>連線品質不佳</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li>調整 Compliance 設定</li>
+                                    <li>使用適當的測量範圍</li>
+                                    <li>檢查接線品質</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+        
+                <div class="safety-notes">
+                    <div class="warning">
+                        <h3>安全注意事項</h3>
+                        <ul>
+                            <li>操作前請確認所有連線正確</li>
+                            <li>設定電壓/電流時注意不要超過待測元件的規格</li>
+                            <li>出現異常時立即關閉輸出</li>
+                            <li>定期檢查系統日誌以發現潛在問題</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+</body>
+</html>

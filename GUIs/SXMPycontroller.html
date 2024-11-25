@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>SMU Controller</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --bg-color: #ecf0f1;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--bg-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .connection-panel {
+            grid-column: 1 / -1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .channel-panel {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-group label {
+            min-width: 120px;
+            color: var(--primary-color);
+        }
+
+        input, select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            flex-grow: 1;
+        }
+
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: var(--secondary-color);
+            color: white;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        button.success { background-color: var(--success-color); }
+        button.warning { background-color: var(--warning-color); }
+        button.danger { background-color: var(--danger-color); }
+
+        .reading-display {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .status-connected { background-color: var(--success-color); }
+        .status-disconnected { background-color: var(--danger-color); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="connection-panel">
+            <h2>Connection Settings</h2>
+            <div class="input-group">
+                <label>VISA IP:</label>
+                <input type="text" id="visaAddress" placeholder="例：TCPIP0::192.168.1.1::inst0::INSTR">
+                <button id="connectBtn">Connect</button>
+                <button id="disconnectBtn" class="danger" disabled>Disconnect</button>
+                <span id="connectionStatus" class="status-indicator status-disconnected"></span>
+            </div>
+            <div class="input-group">
+                <label>Compliance:</label>
+                <input type="number" id="compliance" step="0.001" min="0" value="0.1">
+                <span>A</span>
+                <button id="setComplianceBtn">Set Compliance</button>
+            </div>
+        </div>
+
+        <div class="channel-panel">
+            <h2>Channel 1 (Source-Drain)</h2>
+            <div class="input-group">
+                <label>Mode:</label>
+                <select id="ch1Mode">
+                    <option value="VOLTAGE">Voltage</option>
+                    <option value="CURRENT">Current</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Output Value:</label>
+                <input type="number" id="ch1Value" step="0.001">
+                <span id="ch1Unit">V</span>
+                <button id="ch1SetBtn">Set</button>
+            </div>
+            <div class="input-group">
+                <button id="ch1OutputBtn" class="warning">Output OFF</button>
+                <button id="ch1ReadBtn">Toggle Reading</button>
+            </div>
+            <div class="reading-display">
+                <div>Voltage: <span id="ch1Voltage">0.000 V</span></div>
+                <div>Current: <span id="ch1Current">0.000 A</span></div>
+            </div>
+        </div>
+
+        <div class="channel-panel">
+            <h2>Channel 2 (Gate)</h2>
+            <div class="input-group">
+                <label>Mode:</label>
+                <select id="ch2Mode">
+                    <option value="VOLTAGE">Voltage</option>
+                    <option value="CURRENT">Current</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Output Value:</label>
+                <input type="number" id="ch2Value" step="0.001">
+                <span id="ch2Unit">V</span>
+                <button id="ch2SetBtn">Set</button>
+            </div>
+            <div class="input-group">
+                <button id="ch2OutputBtn" class="warning">Output OFF</button>
+                <button id="ch2ReadBtn">Toggle Reading</button>
+            </div>
+            <div class="reading-display">
+                <div>Voltage: <span id="ch2Voltage">0.000 V</span></div>
+                <div>Current: <span id="ch2Current">0.000 A</span></div>
+            </div>
+        </div>
+
+        <div class="channel-panel">
+            <h2>STM Control</h2>
+            <div class="input-group">
+                <button id="stsStartBtn" class="success">Start STS</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全域狀態管理
+        const state = {
+            connected: false,
+            ch1Reading: false,
+            ch2Reading: false,
+            readingIntervals: {
+                ch1: null,
+                ch2: null
+            }
+        };
+
+        // DOM元素
+        const elements = {
+            visaAddress: document.getElementById('visaAddress'),
+            connectBtn: document.getElementById('connectBtn'),
+            disconnectBtn: document.getElementById('disconnectBtn'),
+            connectionStatus: document.getElementById('connectionStatus'),
+            compliance: document.getElementById('compliance'),
+            setComplianceBtn: document.getElementById('setComplianceBtn'),
+            ch1: {
+                mode: document.getElementById('ch1Mode'),
+                value: document.getElementById('ch1Value'),
+                unit: document.getElementById('ch1Unit'),
+                setBtn: document.getElementById('ch1SetBtn'),
+                outputBtn: document.getElementById('ch1OutputBtn'),
+                readBtn: document.getElementById('ch1ReadBtn'),
+                voltage: document.getElementById('ch1Voltage'),
+                current: document.getElementById('ch1Current')
+            },
+            ch2: {
+                mode: document.getElementById('ch2Mode'),
+                value: document.getElementById('ch2Value'),
+                unit: document.getElementById('ch2Unit'),
+                setBtn: document.getElementById('ch2SetBtn'),
+                outputBtn: document.getElementById('ch2OutputBtn'),
+                readBtn: document.getElementById('ch2ReadBtn'),
+                voltage: document.getElementById('ch2Voltage'),
+                current: document.getElementById('ch2Current')
+            },
+            stsStartBtn: document.getElementById('stsStartBtn')
+        };
+
+        // 更新連接狀態UI
+        function updateConnectionStatus(connected) {
+            state.connected = connected;
+            elements.connectionStatus.className = `status-indicator status-${connected ? 'connected' : 'disconnected'}`;
+            elements.connectBtn.disabled = connected;
+            elements.disconnectBtn.disabled = !connected;
+            
+            // 更新其他按鈕狀態
+            [elements.ch1, elements.ch2].forEach(ch => {
+                ch.setBtn.disabled = !connected;
+                ch.outputBtn.disabled = !connected;
+                ch.readBtn.disabled = !connected;
+                ch.mode.disabled = !connected;
+                ch.value.disabled = !connected;
+            });
+            
+            elements.setComplianceBtn.disabled = !connected;
+            elements.stsStartBtn.disabled = !connected;
+        }
+
+        // 事件處理器
+        async function handleConnect() {
+            try {
+                await pywebview.api.connect_smu(elements.visaAddress.value);
+                updateConnectionStatus(true);
+            } catch (error) {
+                alert('Connection failed: ' + error);
+            }
+        }
+
+        async function handleDisconnect() {
+            try {
+                await pywebview.api.disconnect_smu();
+                updateConnectionStatus(false);
+            } catch (error) {
+                alert('Disconnect failed: ' + error);
+            }
+        }
+
+        function setupChannelEvents(channelNum) {
+            const ch = elements[`ch${channelNum}`];
+            
+            // 模式變更處理
+            ch.mode.addEventListener('change', () => {
+                ch.unit.textContent = ch.mode.value === 'VOLTAGE' ? 'V' : 'A';
+            });
+
+            // 設定輸出值
+            ch.setBtn.addEventListener('click', async () => {
+                try {
+                    await pywebview.api.set_channel_value(
+                        channelNum,
+                        ch.mode.value,
+                        parseFloat(ch.value.value)
+                    );
+                } catch (error) {
+                    alert(`Failed to set channel ${channelNum}: ${error}`);
+                }
+            });
+
+            // 輸出開關
+            ch.outputBtn.addEventListener('click', async () => {
+                try {
+                    const newState = ch.outputBtn.textContent === 'Output OFF';
+                    await pywebview.api.set_channel_output(channelNum, newState);
+                    ch.outputBtn.textContent = `Output ${newState ? 'ON' : 'OFF'}`;
+                    ch.outputBtn.className = newState ? 'success' : 'warning';
+                } catch (error) {
+                    alert(`Failed to toggle output ${channelNum}: ${error}`);
+                }
+            });
+
+            // 讀值開關
+            ch.readBtn.addEventListener('click', () => {
+                state[`ch${channelNum}Reading`] = !state[`ch${channelNum}Reading`];
+                if (state[`ch${channelNum}Reading`]) {
+                    startReading(channelNum);
+                } else {
+                    stopReading(channelNum);
+                }
+                ch.readBtn.textContent = state[`ch${channelNum}Reading`] ? 'Stop Reading' : 'Start Reading';
+            });
+        }
+
+        // 開始讀值
+        async function startReading(channelNum) {
+            state.readingIntervals[`ch${channelNum}`] = setInterval(async () => {
+                try {
+                    const readings = await pywebview.api.read_channel(channelNum);
+                    elements[`ch${channelNum}`].voltage.textContent = `${readings.voltage.toFixed(6)} V`;
+                    elements[`ch${channelNum}`].current.textContent = `${readings.current.toFixed(6)} A`;
+                } catch (error) {
+                    console.error(`Reading error ch${channelNum}:`, error);
+                }
+            }, 100);
+        }
+
+        // 停止讀值
+        function stopReading(channelNum) {
+            clearInterval(state.readingIntervals[`ch${channelNum}`]);
+            state.readingIntervals[`ch${channelNum}`] = null;
+        }
+
+        // 初始化
+        function initialize() {
+            // 設置事件監聽器
+            elements.connectBtn.addEventListener('click', handleConnect);
+            elements.disconnectBtn.addEventListener('click', handleDisconnect);
+            
+            // 設置通道事件
+            setupChannelEvents(1);
+            setupChannelEvents(2);
+            
+            // Compliance設置
+            elements.setComplianceBtn.addEventListener('click', async () => {
+                try {
+                    await pywebview.api.set_compliance(parseFloat(elements.compliance.value));
+                } catch (error) {
+                    alert('Failed to set compliance: ' + error);
+                }
+            });
+
+            // STS控制
+            elements.stsStartBtn.addEventListener('click', async () => {
+                try {
+                    await pywebview.api.start_sts();
+                } catch (error) {
+                    alert('Failed to start STS: ' + error);
+                }
+            });
+
+            // 初始化UI狀態
+            updateConnectionStatus(false);
+        }
+
+        // 頁面載入完成後初始化
+        document.addEventListener('DOMContentLoaded', initialize);
+    </script>
+</body>
+</html>
