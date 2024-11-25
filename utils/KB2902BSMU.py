@@ -73,44 +73,73 @@ class KeysightB2902B:
             handler.setFormatter(formatter)
             self.logger.addHandler(handler)
 
-    def connect(self, resource_name: str = None) -> bool:
-        """
-        Connect to the SMU
+    # def connect(self, resource_name: str = None) -> bool:
+    #     """
+    #     Connect to the SMU
         
-        Args:
-            resource_name (str, optional): VISA resource name if different from initialization
+    #     Args:
+    #         resource_name (str, optional): VISA resource name if different from initialization
             
-        Returns:
-            bool: True if connection successful, False otherwise
+    #     Returns:
+    #         bool: True if connection successful, False otherwise
             
-        Raises:
-            ConnectionError: If connection fails
-        """
+    #     Raises:
+    #         ConnectionError: If connection fails
+    #     """
+    #     try:
+    #         rm = pyvisa.ResourceManager()
+    #         self.resource_name = resource_name or self.resource_name
+            
+    #         if not self.resource_name:
+    #             raise ConnectionError("No resource name provided")
+                
+    #         self.smu = rm.open_resource(self.resource_name, timeout=self.timeout)
+            
+    #         # Reset and clear the instrument
+    #         self.smu.write("*RST")
+    #         self.smu.write("*CLS")
+            
+    #         # Verify connection by reading ID
+    #         idn = self.smu.query("*IDN?")
+    #         self.logger.info(f"Connected to: {idn.strip()}")
+            
+    #         # Enable system beeper
+    #         self.enable_beeper(True)
+            
+    #         return True
+            
+    #     except Exception as e:
+    #         self.logger.error(f"Connection failed: {str(e)}")
+    #         raise ConnectionError(f"Failed to connect to SMU: {str(e)}")
+    def connect(self, resource_name: str = None) -> bool:
         try:
-            rm = pyvisa.ResourceManager()
+            self.rm = pyvisa.ResourceManager()
             self.resource_name = resource_name or self.resource_name
             
             if not self.resource_name:
                 raise ConnectionError("No resource name provided")
                 
-            self.smu = rm.open_resource(self.resource_name, timeout=self.timeout)
+            # 配置儀器連接
+            self.smu = self.rm.open_resource(self.resource_name)
+            self.smu.timeout = 10000  # 增加超時時間
+            self.smu.read_termination = '\n'
+            self.smu.write_termination = '\n'
+            self.smu.chunk_size = 102400  # 增加讀取緩衝區大小
             
-            # Reset and clear the instrument
+            # 配置測量參數
             self.smu.write("*RST")
             self.smu.write("*CLS")
+            self.smu.write(":FORM:DATA ASC")  # 使用ASCII格式
+            self.smu.write(":SENS:CURR:NPLC 0.1")  # 快速測量模式
+            self.smu.write(":SENS:VOLT:NPLC 0.1")
             
-            # Verify connection by reading ID
             idn = self.smu.query("*IDN?")
             self.logger.info(f"Connected to: {idn.strip()}")
-            
-            # Enable system beeper
-            self.enable_beeper(True)
-            
             return True
             
         except Exception as e:
             self.logger.error(f"Connection failed: {str(e)}")
-            raise ConnectionError(f"Failed to connect to SMU: {str(e)}")
+            return False
 
     def disconnect(self):
         """
@@ -221,30 +250,54 @@ class KeysightB2902B:
             self.logger.error(f"Output disable error: {str(e)}")
             return False
 
-    def measure(self, 
-               channel: Channel,
-               parameters: List[str] = None) -> Union[float, Tuple[float, ...]]:
-        """
-        Perform measurements on specified channel
+    # def measure(self, 
+    #            channel: Channel,
+    #            parameters: List[str] = None) -> Union[float, Tuple[float, ...]]:
+    #     """
+    #     Perform measurements on specified channel
         
-        Args:
-            channel (Channel): Channel to measure
-            parameters (List[str]): List of parameters to measure ('VOLT', 'CURR', 'RES')
-                                  If None, measures all parameters
+    #     Args:
+    #         channel (Channel): Channel to measure
+    #         parameters (List[str]): List of parameters to measure ('VOLT', 'CURR', 'RES')
+    #                               If None, measures all parameters
         
-        Returns:
-            Union[float, Tuple[float, ...]]: Measured values
-        """
+    #     Returns:
+    #         Union[float, Tuple[float, ...]]: Measured values
+    #     """
+    #     if parameters is None:
+    #         parameters = ['VOLT', 'CURR', 'RES']
+            
+    #     try:
+    #         results = []
+    #         for param in parameters:
+    #             value = float(self.smu.query(f":MEAS:{param}? (@{channel.value})"))
+    #             results.append(value)
+                
+    #         return results[0] if len(results) == 1 else tuple(results)
+            
+    #     except Exception as e:
+    #         self.logger.error(f"Measurement error: {str(e)}")
+    #         raise MeasurementError(f"Failed to measure: {str(e)}")
+    def measure(self, channel: Channel, parameters: List[str] = None) -> List[float]:
+        """執行測量"""
         if parameters is None:
-            parameters = ['VOLT', 'CURR', 'RES']
+            parameters = ['VOLT', 'CURR']
             
         try:
             results = []
             for param in parameters:
+                # 清除之前的狀態
+                self.smu.write("*CLS")
+                
+                # 配置測量
+                self.smu.write(f":CONF:{param} (@{channel.value})")
+                self.smu.write(":FORM:ELEM:SENS VOLT,CURR")
+                
+                # 執行測量
                 value = float(self.smu.query(f":MEAS:{param}? (@{channel.value})"))
                 results.append(value)
                 
-            return results[0] if len(results) == 1 else tuple(results)
+            return results
             
         except Exception as e:
             self.logger.error(f"Measurement error: {str(e)}")

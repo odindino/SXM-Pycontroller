@@ -70,10 +70,16 @@
             background-color: var(--secondary-color);
             color: white;
             transition: background-color 0.2s;
+            min-width: 100px;
         }
 
         button:hover {
             opacity: 0.9;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         button.success { background-color: var(--success-color); }
@@ -82,10 +88,14 @@
 
         .reading-display {
             background: #f8f9fa;
-            padding: 10px;
+            padding: 15px;
             border-radius: 4px;
             margin: 10px 0;
             font-family: monospace;
+        }
+
+        .reading-display div {
+            margin: 5px 0;
         }
 
         .status-indicator {
@@ -98,27 +108,34 @@
 
         .status-connected { background-color: var(--success-color); }
         .status-disconnected { background-color: var(--danger-color); }
+
+        .timestamp {
+            color: #666;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Connection Panel -->
         <div class="connection-panel">
             <h2>Connection Settings</h2>
             <div class="input-group">
-                <label>VISA IP:</label>
-                <input type="text" id="visaAddress" placeholder="例：TCPIP0::192.168.1.1::inst0::INSTR">
+                <label>VISA Address:</label>
+                <input type="text" id="visaAddress" placeholder="TCPIP0::172.30.32.98::inst0::INSTR" value="TCPIP0::172.30.32.98::inst0::INSTR">
                 <button id="connectBtn">Connect</button>
                 <button id="disconnectBtn" class="danger" disabled>Disconnect</button>
                 <span id="connectionStatus" class="status-indicator status-disconnected"></span>
             </div>
-            <div class="input-group">
+            <!-- <div class="input-group">
                 <label>Compliance:</label>
                 <input type="number" id="compliance" step="0.001" min="0" value="0.1">
                 <span>A</span>
                 <button id="setComplianceBtn">Set Compliance</button>
-            </div>
+            </div> -->
         </div>
 
+        <!-- Channel 1 Panel -->
         <div class="channel-panel">
             <h2>Channel 1 (Source-Drain)</h2>
             <div class="input-group">
@@ -135,15 +152,24 @@
                 <button id="ch1SetBtn">Set</button>
             </div>
             <div class="input-group">
+                <label>Compliance:</label>
+                <input type="number" id="ch1Compliance" step="0.001" min="0" value="0.01">
+                <span>A</span>
+                <button id="ch1SetComplianceBtn">Set</button>
+                <button id="ch1ReadComplianceBtn">Read</button>
+            </div>
+            <div class="input-group">
                 <button id="ch1OutputBtn" class="warning">Output OFF</button>
-                <button id="ch1ReadBtn">Toggle Reading</button>
+                <button id="ch1ReadBtn" onclick="readChannel(1)">Read Values</button>
             </div>
             <div class="reading-display">
-                <div>Voltage: <span id="ch1Voltage">0.000 V</span></div>
-                <div>Current: <span id="ch1Current">0.000 A</span></div>
+                <div>Voltage: <span id="ch1Voltage">0.000000 V</span></div>
+                <div>Current: <span id="ch1Current">0.000000 μA</span></div>
+                <div class="timestamp">Last Read: <span id="ch1LastRead">Never</span></div>
             </div>
         </div>
 
+        <!-- Channel 2 Panel -->
         <div class="channel-panel">
             <h2>Channel 2 (Gate)</h2>
             <div class="input-group">
@@ -160,15 +186,24 @@
                 <button id="ch2SetBtn">Set</button>
             </div>
             <div class="input-group">
+                <label>Compliance:</label>
+                <input type="number" id="ch2Compliance" step="0.001" min="0" value="0.01">
+                <span>A</span>
+                <button id="ch2SetComplianceBtn">Set</button>
+                <button id="ch2ReadComplianceBtn">Read</button>
+            </div>
+            <div class="input-group">
                 <button id="ch2OutputBtn" class="warning">Output OFF</button>
-                <button id="ch2ReadBtn">Toggle Reading</button>
+                <button id="ch2ReadBtn" onclick="readChannel(2)">Read Values</button>
             </div>
             <div class="reading-display">
-                <div>Voltage: <span id="ch2Voltage">0.000 V</span></div>
-                <div>Current: <span id="ch2Current">0.000 A</span></div>
+                <div>Voltage: <span id="ch2Voltage">0.000000 V</span></div>
+                <div>Current: <span id="ch2Current">0.000000 μA</span></div>
+                <div class="timestamp">Last Read: <span id="ch2LastRead">Never</span></div>
             </div>
         </div>
 
+        <!-- STM Control Panel -->
         <div class="channel-panel">
             <h2>STM Control</h2>
             <div class="input-group">
@@ -181,12 +216,6 @@
         // 全域狀態管理
         const state = {
             connected: false,
-            ch1Reading: false,
-            ch2Reading: false,
-            readingIntervals: {
-                ch1: null,
-                ch2: null
-            }
         };
 
         // DOM元素
@@ -195,8 +224,6 @@
             connectBtn: document.getElementById('connectBtn'),
             disconnectBtn: document.getElementById('disconnectBtn'),
             connectionStatus: document.getElementById('connectionStatus'),
-            compliance: document.getElementById('compliance'),
-            setComplianceBtn: document.getElementById('setComplianceBtn'),
             ch1: {
                 mode: document.getElementById('ch1Mode'),
                 value: document.getElementById('ch1Value'),
@@ -205,7 +232,11 @@
                 outputBtn: document.getElementById('ch1OutputBtn'),
                 readBtn: document.getElementById('ch1ReadBtn'),
                 voltage: document.getElementById('ch1Voltage'),
-                current: document.getElementById('ch1Current')
+                current: document.getElementById('ch1Current'),
+                lastRead: document.getElementById('ch1LastRead'),
+                compliance: document.getElementById('ch1Compliance'),
+                setComplianceBtn: document.getElementById('ch1SetComplianceBtn'),
+                readComplianceBtn: document.getElementById('ch1ReadComplianceBtn')
             },
             ch2: {
                 mode: document.getElementById('ch2Mode'),
@@ -215,47 +246,148 @@
                 outputBtn: document.getElementById('ch2OutputBtn'),
                 readBtn: document.getElementById('ch2ReadBtn'),
                 voltage: document.getElementById('ch2Voltage'),
-                current: document.getElementById('ch2Current')
+                current: document.getElementById('ch2Current'),
+                lastRead: document.getElementById('ch2LastRead'),
+                compliance: document.getElementById('ch2Compliance'),
+                setComplianceBtn: document.getElementById('ch2SetComplianceBtn'),
+                readComplianceBtn: document.getElementById('ch2ReadComplianceBtn')
             },
             stsStartBtn: document.getElementById('stsStartBtn')
         };
 
         // 更新連接狀態UI
         function updateConnectionStatus(connected) {
-            state.connected = connected;
-            elements.connectionStatus.className = `status-indicator status-${connected ? 'connected' : 'disconnected'}`;
-            elements.connectBtn.disabled = connected;
-            elements.disconnectBtn.disabled = !connected;
-            
-            // 更新其他按鈕狀態
-            [elements.ch1, elements.ch2].forEach(ch => {
-                ch.setBtn.disabled = !connected;
-                ch.outputBtn.disabled = !connected;
-                ch.readBtn.disabled = !connected;
-                ch.mode.disabled = !connected;
-                ch.value.disabled = !connected;
-            });
-            
-            elements.setComplianceBtn.disabled = !connected;
-            elements.stsStartBtn.disabled = !connected;
-        }
-
-        // 事件處理器
-        async function handleConnect() {
             try {
-                await pywebview.api.connect_smu(elements.visaAddress.value);
-                updateConnectionStatus(true);
+                state.connected = connected;
+                
+                // 更新狀態指示器
+                if (elements.connectionStatus) {
+                    elements.connectionStatus.className = `status-indicator status-${connected ? 'connected' : 'disconnected'}`;
+                }
+                
+                // 更新連接按鈕
+                if (elements.connectBtn) {
+                    elements.connectBtn.disabled = connected;
+                }
+                if (elements.disconnectBtn) {
+                    elements.disconnectBtn.disabled = !connected;
+                }
+                
+                // 更新通道控制項
+                ['ch1', 'ch2'].forEach(channelId => {
+                    const ch = elements[channelId];
+                    if (ch) {
+                        // 確保每個元素存在再設置狀態
+                        if (ch.setBtn) ch.setBtn.disabled = !connected;
+                        if (ch.outputBtn) ch.outputBtn.disabled = !connected;
+                        if (ch.readBtn) ch.readBtn.disabled = !connected;
+                        if (ch.mode) ch.mode.disabled = !connected;
+                        if (ch.value) ch.value.disabled = !connected;
+                        if (ch.setComplianceBtn) ch.setComplianceBtn.disabled = !connected;
+                        if (ch.readComplianceBtn) ch.readComplianceBtn.disabled = !connected;
+                        if (ch.compliance) ch.compliance.disabled = !connected;
+                    }
+                });
+                
             } catch (error) {
-                alert('Connection failed: ' + error);
+                console.error('Error updating connection status:', error);
             }
         }
 
+
+        function setupChannelEvents(channelNum) {
+            const ch = elements[`ch${channelNum}`];
+            
+            // Compliance控制
+            ch.setComplianceBtn.addEventListener('click', async () => {
+                try {
+                    const value = parseFloat(ch.compliance.value);
+                    await pywebview.api.set_compliance(channelNum, value);
+                    console.log(`Set channel ${channelNum} compliance to ${value}A`);
+                } catch (error) {
+                    alert(`設定compliance失敗: ${error}`);
+                }
+            });
+
+            ch.readComplianceBtn.addEventListener('click', async () => {
+                try {
+                    const value = await pywebview.api.get_compliance(channelNum);
+                    ch.compliance.value = value.toFixed(3);
+                    console.log(`Channel ${channelNum} compliance: ${value}A`);
+                } catch (error) {
+                    alert(`讀取compliance失敗: ${error}`);
+                }
+            });
+        }    
+        // 單次讀值功能
+        async function readChannel(channel) {
+            try {
+                const btn = document.getElementById(`ch${channel}ReadBtn`);
+                btn.disabled = true;
+                btn.textContent = 'Reading...';
+                
+                const reading = await pywebview.api.read_channel(channel);
+                
+                // 電壓保持6位小數
+                document.getElementById(`ch${channel}Voltage`).textContent = 
+                    `${reading.voltage.toFixed(6)} V`;
+                    
+                // 電流轉換為μA並顯示6位小數
+                const currentInMicroAmps = reading.current * 1e6;
+                document.getElementById(`ch${channel}Current`).textContent = 
+                    `${currentInMicroAmps.toFixed(6)} μA`;
+                    
+                document.getElementById(`ch${channel}LastRead`).textContent = 
+                    new Date().toLocaleTimeString();
+                    
+            } catch (error) {
+                alert(`讀值失敗: ${error}`);
+            } finally {
+                const btn = document.getElementById(`ch${channel}ReadBtn`);
+                btn.disabled = false;
+                btn.textContent = 'Read Values';
+            }
+        }
+
+        // 事件處理器
+        // 連接處理函數
+        async function handleConnect() {
+            try {
+                const address = elements.visaAddress.value.trim();
+                if (!address) {
+                    alert('請輸入VISA地址');
+                    return;
+                }
+                
+                elements.connectBtn.disabled = true;
+                elements.connectBtn.textContent = '連接中...';
+                
+                await pywebview.api.connect_smu(address);
+                updateConnectionStatus(true);
+                
+            } catch (error) {
+                alert('連接失敗: ' + error);
+                updateConnectionStatus(false);
+            } finally {
+                elements.connectBtn.disabled = false;
+                elements.connectBtn.textContent = 'Connect';
+            }
+        }
+
+        // 斷開連接處理函數
         async function handleDisconnect() {
             try {
+                elements.disconnectBtn.disabled = true;
+                elements.disconnectBtn.textContent = '斷開中...';
+                
                 await pywebview.api.disconnect_smu();
                 updateConnectionStatus(false);
+                
             } catch (error) {
-                alert('Disconnect failed: ' + error);
+                alert('斷開連接失敗: ' + error);
+            } finally {
+                elements.disconnectBtn.disabled = false;
+                elements.disconnectBtn.textContent = 'Disconnect';
             }
         }
 
@@ -276,7 +408,7 @@
                         parseFloat(ch.value.value)
                     );
                 } catch (error) {
-                    alert(`Failed to set channel ${channelNum}: ${error}`);
+                    alert(`設定通道 ${channelNum} 失敗: ${error}`);
                 }
             });
 
@@ -288,39 +420,9 @@
                     ch.outputBtn.textContent = `Output ${newState ? 'ON' : 'OFF'}`;
                     ch.outputBtn.className = newState ? 'success' : 'warning';
                 } catch (error) {
-                    alert(`Failed to toggle output ${channelNum}: ${error}`);
+                    alert(`切換輸出 ${channelNum} 失敗: ${error}`);
                 }
             });
-
-            // 讀值開關
-            ch.readBtn.addEventListener('click', () => {
-                state[`ch${channelNum}Reading`] = !state[`ch${channelNum}Reading`];
-                if (state[`ch${channelNum}Reading`]) {
-                    startReading(channelNum);
-                } else {
-                    stopReading(channelNum);
-                }
-                ch.readBtn.textContent = state[`ch${channelNum}Reading`] ? 'Stop Reading' : 'Start Reading';
-            });
-        }
-
-        // 開始讀值
-        async function startReading(channelNum) {
-            state.readingIntervals[`ch${channelNum}`] = setInterval(async () => {
-                try {
-                    const readings = await pywebview.api.read_channel(channelNum);
-                    elements[`ch${channelNum}`].voltage.textContent = `${readings.voltage.toFixed(6)} V`;
-                    elements[`ch${channelNum}`].current.textContent = `${readings.current.toFixed(6)} A`;
-                } catch (error) {
-                    console.error(`Reading error ch${channelNum}:`, error);
-                }
-            }, 100);
-        }
-
-        // 停止讀值
-        function stopReading(channelNum) {
-            clearInterval(state.readingIntervals[`ch${channelNum}`]);
-            state.readingIntervals[`ch${channelNum}`] = null;
         }
 
         // 初始化
@@ -338,7 +440,7 @@
                 try {
                     await pywebview.api.set_compliance(parseFloat(elements.compliance.value));
                 } catch (error) {
-                    alert('Failed to set compliance: ' + error);
+                    alert('設定限制值失敗: ' + error);
                 }
             });
 
@@ -347,7 +449,7 @@
                 try {
                     await pywebview.api.start_sts();
                 } catch (error) {
-                    alert('Failed to start STS: ' + error);
+                    alert('啟動STS失敗: ' + error);
                 }
             });
 
