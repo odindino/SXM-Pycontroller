@@ -210,6 +210,7 @@ function setupChannelEvents(channelNum) {
     });
 }
 
+
 // 初始化
 function initialize() {
     // 設置事件監聽器
@@ -250,6 +251,7 @@ class STSControl {
     constructor() {
         this.setupEventListeners();
         this.loadScripts();
+        this.stsStatus = document.getElementById('stsStatus');
     }
 
     setupEventListeners() {
@@ -404,30 +406,44 @@ class STSControl {
         return { vds_list, vg_list };
     }
 
-    async startSTS(isMulti) {
+    async startSTS() {
         try {
-            const buttons = document.querySelectorAll('#startSingleSts, #startMultiSts');
-            buttons.forEach(btn => btn.disabled = true);
-            
-            if (isMulti) {
-                const scriptName = document.getElementById('scriptSelect').value;
-                if (!scriptName) {
-                    alert('Please select a script');
-                    return;
-                }
-                await pywebview.api.perform_multi_sts(scriptName);
-            } else {
-                // 單次STS
-                await pywebview.api.start_sts();
+            const startStsBtn = document.getElementById('startSingleSts');
+            if (startStsBtn) {
+                startStsBtn.disabled = true;
+                startStsBtn.textContent = 'Starting STS...';
             }
             
-            console.log(`${isMulti ? 'Multi' : 'Single'} STS completed successfully`);
+            // 更新狀態顯示
+            if (this.stsStatus) {
+                this.stsStatus.textContent = 'Initiating STS measurement...';
+            }
+
+            // 調用後端API
+            const success = await pywebview.api.start_sts();
+            
+            if (success) {
+                if (this.stsStatus) {
+                    this.stsStatus.textContent = 'STS measurement completed successfully';
+                }
+                console.log('STS measurement completed successfully');
+            } else {
+                throw new Error('STS measurement failed');
+            }
             
         } catch (error) {
             console.error('STS Error:', error);
-            alert(`Error performing STS: ${error}`);
+            if (this.stsStatus) {
+                this.stsStatus.textContent = `Error: ${error.message}`;
+            }
+            alert(`Error performing STS: ${error.message}`);
         } finally {
-            buttons.forEach(btn => btn.disabled = false);
+            // 恢復按鈕狀態
+            const startStsBtn = document.getElementById('startSingleSts');
+            if (startStsBtn) {
+                startStsBtn.disabled = false;
+                startStsBtn.textContent = 'Start Single STS';
+            }
         }
     }
 }

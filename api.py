@@ -32,19 +32,9 @@ class SMUControlAPI:
 
     def __init__(self):
         """初始化API"""
-        # self.smu = None
-        # # self.smu: Optional[KeysightB2902B] = None
-        # self.stm = SXMSpectroControl(debug_mode=True)
-        # self._lock = threading.Lock()
-        # self._reading_active = {1: False, 2: False}
-        # self._reading_threads: Dict[int, threading.Thread] = {}
-        # self._compliance = {1: 0.01, 2: 0.01}  # 預設compliance值（分通道）
-        # self._cleanup_handler = None
-        # # 註冊清理處理器
-        # self._cleanup_event = threading.Event()
 
         self.smu = None
-        self.stm = SXMController(debug_mode=True)
+        self.stm_controller = None
         self._lock = threading.Lock()
         self._reading_active = {1: False, 2: False}
         self._reading_threads: Dict[int, threading.Thread] = {}
@@ -53,6 +43,7 @@ class SMUControlAPI:
         self._cleanup_handler = None
         self._cleanup_event = threading.Event()
 
+    # ========== SMU General functions ========== #
     def connect_smu(self, address: str) -> bool:
         """
         連接SMU
@@ -102,7 +93,10 @@ class SMUControlAPI:
 
         except Exception as e:
             raise Exception(f"中斷連接失敗: {str(e)}")
+    # ========== SMU General functions END ========== #
 
+
+    # ========== SMU Channel functions ========== #
     def set_channel_value(self, channel: int, mode: str, value: float) -> bool:
         """
         設定通道輸出值
@@ -185,30 +179,6 @@ class SMUControlAPI:
         except Exception as e:
             raise Exception(f"讀取通道{channel} compliance失敗: {str(e)}")
 
-    # def read_channel(self, channel: int) -> Dict[str, float]:
-    #     """
-    #     讀取通道數值
-
-    #     Args:
-    #         channel: 通道號(1或2)
-
-    #     Returns:
-    #         Dict containing voltage and current readings
-    #     """
-    #     try:
-    #         if not self.smu:
-    #             raise Exception("SMU未連接")
-
-    #         channel_enum = Channel.CH1 if channel == 1 else Channel.CH2
-    #         reading = self.smu.measure(channel_enum, ['VOLT', 'CURR'])
-
-    #         return {
-    #             'voltage': reading[0],
-    #             'current': reading[1]
-    #         }
-
-    #     except Exception as e:
-    #         raise Exception(f"讀取通道{channel}失敗: {str(e)}")
     def read_channel(self, channel: int) -> dict:
         """
         執行單次讀值
@@ -332,6 +302,38 @@ class SMUControlAPI:
             # 讀值間隔
             time.sleep(0.1)
 
+    # ========== SMU Channel functions END ========== #
+
+    # ========== SXM functions ========== #
+    # ========== SXM connection ========== #
+    def ensure_controller(self) -> bool:
+        """確保控制器存在且連接正常"""
+        try:
+            # 如果控制器不存在，建立新的控制器
+            if self.stm_controller is None:
+                print("Creating new STM controller...")
+                self.stm_controller = SXMController(debug_mode=True)
+                print("STM controller created")
+                
+                # 使用簡單的變數賦值來測試連接
+                self.stm_controller.MySXM.SendWait("a := 0;")
+                return True
+                
+            # 如果控制器存在，檢查DDE連接
+            try:
+                # 使用簡單的變數賦值來測試連接
+                self.stm_controller.MySXM.SendWait("a := 0;")
+                return True
+            except:
+                print("Connection lost, recreating controller...")
+                self.stm_controller = None
+                return self.ensure_controller()
+                
+        except Exception as e:
+            print(f"Controller initialization error: {str(e)}")
+            return False
+
+    # ========== SXM functions END ========== #
 
     ## ========== STS functions ==========
     def start_sts(self) -> bool:
@@ -344,20 +346,25 @@ class SMUControlAPI:
             測量是否成功開始
         """
         try:
-            if not self.stm:
-                raise Exception("STM控制器未初始化")
-                
-            # 直接使用 spectroscopy_start() 方法
-            success = self.stm.spectroscopy_start()
+            print("\nPreparing for STS measurement...")
             
-            if not success:
-                print("Warning: STS start command returned false")
+            # 確保控制器就緒
+            if not self.ensure_controller():
+                raise Exception("Failed to initialize controller")
+                
+            print("Starting STS measurement...")
+            success = self.stm_controller.spectroscopy_start()
+            
+            if success:
+                print("STS measurement started successfully")
+            else:
+                print("Failed to start STS measurement")
                 
             return success
             
         except Exception as e:
-            print(f"STS start error: {str(e)}")  # 加入詳細的錯誤訊息
-            raise Exception(f"執行STS失敗: {str(e)}")
+            print(f"STS execution error: {str(e)}")
+            return False
         
 
     def perform_multi_sts(self, script_name: str) -> bool:
