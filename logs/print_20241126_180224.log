@@ -1,0 +1,5 @@
+2024-11-26 18:02:24,194 - Sending command: ScanPara('Scan', 0);
+2024-11-26 18:02:24,195 - Command error: Unable to send command (err=0x4006)
+2024-11-26 18:02:24,195 - Sending command: FeedPara('Enable', 0);
+2024-11-26 18:02:24,195 - Command error: Unable to send command (err=0x4006)
+2024-11-26 18:02:24,670 - System safely shut down
