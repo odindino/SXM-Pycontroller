@@ -10,6 +10,12 @@ class SXMController(SXMCITSControl):
 
     def __init__(self, debug_mode=False):
         super().__init__(debug_mode)
+        self.sts_controller = None  # 將在連接SMU後初始
+
+    def initialize_sts_controller(self, smu_controller):
+        """初始化STS控制器"""
+        from modules.SXMSTSController import STSController
+        self.sts_controller = STSController(self, smu_controller)
 
     @track_function
     def initialize_system(self):

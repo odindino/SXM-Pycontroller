@@ -320,6 +320,8 @@ class SMUControlAPI:
             # 讀值間隔
             time.sleep(0.1)
 
+
+    ## ========== STS functions ==========
     def start_sts(self) -> bool:
         """開始STS測量"""
         try:
@@ -330,7 +332,41 @@ class SMUControlAPI:
 
         except Exception as e:
             raise Exception(f"STS測量失敗: {str(e)}")
+        
 
+    def perform_multi_sts(self, script_name: str) -> bool:
+        """執行多組STS量測"""
+        try:
+            script = self.stm.sts_controller.get_script(script_name)
+            if not script:
+                raise ValueError(f"找不到腳本: {script_name}")
+                
+            return self.stm.sts_controller.perform_multi_sts(script)
+            
+        except Exception as e:
+            raise Exception(f"執行STS量測失敗: {str(e)}")
+
+    def save_sts_script(self, name: str, vds_list: list[float], vg_list: list[float]) -> bool:
+        """儲存STS腳本"""
+        try:
+            from modules.SXMSTSController import STSScript
+            script = STSScript(name, vds_list, vg_list)
+            return self.stm.sts_controller.save_script(script)
+            
+        except Exception as e:
+            raise Exception(f"儲存腳本失敗: {str(e)}")
+
+    def get_sts_scripts(self) -> dict:
+        """取得所有腳本資訊"""
+        try:
+            scripts = self.stm.sts_controller.get_all_scripts()
+            return {
+                name: script.to_dict()
+                for name, script in scripts.items()
+            }
+        except Exception as e:
+            raise Exception(f"取得腳本列表失敗: {str(e)}")
+    ## ========== STS functions END ==========
 
     def cleanup(self):
         """清理資源"""
