@@ -212,13 +212,21 @@ function setupChannelEvents(channelNum) {
 
 // 初始化
 function initialize() {
+    try {
+        // 檢查必要元素
+        if (!elements.visaAddress || !elements.connectBtn || !elements.disconnectBtn) {
+            console.error('Critical UI elements missing');
+            return;
+        }
+
     // 設置事件監聽器
     elements.connectBtn.addEventListener('click', handleConnect);
     elements.disconnectBtn.addEventListener('click', handleDisconnect);
     
-    // 設置通道事件
-    setupChannelEvents(1);
-    setupChannelEvents(2);
+    // 設置通道控制
+    ['ch1', 'ch2'].forEach(channelId => {
+        setupChannelEvents(channelId);
+    });
     
     // Compliance設置
     elements.setComplianceBtn.addEventListener('click', async () => {
@@ -229,17 +237,16 @@ function initialize() {
         }
     });
 
-    // STS控制
-    elements.stsStartBtn.addEventListener('click', async () => {
-        try {
-            await pywebview.api.start_sts();
-        } catch (error) {
-            alert('啟動STS失敗: ' + error);
-        }
-    });
+    // 初始化STS控制
+    window.stsControl = new STSControl();
 
     // 初始化UI狀態
     updateConnectionStatus(false);
+
+    console.log('Initialization completed');
+} catch (error) {
+    console.error('Initialization failed:', error);
+}
 }
 
 // 頁面載入完成後初始化
@@ -358,12 +365,34 @@ class STSControl {
     }
 
     updateProgress(progress) {
-        const progressBar = document.querySelector('.progress-fill');
-        const progressText = document.getElementById('stsProgressText');
-        
-        if (progressBar && progressText) {
-            progressBar.style.width = `${progress}%`;
-            progressText.textContent = `${progress.toFixed(1)}%`;
+        try {
+            const progressBar = document.getElementById('stsProgress');
+            const progressText = document.getElementById('stsProgressText');
+            
+            if (progressBar && progressText) {
+                progressBar.style.width = `${progress}%`;
+                progressText.textContent = `${progress.toFixed(1)}%`;
+            }
+            
+        } catch (error) {
+            console.error('Update progress failed:', error);
+        }
+    }
+
+    // 增加處理DDE重連的方法
+    async checkConnection() {
+        try {
+            if (!this.isRunning) return;
+            
+            const connected = await pywebview.api.check_sts_connection();
+            if (!connected) {
+                this.updateStatus('重新建立連接...', 'warning');
+                await pywebview.api.reconnect_sts();
+            }
+            
+        } catch (error) {
+            console.error('Connection check failed:', error);
+            this.updateStatus('連接檢查失敗', 'error');
         }
     }
 
