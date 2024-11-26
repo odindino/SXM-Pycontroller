@@ -57,7 +57,7 @@ class SMUControlAPI:
             success = self.smu.connect(address)
             if success:
                 # 連接時設定初始compliance
-                self.stm.initialize_sts_controller(self)
+                # self.stm.initialize_sts_controller(self)
                 self.smu.smu.write(":SYST:BEEP:STAT ON")
                 self.set_compliance(1, self._compliance[1])
                 self.set_compliance(2, self._compliance[2])
