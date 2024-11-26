@@ -1,6 +1,6 @@
 """
 簡化版STS測試程式
-只測試基本的DDE通訊和STS啟動功能
+使用 SXMSpectroControl 進行 STS 測量控制
 """
 
 import webview
@@ -12,80 +12,54 @@ import sys
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.append(str(ROOT_DIR))
 
-# 現在可以直接從 modules 導入
-from modules import SXMRemote
+from modules import SXMPySpectro
 
-# 其餘程式碼保持不變...
+sxm = SXMPySpectro.SXMSpectroControl(debug_mode=True)
+sxm.spectroscopy_start()
 
-class STSTestAPI:
-    def __init__(self):
-        self.dde_client = None
-        
-    def initialize_dde(self):
-        """初始化DDE連接"""
-        try:
-            if self.dde_client is None:
-                self.dde_client = SXMRemote.DDEClient("SXM", "Remote")
+# class STSTestAPI:
+#     def __init__(self):
+#         print("Initializing STM controller...")
+#         self.stm_controller = SXMPySpectro.SXMSpectroControl(debug_mode=True)
+#         print("STM controller initialized")
+
+#     def execute_sts(self) -> bool:
+#         """執行STS測量"""
+#         try:
+#             print("\nStarting STS measurement...")
+#             success = self.stm_controller.spectroscopy_start()
             
-            # 測試連接
-            self.dde_client.SendWait("*OPC?")
-            while self.dde_client.NotGotAnswer:
-                SXMRemote.loop()
+#             if success:
+#                 print("STS measurement started successfully")
+#             else:
+#                 print("Failed to start STS measurement")
                 
-            return True
+#             return success
             
-        except Exception as e:
-            print(f"DDE initialization error: {str(e)}")
-            return False
+#         except Exception as e:
+#             print(f"STS execution error: {str(e)}")
+#             return False
 
-    def execute_sts(self) -> bool:
-        """執行STS測量"""
-        try:
-            # 確保DDE連接
-            if not self.initialize_dde():
-                raise Exception("Failed to initialize DDE")
-                
-            print("Starting STS measurement...")
-            
-            # 發送STS開始命令
-            self.dde_client.SendWait("SpectStart;")
-            
-            # 等待回應
-            wait_count = 0
-            while self.dde_client.NotGotAnswer and wait_count < 50:
-                SXMRemote.loop()
-                time.sleep(0.1)
-                wait_count += 1
-                
-            if wait_count >= 50:
-                raise Exception("STS response timeout")
-                
-            print("STS command sent successfully")
-            return True
-            
-        except Exception as e:
-            print(f"STS execution error: {str(e)}")
-            return False
+# def main():
+#     try:
+#         # 建立API實例
+#         api = STSTestAPI()
+        
+#         # 建立視窗
+#         window = webview.create_window(
+#             'STS Test',
+#             str(Path(__file__).parent / 'STStestGUI.html'),
+#             js_api=api,
+#             width=400,
+#             height=200
+#         )
+        
+#         # 啟動GUI
+#         webview.start(debug=True)
+        
+#     except Exception as e:
+#         print(f"Application error: {str(e)}")
+#         sys.exit(1)
 
-def main():
-    try:
-        # 建立API實例
-        api = STSTestAPI()
-        
-        # 建立視窗
-        window = webview.create_window(
-            'STS Test',
-            str(Path(__file__).parent / 'STStestGUI.html'),
-            js_api=api,
-            width=400,
-            height=200
-        )
-        
-        # 啟動GUI
-        webview.start(debug=True)
-        
-    except Exception as e:
-        print(f"Application error: {str(e)}")
-
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
