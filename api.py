@@ -35,7 +35,6 @@ class SMUControlAPI:
 
         self.smu = None
         self.stm = None
-        self.ensure_controller()
         self._lock = threading.Lock()
         self._reading_active = {1: False, 2: False}
         self._reading_threads: Dict[int, threading.Thread] = {}
@@ -309,6 +308,7 @@ class SMUControlAPI:
     # ========== SXM connection ========== #
     def ensure_controller(self) -> bool:
         """確保控制器存在且連接正常"""
+        print("Ensuring STM controller...")
         try:
             # 如果控制器不存在，建立新的控制器
             if self.stm is None:
@@ -352,6 +352,7 @@ class SMUControlAPI:
             
             # 確保控制器就緒
             if not self.ensure_controller():
+                print("not ensure controller")
                 raise Exception("Failed to initialize controller")
                 
             print("Starting STS measurement...")
