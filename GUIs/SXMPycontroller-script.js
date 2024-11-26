@@ -286,6 +286,7 @@ class STSControl {
         });
     }
 
+
     addSettingRow() {
         const row = document.createElement('div');
         row.className = 'sts-row';
@@ -387,7 +388,9 @@ class STSControl {
 
     async startSTS(isMulti) {
         try {
-            const settings = this.collectCurrentSettings();
+            const buttons = document.querySelectorAll('#startSingleSts, #startMultiSts');
+            buttons.forEach(btn => btn.disabled = true);
+            
             if (isMulti) {
                 const scriptName = document.getElementById('scriptSelect').value;
                 if (!scriptName) {
@@ -396,22 +399,22 @@ class STSControl {
                 }
                 await pywebview.api.perform_multi_sts(scriptName);
             } else {
-                // 單次STS測量只使用第一組設定
-                await pywebview.api.perform_single_sts(
-                    settings.vds_list[0], 
-                    settings.vg_list[0]
-                );
+                // 單次STS
+                await pywebview.api.start_sts();
             }
+            
+            console.log(`${isMulti ? 'Multi' : 'Single'} STS completed successfully`);
+            
         } catch (error) {
+            console.error('STS Error:', error);
             alert(`Error performing STS: ${error}`);
+        } finally {
+            buttons.forEach(btn => btn.disabled = false);
         }
     }
 }
 
 // 初始化時建立STS控制實例
 document.addEventListener('DOMContentLoaded', () => {
-    // ... 其他初始化程式碼 ...
-    
-    // 初始化STS控制
     window.stsControl = new STSControl();
 });

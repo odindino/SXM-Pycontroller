@@ -16,6 +16,7 @@ from enum import Enum
 
 from utils.KB2902BSMU import KeysightB2902B, Channel, OutputMode
 from modules.SXMPySpectro import SXMSpectroControl
+from SXMPycontroller import SXMController
 
 
 @dataclass
@@ -31,15 +32,25 @@ class SMUControlAPI:
 
     def __init__(self):
         """初始化API"""
+        # self.smu = None
+        # # self.smu: Optional[KeysightB2902B] = None
+        # self.stm = SXMSpectroControl(debug_mode=True)
+        # self._lock = threading.Lock()
+        # self._reading_active = {1: False, 2: False}
+        # self._reading_threads: Dict[int, threading.Thread] = {}
+        # self._compliance = {1: 0.01, 2: 0.01}  # 預設compliance值（分通道）
+        # self._cleanup_handler = None
+        # # 註冊清理處理器
+        # self._cleanup_event = threading.Event()
+
         self.smu = None
-        # self.smu: Optional[KeysightB2902B] = None
-        self.stm = SXMSpectroControl(debug_mode=True)
+        self.stm = SXMController(debug_mode=True)
         self._lock = threading.Lock()
         self._reading_active = {1: False, 2: False}
         self._reading_threads: Dict[int, threading.Thread] = {}
         self._compliance = {1: 0.01, 2: 0.01}  # 預設compliance值（分通道）
-        self._cleanup_handler = None
         # 註冊清理處理器
+        self._cleanup_handler = None
         self._cleanup_event = threading.Event()
 
     def connect_smu(self, address: str) -> bool:
@@ -54,7 +65,8 @@ class SMUControlAPI:
             success = self.smu.connect(address)
             if success:
                 # 連接時設定初始compliance
-                self.smu.smu.write(":SYST:BEEP:STAT ON")  # 開啟蜂鳴器
+                self.stm.initialize_sts_controller(self)
+                self.smu.smu.write(":SYST:BEEP:STAT ON")
                 self.set_compliance(1, self._compliance[1])
                 self.set_compliance(2, self._compliance[2])
                 self.beep()
@@ -337,6 +349,9 @@ class SMUControlAPI:
     def perform_multi_sts(self, script_name: str) -> bool:
         """執行多組STS量測"""
         try:
+            if not self.stm.sts_controller:
+                raise Exception("STS Controller未初始化")
+                
             script = self.stm.sts_controller.get_script(script_name)
             if not script:
                 raise ValueError(f"找不到腳本: {script_name}")
@@ -349,6 +364,9 @@ class SMUControlAPI:
     def save_sts_script(self, name: str, vds_list: list[float], vg_list: list[float]) -> bool:
         """儲存STS腳本"""
         try:
+            if not self.stm.sts_controller:
+                raise Exception("STS Controller未初始化")
+                
             from modules.SXMSTSController import STSScript
             script = STSScript(name, vds_list, vg_list)
             return self.stm.sts_controller.save_script(script)
@@ -359,6 +377,9 @@ class SMUControlAPI:
     def get_sts_scripts(self) -> dict:
         """取得所有腳本資訊"""
         try:
+            if not self.stm.sts_controller:
+                raise Exception("STS Controller未初始化")
+                
             scripts = self.stm.sts_controller.get_all_scripts()
             return {
                 name: script.to_dict()
