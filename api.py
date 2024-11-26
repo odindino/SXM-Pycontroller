@@ -34,7 +34,7 @@ class SMUControlAPI:
         """初始化API"""
 
         self.smu = None
-        self.stm_controller = None
+        self.stm = None
         self.ensure_controller()
         self._lock = threading.Lock()
         self._reading_active = {1: False, 2: False}
@@ -311,24 +311,24 @@ class SMUControlAPI:
         """確保控制器存在且連接正常"""
         try:
             # 如果控制器不存在，建立新的控制器
-            if self.stm_controller is None:
+            if self.stm is None:
                 print("Creating new STM controller...")
-                self.stm_controller = SXMController(debug_mode=True)
+                self.stm = SXMController(debug_mode=True)
                 print("STM controller created")
-                self.stm_controller.initialize_smu_controller(self.smu)
+                self.stm.initialize_smu_controller(self.smu)
                 
                 # 使用簡單的變數賦值來測試連接
-                self.stm_controller.MySXM.SendWait("a := 0;")
+                self.stm.MySXM.SendWait("a := 0;")
                 return True
                 
             # 如果控制器存在，檢查DDE連接
             try:
                 # 使用簡單的變數賦值來測試連接
-                self.stm_controller.MySXM.SendWait("a := 0;")
+                self.stm.MySXM.SendWait("a := 0;")
                 return True
             except:
                 print("Connection lost, recreating controller...")
-                self.stm_controller = None
+                self.stm = None
                 return self.ensure_controller()
                 
         except Exception as e:
@@ -355,7 +355,7 @@ class SMUControlAPI:
                 raise Exception("Failed to initialize controller")
                 
             print("Starting STS measurement...")
-            success = self.stm_controller.spectroscopy_start()
+            success = self.stm.spectroscopy_start()
             
             if success:
                 print("STS measurement started successfully")
@@ -372,14 +372,14 @@ class SMUControlAPI:
     def perform_multi_sts(self, script_name: str) -> bool:
         """執行多組STS量測"""
         try:
-            if not self.stm_controller:
+            if not self.stm:
                 raise Exception("STS Controller未初始化")
                 
-            script = self.stm_controller.get_script(script_name)
+            script = self.stm.get_script(script_name)
             if not script:
                 raise ValueError(f"找不到腳本: {script_name}")
                 
-            return self.stm_controller.perform_multi_sts(script)
+            return self.stm.perform_multi_sts(script)
             
         except Exception as e:
             raise Exception(f"執行STS量測失敗: {str(e)}")
@@ -387,12 +387,12 @@ class SMUControlAPI:
     def save_sts_script(self, name: str, vds_list: list[float], vg_list: list[float]) -> bool:
         """儲存STS腳本"""
         try:
-            if not self.stm_controller:
+            if not self.stm:
                 raise Exception("STS Controller未初始化")
                 
             from modules.SXMSTSController import STSScript
             script = STSScript(name, vds_list, vg_list)
-            return self.stm_controller.save_script(script)
+            return self.stm.save_script(script)
             
         except Exception as e:
             raise Exception(f"儲存腳本失敗: {str(e)}")
@@ -400,10 +400,10 @@ class SMUControlAPI:
     def get_sts_scripts(self) -> dict:
         """取得所有腳本資訊"""
         try:
-            if not self.stm_controller:
+            if not self.stm:
                 raise Exception("STS Controller未初始化")
                 
-            scripts = self.stm_controller.get_all_scripts()
+            scripts = self.stm.get_all_scripts()
             return {
                 name: script.to_dict()
                 for name, script in scripts.items()
