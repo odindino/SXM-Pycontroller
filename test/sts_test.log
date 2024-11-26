@@ -1,0 +1,403 @@
+2024-11-26 17:07:34,334 - INFO - Starting STS Test application
+2024-11-26 17:07:34,335 - WARNING - DDE connection health check failed
+2024-11-26 17:07:34,335 - INFO - STSTestAPI initialized
+2024-11-26 17:07:34,675 - DEBUG - Using WinForms / Chromium
+2024-11-26 17:07:57,537 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:07:57,594 - INFO - Starting STS measurement...
+2024-11-26 17:08:00,134 - INFO - STS measurement started successfully
+2024-11-26 17:08:01,238 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:01,238 - INFO - Starting STS measurement...
+2024-11-26 17:08:01,239 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:01,239 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:01,239 - INFO - Starting STS measurement...
+2024-11-26 17:08:01,239 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:01,239 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:01,239 - INFO - Starting STS measurement...
+2024-11-26 17:08:01,240 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:02,971 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:02,972 - INFO - Starting STS measurement...
+2024-11-26 17:08:02,972 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:02,972 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:02,972 - INFO - Starting STS measurement...
+2024-11-26 17:08:02,972 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:02,972 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:02,972 - INFO - Starting STS measurement...
+2024-11-26 17:08:02,973 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:04,335 - WARNING - DDE connection health check failed
+2024-11-26 17:08:06,379 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:06,431 - INFO - Starting STS measurement...
+2024-11-26 17:08:08,970 - INFO - STS measurement started successfully
+2024-11-26 17:08:11,450 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:11,450 - INFO - Starting STS measurement...
+2024-11-26 17:08:11,450 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:11,451 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:11,451 - INFO - Starting STS measurement...
+2024-11-26 17:08:11,451 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:11,451 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:11,451 - INFO - Starting STS measurement...
+2024-11-26 17:08:11,451 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:13,048 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:13,048 - INFO - Starting STS measurement...
+2024-11-26 17:08:13,049 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:13,049 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:13,049 - INFO - Starting STS measurement...
+2024-11-26 17:08:13,049 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:13,049 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:13,049 - INFO - Starting STS measurement...
+2024-11-26 17:08:13,049 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:14,456 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:14,456 - INFO - Starting STS measurement...
+2024-11-26 17:08:14,457 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:14,457 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:14,457 - INFO - Starting STS measurement...
+2024-11-26 17:08:14,457 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:14,457 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:14,457 - INFO - Starting STS measurement...
+2024-11-26 17:08:14,457 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:15,466 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:15,466 - INFO - Starting STS measurement...
+2024-11-26 17:08:15,466 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:15,466 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:15,467 - INFO - Starting STS measurement...
+2024-11-26 17:08:15,467 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:15,467 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:15,467 - INFO - Starting STS measurement...
+2024-11-26 17:08:15,467 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:16,125 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:16,126 - INFO - Starting STS measurement...
+2024-11-26 17:08:16,126 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:16,126 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:16,126 - INFO - Starting STS measurement...
+2024-11-26 17:08:16,126 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:16,127 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:16,127 - INFO - Starting STS measurement...
+2024-11-26 17:08:16,127 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:16,657 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:16,658 - INFO - Starting STS measurement...
+2024-11-26 17:08:16,658 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:16,658 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:16,658 - INFO - Starting STS measurement...
+2024-11-26 17:08:16,658 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:16,658 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:16,658 - INFO - Starting STS measurement...
+2024-11-26 17:08:16,659 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:17,180 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:17,180 - INFO - Starting STS measurement...
+2024-11-26 17:08:17,180 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:17,181 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:17,181 - INFO - Starting STS measurement...
+2024-11-26 17:08:17,181 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:17,181 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:17,181 - INFO - Starting STS measurement...
+2024-11-26 17:08:17,181 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:17,695 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:17,695 - INFO - Starting STS measurement...
+2024-11-26 17:08:17,696 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:17,696 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:17,696 - INFO - Starting STS measurement...
+2024-11-26 17:08:17,696 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:17,696 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:17,696 - INFO - Starting STS measurement...
+2024-11-26 17:08:17,696 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:18,246 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:18,246 - INFO - Starting STS measurement...
+2024-11-26 17:08:18,246 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:18,246 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:18,247 - INFO - Starting STS measurement...
+2024-11-26 17:08:18,247 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:18,247 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:18,247 - INFO - Starting STS measurement...
+2024-11-26 17:08:18,247 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:18,782 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:18,782 - INFO - Starting STS measurement...
+2024-11-26 17:08:18,782 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:18,783 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:18,783 - INFO - Starting STS measurement...
+2024-11-26 17:08:18,783 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:18,783 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:18,783 - INFO - Starting STS measurement...
+2024-11-26 17:08:18,783 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:19,285 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:19,285 - INFO - Starting STS measurement...
+2024-11-26 17:08:19,285 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:19,286 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:19,286 - INFO - Starting STS measurement...
+2024-11-26 17:08:19,286 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:19,286 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:19,286 - INFO - Starting STS measurement...
+2024-11-26 17:08:19,286 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:19,767 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:19,767 - INFO - Starting STS measurement...
+2024-11-26 17:08:19,767 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:19,767 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:19,767 - INFO - Starting STS measurement...
+2024-11-26 17:08:19,767 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:19,767 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:19,768 - INFO - Starting STS measurement...
+2024-11-26 17:08:19,768 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:20,584 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:20,584 - INFO - Starting STS measurement...
+2024-11-26 17:08:20,584 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:20,585 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:20,585 - INFO - Starting STS measurement...
+2024-11-26 17:08:20,585 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:20,585 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:20,585 - INFO - Starting STS measurement...
+2024-11-26 17:08:20,586 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:21,556 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:21,557 - INFO - Starting STS measurement...
+2024-11-26 17:08:21,557 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:21,557 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:21,557 - INFO - Starting STS measurement...
+2024-11-26 17:08:21,557 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:21,557 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:21,557 - INFO - Starting STS measurement...
+2024-11-26 17:08:21,558 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:22,714 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:22,714 - INFO - Starting STS measurement...
+2024-11-26 17:08:22,715 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:22,715 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:22,715 - INFO - Starting STS measurement...
+2024-11-26 17:08:22,715 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:22,715 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:22,715 - INFO - Starting STS measurement...
+2024-11-26 17:08:22,715 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:23,826 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:23,826 - INFO - Starting STS measurement...
+2024-11-26 17:08:23,826 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:23,826 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:23,826 - INFO - Starting STS measurement...
+2024-11-26 17:08:23,827 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:23,827 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:23,827 - INFO - Starting STS measurement...
+2024-11-26 17:08:23,827 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:25,713 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:25,713 - INFO - Starting STS measurement...
+2024-11-26 17:08:25,713 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:25,713 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:25,713 - INFO - Starting STS measurement...
+2024-11-26 17:08:25,713 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:25,713 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:25,713 - INFO - Starting STS measurement...
+2024-11-26 17:08:25,713 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:26,421 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:26,422 - INFO - Starting STS measurement...
+2024-11-26 17:08:26,422 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:26,422 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:26,422 - INFO - Starting STS measurement...
+2024-11-26 17:08:26,422 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:26,422 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:26,422 - INFO - Starting STS measurement...
+2024-11-26 17:08:26,423 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:27,072 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:27,072 - INFO - Starting STS measurement...
+2024-11-26 17:08:27,073 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:27,073 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:27,073 - INFO - Starting STS measurement...
+2024-11-26 17:08:27,073 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:27,073 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:27,073 - INFO - Starting STS measurement...
+2024-11-26 17:08:27,073 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:27,691 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:27,691 - INFO - Starting STS measurement...
+2024-11-26 17:08:27,691 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:27,691 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:27,691 - INFO - Starting STS measurement...
+2024-11-26 17:08:27,692 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:27,692 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:27,692 - INFO - Starting STS measurement...
+2024-11-26 17:08:27,692 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:30,918 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:30,919 - INFO - Starting STS measurement...
+2024-11-26 17:08:30,919 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:30,919 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:30,919 - INFO - Starting STS measurement...
+2024-11-26 17:08:30,919 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:30,919 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:30,919 - INFO - Starting STS measurement...
+2024-11-26 17:08:30,920 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:32,351 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:32,351 - INFO - Starting STS measurement...
+2024-11-26 17:08:32,352 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:32,352 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:32,352 - INFO - Starting STS measurement...
+2024-11-26 17:08:32,352 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:32,352 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:32,352 - INFO - Starting STS measurement...
+2024-11-26 17:08:32,353 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:34,251 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:34,251 - INFO - Starting STS measurement...
+2024-11-26 17:08:34,251 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:34,252 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:34,252 - INFO - Starting STS measurement...
+2024-11-26 17:08:34,252 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:34,252 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:34,252 - INFO - Starting STS measurement...
+2024-11-26 17:08:34,252 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:34,337 - WARNING - DDE connection health check failed
+2024-11-26 17:08:35,810 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:35,841 - INFO - Starting STS measurement...
+2024-11-26 17:08:38,378 - INFO - STS measurement started successfully
+2024-11-26 17:08:43,156 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:43,156 - INFO - Starting STS measurement...
+2024-11-26 17:08:43,157 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:43,157 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:43,157 - INFO - Starting STS measurement...
+2024-11-26 17:08:43,157 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:43,157 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:43,157 - INFO - Starting STS measurement...
+2024-11-26 17:08:43,157 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:43,901 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:43,901 - INFO - Starting STS measurement...
+2024-11-26 17:08:43,902 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:43,902 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:43,902 - INFO - Starting STS measurement...
+2024-11-26 17:08:43,902 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:43,902 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:43,902 - INFO - Starting STS measurement...
+2024-11-26 17:08:43,902 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:44,517 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:44,517 - INFO - Starting STS measurement...
+2024-11-26 17:08:44,518 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:44,518 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:44,518 - INFO - Starting STS measurement...
+2024-11-26 17:08:44,518 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:44,518 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:44,518 - INFO - Starting STS measurement...
+2024-11-26 17:08:44,518 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:45,162 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:45,162 - INFO - Starting STS measurement...
+2024-11-26 17:08:45,162 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:45,162 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:45,162 - INFO - Starting STS measurement...
+2024-11-26 17:08:45,162 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:45,162 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:45,163 - INFO - Starting STS measurement...
+2024-11-26 17:08:45,163 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:46,148 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:46,148 - INFO - Starting STS measurement...
+2024-11-26 17:08:46,148 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:46,149 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:46,149 - INFO - Starting STS measurement...
+2024-11-26 17:08:46,149 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:46,149 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:46,149 - INFO - Starting STS measurement...
+2024-11-26 17:08:46,149 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:46,950 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:46,950 - INFO - Starting STS measurement...
+2024-11-26 17:08:46,951 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:46,951 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:46,951 - INFO - Starting STS measurement...
+2024-11-26 17:08:46,951 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:46,951 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:46,951 - INFO - Starting STS measurement...
+2024-11-26 17:08:46,951 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:47,633 - INFO - 
+STS measurement attempt 1/3
+2024-11-26 17:08:47,633 - INFO - Starting STS measurement...
+2024-11-26 17:08:47,633 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:47,633 - INFO - 
+STS measurement attempt 2/3
+2024-11-26 17:08:47,633 - INFO - Starting STS measurement...
+2024-11-26 17:08:47,633 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:47,634 - INFO - 
+STS measurement attempt 3/3
+2024-11-26 17:08:47,634 - INFO - Starting STS measurement...
+2024-11-26 17:08:47,634 - ERROR - Failed to start STS measurement
+2024-11-26 17:08:49,120 - INFO - Application closing
