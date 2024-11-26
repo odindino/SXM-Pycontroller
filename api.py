@@ -335,15 +335,29 @@ class SMUControlAPI:
 
     ## ========== STS functions ==========
     def start_sts(self) -> bool:
-        """開始STS測量"""
+        """
+        開始STS測量
+        
+        Returns
+        -------
+        bool
+            測量是否成功開始
+        """
         try:
+            if not self.stm:
+                raise Exception("STM控制器未初始化")
+                
+            # 直接使用 spectroscopy_start() 方法
             success = self.stm.spectroscopy_start()
+            
             if not success:
-                raise Exception("啟動STS失敗")
-            return True
-
+                print("Warning: STS start command returned false")
+                
+            return success
+            
         except Exception as e:
-            raise Exception(f"STS測量失敗: {str(e)}")
+            print(f"STS start error: {str(e)}")  # 加入詳細的錯誤訊息
+            raise Exception(f"執行STS失敗: {str(e)}")
         
 
     def perform_multi_sts(self, script_name: str) -> bool:

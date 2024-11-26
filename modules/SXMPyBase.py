@@ -1,6 +1,7 @@
 from . import SXMRemote
 import time
 from config.SXMParameters import SXMParameters
+from typing import Optional
 
 class SXMBase:
     """
@@ -29,44 +30,32 @@ class SXMBase:
         # 時間戳記
         self.last_update = None
 
-    def _send_command(self, command, timeout=5000):
+    def _send_command(self, command: str) -> tuple[bool, Optional[str]]:
         """
-        發送DDE命令並等待回應
+        發送DDE命令到SXM
         
         Parameters
         ----------
         command : str
             DDE命令
-        timeout : int, optional
-            超時時間（毫秒）
-        
+            
         Returns
         -------
-        tuple
+        Tuple[bool, Optional[str]]
             (成功與否, 回應內容)
         """
         try:
             if self.debug_mode:
                 print(f"Sending command: {command}")
                 
-            self.MySXM.execute(command, timeout)
-            
-            # 等待回應
-            wait_count = 0
-            while self.MySXM.NotGotAnswer and wait_count < 50:
-                SXMRemote.loop()
-                time.sleep(0.1)
-                wait_count += 1
-                
-            if self.MySXM.NotGotAnswer:
-                if self.debug_mode:
-                    print("Command timeout")
-                return False, None
+            # 使用SendWait而不是execute
+            self.MySXM.SendWait(command)
+            response = self.MySXM.LastAnswer
                 
             if self.debug_mode:
-                print(f"Response: {self.MySXM.LastAnswer}")
+                print(f"Response: {response}")
                 
-            return True, self.MySXM.LastAnswer
+            return True, response
             
         except Exception as e:
             if self.debug_mode:

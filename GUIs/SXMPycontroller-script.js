@@ -351,26 +351,44 @@ class STSControl {
 
     loadScript(scriptName) {
         if (!scriptName) return;
-
-        const scripts = this.scripts;
-        const script = scripts[scriptName];
-        if (!script) return;
-
-        // 清除現有行
-        const container = document.getElementById('stsSettingsRows');
-        container.innerHTML = '';
-
-        // 添加腳本中的設定
-        script.vds_list.forEach((vds, index) => {
-            const row = document.createElement('div');
-            row.className = 'sts-row';
-            row.innerHTML = `
-                <input type="number" class="vds-input" value="${vds}" step="0.1">
-                <input type="number" class="vg-input" value="${script.vg_list[index]}" step="0.1">
-                <button class="remove-row" title="Remove">×</button>
-            `;
-            container.appendChild(row);
-        });
+    
+        try {
+            // 從API獲取腳本資料
+            pywebview.api.get_sts_scripts().then(scripts => {
+                const script = scripts[scriptName];
+                if (!script) return;
+    
+                // 清除現有的所有行
+                const container = document.getElementById('stsSettingsRows');
+                container.innerHTML = '';
+    
+                // 確保vds_list和vg_list長度相同
+                const length = Math.min(script.vds_list.length, script.vg_list.length);
+    
+                // 依據腳本數據建立新的行
+                for (let i = 0; i < length; i++) {
+                    const row = document.createElement('div');
+                    row.className = 'sts-row';
+                    row.innerHTML = `
+                        <input type="number" class="vds-input" value="${script.vds_list[i]}" step="0.1">
+                        <input type="number" class="vg-input" value="${script.vg_list[i]}" step="0.1">
+                        <button class="remove-row" title="Remove">×</button>
+                    `;
+                    container.appendChild(row);
+                }
+    
+                // 更新腳本名稱輸入框
+                document.getElementById('scriptName').value = scriptName;
+    
+                console.log(`Loaded script: ${scriptName}`);
+            }).catch(error => {
+                console.error('Error loading script:', error);
+                alert('Error loading script');
+            });
+        } catch (error) {
+            console.error('Error in loadScript:', error);
+            alert('Error loading script');
+        }
     }
 
     collectCurrentSettings() {
