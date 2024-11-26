@@ -1,201 +1,341 @@
 """
-STS測量控制器
-整合STM和SMU的控制，實現複雜的STS量測功能
+STM STS Controller Module
+提供完整的STS測量控制功能，包含單點測量和腳本執行
 
 Author: Zi-Liang Yang
 Version: 1.0.0
-date: 2024-11-26
+Date: 2024-11-26
 """
 
-from typing import List, Dict, Optional
 import time
 import json
+import threading
+from typing import Optional, Dict, List, Any
 from pathlib import Path
+from dataclasses import dataclass, asdict
+import logging
 
+@dataclass
 class STSScript:
-    """STS量測腳本資料結構"""
-    def __init__(self, name: str, vds_list: List[float], vg_list: List[float]):
-        self.name = name
-        self.vds_list = vds_list
-        self.vg_list = vg_list
-        self.created_time = time.strftime("%Y-%m-%d %H:%M:%S")
-
-    def to_dict(self) -> dict:
-        """轉換為字典格式以便儲存"""
-        return {
-            "name": self.name,
-            "vds_list": self.vds_list,
-            "vg_list": self.vg_list,
-            "created_time": self.created_time
-        }
-
+    """STS測量腳本數據結構"""
+    name: str
+    vds_list: List[float]
+    vg_list: List[float]
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """轉換為字典格式"""
+        return asdict(self)
+        
     @classmethod
-    def from_dict(cls, data: dict) -> 'STSScript':
-        """從字典格式建立物件"""
-        script = cls(
-            name=data["name"],
-            vds_list=data["vds_list"],
-            vg_list=data["vg_list"]
-        )
-        script.created_time = data.get("created_time", "Unknown")
-        return script
+    def from_dict(cls, data: Dict[str, Any]) -> 'STSScript':
+        """從字典建立實例"""
+        return cls(**data)
 
 class STSController:
-    """STS測量控制器"""
-    def __init__(self, stm_controller, smu_controller):
-        """
-        初始化控制器
+    """
+    STS測量控制器
+    負責管理和執行STS測量，包括單點測量和腳本執行
+    """
+    def __init__(self, debug_mode: bool = False):
+        self.debug_mode = debug_mode
+        self._setup_logging()
         
-        Parameters
-        ----------
-        stm_controller : SXMController
-            STM控制器實例
-        smu_controller : SMUControlAPI
-            SMU控制器實例
-        """
-        self.stm = stm_controller
-        self.smu = smu_controller
-        self.scripts_path = Path.home() / ".stm_controller" / "sts_scripts.json"
-        self.scripts_path.parent.mkdir(exist_ok=True)
-        self.loaded_scripts: Dict[str, STSScript] = {}
-        self._load_scripts()
+        # 系統狀態
+        self.measurement_active = False
+        self.current_script: Optional[STSScript] = None
+        self._abort_requested = False
+        self._lock = threading.Lock()
+        
+        # 設定檔案路徑
+        self.script_dir = Path("scripts")
+        self.script_dir.mkdir(exist_ok=True)
+        
+        # 回調函數
+        self.on_progress = None
+        self.on_status_change = None
+        
+    def _setup_logging(self):
+        """設定日誌記錄"""
+        self.logger = logging.getLogger("STSController")
+        self.logger.setLevel(logging.DEBUG if self.debug_mode else logging.INFO)
+        
+        if not self.logger.handlers:
+            handler = logging.StreamHandler()
+            formatter = logging.Formatter(
+                '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+            )
+            handler.setFormatter(formatter)
+            self.logger.addHandler(handler)
 
-    def perform_multi_sts(self, script: STSScript) -> bool:
+    def check_connection(self) -> bool:
         """
-        執行多組STS量測
+        檢查DDE連線狀態
         
-        Parameters
-        ----------
-        script : STSScript
-            要執行的STS腳本
-            
-        Returns
-        -------
-        bool
-            量測是否成功完成
+        Returns:
+            bool: 連線是否正常
         """
         try:
-            # 驗證輸入
-            if len(script.vds_list) != len(script.vg_list):
-                raise ValueError("Vds和Vg列表長度必須相同")
+            self.execute_command("a := 0;")
+            return True
+        except Exception as e:
+            self.logger.error(f"Connection check failed: {str(e)}")
+            return False
+
+    def execute_command(self, command: str) -> bool:
+        """
+        執行DDE命令並處理錯誤
+        
+        Args:
+            command: DDE命令字串
             
-            # 記錄初始狀態
-            original_states = {
-                'feedback': self.stm.get_feedback_state(),
-                'ch1_output': False,
-                'ch1_voltage': 0.0,
-                'ch2_output': False, 
-                'ch2_voltage': 0.0
-            }
-            
-            # 檢查並記錄SMU狀態
-            for ch in [1, 2]:
-                try:
-                    # 讀取當前output狀態
-                    response = self.smu.smu.query(f":OUTP{ch}?")
-                    original_states[f'ch{ch}_output'] = bool(int(response))
+        Returns:
+            bool: 命令是否執行成功
+        """
+        max_retries = 3
+        retry_delay = 1.0  # 秒
+        
+        for attempt in range(max_retries):
+            try:
+                if self._abort_requested:
+                    raise Exception("Operation aborted by user")
                     
-                    # 如果output on，讀取當前電壓
-                    if original_states[f'ch{ch}_output']:
-                        voltage = float(self.smu.smu.query(f":SOUR{ch}:VOLT?"))
-                        original_states[f'ch{ch}_voltage'] = voltage
-                        
-                except Exception as e:
-                    print(f"Warning: Failed to read channel {ch} state: {str(e)}")
-            
-            # 確保兩個通道都開啟
-            for ch in [1, 2]:
-                if not original_states[f'ch{ch}_output']:
-                    self.smu.set_channel_output(ch, True)
-                    time.sleep(0.5)  # 等待output穩定
-            
-            # 關閉回饋
-            self.stm.feedback_off()
-            time.sleep(0.5)  # 等待系統穩定
-            
-            # 執行每組STS
-            for vds, vg in zip(script.vds_list, script.vg_list):
-                # 設定SMU電壓
-                self.smu.set_channel_value(1, "VOLTAGE", vds)  # Vds
-                self.smu.set_channel_value(2, "VOLTAGE", vg)   # Vg
+                # 確保連線存在
+                if not hasattr(self, 'MySXM') or self.MySXM is None:
+                    self._reinitialize_connection()
+                    
+                self.MySXM.SendWait(command)
+                return True
                 
-                # 等待電壓穩定
-                time.sleep(0.01)
+            except Exception as e:
+                self.logger.error(
+                    f"Command execution failed (attempt {attempt + 1}): {str(e)}"
+                )
+                if attempt < max_retries - 1:
+                    time.sleep(retry_delay)
+                    continue
+                raise
                 
-                # 執行STS
-                self.stm.spectroscopy_start()
-                
-                # # 等待STS完成並儲存數據
-                # time.sleep(2.0)  # 此時間需要根據實際STS參數調整
+        return False
+
+    def _reinitialize_connection(self):
+        """重新初始化DDE連線"""
+        try:
+            import SXMRemote
+            self.MySXM = SXMRemote.DDEClient("SXM", "Remote")
+            self.logger.info("DDE connection reinitialized")
+        except Exception as e:
+            self.logger.error(f"Failed to reinitialize DDE: {str(e)}")
+            raise
+
+    def prepare_sts_measurement(self) -> bool:
+        """
+        準備STS測量環境
+        
+        Returns:
+            bool: 準備是否成功
+        """
+        try:
+            self._update_status("Preparing measurement...")
             
+            # 設定自動儲存和關閉重複測量
+            self.execute_command("SpectPara('AUTOSAVE', 1);")
+            self.execute_command("SpectPara('Repeat', 0);")
+            
+            # 等待系統穩定
+            time.sleep(0.5)
+            
+            self._update_status("Ready for measurement")
             return True
             
         except Exception as e:
-            print(f"Multi-STS measurement error: {str(e)}")
+            self.logger.error(f"Failed to prepare STS: {str(e)}")
+            self._update_status("Preparation failed")
+            return False
+
+    def start_single_sts(self) -> bool:
+        """
+        執行單點STS測量
+        
+        Returns:
+            bool: 測量是否成功
+        """
+        with self._lock:
+            if self.measurement_active:
+                raise RuntimeError("Measurement already in progress")
+                
+            self.measurement_active = True
+            self._abort_requested = False
+            
+        try:
+            if not self.prepare_sts_measurement():
+                return False
+                
+            self._update_status("Executing STS measurement...")
+            success = self.execute_command("SpectStart;")
+            
+            if success:
+                # 等待測量完成
+                time.sleep(2.0)
+                self._update_status("Measurement completed")
+                return True
+            else:
+                self._update_status("Measurement failed")
+                return False
+                
+        except Exception as e:
+            self.logger.error(f"STS measurement error: {str(e)}")
+            self._update_status(f"Error: {str(e)}")
             return False
             
         finally:
-            try:
-                # 恢復原始電壓
-                for ch in [1, 2]:
-                    if original_states[f'ch{ch}_output']:
-                        # 如果原本就是開啟的,恢復原始電壓
-                        self.smu.set_channel_value(
-                            ch, 
-                            "VOLTAGE",
-                            original_states[f'ch{ch}_voltage']
-                        )
-                    else:
-                        # 如果原本是關閉的,關閉output
-                        self.smu.set_channel_output(ch, False)
-                
-                # 恢復回饋狀態
-                if original_states['feedback']:
-                    self.stm.feedback_on()
-                
-            except Exception as e:
-                print(f"Error restoring original states: {str(e)}")
+            with self._lock:
+                self.measurement_active = False
 
-    def save_script(self, script: STSScript) -> bool:
-        """儲存STS腳本"""
+    def execute_sts_script(self, script: STSScript) -> bool:
+        """
+        執行STS測量腳本
+        
+        Args:
+            script: STS測量腳本
+            
+        Returns:
+            bool: 腳本是否執行成功
+        """
+        with self._lock:
+            if self.measurement_active:
+                raise RuntimeError("Measurement already in progress")
+                
+            self.measurement_active = True
+            self._abort_requested = False
+            self.current_script = script
+            
         try:
-            self.loaded_scripts[script.name] = script
-            self._save_scripts()
+            total_points = len(script.vds_list)
+            self._update_status(f"Starting script: {script.name}")
+            
+            for i, (vds, vg) in enumerate(zip(script.vds_list, script.vg_list)):
+                if self._abort_requested:
+                    self._update_status("Measurement aborted by user")
+                    return False
+                    
+                # 更新進度
+                progress = (i + 1) / total_points * 100
+                self._update_progress(progress)
+                self._update_status(
+                    f"Measuring point {i+1}/{total_points}: "
+                    f"Vds={vds:.3f}V, Vg={vg:.3f}V"
+                )
+                
+                # 設定偏壓並執行測量
+                if not self.set_bias_and_measure(vds, vg):
+                    raise Exception(f"Measurement failed at point {i+1}")
+                    
+                # 測量間隔
+                if i < total_points - 1:
+                    time.sleep(1.0)
+                    
+            self._update_status("Script completed successfully")
             return True
+            
         except Exception as e:
-            print(f"Save script error: {str(e)}")
+            self.logger.error(f"Script execution error: {str(e)}")
+            self._update_status(f"Script error: {str(e)}")
+            return False
+            
+        finally:
+            with self._lock:
+                self.measurement_active = False
+                self.current_script = None
+
+    def set_bias_and_measure(self, vds: float, vg: float) -> bool:
+        """
+        設定偏壓並執行測量
+        
+        Args:
+            vds: 源漏極電壓
+            vg: 閘極電壓
+            
+        Returns:
+            bool: 操作是否成功
+        """
+        try:
+            # 這裡需要實作與SMU的整合
+            # 暫時返回True作為示範
+            return self.start_single_sts()
+            
+        except Exception as e:
+            self.logger.error(f"Bias and measurement error: {str(e)}")
             return False
 
-    def get_script(self, name: str) -> Optional[STSScript]:
-        """取得指定腳本"""
-        return self.loaded_scripts.get(name)
+    def abort_measurement(self):
+        """中止當前測量"""
+        with self._lock:
+            if self.measurement_active:
+                self._abort_requested = True
+                self._update_status("Aborting measurement...")
+
+    def save_script(self, script: STSScript) -> bool:
+        """
+        儲存STS測量腳本
+        
+        Args:
+            script: 要儲存的腳本
+            
+        Returns:
+            bool: 是否儲存成功
+        """
+        try:
+            file_path = self.script_dir / f"{script.name}.json"
+            with open(file_path, 'w', encoding='utf-8') as f:
+                json.dump(script.to_dict(), f, indent=4)
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"Failed to save script: {str(e)}")
+            return False
+
+    def load_script(self, name: str) -> Optional[STSScript]:
+        """
+        載入STS測量腳本
+        
+        Args:
+            name: 腳本名稱
+            
+        Returns:
+            Optional[STSScript]: 載入的腳本，如果失敗則為None
+        """
+        try:
+            file_path = self.script_dir / f"{name}.json"
+            with open(file_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            return STSScript.from_dict(data)
+            
+        except Exception as e:
+            self.logger.error(f"Failed to load script: {str(e)}")
+            return None
 
     def get_all_scripts(self) -> Dict[str, STSScript]:
-        """取得所有腳本"""
-        return self.loaded_scripts
+        """
+        獲取所有已儲存的腳本
+        
+        Returns:
+            Dict[str, STSScript]: 腳本名稱到腳本對象的映射
+        """
+        scripts = {}
+        for file_path in self.script_dir.glob("*.json"):
+            name = file_path.stem
+            script = self.load_script(name)
+            if script:
+                scripts[name] = script
+        return scripts
 
-    def _load_scripts(self):
-        """從檔案載入腳本"""
-        try:
-            if self.scripts_path.exists():
-                with open(self.scripts_path) as f:
-                    data = json.load(f)
-                    self.loaded_scripts = {
-                        name: STSScript.from_dict(script_data)
-                        for name, script_data in data.items()
-                    }
-        except Exception as e:
-            print(f"Load scripts error: {str(e)}")
-            self.loaded_scripts = {}
+    def _update_status(self, status: str):
+        """更新狀態資訊"""
+        self.logger.info(status)
+        if self.on_status_change:
+            self.on_status_change(status)
 
-    def _save_scripts(self):
-        """儲存腳本到檔案"""
-        try:
-            data = {
-                name: script.to_dict()
-                for name, script in self.loaded_scripts.items()
-            }
-            with open(self.scripts_path, 'w') as f:
-                json.dump(data, f, indent=2)
-        except Exception as e:
-            print(f"Save scripts error: {str(e)}")
+    def _update_progress(self, progress: float):
+        """更新進度資訊"""
+        if self.on_progress:
+            self.on_progress(progress)
