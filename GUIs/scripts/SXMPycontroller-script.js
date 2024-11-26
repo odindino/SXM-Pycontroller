@@ -532,5 +532,5 @@ class STSControl {
 // 初始化
 document.addEventListener('DOMContentLoaded', () => {
     window.stsControl = new STSControl();
-
+s
 });
