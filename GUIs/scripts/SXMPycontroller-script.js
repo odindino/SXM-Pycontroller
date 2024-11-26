@@ -277,7 +277,7 @@ class STSControl {
 
         // Multi-STS按鈕
         document.getElementById('startMultiSts').addEventListener('click', () => {
-            this.startSTS(true);
+            this.perform_multi_sts(true);
         });
 
         // 動態移除row按鈕的事件委派
