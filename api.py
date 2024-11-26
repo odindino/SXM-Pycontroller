@@ -14,7 +14,7 @@ import webview
 from typing import Dict, Any, Optional
 from pathlib import Path
 from utils.KB2902BSMU import KeysightB2902B, Channel, OutputMode, ConnectionError
-from SXMPycontroller import SXMController
+from modules.SXMPycontroller import SXMController
 
 class SMUControlAPI:
     """WebView GUI API實作"""
@@ -153,6 +153,28 @@ class SMUControlAPI:
             self.logger.error(f"Set channel value failed: {str(e)}")
             raise Exception(f"設定通道{channel}失敗: {str(e)}")
 
+    def set_channel_output(self, channel: int, state: bool) -> bool:
+        """設定通道輸出開關"""
+        try:
+            if not self.smu:
+                raise ConnectionError("SMU未連接")
+                
+            channel_enum = Channel.CH1 if channel == 1 else Channel.CH2
+            
+            if state:
+                success = self.smu.enable_output(channel_enum)
+            else:
+                success = self.smu.disable_output(channel_enum)
+                
+            if success:
+                self.beep()
+                self.logger.info(f"Set channel {channel} output to {state}")
+            return success
+            
+        except Exception as e:
+            self.logger.error(f"Set channel output failed: {str(e)}")
+            raise Exception(f"設定通道{channel}輸出狀態失敗: {str(e)}")
+
     def read_channel(self, channel: int) -> dict:
         """讀取通道數值"""
         try:
@@ -190,6 +212,28 @@ class SMUControlAPI:
         except Exception as e:
             self.logger.error(f"Set compliance failed: {str(e)}")
             raise Exception(f"設定通道{channel}限制值失敗: {str(e)}")
+        
+    def get_compliance(self, channel: int) -> float:
+        """獲取通道的compliance值"""
+        try:
+            if not self.smu:
+                raise ConnectionError("SMU未連接")
+            return self._compliance[channel]
+        except Exception as e:
+            self.logger.error(f"Get compliance failed: {str(e)}")
+            raise Exception(f"獲取通道{channel}限制值失敗: {str(e)}")
+
+    def abort_measurement(self) -> bool:
+        """中止測量"""
+        try:
+            if self.stm.sts_controller:
+                self.stm.sts_controller.abort_measurement()
+                self.logger.info("Measurement aborted")
+                return True
+            return False
+        except Exception as e:
+            self.logger.error(f"Abort measurement failed: {str(e)}")
+            return False
 
     # ========== STS Control Functions ========== #
     def start_sts(self) -> bool:

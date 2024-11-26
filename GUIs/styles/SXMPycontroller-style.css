@@ -118,7 +118,7 @@ button.danger { background-color: var(--danger-color); }
     background-color: #f8f9fa;
 }
 
-.sts-header {
+/* .sts-header {
     display: grid;
     grid-template-columns: 1fr 1fr 40px;
     gap: 10px;
@@ -126,7 +126,7 @@ button.danger { background-color: var(--danger-color); }
     font-weight: bold;
     border-bottom: 2px solid #ddd;
     margin-bottom: 10px;
-}
+} */
 
 .sts-row {
     display: grid;
@@ -136,14 +136,14 @@ button.danger { background-color: var(--danger-color); }
     align-items: center;
 }
 
-.vds-input, .vg-input {
+/* .vds-input, .vg-input {
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
     width: 100%;
-}
+} */
 
-.remove-row {
+/* .remove-row {
     background-color: var(--danger-color);
     color: white;
     border: none;
@@ -155,7 +155,7 @@ button.danger { background-color: var(--danger-color); }
     align-items: center;
     justify-content: center;
     padding: 0;
-}
+} */
 
 .script-control-panel {
     display: grid;
@@ -179,4 +179,170 @@ button.danger { background-color: var(--danger-color); }
 .secondary-btn {
     background-color: var(--secondary-color);
     color: white;
+}
+
+/* 量測狀態面板樣式 */
+.measurement-status {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+    align-items: center;
+}
+
+/* 狀態面板 */
+.status-panel {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.status-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.status-icon {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--primary-color);
+}
+
+.status-label {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+.status-text {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.status-ready { color: var(--success-color); }
+.status-running { color: var(--secondary-color); }
+.status-error { color: var(--danger-color); }
+.status-warning { color: var(--warning-color); }
+
+/* 進度面板 */
+.progress-panel {
+    padding: 15px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.progress-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.progress-percentage {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+.progress-track {
+    height: 8px;
+    background: #eee;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+    transition: width 0.3s ease;
+}
+
+/* STS設定表格的改進樣式 */
+.sts-settings {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.sts-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 60px;
+    gap: 15px;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-radius: 8px 8px 0 0;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.sts-header span {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 14px;
+}
+
+#stsSettingsRows {
+    padding: 10px 0;
+}
+
+.sts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 60px;
+    gap: 15px;
+    padding: 8px 15px;
+    align-items: center;
+    border-bottom: 1px solid #e9ecef;
+    transition: background-color 0.2s;
+}
+
+.sts-row:hover {
+    background-color: #f8f9fa;
+}
+
+.sts-row:last-child {
+    border-bottom: none;
+}
+
+.vds-input, .vg-input {
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    width: 100%;
+    transition: border-color 0.2s;
+}
+
+.vds-input:focus, .vg-input:focus {
+    border-color: var(--secondary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.remove-row {
+    width: 32px;
+    height: 32px;
+    min-width: unset;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all 0.2s;
+}
+
+.remove-row:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
 }
