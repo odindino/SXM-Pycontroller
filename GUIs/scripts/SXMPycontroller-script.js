@@ -187,38 +187,59 @@ function setupChannelEvents(channelNum) {
     // 設定輸出值
     ch.setBtn.addEventListener('click', async () => {
         try {
+            const value = parseFloat(ch.value.value);
+            if (isNaN(value)) {
+                throw new Error('請輸入有效的數值');
+            }
+            
             await pywebview.api.set_channel_value(
                 channelNum,
                 ch.mode.value,
-                parseFloat(ch.value.value)
+                value
             );
+            
         } catch (error) {
-            alert(`設定通道 ${channelNum} 失敗: ${error}`);
+            console.error(`Channel ${channelNum} set value error:`, error);
+            alert(`設定值失敗: ${error.message}`);
         }
     });
 
-    // 輸出開關
+    // 輸出開關處理
     ch.outputBtn.addEventListener('click', async () => {
         try {
-            const newState = ch.outputBtn.textContent === 'Output OFF';
+            const currentState = ch.outputBtn.classList.contains('success');
+            const newState = !currentState;
+            
             await pywebview.api.set_channel_output(channelNum, newState);
+            
             ch.outputBtn.textContent = `Output ${newState ? 'ON' : 'OFF'}`;
-            ch.outputBtn.className = newState ? 'success' : 'warning';
+            ch.outputBtn.classList.toggle('success', newState);
+            ch.outputBtn.classList.toggle('warning', !newState);
+            
         } catch (error) {
-            alert(`切換輸出 ${channelNum} 失敗: ${error}`);
+            console.error(`Channel ${channelNum} output error:`, error);
+            alert(`輸出切換失敗: ${error.message}`);
         }
     });
 }
 
 // 初始化
 function initialize() {
+    try {
+        // 檢查必要元素
+        if (!elements.visaAddress || !elements.connectBtn || !elements.disconnectBtn) {
+            console.error('Critical UI elements missing');
+            return;
+        }
+
     // 設置事件監聽器
     elements.connectBtn.addEventListener('click', handleConnect);
     elements.disconnectBtn.addEventListener('click', handleDisconnect);
     
-    // 設置通道事件
-    setupChannelEvents(1);
-    setupChannelEvents(2);
+    // 設置通道控制
+    ['ch1', 'ch2'].forEach(channelId => {
+        setupChannelEvents(channelId);
+    });
     
     // Compliance設置
     elements.setComplianceBtn.addEventListener('click', async () => {
@@ -229,17 +250,16 @@ function initialize() {
         }
     });
 
-    // STS控制
-    elements.stsStartBtn.addEventListener('click', async () => {
-        try {
-            await pywebview.api.start_sts();
-        } catch (error) {
-            alert('啟動STS失敗: ' + error);
-        }
-    });
+    // 初始化STS控制
+    window.stsControl = new STSControl();
 
     // 初始化UI狀態
     updateConnectionStatus(false);
+
+    console.log('Initialization completed');
+} catch (error) {
+    console.error('Initialization failed:', error);
+}
 }
 
 // 頁面載入完成後初始化
@@ -248,37 +268,49 @@ document.addEventListener('DOMContentLoaded', initialize);
 // STS控制相關功能
 class STSControl {
     constructor() {
+        this.isRunning = false;
+        this.abortRequested = false;
         this.setupEventListeners();
         this.loadScripts();
     }
 
     setupEventListeners() {
-        // Add row按鈕
-        document.getElementById('addStsRow').addEventListener('click', () => {
-            this.addSettingRow();
-        });
 
-        // 儲存腳本按鈕
-        document.getElementById('saveScript').addEventListener('click', () => {
-            this.saveCurrentScript();
-        });
-
-        // 腳本選擇下拉選單
-        document.getElementById('scriptSelect').addEventListener('change', (e) => {
-            this.loadScript(e.target.value);
-        });
-
-        // Single STS按鈕
+        const startSingleBtn = document.getElementById('startSingleSts');
+        const startMultiBtn = document.getElementById('startMultiSts');
+        const abortBtn = document.getElementById('abortSts');
+        startSingleBtn?.addEventListener('click', () => this.startSTS(false));
+        startMultiBtn?.addEventListener('click', () => this.startSTS(true));
+        abortBtn?.addEventListener('click', () => this.abortMeasurement());
+        
+        // 控制按鈕
         document.getElementById('startSingleSts').addEventListener('click', () => {
             this.startSTS(false);
         });
 
-        // Multi-STS按鈕
         document.getElementById('startMultiSts').addEventListener('click', () => {
             this.startSTS(true);
         });
 
-        // 動態移除row按鈕的事件委派
+        document.getElementById('abortSts').addEventListener('click', () => {
+            this.abortMeasurement();
+        });
+
+        // 腳本管理
+        document.getElementById('saveScript').addEventListener('click', () => {
+            this.saveCurrentScript();
+        });
+
+        document.getElementById('scriptSelect').addEventListener('change', (e) => {
+            this.loadScript(e.target.value);
+        });
+
+        // 測量點管理
+        document.getElementById('addStsRow').addEventListener('click', () => {
+            this.addSettingRow();
+        });
+
+        // 委派事件處理
         document.getElementById('stsSettingsRows').addEventListener('click', (e) => {
             if (e.target.classList.contains('remove-row')) {
                 this.removeSettingRow(e.target);
@@ -286,6 +318,111 @@ class STSControl {
         });
     }
 
+    async startSTS(isMulti) {
+        if (this.isRunning) {
+            alert('測量正在進行中');
+            return;
+        }
+
+        try {
+            this.isRunning = true;
+            this.abortRequested = false;
+            this.updateUI(true);
+            
+            if (isMulti) {
+                const scriptName = document.getElementById('scriptSelect').value;
+                if (!scriptName) {
+                    throw new Error('請選擇測量腳本');
+                }
+                await pywebview.api.perform_multi_sts(scriptName);
+            } else {
+                await pywebview.api.start_sts();
+            }
+            
+        } catch (error) {
+            console.error('STS Error:', error);
+            this.updateStatus(`錯誤: ${error.message}`, 'error');
+        } finally {
+            this.isRunning = false;
+            this.updateUI(false);
+        }
+    }
+
+    abortMeasurement() {
+        if (this.isRunning) {
+            this.abortRequested = true;
+            this.updateStatus('正在中止測量...', 'warning');
+            pywebview.api.abort_measurement();
+        }
+    }
+
+    updateUI(running) {
+        // 更新按鈕狀態
+        const buttons = {
+            startSingle: document.getElementById('startSingleSts'),
+            startMulti: document.getElementById('startMultiSts'),
+            abort: document.getElementById('abortSts'),
+            save: document.getElementById('saveScript'),
+            add: document.getElementById('addStsRow')
+        };
+        
+        if (startSingleBtn) startSingleBtn.disabled = running;
+        if (startMultiBtn) startMultiBtn.disabled = running;
+        if (abortBtn) abortBtn.disabled = !running;
+
+        this.updateStatus(running ? '測量進行中' : '就緒', 
+            running ? 'running' : 'ready');
+
+        buttons.startSingle.disabled = running;
+        buttons.startMulti.disabled = running;
+        buttons.abort.disabled = !running;
+        buttons.save.disabled = running;
+        buttons.add.disabled = running;
+
+        // 更新輸入區域
+        const inputs = document.querySelectorAll('.vds-input, .vg-input, #scriptName, #scriptSelect');
+        inputs.forEach(input => input.disabled = running);
+    }
+
+    updateStatus(message, type = 'ready') {
+        const status = document.getElementById('stsStatus');
+        if (status) {
+            status.textContent = message;
+            status.className = `status-${type}`;
+        }
+    }
+
+    updateProgress(progress) {
+        try {
+            const progressBar = document.getElementById('stsProgress');
+            const progressText = document.getElementById('stsProgressText');
+            
+            if (progressBar && progressText) {
+                progressBar.style.width = `${progress}%`;
+                progressText.textContent = `${progress.toFixed(1)}%`;
+            }
+            
+        } catch (error) {
+            console.error('Update progress failed:', error);
+        }
+    }
+
+    // 增加處理DDE重連的方法
+    async checkConnection() {
+        try {
+            if (!this.isRunning) return;
+            
+            const connected = await pywebview.api.check_sts_connection();
+            if (!connected) {
+                this.updateStatus('重新建立連接...', 'warning');
+                await pywebview.api.reconnect_sts();
+            }
+            
+        } catch (error) {
+            console.error('Connection check failed:', error);
+            this.updateStatus('連接檢查失敗', 'error');
+        }
+    }
 
     addSettingRow() {
         const row = document.createElement('div');
@@ -300,7 +437,7 @@ class STSControl {
 
     removeSettingRow(button) {
         const rows = document.querySelectorAll('.sts-row');
-        if (rows.length > 1) {  // 保持至少一行
+        if (rows.length > 1) {
             button.closest('.sts-row').remove();
         }
     }
@@ -309,85 +446,18 @@ class STSControl {
         try {
             const name = document.getElementById('scriptName').value.trim();
             if (!name) {
-                alert('Please enter a script name');
-                return;
+                throw new Error('請輸入腳本名稱');
             }
 
             const settings = this.collectCurrentSettings();
-            const success = await pywebview.api.save_sts_script(
-                name, 
-                settings.vds_list, 
-                settings.vg_list
-            );
-
-            if (success) {
-                await this.loadScripts();  // 重新載入腳本列表
-                alert('Script saved successfully');
-            }
-        } catch (error) {
-            alert(`Error saving script: ${error}`);
-        }
-    }
-
-    async loadScripts() {
-        try {
-            const scripts = await pywebview.api.get_sts_scripts();
-            const select = document.getElementById('scriptSelect');
+            await pywebview.api.save_sts_script(name, settings.vds_list, settings.vg_list);
             
-            // 清除現有選項
-            select.innerHTML = '<option value="">Select Script...</option>';
+            await this.loadScripts();
+            this.updateStatus('腳本已儲存');
             
-            // 添加腳本選項
-            Object.entries(scripts).forEach(([name, script]) => {
-                const option = document.createElement('option');
-                option.value = name;
-                option.textContent = name;
-                select.appendChild(option);
-            });
         } catch (error) {
-            console.error('Error loading scripts:', error);
-        }
-    }
-
-    loadScript(scriptName) {
-        if (!scriptName) return;
-    
-        try {
-            // 從API獲取腳本資料
-            pywebview.api.get_sts_scripts().then(scripts => {
-                const script = scripts[scriptName];
-                if (!script) return;
-    
-                // 清除現有的所有行
-                const container = document.getElementById('stsSettingsRows');
-                container.innerHTML = '';
-    
-                // 確保vds_list和vg_list長度相同
-                const length = Math.min(script.vds_list.length, script.vg_list.length);
-    
-                // 依據腳本數據建立新的行
-                for (let i = 0; i < length; i++) {
-                    const row = document.createElement('div');
-                    row.className = 'sts-row';
-                    row.innerHTML = `
-                        <input type="number" class="vds-input" value="${script.vds_list[i]}" step="0.1">
-                        <input type="number" class="vg-input" value="${script.vg_list[i]}" step="0.1">
-                        <button class="remove-row" title="Remove">×</button>
-                    `;
-                    container.appendChild(row);
-                }
-    
-                // 更新腳本名稱輸入框
-                document.getElementById('scriptName').value = scriptName;
-    
-                console.log(`Loaded script: ${scriptName}`);
-            }).catch(error => {
-                console.error('Error loading script:', error);
-                alert('Error loading script');
-            });
-        } catch (error) {
-            console.error('Error in loadScript:', error);
-            alert('Error loading script');
+            console.error('Save script error:', error);
+            this.updateStatus(error.message, 'error');
         }
     }
 
@@ -404,35 +474,63 @@ class STSControl {
         return { vds_list, vg_list };
     }
 
-    async startSTS(isMulti) {
+    async loadScripts() {
         try {
-            const buttons = document.querySelectorAll('#startSingleSts, #startMultiSts');
-            buttons.forEach(btn => btn.disabled = true);
+            const scripts = await pywebview.api.get_sts_scripts();
+            const select = document.getElementById('scriptSelect');
             
-            if (isMulti) {
-                const scriptName = document.getElementById('scriptSelect').value;
-                if (!scriptName) {
-                    alert('Please select a script');
-                    return;
-                }
-                await pywebview.api.perform_multi_sts(scriptName);
-            } else {
-                // 單次STS
-                await pywebview.api.start_sts();
-            }
+            select.innerHTML = '<option value="">選擇腳本...</option>';
             
-            console.log(`${isMulti ? 'Multi' : 'Single'} STS completed successfully`);
+            Object.entries(scripts).forEach(([name, script]) => {
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = name;
+                select.appendChild(option);
+            });
             
         } catch (error) {
-            console.error('STS Error:', error);
-            alert(`Error performing STS: ${error}`);
-        } finally {
-            buttons.forEach(btn => btn.disabled = false);
+            console.error('Load scripts error:', error);
+            this.updateStatus('載入腳本失敗', 'error');
+        }
+    }
+
+    async loadScript(scriptName) {
+        if (!scriptName) return;
+
+        try {
+            const scripts = await pywebview.api.get_sts_scripts();
+            const script = scripts[scriptName];
+            if (!script) return;
+
+            // 清除現有行
+            const container = document.getElementById('stsSettingsRows');
+            container.innerHTML = '';
+
+            // 建立新行
+            const length = Math.min(script.vds_list.length, script.vg_list.length);
+            for (let i = 0; i < length; i++) {
+                const row = document.createElement('div');
+                row.className = 'sts-row';
+                row.innerHTML = `
+                    <input type="number" class="vds-input" value="${script.vds_list[i]}" step="0.1">
+                    <input type="number" class="vg-input" value="${script.vg_list[i]}" step="0.1">
+                    <button class="remove-row" title="Remove">×</button>
+                `;
+                container.appendChild(row);
+            }
+
+            document.getElementById('scriptName').value = scriptName;
+            this.updateStatus('腳本已載入');
+            
+        } catch (error) {
+            console.error('Load script error:', error);
+            this.updateStatus('載入腳本失敗', 'error');
         }
     }
 }
 
-// 初始化時建立STS控制實例
+// 初始化
 document.addEventListener('DOMContentLoaded', () => {
     window.stsControl = new STSControl();
+s
 });

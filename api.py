@@ -1,123 +1,149 @@
 """
-Backend API Implementation
-Handles communication between WebView GUI and instrument control.
+STM-SMU Controller API
+提供WebView GUI與後端控制系統的介面
 
 Author: Zi-Liang Yang
 Version: 1.0.0
-Date: 2024-11-25
+Date: 2024-11-26
 """
 
 import threading
 import time
+import logging
 import webview
 from typing import Dict, Any, Optional
-from dataclasses import dataclass
-from enum import Enum
-
-from utils.KB2902BSMU import KeysightB2902B, Channel, OutputMode
-from modules.SXMPySpectro import SXMSpectroControl
-from SXMPycontroller import SXMController
-
-
-@dataclass
-class ChannelReading:
-    """通道讀數數據結構"""
-    voltage: float
-    current: float
-    timestamp: float
-
+from pathlib import Path
+from utils.KB2902BSMU import KeysightB2902B, Channel, OutputMode, ConnectionError
+from modules.SXMPycontroller import SXMController
 
 class SMUControlAPI:
-    """WebView API 實作"""
-
+    """WebView GUI API實作"""
+    
     def __init__(self):
         """初始化API"""
-        # self.smu = None
-        # # self.smu: Optional[KeysightB2902B] = None
-        # self.stm = SXMSpectroControl(debug_mode=True)
-        # self._lock = threading.Lock()
-        # self._reading_active = {1: False, 2: False}
-        # self._reading_threads: Dict[int, threading.Thread] = {}
-        # self._compliance = {1: 0.01, 2: 0.01}  # 預設compliance值（分通道）
-        # self._cleanup_handler = None
-        # # 註冊清理處理器
-        # self._cleanup_event = threading.Event()
-
+        self._setup_logging()
+        
+        # 初始化控制器
         self.smu = None
         self.stm = SXMController(debug_mode=True)
+        
+        # 執行緒同步
         self._lock = threading.Lock()
         self._reading_active = {1: False, 2: False}
         self._reading_threads: Dict[int, threading.Thread] = {}
-        self._compliance = {1: 0.01, 2: 0.01}  # 預設compliance值（分通道）
-        # 註冊清理處理器
-        self._cleanup_handler = None
-        self._cleanup_event = threading.Event()
+        
+        # SMU設定
+        self._compliance = {1: 0.01, 2: 0.01}  # 預設compliance值
+        
+        # 註冊STS控制器回調
+        self._register_sts_callbacks()
+        
+    def _setup_logging(self):
+        """設定日誌記錄"""
+        self.logger = logging.getLogger("SMUControlAPI")
+        self.logger.setLevel(logging.DEBUG)
+        
+        if not self.logger.handlers:
+            handler = logging.StreamHandler()
+            formatter = logging.Formatter(
+                '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+            )
+            handler.setFormatter(formatter)
+            self.logger.addHandler(handler)
 
+    def _register_sts_callbacks(self):
+        """註冊STS控制器回調函數"""
+        try:
+            self.stm.sts_controller.on_status_change = self._update_sts_status
+            self.stm.sts_controller.on_progress = self._update_sts_progress
+        except Exception as e:
+            self.logger.error(f"Failed to register callbacks: {str(e)}")
+
+    # ========== SMU Control Functions ========== #
     def connect_smu(self, address: str) -> bool:
         """
         連接SMU
-
+        
         Args:
-            address: VISA address string
+            address: VISA地址
+            
+        Returns:
+            bool: 連接是否成功
         """
         try:
             self.smu = KeysightB2902B()
             success = self.smu.connect(address)
+            
             if success:
-                # 連接時設定初始compliance
-                self.stm.initialize_sts_controller(self)
+                # 初始化設定
                 self.smu.smu.write(":SYST:BEEP:STAT ON")
                 self.set_compliance(1, self._compliance[1])
                 self.set_compliance(2, self._compliance[2])
                 self.beep()
-            return success
+                
+                self.logger.info(f"Connected to SMU at {address}")
+                return True
+                
+            return False
+            
         except Exception as e:
+            self.logger.error(f"Connection failed: {str(e)}")
             raise Exception(f"連接失敗: {str(e)}")
-        
-    def beep(self, frequency=1000, duration=0.1):
-        """發出蜂鳴聲"""
-        try:
-            if self.smu and self.smu.smu:
-                self.smu.smu.write(f":SYST:BEEP {frequency},{duration}")
-        except Exception:
-            pass  # 蜂鳴器失敗不影響主要功能
 
     def disconnect_smu(self) -> bool:
-        """中斷SMU連接"""
+        """
+        中斷SMU連接
+        
+        Returns:
+            bool: 是否成功中斷連接
+        """
         try:
             with self._lock:
                 if self.smu:
                     # 停止所有讀值
                     for channel in [1, 2]:
                         self.stop_reading(channel)
-
+                        
                     # 關閉輸出
                     for channel in Channel:
                         self.smu.disable_output(channel)
-
+                        
                     # 中斷連接
                     self.smu.disconnect()
                     self.smu = None
+                    
+                self.logger.info("Disconnected from SMU")
                 return True
-
+                
         except Exception as e:
+            self.logger.error(f"Disconnect failed: {str(e)}")
             raise Exception(f"中斷連接失敗: {str(e)}")
 
-    def set_channel_value(self, channel: int, mode: str, value: float) -> bool:
-        """
-        設定通道輸出值
+    def beep(self, frequency=1000, duration=0.1):
+        """發出蜂鳴聲"""
+        try:
+            if self.smu and self.smu.smu:
+                self.smu.beep(frequency, duration)
+        except Exception:
+            pass  # 蜂鳴器失敗不影響主要功能
 
-        Args:
-            channel: 通道號(1或2)
-            mode: 'VOLTAGE'或'CURRENT'
-            value: 輸出值
-        """
+    # ========== Channel Control Functions ========== #
+    def set_channel_value(self, channel: int, mode: str, value: float) -> bool:
+        """設定通道輸出值"""
         try:
             if not self.smu:
-                raise Exception("SMU未連接")
+                raise ConnectionError("SMU未連接")
                 
             channel_enum = Channel.CH1 if channel == 1 else Channel.CH2
             output_mode = OutputMode.VOLTAGE if mode == 'VOLTAGE' else OutputMode.CURRENT
+            
+            # 驗證輸入值的範圍
+            if output_mode == OutputMode.VOLTAGE:
+                if abs(value) > 200:  # 假設最大電壓為±200V
+                    raise ValueError("電壓值超出範圍（最大±200V）")
+            else:
+                if abs(value) > 0.1:  # 假設最大電流為±100mA
+                    raise ValueError("電流值超出範圍（最大±100mA）")
             
             success = self.smu.configure_source(
                 channel=channel_enum,
@@ -128,22 +154,26 @@ class SMUControlAPI:
             
             if success:
                 self.beep()
+                # 驗證設定值
+                actual_value = float(self.smu.smu.query(
+                    f":SOUR{channel}:{output_mode.value}?"
+                ))
+                if abs(actual_value - value) > 1e-6:
+                    raise Exception(f"設定值驗證失敗（預期：{value}，實際：{actual_value}）")
+                    
+                self.logger.info(f"Set channel {channel} to {value} ({mode})")
+                
             return success
             
         except Exception as e:
+            self.logger.error(f"Set channel value failed: {str(e)}")
             raise Exception(f"設定通道{channel}失敗: {str(e)}")
 
     def set_channel_output(self, channel: int, state: bool) -> bool:
-        """
-        設定通道輸出開關
-
-        Args:
-            channel: 通道號(1或2)
-            state: True開啟, False關閉
-        """
+        """設定通道輸出開關"""
         try:
             if not self.smu:
-                raise Exception("SMU未連接")
+                raise ConnectionError("SMU未連接")
                 
             channel_enum = Channel.CH1 if channel == 1 else Channel.CH2
             
@@ -154,16 +184,47 @@ class SMUControlAPI:
                 
             if success:
                 self.beep()
+                self.logger.info(f"Set channel {channel} output to {state}")
+                
+                # 回傳實際的輸出狀態
+                actual_state = bool(int(self.smu.smu.query(f":OUTP{channel}?")))
+                if actual_state != state:
+                    raise Exception(f"輸出狀態設定失敗（預期：{state}，實際：{actual_state}）")
+                    
             return success
             
         except Exception as e:
+            self.logger.error(f"Set channel output failed: {str(e)}")
             raise Exception(f"設定通道{channel}輸出狀態失敗: {str(e)}")
 
-    def set_compliance(self, channel: int, value: float) -> bool:
-        """設定指定通道的compliance值"""
+    def read_channel(self, channel: int) -> dict:
+        """讀取通道數值"""
         try:
             if not self.smu:
-                raise Exception("SMU未連接")
+                raise ConnectionError("SMU未連接")
+                
+            with self._lock:
+                self.smu.smu.write("*CLS")
+                self.smu.smu.write(f":CONF:VOLT (@{channel})")
+                self.smu.smu.write(f":CONF:CURR (@{channel})")
+                self.smu.smu.write(f":SENS{channel}:CURR:NPLC 0.1")
+                
+                voltage = float(self.smu.smu.query(f":MEAS:VOLT? (@{channel})"))
+                time.sleep(0.05)
+                current = float(self.smu.smu.query(f":MEAS:CURR? (@{channel})"))
+                
+                self.beep()
+                return {'voltage': voltage, 'current': current}
+                
+        except Exception as e:
+            self.logger.error(f"Read channel failed: {str(e)}")
+            raise Exception(f"讀取通道{channel}失敗: {str(e)}")
+
+    def set_compliance(self, channel: int, value: float) -> bool:
+        """設定限制值"""
+        try:
+            if not self.smu:
+                raise ConnectionError("SMU未連接")
                 
             self._compliance[channel] = value
             self.smu.smu.write(f":SENS{channel}:CURR:PROT {value}")
@@ -171,260 +232,109 @@ class SMUControlAPI:
             return True
             
         except Exception as e:
-            raise Exception(f"設定通道{channel} compliance失敗: {str(e)}")
-            
+            self.logger.error(f"Set compliance failed: {str(e)}")
+            raise Exception(f"設定通道{channel}限制值失敗: {str(e)}")
+        
     def get_compliance(self, channel: int) -> float:
-        """讀取指定通道的compliance值"""
+        """獲取通道的compliance值"""
         try:
             if not self.smu:
-                raise Exception("SMU未連接")
-                
-            value = float(self.smu.smu.query(f":SENS{channel}:CURR:PROT?"))
-            return value
-            
+                raise ConnectionError("SMU未連接")
+            return self._compliance[channel]
         except Exception as e:
-            raise Exception(f"讀取通道{channel} compliance失敗: {str(e)}")
+            self.logger.error(f"Get compliance failed: {str(e)}")
+            raise Exception(f"獲取通道{channel}限制值失敗: {str(e)}")
 
-    # def read_channel(self, channel: int) -> Dict[str, float]:
-    #     """
-    #     讀取通道數值
-
-    #     Args:
-    #         channel: 通道號(1或2)
-
-    #     Returns:
-    #         Dict containing voltage and current readings
-    #     """
-    #     try:
-    #         if not self.smu:
-    #             raise Exception("SMU未連接")
-
-    #         channel_enum = Channel.CH1 if channel == 1 else Channel.CH2
-    #         reading = self.smu.measure(channel_enum, ['VOLT', 'CURR'])
-
-    #         return {
-    #             'voltage': reading[0],
-    #             'current': reading[1]
-    #         }
-
-    #     except Exception as e:
-    #         raise Exception(f"讀取通道{channel}失敗: {str(e)}")
-    def read_channel(self, channel: int) -> dict:
-        """
-        執行單次讀值
-        
-        Args:
-            channel: 通道號(1或2)
-            
-        Returns:
-            dict: 包含電壓和電流的讀值
-        """
+    def abort_measurement(self) -> bool:
+        """中止測量"""
         try:
-            if not self.smu:
-                raise Exception("SMU未連接")
-                
-            with self._lock:
-
-                # 讀取前儲存原始輸出狀態
-                original_output_state = bool(int(self.smu.smu.query(f":OUTP{channel}?")))
-
-                # 使用正確的smu物件
-                self.smu.smu.write("*CLS")
-                self.smu.smu.write(f":CONF:VOLT (@{channel})")
-                self.smu.smu.write(f":CONF:CURR (@{channel})")
-                self.smu.smu.write(f":SENS{channel}:CURR:NPLC 0.1")
-                
-                try:
-                    voltage = float(self.smu.smu.query(f":MEAS:VOLT? (@{channel})"))
-                    time.sleep(0.05)
-                    current = float(self.smu.smu.query(f":MEAS:CURR? (@{channel})"))
-                    self.beep()  # 讀值成功時發出聲音
-                    
-                    return {
-                        'voltage': voltage,
-                        'current': current
-                    }
-                finally:
-                    # 確保輸出狀態不變
-                    if not original_output_state:
-                        self.smu.smu.write(f":OUTP{channel} OFF")
-
-                # except Exception as e:
-                #     self.logger.error(f"測量錯誤: {str(e)}")
-                #     raise
-                    
-        except Exception as e:
-            raise Exception(f"讀取通道{channel}失敗: {str(e)}")
-
-    def start_reading(self, channel: int) -> bool:
-        """開始持續讀值"""
-        try:
-            with self._lock:
-                if channel in self._reading_threads and self._reading_threads[channel].is_alive():
-                    return False
-                    
-                self._reading_active[channel] = True
-                thread = threading.Thread(
-                    target=self._reading_loop,
-                    args=(channel,),
-                    daemon=True
-                )
-                self._reading_threads[channel] = thread
-                thread.start()
+            if self.stm.sts_controller:
+                self.stm.sts_controller.abort_measurement()
+                self.logger.info("Measurement aborted")
                 return True
-                
+            return False
         except Exception as e:
-            print(f"Failed to start reading channel {channel}: {str(e)}")
+            self.logger.error(f"Abort measurement failed: {str(e)}")
             return False
 
-    def stop_reading(self, channel: int) -> bool:
-        """停止持續讀值"""
-        try:
-            with self._lock:
-                self._reading_active[channel] = False
-                if channel in self._reading_threads:
-                    self._reading_threads[channel].join(timeout=1.0)
-                    del self._reading_threads[channel]
-                return True
-                
-        except Exception as e:
-            print(f"Failed to stop reading channel {channel}: {str(e)}")
-            return False
-
-    def _reading_loop(self, channel: int):
-        """讀值循環"""
-        retry_count = 0
-        max_retries = 3
-        
-        while self._reading_active[channel] and not self._cleanup_event.is_set():
-            try:
-                with self._lock:  # 防止同時讀取造成衝突
-                    if self.smu:
-                        channel_enum = Channel.CH1 if channel == 1 else Channel.CH2
-                        
-                        # 配置測量參數
-                        self.smu.write(f":SENS{channel}:CURR:NPLC 0.1")  # 快速測量模式
-                        self.smu.write(f":FORM:ELEM:SENS VOLT,CURR")
-                        
-                        # 分別讀取電壓和電流
-                        voltage = float(self.smu.query(f":MEAS:VOLT? (@{channel})"))
-                        time.sleep(0.01)  # 短暫延遲
-                        current = float(self.smu.query(f":MEAS:CURR? (@{channel})"))
-                        
-                        # 發送到前端
-                        window = webview.windows[0]
-                        window.evaluate_js(
-                            f"updateChannelReading({channel}, {voltage}, {current})"
-                        )
-                        
-                        # 重置重試計數
-                        retry_count = 0
-                        
-            except Exception as e:
-                retry_count += 1
-                if retry_count >= max_retries:
-                    print(f"Channel {channel} reading failed after {max_retries} retries")
-                    self._reading_active[channel] = False
-                    break
-                    
-                time.sleep(0.5)  # 錯誤後等待時間
-                
-            # 讀值間隔
-            time.sleep(0.1)
-
-
-    ## ========== STS functions ==========
+    # ========== STS Control Functions ========== #
     def start_sts(self) -> bool:
-        """
-        開始STS測量
-        
-        Returns
-        -------
-        bool
-            測量是否成功開始
-        """
+        """執行單點STS測量"""
         try:
             if not self.stm:
-                raise Exception("STM控制器未初始化")
+                raise ConnectionError("STM未連接")
                 
-            # 直接使用 spectroscopy_start() 方法
-            success = self.stm.spectroscopy_start()
+            self._update_sts_status("開始STS測量")
+            success = self.stm.sts_controller.start_single_sts()
             
-            if not success:
-                print("Warning: STS start command returned false")
+            if success:
+                self.beep()
+                self._update_sts_status("測量完成")
+            else:
+                self._update_sts_status("測量失敗")
                 
             return success
             
         except Exception as e:
-            print(f"STS start error: {str(e)}")  # 加入詳細的錯誤訊息
-            raise Exception(f"執行STS失敗: {str(e)}")
-        
+            self.logger.error(f"STS execution error: {str(e)}")
+            self._update_sts_status(f"錯誤: {str(e)}")
+            return False
 
     def perform_multi_sts(self, script_name: str) -> bool:
-        """執行多組STS量測"""
+        """執行多點STS測量"""
         try:
-            if not self.stm.sts_controller:
-                raise Exception("STS Controller未初始化")
-                
-            script = self.stm.sts_controller.get_script(script_name)
+            script = self.stm.sts_controller.load_script(script_name)
             if not script:
                 raise ValueError(f"找不到腳本: {script_name}")
-                
-            return self.stm.sts_controller.perform_multi_sts(script)
-            
+            return self.stm.sts_controller.execute_sts_script(script)
         except Exception as e:
-            raise Exception(f"執行STS量測失敗: {str(e)}")
+            self.logger.error(f"Multi-STS execution error: {str(e)}")
+            return False
 
-    def save_sts_script(self, name: str, vds_list: list[float], vg_list: list[float]) -> bool:
-        """儲存STS腳本"""
+    def save_sts_script(self, name: str, vds_list: list, vg_list: list) -> bool:
+        """儲存STS測量腳本"""
         try:
-            if not self.stm.sts_controller:
-                raise Exception("STS Controller未初始化")
-                
             from modules.SXMSTSController import STSScript
             script = STSScript(name, vds_list, vg_list)
             return self.stm.sts_controller.save_script(script)
-            
         except Exception as e:
-            raise Exception(f"儲存腳本失敗: {str(e)}")
+            self.logger.error(f"Save script error: {str(e)}")
+            return False
 
     def get_sts_scripts(self) -> dict:
-        """取得所有腳本資訊"""
+        """獲取所有STS測量腳本"""
         try:
-            if not self.stm.sts_controller:
-                raise Exception("STS Controller未初始化")
-                
             scripts = self.stm.sts_controller.get_all_scripts()
             return {
                 name: script.to_dict()
                 for name, script in scripts.items()
             }
         except Exception as e:
-            raise Exception(f"取得腳本列表失敗: {str(e)}")
-    ## ========== STS functions END ==========
+            self.logger.error(f"Get scripts error: {str(e)}")
+            return {}
+
+    # ========== UI Update Callbacks ========== #
+    def _update_sts_status(self, status: str):
+        """更新STS狀態到UI"""
+        try:
+            window = webview.windows[0]
+            window.evaluate_js(f"updateSTSStatus('{status}')")
+        except Exception as e:
+            self.logger.error(f"Status update error: {str(e)}")
+
+    def _update_sts_progress(self, progress: float):
+        """更新STS進度到UI"""
+        try:
+            window = webview.windows[0]
+            window.evaluate_js(f"updateSTSProgress({progress})")
+        except Exception as e:
+            self.logger.error(f"Progress update error: {str(e)}")
 
     def cleanup(self):
         """清理資源"""
         try:
-            if self.smu:
-                # 關閉所有輸出
-                for channel in [1, 2]:
-                    try:
-                        self.set_channel_output(channel, False)
-                    except:
-                        pass
-                
-                # 斷開連接
-                try:
-                    self.smu.disconnect()
-                except:
-                    pass
-                
-                self.smu = None
-                
+            self.disconnect_smu()
+            if self.stm:
+                self.stm.safe_shutdown()
         except Exception as e:
-            print(f"清理時發生錯誤: {str(e)}")
-
-    def __del__(self):
-        """解構子"""
-        self.cleanup()
+            self.logger.error(f"Cleanup error: {str(e)}")
