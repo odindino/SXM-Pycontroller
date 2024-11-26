@@ -13,55 +13,16 @@ ROOT_DIR = Path(__file__).parent.parent
 sys.path.append(str(ROOT_DIR))
 
 # 現在可以直接從 modules 導入
-from modules import SXMRemote
-
-# 其餘程式碼保持不變...
+from modules import SXMPySpectro
 
 class STSTestAPI:
     def __init__(self):
-        self.dde_client = None
-        
-    def initialize_dde(self):
-        """初始化DDE連接"""
-        try:
-            if self.dde_client is None:
-                self.dde_client = SXMRemote.DDEClient("SXM", "Remote")
-            
-            # 測試連接
-            self.dde_client.SendWait("*OPC?")
-            while self.dde_client.NotGotAnswer:
-                SXMRemote.loop()
-                
-            return True
-            
-        except Exception as e:
-            print(f"DDE initialization error: {str(e)}")
-            return False
+        self.stm_controller = SXMPySpectro.SXMSpectroControl(debug_mode=True)
 
     def execute_sts(self) -> bool:
         """執行STS測量"""
         try:
-            # 確保DDE連接
-            if not self.initialize_dde():
-                raise Exception("Failed to initialize DDE")
-                
-            print("Starting STS measurement...")
-            
-            # 發送STS開始命令
-            self.dde_client.SendWait("SpectStart;")
-            
-            # 等待回應
-            wait_count = 0
-            while self.dde_client.NotGotAnswer and wait_count < 50:
-                SXMRemote.loop()
-                time.sleep(0.1)
-                wait_count += 1
-                
-            if wait_count >= 50:
-                raise Exception("STS response timeout")
-                
-            print("STS command sent successfully")
-            return True
+            return self.stm_controller.spectroscopy_start()
             
         except Exception as e:
             print(f"STS execution error: {str(e)}")
