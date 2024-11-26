@@ -187,25 +187,38 @@ function setupChannelEvents(channelNum) {
     // 設定輸出值
     ch.setBtn.addEventListener('click', async () => {
         try {
+            const value = parseFloat(ch.value.value);
+            if (isNaN(value)) {
+                throw new Error('請輸入有效的數值');
+            }
+            
             await pywebview.api.set_channel_value(
                 channelNum,
                 ch.mode.value,
-                parseFloat(ch.value.value)
+                value
             );
+            
         } catch (error) {
-            alert(`設定通道 ${channelNum} 失敗: ${error}`);
+            console.error(`Channel ${channelNum} set value error:`, error);
+            alert(`設定值失敗: ${error.message}`);
         }
     });
 
-    // 輸出開關
+    // 輸出開關處理
     ch.outputBtn.addEventListener('click', async () => {
         try {
-            const newState = ch.outputBtn.textContent === 'Output OFF';
+            const currentState = ch.outputBtn.classList.contains('success');
+            const newState = !currentState;
+            
             await pywebview.api.set_channel_output(channelNum, newState);
+            
             ch.outputBtn.textContent = `Output ${newState ? 'ON' : 'OFF'}`;
-            ch.outputBtn.className = newState ? 'success' : 'warning';
+            ch.outputBtn.classList.toggle('success', newState);
+            ch.outputBtn.classList.toggle('warning', !newState);
+            
         } catch (error) {
-            alert(`切換輸出 ${channelNum} 失敗: ${error}`);
+            console.error(`Channel ${channelNum} output error:`, error);
+            alert(`輸出切換失敗: ${error.message}`);
         }
     });
 }
@@ -262,6 +275,14 @@ class STSControl {
     }
 
     setupEventListeners() {
+
+        const startSingleBtn = document.getElementById('startSingleSts');
+        const startMultiBtn = document.getElementById('startMultiSts');
+        const abortBtn = document.getElementById('abortSts');
+        startSingleBtn?.addEventListener('click', () => this.startSTS(false));
+        startMultiBtn?.addEventListener('click', () => this.startSTS(true));
+        abortBtn?.addEventListener('click', () => this.abortMeasurement());
+        
         // 控制按鈕
         document.getElementById('startSingleSts').addEventListener('click', () => {
             this.startSTS(false);
@@ -307,7 +328,7 @@ class STSControl {
             this.isRunning = true;
             this.abortRequested = false;
             this.updateUI(true);
-
+            
             if (isMulti) {
                 const scriptName = document.getElementById('scriptSelect').value;
                 if (!scriptName) {
@@ -317,7 +338,7 @@ class STSControl {
             } else {
                 await pywebview.api.start_sts();
             }
-
+            
         } catch (error) {
             console.error('STS Error:', error);
             this.updateStatus(`錯誤: ${error.message}`, 'error');
@@ -344,6 +365,13 @@ class STSControl {
             save: document.getElementById('saveScript'),
             add: document.getElementById('addStsRow')
         };
+        
+        if (startSingleBtn) startSingleBtn.disabled = running;
+        if (startMultiBtn) startMultiBtn.disabled = running;
+        if (abortBtn) abortBtn.disabled = !running;
+
+        this.updateStatus(running ? '測量進行中' : '就緒', 
+            running ? 'running' : 'ready');
 
         buttons.startSingle.disabled = running;
         buttons.startMulti.disabled = running;
@@ -504,4 +532,5 @@ class STSControl {
 // 初始化
 document.addEventListener('DOMContentLoaded', () => {
     window.stsControl = new STSControl();
-    });
+
+});

@@ -137,6 +137,14 @@ class SMUControlAPI:
             channel_enum = Channel.CH1 if channel == 1 else Channel.CH2
             output_mode = OutputMode.VOLTAGE if mode == 'VOLTAGE' else OutputMode.CURRENT
             
+            # 驗證輸入值的範圍
+            if output_mode == OutputMode.VOLTAGE:
+                if abs(value) > 200:  # 假設最大電壓為±200V
+                    raise ValueError("電壓值超出範圍（最大±200V）")
+            else:
+                if abs(value) > 0.1:  # 假設最大電流為±100mA
+                    raise ValueError("電流值超出範圍（最大±100mA）")
+            
             success = self.smu.configure_source(
                 channel=channel_enum,
                 mode=output_mode,
@@ -146,7 +154,15 @@ class SMUControlAPI:
             
             if success:
                 self.beep()
+                # 驗證設定值
+                actual_value = float(self.smu.smu.query(
+                    f":SOUR{channel}:{output_mode.value}?"
+                ))
+                if abs(actual_value - value) > 1e-6:
+                    raise Exception(f"設定值驗證失敗（預期：{value}，實際：{actual_value}）")
+                    
                 self.logger.info(f"Set channel {channel} to {value} ({mode})")
+                
             return success
             
         except Exception as e:
@@ -169,6 +185,12 @@ class SMUControlAPI:
             if success:
                 self.beep()
                 self.logger.info(f"Set channel {channel} output to {state}")
+                
+                # 回傳實際的輸出狀態
+                actual_state = bool(int(self.smu.smu.query(f":OUTP{channel}?")))
+                if actual_state != state:
+                    raise Exception(f"輸出狀態設定失敗（預期：{state}，實際：{actual_state}）")
+                    
             return success
             
         except Exception as e:
@@ -239,9 +261,23 @@ class SMUControlAPI:
     def start_sts(self) -> bool:
         """執行單點STS測量"""
         try:
-            return self.stm.sts_controller.start_single_sts()
+            if not self.stm:
+                raise ConnectionError("STM未連接")
+                
+            self._update_sts_status("開始STS測量")
+            success = self.stm.sts_controller.start_single_sts()
+            
+            if success:
+                self.beep()
+                self._update_sts_status("測量完成")
+            else:
+                self._update_sts_status("測量失敗")
+                
+            return success
+            
         except Exception as e:
             self.logger.error(f"STS execution error: {str(e)}")
+            self._update_sts_status(f"錯誤: {str(e)}")
             return False
 
     def perform_multi_sts(self, script_name: str) -> bool:

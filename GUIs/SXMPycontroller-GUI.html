@@ -90,33 +90,35 @@
          
         <div class="channel-panel">
             <h2>STM Control</h2>
-            <div class="input-group">
-                <button id="stsStartBtn" class="success">Start STS</button>        
-            </div>
+            
             <div id="stsConfigPanel">
                 <h3>STS Voltage Settings</h3>
+                <div class="sts-control-buttons">
+                    <button id="startSingleSts" class="primary-btn">Start Single STS</button>
+                    <button id="startMultiSts" class="primary-btn">Start Multi-STS</button>
+                </div>
                 <!-- 改進的狀態和進度顯示區 -->
-                <div class="measurement-status">
-                    <div class="status-panel">
-                        <div class="status-header">
-                            <i class="status-icon"></i>
-                            <span class="status-label">量測狀態</span>
-                        </div>
-                        <div class="status-content">
-                            <span id="stsStatus" class="status-text status-ready">就緒</span>
-                        </div>
+            <div class="measurement-status">
+                <div class="status-panel">
+                    <div class="status-header">
+                        <i class="status-icon"></i>
+                        <span class="status-label">量測狀態</span>
                     </div>
-                    
-                    <div class="progress-panel">
-                        <div class="progress-info">
-                            <span class="progress-label">進度</span>
-                            <span id="stsProgressText" class="progress-percentage">0%</span>
-                        </div>
-                        <div class="progress-track">
-                            <div id="stsProgress" class="progress-fill"></div>
-                        </div>
+                    <div class="status-content">
+                        <span id="stsStatus" class="status-text status-ready">就緒</span>
                     </div>
                 </div>
+                
+                <div class="progress-panel">
+                    <div class="progress-info">
+                        <span class="progress-label">進度</span>
+                        <span id="stsProgressText" class="progress-percentage">0%</span>
+                    </div>
+                    <div class="progress-track">
+                        <div id="stsProgress" class="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
                 <div id="stsSettingsTable">
                     <div class="sts-header">
                         <span>Vds (V)</span>
@@ -140,10 +142,7 @@
                     <option value="">Select Script...</option>
                 </select>
             </div>
-            <div class="sts-control-buttons">
-                <button id="startSingleSts" class="primary-btn">Start Single STS</button>
-                <button id="startMultiSts" class="primary-btn">Start Multi-STS</button>
-            </div>
+            
         </div>
     </div>
 
