@@ -16,7 +16,7 @@ from enum import Enum
 
 from utils.KB2902BSMU import KeysightB2902B, Channel, OutputMode
 from modules.SXMPySpectro import SXMSpectroControl
-from SXMPycontroller import SXMController
+from modules.SXMPycontroller import SXMController
 
 
 @dataclass

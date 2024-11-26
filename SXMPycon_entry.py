@@ -1,4 +1,4 @@
-from SXMPycontroller import SXMController
+from modules.SXMPycontroller import SXMController
 from utils.logger import get_logger, track_function
 
 @track_function

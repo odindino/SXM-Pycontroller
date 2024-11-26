@@ -1,6 +1,6 @@
 # test_param.py
 
-from SXMPycontroller import SXMController
+from modules.SXMPycontroller import SXMController
 from RemoteSXM import SXMRemote
 import time
 

@@ -162,7 +162,7 @@
 # # ==== CITS test ==== #
 
 
-from SXMPycontroller import SXMController
+from modules.SXMPycontroller import SXMController
 from SXMDiagnosizer import run_diagnostics
 
 def main():
