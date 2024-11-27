@@ -132,6 +132,54 @@
             <div id="stsStatus">Ready for STS measurement</div>
         </div>
         </div>
+        
+        <div class="channel-panel">
+            <h2>CITS Control</h2>
+            
+            <div class="input-group">
+                <label>CITS Points Settings:</label>
+                <div class="points-input-container">
+                    <input id="citsPointsX" 
+                           class="numeric-input" 
+                           type="number" 
+                           value="11" 
+                           min="1" 
+                           max="512" 
+                           placeholder="X Points">
+                    <span>X Points</span>
+                    
+                    <input id="citsPointsY" 
+                           class="numeric-input" 
+                           type="number" 
+                           value="11" 
+                           min="1" 
+                           max="512" 
+                           placeholder="Y Points">
+                    <span>Y Points</span>
+                </div>
+            </div>
+        
+            <div class="cits-control-buttons">
+                <button id="startSingleCits" class="primary-btn">Start Single-STS CITS</button>
+                <button id="startMultiCits" class="secondary-btn">Start Multi-STS CITS</button>
+            </div>
+        
+            <div class="reading-display">
+                <div class="status-line">
+                    <span>Status:</span>
+                    <span id="citsStatus">Idle</span>
+                </div>
+                <div class="progress-line">
+                    <span>Progress:</span>
+                    <span id="citsProgress">0%</span>
+                </div>
+                <div class="timestamp">
+                    <span>Last CITS:</span>
+                    <span id="citsLastTime">Never</span>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script src="./scripts/SXMPycontroller-script.js"></script>
