@@ -181,7 +181,6 @@ class SXMController(SXMCITSControl):
                 'ch2_output': False, 
                 'ch2_voltage': 0.0
             }
-            original_zoffset = self.get_zoffset()
             
             # 檢查並記錄SMU狀態
             for ch in [1, 2]:
@@ -205,9 +204,8 @@ class SXMController(SXMCITSControl):
                     time.sleep(0.5)  # 等待output穩定
             
             # 關閉回饋
-            if original_zoffset != 0.0:
-                self.set_zoffset(0.0)
-
+            
+            self.set_zoffset(0.0)
             self.feedback_off()
             time.sleep(0.5)  # 等待系統穩定
             
@@ -262,7 +260,7 @@ class SXMController(SXMCITSControl):
                 # 恢復回饋狀態
                 if original_states['feedback'] != self.FbOn:
                     self.feedback_on()
-                    self.set_zoffset(original_zoffset)
+                    self.set_zoffset(10)
 
                 
             except Exception as e:

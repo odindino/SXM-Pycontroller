@@ -62,18 +62,6 @@ class SXMSpectroControl(SXMScanControl):
         print("current state:", current_state)
         return self.FbOn
     
-    def get_zoffset(self):
-        """
-        獲取Z軸偏移量
-
-        Returns
-        -------
-        float
-            Z軸偏移量（nm）
-        """
-        zoffset = self.GetFeedbackPara('ZOffset')
-        return zoffset
-    
     def set_zoffset(self, offset):
         """
         設定Z軸偏移量
