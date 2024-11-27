@@ -471,11 +471,11 @@ class SMUControlAPI:
             if scan_direction not in (1, -1):
                 raise ValueError("掃描方向必須是 1 (向上) 或 -1 (向下)")
                 
+            # 移除 use_multi_sts 參數
             success = self.stm.standard_cits(
                 num_points_x=points_x,
                 num_points_y=points_y,
-                scan_direction=scan_direction,
-                use_multi_sts=use_multi_sts
+                scan_direction=scan_direction
             )
             
             return success

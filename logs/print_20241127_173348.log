@@ -1,0 +1,370 @@
+2024-11-27 17:33:48,432 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-27 17:33:48,441 - Response: b'DDE Cmd 382\r\n0\r\n'
+2024-11-27 17:33:48,442 - Starting new scan
+2024-11-27 17:33:48,442 - Sending command: ScanPara('Scan', 1);
+2024-11-27 17:33:48,448 - Response: b'DDE Cmd 383\r\n'
+2024-11-27 17:33:48,448 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-27 17:33:48,450 - Response: b'DDE Cmd 384\r\n1\r\n'
+2024-11-27 17:33:48,951 - Sending command: a := 0.0;
+a := GetScanPara('Range');
+Writeln(a);
+2024-11-27 17:33:48,958 - Response: b'DDE Cmd 385\r\n500\r\n'
+2024-11-27 17:33:48,958 - Sending command: a := 0.0;
+a := GetScanPara('Angle');
+Writeln(a);
+2024-11-27 17:33:48,964 - Response: b'DDE Cmd 386\r\n0\r\n'
+2024-11-27 17:33:48,964 - Sending command: a := 0.0;
+a := GetScanPara('Pixel');
+Writeln(a);
+2024-11-27 17:33:48,969 - Response: b'DDE Cmd 387\r\n500\r\n'
+2024-11-27 17:33:48,970 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2024-11-27 17:33:48,974 - Response: b'DDE Cmd 388\r\n1931.2\r\n'
+2024-11-27 17:33:48,974 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2024-11-27 17:33:48,995 - Response: b'DDE Cmd 389\r\n5333.6\r\n'
+2024-11-27 17:33:48,995 - Scan center: (1931.200, 5333.600)
+2024-11-27 17:33:48,995 - Scan angle: 0.0°
+2024-11-27 17:33:48,996 - 
+Starting standard CITS measurement:
+2024-11-27 17:33:48,996 - Center position: (1931.200, 5333.600)
+2024-11-27 17:33:48,996 - Starting position: (-245.000, -245.000)
+2024-11-27 17:33:48,996 - Step sizes: dx=49.000, dy=49.000
+2024-11-27 17:33:48,996 - Points: 11x11
+2024-11-27 17:33:48,996 - Lines per STS: 41.0
+2024-11-27 17:33:48,996 - 
+Scanning 41.0 lines before STS line 1/11
+2024-11-27 17:33:48,996 - Sending command: ScanLine(41.0);
+2024-11-27 17:33:49,859 - Response: b'f497\r\n'
+2024-11-27 17:33:49,859 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-27 17:33:50,744 - Response: b'b497\r\n'
+2024-11-27 17:33:50,744 - Current scan line: 41.0/500.0
+2024-11-27 17:33:50,744 - Performing STS measurements on line 1
+2024-11-27 17:33:50,744 - STS point 1/121 (0.8%) at (-245.000, -245.000)
+2024-11-27 17:33:50,744 - Sending command: SpectPara(1, -244.99999999999977);
+2024-11-27 17:33:51,633 - Response: b'f496\r\n'
+2024-11-27 17:33:51,633 - Sending command: SpectPara(2, -245.0);
+2024-11-27 17:33:52,521 - Response: b'b496\r\n'
+2024-11-27 17:33:53,022 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:33:53,413 - Response: b'f495\r\n'
+2024-11-27 17:33:53,413 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:33:54,304 - Response: b'b495\r\n'
+2024-11-27 17:33:54,305 - Warning: STS measurement failed at point 1
+2024-11-27 17:33:54,305 - STS point 2/121 (1.7%) at (-196.000, -245.000)
+2024-11-27 17:33:54,305 - Sending command: SpectPara(1, -195.99999999999977);
+2024-11-27 17:33:55,202 - Response: b'f494\r\n'
+2024-11-27 17:33:55,203 - Sending command: SpectPara(2, -245.0);
+2024-11-27 17:33:56,094 - Response: b'b494\r\n'
+2024-11-27 17:33:56,595 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:33:56,991 - Response: b'f493\r\n'
+2024-11-27 17:33:56,992 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:33:57,883 - Response: b'b493\r\n'
+2024-11-27 17:33:57,883 - Warning: STS measurement failed at point 2
+2024-11-27 17:33:57,883 - STS point 3/121 (2.5%) at (-147.000, -245.000)
+2024-11-27 17:33:57,883 - Sending command: SpectPara(1, -146.99999999999977);
+2024-11-27 17:33:58,779 - Response: b'f492\r\n'
+2024-11-27 17:33:58,780 - Sending command: SpectPara(2, -245.0);
+2024-11-27 17:33:59,672 - Response: b'b492\r\n'
+2024-11-27 17:34:00,173 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:34:00,569 - Response: b'f491\r\n'
+2024-11-27 17:34:00,569 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:34:01,461 - Response: b'b491\r\n'
+2024-11-27 17:34:01,462 - Warning: STS measurement failed at point 3
+2024-11-27 17:34:01,462 - STS point 4/121 (3.3%) at (-98.000, -245.000)
+2024-11-27 17:34:01,462 - Sending command: SpectPara(1, -97.99999999999977);
+2024-11-27 17:34:02,357 - Response: b'f490\r\n'
+2024-11-27 17:34:02,357 - Sending command: SpectPara(2, -245.0);
+2024-11-27 17:34:03,260 - Response: b'b490\r\n'
+2024-11-27 17:34:03,761 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:34:04,151 - Response: b'f489\r\n'
+2024-11-27 17:34:04,152 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:34:05,038 - Response: b'b489\r\n'
+2024-11-27 17:34:05,038 - Warning: STS measurement failed at point 4
+2024-11-27 17:34:05,038 - STS point 5/121 (4.1%) at (-49.000, -245.000)
+2024-11-27 17:34:05,038 - Sending command: SpectPara(1, -48.99999999999977);
+2024-11-27 17:34:05,930 - Response: b'f488\r\n'
+2024-11-27 17:34:05,930 - Sending command: SpectPara(2, -245.0);
+2024-11-27 17:34:06,823 - Response: b'b488\r\n'
+2024-11-27 17:34:07,324 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:34:07,724 - Response: b'f487\r\n'
+2024-11-27 17:34:07,725 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:34:08,621 - Response: b'b487\r\n'
+2024-11-27 17:34:08,621 - Warning: STS measurement failed at point 5
+2024-11-27 17:34:08,621 - STS point 6/121 (5.0%) at (0.000, -245.000)
+2024-11-27 17:34:08,621 - Sending command: SpectPara(1, 2.2737367544323206e-13);
+2024-11-27 17:34:09,521 - Response: b'f486\r\n'
+2024-11-27 17:34:09,522 - Sending command: SpectPara(2, -245.0);
+2024-11-27 17:34:10,419 - Response: b'b486\r\n'
+2024-11-27 17:34:10,920 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:34:11,320 - Response: b'f485\r\n'
+2024-11-27 17:34:11,321 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:34:12,217 - Response: b'b485\r\n'
+2024-11-27 17:34:12,217 - Warning: STS measurement failed at point 6
+2024-11-27 17:34:12,217 - STS point 7/121 (5.8%) at (49.000, -245.000)
+2024-11-27 17:34:12,218 - Sending command: SpectPara(1, 49.00000000000023);
+2024-11-27 17:34:13,118 - Response: b'f484\r\n'
+2024-11-27 17:34:13,118 - Sending command: SpectPara(2, -245.0);
+2024-11-27 17:34:14,014 - Response: b'b484\r\n'
+2024-11-27 17:34:14,515 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:34:14,915 - Response: b'f483\r\n'
+2024-11-27 17:34:14,916 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:34:15,811 - Response: b'b483\r\n'
+2024-11-27 17:34:15,811 - Warning: STS measurement failed at point 7
+2024-11-27 17:34:15,812 - STS point 8/121 (6.6%) at (98.000, -245.000)
+2024-11-27 17:34:15,812 - Sending command: SpectPara(1, 98.00000000000023);
+2024-11-27 17:34:16,722 - Response: b'f482\r\n'
+2024-11-27 17:34:16,723 - Sending command: SpectPara(2, -245.0);
+2024-11-27 17:34:17,619 - Response: b'b482\r\n'
+2024-11-27 17:34:18,119 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:34:18,518 - Response: b'f481\r\n'
+2024-11-27 17:34:18,519 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:34:19,415 - Response: b'b481\r\n'
+2024-11-27 17:34:19,415 - Warning: STS measurement failed at point 8
+2024-11-27 17:34:19,415 - STS point 9/121 (7.4%) at (147.000, -245.000)
+2024-11-27 17:34:19,416 - Sending command: SpectPara(1, 147.00000000000023);
+2024-11-27 17:34:20,321 - Response: b'f480\r\n'
+2024-11-27 17:34:20,321 - Sending command: SpectPara(2, -245.0);
+2024-11-27 17:34:21,217 - Response: b'b480\r\n'
+2024-11-27 17:34:21,718 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:34:22,117 - Response: b'f479\r\n'
+2024-11-27 17:34:22,117 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:34:23,014 - Response: b'b479\r\n'
+2024-11-27 17:34:23,015 - Warning: STS measurement failed at point 9
+2024-11-27 17:34:23,015 - STS point 10/121 (8.3%) at (196.000, -245.000)
+2024-11-27 17:34:23,015 - Sending command: SpectPara(1, 196.00000000000023);
+2024-11-27 17:34:23,923 - Response: b'f478\r\n'
+2024-11-27 17:34:23,923 - Sending command: SpectPara(2, -245.0);
+2024-11-27 17:34:24,819 - Response: b'b478\r\n'
+2024-11-27 17:34:25,319 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:34:25,714 - Response: b'f477\r\n'
+2024-11-27 17:34:25,715 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:34:26,604 - Response: b'b477\r\n'
+2024-11-27 17:34:26,604 - Warning: STS measurement failed at point 10
+2024-11-27 17:34:26,605 - STS point 11/121 (9.1%) at (245.000, -245.000)
+2024-11-27 17:34:26,605 - Sending command: SpectPara(1, 245.00000000000023);
+2024-11-27 17:34:27,501 - Response: b'f476\r\n'
+2024-11-27 17:34:27,501 - Sending command: SpectPara(2, -245.0);
+2024-11-27 17:34:28,391 - Response: b'b476\r\n'
+2024-11-27 17:34:28,892 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:34:29,297 - Response: b'f475\r\n'
+2024-11-27 17:34:29,298 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:34:30,189 - Response: b'b475\r\n'
+2024-11-27 17:34:30,189 - Warning: STS measurement failed at point 11
+2024-11-27 17:34:30,189 - 
+Scanning 41.0 lines before STS line 2/11
+2024-11-27 17:34:30,190 - Sending command: ScanLine(41.0);
+2024-11-27 17:34:31,085 - Response: b'f474\r\n'
+2024-11-27 17:34:31,086 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-27 17:34:31,978 - Response: b'b474\r\n'
+2024-11-27 17:34:31,978 - Current scan line: 82.0/500.0
+2024-11-27 17:34:31,978 - Performing STS measurements on line 2
+2024-11-27 17:34:31,978 - STS point 12/121 (9.9%) at (-245.000, -196.000)
+2024-11-27 17:34:31,978 - Sending command: SpectPara(1, -244.99999999999977);
+2024-11-27 17:34:32,874 - Response: b'f473\r\n'
+2024-11-27 17:34:32,874 - Sending command: SpectPara(2, -196.0);
+2024-11-27 17:34:33,773 - Response: b'b473\r\n'
+2024-11-27 17:34:34,274 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:34:34,669 - Response: b'f472\r\n'
+2024-11-27 17:34:34,670 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:34:35,561 - Response: b'b472\r\n'
+2024-11-27 17:34:35,562 - Warning: STS measurement failed at point 12
+2024-11-27 17:34:35,562 - STS point 13/121 (10.7%) at (-196.000, -196.000)
+2024-11-27 17:34:35,562 - Sending command: SpectPara(1, -195.99999999999977);
+2024-11-27 17:34:36,458 - Response: b'f471\r\n'
+2024-11-27 17:34:36,458 - Sending command: SpectPara(2, -196.0);
+2024-11-27 17:34:37,349 - Response: b'b471\r\n'
+2024-11-27 17:34:37,850 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:34:38,248 - Response: b'f470\r\n'
+2024-11-27 17:34:38,249 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:34:39,145 - Response: b'b470\r\n'
+2024-11-27 17:34:39,146 - Warning: STS measurement failed at point 13
+2024-11-27 17:34:39,146 - STS point 14/121 (11.6%) at (-147.000, -196.000)
+2024-11-27 17:34:39,146 - Sending command: SpectPara(1, -146.99999999999977);
+2024-11-27 17:34:40,042 - Response: b'f469\r\n'
+2024-11-27 17:34:40,042 - Sending command: SpectPara(2, -196.0);
+2024-11-27 17:34:40,933 - Response: b'b469\r\n'
+2024-11-27 17:34:41,435 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:34:41,828 - Response: b'f468\r\n'
+2024-11-27 17:34:41,829 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:34:42,715 - Response: b'b468\r\n'
+2024-11-27 17:34:42,715 - Warning: STS measurement failed at point 14
+2024-11-27 17:34:42,715 - STS point 15/121 (12.4%) at (-98.000, -196.000)
+2024-11-27 17:34:42,715 - Sending command: SpectPara(1, -97.99999999999977);
+2024-11-27 17:34:43,606 - Response: b'f467\r\n'
+2024-11-27 17:34:43,606 - Sending command: SpectPara(2, -196.0);
+2024-11-27 17:34:44,492 - Response: b'b467\r\n'
+2024-11-27 17:34:44,994 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:34:45,391 - Response: b'f466\r\n'
+2024-11-27 17:34:45,391 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:34:46,277 - Response: b'b466\r\n'
+2024-11-27 17:34:46,277 - Warning: STS measurement failed at point 15
+2024-11-27 17:34:46,277 - STS point 16/121 (13.2%) at (-49.000, -196.000)
+2024-11-27 17:34:46,277 - Sending command: SpectPara(1, -48.99999999999977);
+2024-11-27 17:34:47,172 - Response: b'f465\r\n'
+2024-11-27 17:34:47,173 - Sending command: SpectPara(2, -196.0);
+2024-11-27 17:34:48,064 - Response: b'b465\r\n'
+2024-11-27 17:34:48,565 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:34:48,959 - Response: b'f464\r\n'
+2024-11-27 17:34:48,959 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:34:49,850 - Response: b'b464\r\n'
+2024-11-27 17:34:49,850 - Warning: STS measurement failed at point 16
+2024-11-27 17:34:49,851 - STS point 17/121 (14.0%) at (0.000, -196.000)
+2024-11-27 17:34:49,851 - Sending command: SpectPara(1, 2.2737367544323206e-13);
+2024-11-27 17:34:50,745 - Response: b'f463\r\n'
+2024-11-27 17:34:50,745 - Sending command: SpectPara(2, -196.0);
+2024-11-27 17:34:51,642 - Response: b'b463\r\n'
+2024-11-27 17:34:52,143 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:34:52,537 - Response: b'f462\r\n'
+2024-11-27 17:34:52,537 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:34:53,428 - Response: b'b462\r\n'
+2024-11-27 17:34:53,428 - Warning: STS measurement failed at point 17
+2024-11-27 17:34:53,428 - STS point 18/121 (14.9%) at (49.000, -196.000)
+2024-11-27 17:34:53,428 - Sending command: SpectPara(1, 49.00000000000023);
+2024-11-27 17:34:54,322 - Response: b'f461\r\n'
+2024-11-27 17:34:54,323 - Sending command: SpectPara(2, -196.0);
+2024-11-27 17:34:55,215 - Response: b'b461\r\n'
+2024-11-27 17:34:55,716 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:34:56,110 - Response: b'f460\r\n'
+2024-11-27 17:34:56,110 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:34:57,007 - Response: b'b460\r\n'
+2024-11-27 17:34:57,008 - Warning: STS measurement failed at point 18
+2024-11-27 17:34:57,008 - STS point 19/121 (15.7%) at (98.000, -196.000)
+2024-11-27 17:34:57,008 - Sending command: SpectPara(1, 98.00000000000023);
+2024-11-27 17:34:57,902 - Response: b'f459\r\n'
+2024-11-27 17:34:57,902 - Sending command: SpectPara(2, -196.0);
+2024-11-27 17:34:58,794 - Response: b'b459\r\n'
+2024-11-27 17:34:59,295 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:34:59,690 - Response: b'f458\r\n'
+2024-11-27 17:34:59,690 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:35:00,582 - Response: b'b458\r\n'
+2024-11-27 17:35:00,582 - Warning: STS measurement failed at point 19
+2024-11-27 17:35:00,583 - STS point 20/121 (16.5%) at (147.000, -196.000)
+2024-11-27 17:35:00,583 - Sending command: SpectPara(1, 147.00000000000023);
+2024-11-27 17:35:01,483 - Response: b'f457\r\n'
+2024-11-27 17:35:01,483 - Sending command: SpectPara(2, -196.0);
+2024-11-27 17:35:02,370 - Response: b'b457\r\n'
+2024-11-27 17:35:02,871 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:35:02,871 - Scan finished at 2024-11-27 17:35:02.871419
+2024-11-27 17:35:02,872 - Response: b'DDE Cmd 471\r\n'
+2024-11-27 17:35:02,872 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:35:03,917 - Response: b'DDE Cmd 473\r\n'
+2024-11-27 17:35:03,918 - Warning: STS measurement failed at point 20
+2024-11-27 17:35:03,918 - STS point 21/121 (17.4%) at (196.000, -196.000)
+2024-11-27 17:35:03,918 - Sending command: SpectPara(1, 196.00000000000023);
+2024-11-27 17:35:03,920 - Response: b'DDE Cmd 474\r\n'
+2024-11-27 17:35:03,920 - Sending command: SpectPara(2, -196.0);
+2024-11-27 17:35:03,928 - Response: b'DDE Cmd 475\r\n'
+2024-11-27 17:35:04,429 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:35:04,431 - Response: b'DDE Cmd 476\r\n'
+2024-11-27 17:35:04,431 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:35:04,434 - Response: b'DDE Cmd 477\r\n1\r\n'
+2024-11-27 17:35:04,435 - Feedback off
+2024-11-27 17:35:04,435 - Sending command: SpectPara(0, 1);
+2024-11-27 17:35:04,642 - Response: b'DDE Cmd 478\r\n'
+2024-11-27 17:35:04,642 - Sending command: SpectPara('Points', 200);
+2024-11-27 17:35:04,652 - Response: b'DDE Cmd 479\r\n'
+2024-11-27 17:35:04,653 - Sending command: SpectPara(7, -2.0);
+2024-11-27 17:35:04,659 - Response: b'DDE Cmd 480\r\n'
+2024-11-27 17:35:04,659 - Sending command: SpectPara(8, 2.0);
+2024-11-27 17:35:04,664 - Response: b'DDE Cmd 481\r\n'
+2024-11-27 17:35:04,664 - Sending command: SpectPara(4, 100);
+2024-11-27 17:35:04,674 - Response: b'DDE Cmd 482\r\n'
+2024-11-27 17:35:04,674 - Sending command: SpectStart;
+2024-11-27 17:35:51,639 - Response: b'DDE Cmd 483\r\n'
+2024-11-27 17:36:12,640 - Sending command: FeedPara('Enable', 0);
+2024-11-27 17:36:12,640 - Scan started at 2024-11-27 17:36:12.640673
+2024-11-27 17:36:12,641 - Response: 1
+2024-11-27 17:36:12,641 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:36:12,643 - Response: b'DDE Cmd 485\r\n'
+2024-11-27 17:36:12,643 - STS point 22/121 (18.2%) at (245.000, -196.000)
+2024-11-27 17:36:12,643 - Sending command: SpectPara(1, 245.00000000000023);
+2024-11-27 17:36:12,658 - Response: b'DDE Cmd 486\r\n'
+2024-11-27 17:36:12,658 - Sending command: SpectPara(2, -196.0);
+2024-11-27 17:36:12,666 - Response: b'DDE Cmd 487\r\n'
+2024-11-27 17:36:13,167 - Sending command: FeedPara('Enable', 1);
+2024-11-27 17:36:14,436 - Response: b'DDE Cmd 488\r\n'
+2024-11-27 17:36:14,436 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-27 17:36:14,439 - Response: b'DDE Cmd 489\r\n1\r\n'
+2024-11-27 17:36:14,439 - Feedback off
+2024-11-27 17:36:14,439 - Sending command: SpectPara(0, 1);
+2024-11-27 17:36:14,570 - Response: b'DDE Cmd 490\r\n'
+2024-11-27 17:36:14,570 - Sending command: SpectPara('Points', 200);
+2024-11-27 17:36:14,576 - Response: b'DDE Cmd 491\r\n'
+2024-11-27 17:36:14,576 - Sending command: SpectPara(7, -2.0);
+2024-11-27 17:36:14,579 - Response: b'DDE Cmd 492\r\n'
+2024-11-27 17:36:14,579 - Sending command: SpectPara(8, 2.0);
+2024-11-27 17:36:14,586 - Response: b'DDE Cmd 493\r\n'
+2024-11-27 17:36:14,586 - Sending command: SpectPara(4, 100);
+2024-11-27 17:36:14,594 - Response: b'DDE Cmd 494\r\n'
+2024-11-27 17:36:14,594 - Sending command: SpectStart;
+2024-11-27 17:36:19,160 - Scan finished at 2024-11-27 17:36:19.159030
+2024-11-27 17:36:19,160 - Response: 0
+2024-11-27 17:36:40,160 - Sending command: FeedPara('Enable', 0);
+2024-11-27 17:36:40,160 - Scan started at 2024-11-27 17:36:40.160503
+2024-11-27 17:36:41,160 - Command error: Unable to send command (err=0x4005)
+2024-11-27 17:36:41,160 - 
+Scanning 41.0 lines before STS line 3/11
+2024-11-27 17:36:41,160 - Sending command: ScanLine(41.0);
+2024-11-27 17:36:42,170 - Command error: Unable to send command (err=0x4005)
+2024-11-27 17:36:42,170 - Error during CITS: Failed to scan lines
+2024-11-27 17:36:42,170 - Sending command: ScanPara('Scan', 0);
+2024-11-27 17:36:43,164 - Command error: Unable to send command (err=0x4005)
+2024-11-27 17:36:56,819 - 視窗已關閉，正在清理資源...
+2024-11-27 17:36:56,839 - 
+正在關閉程式...
