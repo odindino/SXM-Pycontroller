@@ -188,8 +188,29 @@ class SXMSpectroControl(SXMScanControl):
             啟動是否成功
         """
         return self._send_command("SpectStart;")[0]
+    
+    def simple_spectroscopy(self, x, y):
+        """
+        在指定的位置執行STS量測
+        """
+        try:
+            # 移動到測量位置
+            if not self.move_tip_for_spectro(x, y):
+                return False
+            # 開始測量
+            if not self.spectroscopy_start():
+                return False
+            
+            return True
+        
+        except Exception as e:
+            if self.debug_mode:
+                print(f"Simple spectroscopy error: {str(e)}")
+            # 確保回饋被重新開啟
+            self.feedback_on()
+            return False
 
-    def perform_spectroscopy(self, x, y, wait_time=1.0, params=None):
+    def perform_spectroscopy(self, x, y, wait_time=0.0, params=None):
         """
         在指定位置執行完整的光譜測量
 

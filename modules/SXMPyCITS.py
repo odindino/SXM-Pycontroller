@@ -3,6 +3,7 @@
 import time
 import math
 from .SXMPySpectro import SXMSpectroControl
+from utils.SXMPyCalc import CITSCalculator
 
 class SXMCITSControl(SXMSpectroControl):
     """
@@ -97,120 +98,85 @@ class SXMCITSControl(SXMSpectroControl):
                 print(f"Error calculating CITS parameters: {str(e)}")
             return None
 
-    def standard_cits(self, num_points_x, num_points_y, scan_direction=1, sts_params=None):
+    def standard_cits(self, num_points_x: int, num_points_y: int, 
+                 scan_direction: int = 1) -> bool:
         """
-        執行標準CITS測量
+        執行標準 CITS 量測
         
         Parameters
         ----------
         num_points_x : int
-            X方向測量點數
+            X方向量測點數
         num_points_y : int
-            Y方向測量點數
+            Y方向量測點數
         scan_direction : int
-            掃描方向：1向上，-1向下
-        sts_params : dict, optional
-            STS測量參數，如果未提供則使用默認值
-            
+            掃描方向 (1: 由下到上, -1: 由上到下)
+        
         Returns
         -------
         bool
-            測量是否成功完成
+            量測是否成功完成
         """
         try:
-            if sts_params is None:
-                sts_params = self.default_sts_params
-
-            # 檢查當前掃描狀態
-            current_scanning = self.is_scanning()
-            if not current_scanning:
-                if self.debug_mode:
-                    print("Starting new scan")
-                self.scan_on()
-                time.sleep(0.5)
-
-            # 計算CITS參數
-            params = self.calculate_cits_parameters(
-                num_points_x, num_points_y, scan_direction
+            # 獲取當前掃描參數
+            center_x = self.GetScanPara('X')
+            center_y = self.GetScanPara('Y')
+            scan_range = self.GetScanPara('Range')
+            scan_angle = self.GetScanPara('Angle')
+            total_lines = self.GetScanPara('Pixel')
+            
+            if any(v is None for v in [center_x, center_y, scan_range, scan_angle, total_lines]):
+                raise ValueError("無法獲取掃描參數")
+            
+            # 計算CITS座標和掃描線分配
+            coordinates, _, _, scanlines = CITSCalculator.calculate_cits_coordinates(
+                center_x, center_y, scan_range, scan_angle,
+                num_points_x, num_points_y, total_lines, scan_direction
             )
-            if not params:
-                raise ValueError("Failed to calculate CITS parameters")
-
+            
             if self.debug_mode:
-                print("\nStarting standard CITS measurement:")
-                print(f"Center position: ({params['center_x']:.3f}, {params['center_y']:.3f})")
-                print(f"Starting position: ({params['start_x']:.3f}, {params['start_y']:.3f})")
-                print(f"Step sizes: dx={params['dx']:.3f}, dy={params['dy']:.3f}")
-                print(f"Points: {num_points_x}x{num_points_y}")
-                print(f"Lines per STS: {params['lines_per_sts']}")
-
-            # 執行CITS測量
-            current_line = 0
-            completed_points = 0
-            total_points = num_points_x * num_points_y
-
-            for y_idx in range(num_points_y):
-                # 計算當前行位置
-                current_y = params['start_y'] + y_idx * params['dy']
-
-                # 掃描到適當的行
-                lines_to_scan = params['lines_per_sts']
+                print(f"掃描線分配: {scanlines}")
+                print(f"總掃描線數: {sum(scanlines)}")
+            
+            # 執行量測循環
+            for i, (sts_line, scan_count) in enumerate(zip(coordinates, scanlines[:-1])):
+                # 掃描指定的線數
+                if scan_count > 0:
+                    self.scan_on()
+                    if not self.scan_lines(scan_count):
+                        raise RuntimeError(f"掃描第 {i} 段失敗")
+                    self.scan_off()
+                
+                # 執行該行的 STS 量測
                 if self.debug_mode:
-                    print(f"\nScanning {lines_to_scan} lines before STS line {y_idx + 1}/{num_points_y}")
-
-                if not self.scan_lines(lines_to_scan):
-                    raise RuntimeError("Failed to scan lines")
-
-                current_line += lines_to_scan
-                if self.debug_mode:
-                    print(f"Current scan line: {current_line}/{params['total_lines']}")
-
-                # 執行當前行的STS測量
-                if self.debug_mode:
-                    print(f"Performing STS measurements on line {y_idx + 1}")
-
-                for x_idx in range(num_points_x):
-                    current_x = params['start_x'] + x_idx * params['dx']
-                    
-                    completed_points += 1
-                    progress = (completed_points / total_points) * 100
-                    
+                    print(f"執行第 {i+1}/{num_points_y} 條 STS 線")
+                
+                for j, (x, y) in enumerate(sts_line):
                     if self.debug_mode:
-                        print(f"STS point {completed_points}/{total_points} "
-                              f"({progress:.1f}%) at ({current_x:.3f}, {current_y:.3f})")
+                        print(f"STS 點 ({x:.3f}, {y:.3f})")
                     
-                    success = self.perform_spectroscopy(
-                        current_x, 
-                        current_y, 
-                        wait_time=0.5,
-                        params=sts_params
-                    )
-                    
-                    if not success and self.debug_mode:
-                        print(f"Warning: STS measurement failed at point {completed_points}")
-
-                # 檢查是否接近圖像結束
-                remaining_lines = params['total_lines'] - current_line
-                if remaining_lines < params['lines_per_sts']:
-                    if self.debug_mode:
-                        print("Approaching end of scan, stopping CITS")
-                    break
-
-            if self.debug_mode:
-                print("\nCITS measurement completed")
-                print(f"Total points measured: {completed_points}/{total_points}")
-
+                    success = self.simple_spectroscopy(x, y)
+                    if not success:
+                        raise RuntimeError(f"STS 量測失敗於點 ({x}, {y})")
+            
+            # 執行最後一段掃描（如果有的話）
+            if scanlines[-1] > 0:
+                self.scan_on()
+                if not self.scan_lines(scanlines[-1]):
+                    raise RuntimeError("最後一段掃描失敗")
+                self.scan_off()
+            
             return True
-
+            
         except Exception as e:
             if self.debug_mode:
-                print(f"Error during CITS: {str(e)}")
+                print(f"CITS 量測錯誤: {str(e)}")
             return False
             
         finally:
-            # 確保掃描繼續
-            if not current_scanning:
-                self.scan_off()
+            # 確保掃描結束時回到正確狀態
+            self.scan_off()
+            self.feedback_on()
 
     def define_cits_area(self, start_x, start_y, width, height):
         """
