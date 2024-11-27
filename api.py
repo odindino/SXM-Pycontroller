@@ -369,21 +369,45 @@ class SMUControlAPI:
             print(f"STS execution error: {str(e)}")
             return False
         
-
     def perform_multi_sts(self, script_name: str) -> bool:
-        """執行多組STS量測"""
+        """
+        執行多組STS量測
+        
+        Parameters
+        ----------
+        script_name : str
+            要執行的腳本名稱
+            
+        Returns
+        -------
+        bool
+            測量是否成功完成
+            
+        Raises
+        ------
+        Exception
+            當執行過程中發生錯誤時
+        """
         try:
-            if not self.stm:
-                raise Exception("STS Controller未初始化")
+            # 確保STM控制器已初始化
+            if not self.ensure_controller():
+                raise Exception("STM控制器未初始化")
                 
+            # 確保SMU已連接
+            if not self.smu:
+                raise Exception("SMU未連接")
+                
+            # 取得腳本
             script = self.stm.get_script(script_name)
             if not script:
                 raise ValueError(f"找不到腳本: {script_name}")
                 
+            # 執行多重STS量測
             return self.stm.perform_multi_sts(script)
             
         except Exception as e:
-            raise Exception(f"執行STS量測失敗: {str(e)}")
+            print(f"Multi-STS execution error: {str(e)}")
+            raise Exception(f"執行Multi-STS失敗: {str(e)}")
 
     def save_sts_script(self, name: str, vds_list: list[float], vg_list: list[float]) -> bool:
         """儲存STS腳本"""

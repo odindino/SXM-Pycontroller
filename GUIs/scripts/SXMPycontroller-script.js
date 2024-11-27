@@ -277,7 +277,7 @@ class STSControl {
 
         // Multi-STS按鈕
         document.getElementById('startMultiSts').addEventListener('click', () => {
-            this.perform_multi_sts(true);
+            this.perform_multi_sts();
         });
 
         // 動態移除row按鈕的事件委派
@@ -443,6 +443,54 @@ class STSControl {
             if (startStsBtn) {
                 startStsBtn.disabled = false;
                 startStsBtn.textContent = 'Start Single STS';
+            }
+        }
+    }
+
+    async perform_multi_sts() {
+        try {
+            // 獲取當前腳本名稱
+            const scriptName = document.getElementById('scriptSelect').value;
+            if (!scriptName) {
+                alert('Please select a script first');
+                return;
+            }
+    
+            const startMultiStsBtn = document.getElementById('startMultiSts');
+            if (startMultiStsBtn) {
+                startMultiStsBtn.disabled = true;
+                startMultiStsBtn.textContent = 'Running Multi-STS...';
+            }
+            
+            // 更新狀態顯示
+            if (this.stsStatus) {
+                this.stsStatus.textContent = 'Performing Multi-STS measurement...';
+            }
+    
+            // 調用後端API
+            const success = await pywebview.api.perform_multi_sts(scriptName);
+            
+            if (success) {
+                if (this.stsStatus) {
+                    this.stsStatus.textContent = 'Multi-STS measurements completed successfully';
+                }
+                console.log('Multi-STS measurements completed successfully');
+            } else {
+                throw new Error('Multi-STS measurements failed');
+            }
+            
+        } catch (error) {
+            console.error('Multi-STS Error:', error);
+            if (this.stsStatus) {
+                this.stsStatus.textContent = `Error: ${error.message}`;
+            }
+            alert(`Error performing Multi-STS: ${error.message}`);
+        } finally {
+            // 恢復按鈕狀態
+            const startMultiStsBtn = document.getElementById('startMultiSts');
+            if (startMultiStsBtn) {
+                startMultiStsBtn.disabled = false;
+                startMultiStsBtn.textContent = 'Start Multi-STS';
             }
         }
     }
