@@ -53,107 +53,7 @@ class SXMController(SXMCITSControl):
         """初始化SMU控制器"""
         self.smu = smu_instance
 
-    # def initialize_sts_controller(self, smu_controller):
-    #     """初始化STS控制器"""
-    #     from modules.SXMSTSController import STSController
-    #     self.sts_controller = STSController(self, smu_controller)
-
     # ========== STSxSMU functions ========== #
-    # def perform_multi_sts(self, script: STSScript) -> bool:
-    #     """
-    #     執行多組STS量測
-        
-    #     Parameters
-    #     ----------
-    #     script : STSScript
-    #         要執行的STS腳本
-            
-    #     Returns
-    #     -------
-    #     bool
-    #         量測是否成功完成
-    #     """
-    #     try:
-    #         # 驗證輸入
-    #         if len(script.vds_list) != len(script.vg_list):
-    #             raise ValueError("Vds和Vg列表長度必須相同")
-            
-    #         # 記錄初始狀態
-    #         original_states = {
-    #             'feedback': self.get_feedback_state(),
-    #             'ch1_output': False,
-    #             'ch1_voltage': 0.0,
-    #             'ch2_output': False, 
-    #             'ch2_voltage': 0.0
-    #         }
-            
-    #         # 檢查並記錄SMU狀態
-    #         for ch in [1, 2]:
-    #             try:
-    #                 # 讀取當前output狀態
-    #                 response = self.smu.smu.query(f":OUTP{ch}?")
-    #                 original_states[f'ch{ch}_output'] = bool(int(response))
-                    
-    #                 # 如果output on，讀取當前電壓
-    #                 if original_states[f'ch{ch}_output']:
-    #                     voltage = float(self.smu.smu.query(f":SOUR{ch}:VOLT?"))
-    #                     original_states[f'ch{ch}_voltage'] = voltage
-                        
-    #             except Exception as e:
-    #                 print(f"Warning: Failed to read channel {ch} state: {str(e)}")
-            
-    #         # 確保兩個通道都開啟
-    #         for ch in [1, 2]:
-    #             if not original_states[f'ch{ch}_output']:
-    #                 self.smu.set_channel_output(ch, True)
-    #                 time.sleep(0.5)  # 等待output穩定
-            
-    #         # 關閉回饋
-    #         self.feedback_off()
-    #         time.sleep(0.5)  # 等待系統穩定
-            
-    #         # 執行每組STS
-    #         for vds, vg in zip(script.vds_list, script.vg_list):
-    #             # 設定SMU電壓
-    #             self.smu.set_channel_value(1, "VOLTAGE", vds)  # Vds
-    #             self.smu.set_channel_value(2, "VOLTAGE", vg)   # Vg
-                
-    #             # 等待電壓穩定
-    #             time.sleep(0.01)
-                
-    #             # 執行STS
-    #             self.spectroscopy_start()
-                
-    #             # # 等待STS完成並儲存數據
-    #             # time.sleep(2.0)  # 此時間需要根據實際STS參數調整
-            
-    #         return True
-            
-    #     except Exception as e:
-    #         print(f"Multi-STS measurement error: {str(e)}")
-    #         return False
-            
-    #     finally:
-    #         try:
-    #             # 恢復原始電壓
-    #             for ch in [1, 2]:
-    #                 if original_states[f'ch{ch}_output']:
-    #                     # 如果原本就是開啟的,恢復原始電壓
-    #                     self.smu.set_channel_value(
-    #                         ch, 
-    #                         "VOLTAGE",
-    #                         original_states[f'ch{ch}_voltage']
-    #                     )
-    #                 else:
-    #                     # 如果原本是關閉的,關閉output
-    #                     self.smu.set_channel_output(ch, False)
-                
-    #             # 恢復回饋狀態
-    #             if original_states['feedback']:
-    #                 self.feedback_on()
-                
-    #         except Exception as e:
-    #             print(f"Error restoring original states: {str(e)}")
     def perform_multi_sts(self, script: STSScript) -> bool:
         """
         執行多組STS量測
@@ -201,13 +101,13 @@ class SXMController(SXMCITSControl):
             for ch in [1, 2]:
                 if not original_states[f'ch{ch}_output']:
                     self.smu.enable_output(Channel(ch))
-                    time.sleep(0.5)  # 等待output穩定
+                    time.sleep(0.001)  # 等待output穩定
             
             # 關閉回饋
             
             self.set_zoffset(0.0)
             self.feedback_off()
-            time.sleep(0.5)  # 等待系統穩定
+            # time.sleep(0.5)  # 等待系統穩定
             
             # 執行每組STS
             for vds, vg in zip(script.vds_list, script.vg_list):
@@ -227,13 +127,13 @@ class SXMController(SXMCITSControl):
                 )
                 
                 # 等待電壓穩定
-                time.sleep(0.01)
+                time.sleep(0.001)
                 
                 # 執行STS
                 self.spectroscopy_start()
                 
                 # 等待STS完成
-                time.sleep(2.0)  # 根據實際STS參數調整等待時間
+                # time.sleep(2.0)  # 根據實際STS參數調整等待時間
             
             return True
             
