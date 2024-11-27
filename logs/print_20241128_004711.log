@@ -1,0 +1,272 @@
+2024-11-28 00:47:11,534 - Sending command: ScanPara('Scan', 1);
+2024-11-28 00:47:11,540 - Response: b'DDE Cmd 506\r\n'
+2024-11-28 00:47:11,540 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 00:47:11,545 - Response: b'DDE Cmd 507\r\n1\r\n'
+2024-11-28 00:47:11,545 - Sending command: ScanLine(1);
+2024-11-28 00:47:12,339 - Response: b'f500\r\n'
+2024-11-28 00:47:12,339 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 00:47:13,257 - Response: b'b500\r\n'
+2024-11-28 00:47:13,258 - Sending command: ScanPara('Scan', 0);
+2024-11-28 00:47:13,339 - Scan finished at 2024-11-28 00:47:13.339312
+2024-11-28 00:47:13,339 - Response: 0
+2024-11-28 00:47:13,340 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 00:47:13,876 - Response: b'DDE Cmd 511\r\n'
+2024-11-28 00:47:13,876 - 執行第 1/11 條 STS 線
+2024-11-28 00:47:13,876 - STS 點 (1840.060, 4993.460)
+2024-11-28 00:47:13,876 - Sending command: SpectPara(1, 1840.0596744576749);
+2024-11-28 00:47:13,884 - Response: b'DDE Cmd 512\r\n'
+2024-11-28 00:47:13,884 - Sending command: SpectPara(2, 4993.459674457675);
+2024-11-28 00:47:13,890 - Response: b'DDE Cmd 513\r\n'
+2024-11-28 00:47:13,891 - Sending command: SpectStart;
+2024-11-28 00:47:15,281 - Response: b'DDE Cmd 514\r\n'
+2024-11-28 00:47:15,281 - STS 點 (1883.188, 5018.360)
+2024-11-28 00:47:15,281 - Sending command: SpectPara(1, 1883.18773956614);
+2024-11-28 00:47:15,288 - Response: b'DDE Cmd 515\r\n'
+2024-11-28 00:47:15,289 - Sending command: SpectPara(2, 5018.359674457675);
+2024-11-28 00:47:15,294 - Response: b'DDE Cmd 516\r\n'
+2024-11-28 00:47:15,294 - Sending command: SpectStart;
+2024-11-28 00:47:16,683 - Response: b'DDE Cmd 517\r\n'
+2024-11-28 00:47:16,683 - STS 點 (1926.316, 5043.260)
+2024-11-28 00:47:16,683 - Sending command: SpectPara(1, 1926.3158046746048);
+2024-11-28 00:47:16,692 - Response: b'DDE Cmd 518\r\n'
+2024-11-28 00:47:16,692 - Sending command: SpectPara(2, 5043.259674457675);
+2024-11-28 00:47:16,699 - Response: b'DDE Cmd 519\r\n'
+2024-11-28 00:47:16,699 - Sending command: SpectStart;
+2024-11-28 00:47:18,091 - Response: b'DDE Cmd 520\r\n'
+2024-11-28 00:47:18,091 - STS 點 (1969.444, 5068.160)
+2024-11-28 00:47:18,091 - Sending command: SpectPara(1, 1969.4438697830699);
+2024-11-28 00:47:18,099 - Response: b'DDE Cmd 521\r\n'
+2024-11-28 00:47:18,099 - Sending command: SpectPara(2, 5068.1596744576755);
+2024-11-28 00:47:18,105 - Response: b'DDE Cmd 522\r\n'
+2024-11-28 00:47:18,106 - Sending command: SpectStart;
+2024-11-28 00:47:19,496 - Response: b'DDE Cmd 523\r\n'
+2024-11-28 00:47:19,497 - STS 點 (2012.572, 5093.060)
+2024-11-28 00:47:19,497 - Sending command: SpectPara(1, 2012.571934891535);
+2024-11-28 00:47:19,504 - Response: b'DDE Cmd 524\r\n'
+2024-11-28 00:47:19,504 - Sending command: SpectPara(2, 5093.059674457675);
+2024-11-28 00:47:19,511 - Response: b'DDE Cmd 525\r\n'
+2024-11-28 00:47:19,511 - Sending command: SpectStart;
+2024-11-28 00:47:20,902 - Response: b'DDE Cmd 526\r\n'
+2024-11-28 00:47:20,902 - STS 點 (2055.700, 5117.960)
+2024-11-28 00:47:20,902 - Sending command: SpectPara(1, 2055.7);
+2024-11-28 00:47:20,910 - Response: b'DDE Cmd 527\r\n'
+2024-11-28 00:47:20,910 - Sending command: SpectPara(2, 5117.959674457675);
+2024-11-28 00:47:20,916 - Response: b'DDE Cmd 528\r\n'
+2024-11-28 00:47:20,916 - Sending command: SpectStart;
+2024-11-28 00:47:22,314 - Response: b'DDE Cmd 529\r\n'
+2024-11-28 00:47:22,314 - STS 點 (2098.828, 5142.860)
+2024-11-28 00:47:22,314 - Sending command: SpectPara(1, 2098.828065108465);
+2024-11-28 00:47:22,322 - Response: b'DDE Cmd 530\r\n'
+2024-11-28 00:47:22,322 - Sending command: SpectPara(2, 5142.859674457675);
+2024-11-28 00:47:22,328 - Response: b'DDE Cmd 531\r\n'
+2024-11-28 00:47:22,328 - Sending command: SpectStart;
+2024-11-28 00:47:23,736 - Response: b'DDE Cmd 532\r\n'
+2024-11-28 00:47:23,736 - STS 點 (2141.956, 5167.760)
+2024-11-28 00:47:23,737 - Sending command: SpectPara(1, 2141.95613021693);
+2024-11-28 00:47:23,743 - Response: b'DDE Cmd 533\r\n'
+2024-11-28 00:47:23,743 - Sending command: SpectPara(2, 5167.759674457675);
+2024-11-28 00:47:23,750 - Response: b'DDE Cmd 534\r\n'
+2024-11-28 00:47:23,750 - Sending command: SpectStart;
+2024-11-28 00:47:25,134 - Response: b'DDE Cmd 535\r\n'
+2024-11-28 00:47:25,134 - STS 點 (2185.084, 5192.660)
+2024-11-28 00:47:25,134 - Sending command: SpectPara(1, 2185.0841953253953);
+2024-11-28 00:47:25,142 - Response: b'DDE Cmd 536\r\n'
+2024-11-28 00:47:25,142 - Sending command: SpectPara(2, 5192.6596744576755);
+2024-11-28 00:47:25,149 - Response: b'DDE Cmd 537\r\n'
+2024-11-28 00:47:25,149 - Sending command: SpectStart;
+2024-11-28 00:47:26,549 - Response: b'DDE Cmd 538\r\n'
+2024-11-28 00:47:26,549 - STS 點 (2228.212, 5217.560)
+2024-11-28 00:47:26,549 - Sending command: SpectPara(1, 2228.21226043386);
+2024-11-28 00:47:26,558 - Response: b'DDE Cmd 539\r\n'
+2024-11-28 00:47:26,558 - Sending command: SpectPara(2, 5217.559674457675);
+2024-11-28 00:47:26,564 - Response: b'DDE Cmd 540\r\n'
+2024-11-28 00:47:26,564 - Sending command: SpectStart;
+2024-11-28 00:47:27,975 - Response: b'DDE Cmd 541\r\n'
+2024-11-28 00:47:27,975 - STS 點 (2271.340, 5242.460)
+2024-11-28 00:47:27,975 - Sending command: SpectPara(1, 2271.3403255423254);
+2024-11-28 00:47:27,984 - Response: b'DDE Cmd 542\r\n'
+2024-11-28 00:47:27,984 - Sending command: SpectPara(2, 5242.459674457675);
+2024-11-28 00:47:27,990 - Response: b'DDE Cmd 543\r\n'
+2024-11-28 00:47:27,990 - Sending command: SpectStart;
+2024-11-28 00:47:29,391 - Response: b'DDE Cmd 544\r\n'
+2024-11-28 00:47:29,391 - Sending command: ScanPara('Scan', 1);
+2024-11-28 00:47:29,394 - Response: b'DDE Cmd 545\r\n'
+2024-11-28 00:47:29,394 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 00:47:29,396 - Response: b'DDE Cmd 546\r\n1\r\n'
+2024-11-28 00:47:29,396 - Sending command: ScanLine(50);
+2024-11-28 00:47:30,947 - Response: b'f499\r\n'
+2024-11-28 00:47:30,947 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 00:47:31,867 - Response: b'b499\r\n'
+2024-11-28 00:47:31,867 - Sending command: ScanPara('Scan', 0);
+2024-11-28 00:47:32,799 - Response: b'f498\r\n'
+2024-11-28 00:47:32,799 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 00:47:33,724 - Response: b'b498\r\n'
+2024-11-28 00:47:33,724 - 執行第 2/11 條 STS 線
+2024-11-28 00:47:33,724 - STS 點 (1815.160, 5036.588)
+2024-11-28 00:47:33,724 - Sending command: SpectPara(1, 1815.1596744576748);
+2024-11-28 00:47:34,653 - Response: b'f497\r\n'
+2024-11-28 00:47:34,653 - Sending command: SpectPara(2, 5036.58773956614);
+2024-11-28 00:47:35,578 - Response: b'b497\r\n'
+2024-11-28 00:47:35,578 - Sending command: SpectStart;
+2024-11-28 00:47:36,509 - Response: b'f496\r\n'
+2024-11-28 00:47:36,509 - STS 點 (1858.288, 5061.488)
+2024-11-28 00:47:36,509 - Sending command: SpectPara(1, 1858.2877395661399);
+2024-11-28 00:47:37,434 - Response: b'b496\r\n'
+2024-11-28 00:47:37,434 - Sending command: SpectPara(2, 5061.487739566141);
+2024-11-28 00:47:38,375 - Response: b'f495\r\n'
+2024-11-28 00:47:38,375 - Sending command: SpectStart;
+2024-11-28 00:47:39,299 - Response: b'b495\r\n'
+2024-11-28 00:47:39,299 - STS 點 (1901.416, 5086.388)
+2024-11-28 00:47:39,299 - Sending command: SpectPara(1, 1901.415804674605);
+2024-11-28 00:47:40,229 - Response: b'f494\r\n'
+2024-11-28 00:47:40,230 - Sending command: SpectPara(2, 5086.38773956614);
+2024-11-28 00:47:41,155 - Response: b'b494\r\n'
+2024-11-28 00:47:41,155 - Sending command: SpectStart;
+2024-11-28 00:47:42,086 - Response: b'f493\r\n'
+2024-11-28 00:47:42,086 - STS 點 (1944.544, 5111.288)
+2024-11-28 00:47:42,086 - Sending command: SpectPara(1, 1944.54386978307);
+2024-11-28 00:47:43,010 - Response: b'b493\r\n'
+2024-11-28 00:47:43,010 - Sending command: SpectPara(2, 5111.28773956614);
+2024-11-28 00:47:43,942 - Response: b'f492\r\n'
+2024-11-28 00:47:43,942 - Sending command: SpectStart;
+2024-11-28 00:47:44,861 - Response: b'b492\r\n'
+2024-11-28 00:47:44,861 - STS 點 (1987.672, 5136.188)
+2024-11-28 00:47:44,862 - Sending command: SpectPara(1, 1987.6719348915349);
+2024-11-28 00:47:45,784 - Response: b'f491\r\n'
+2024-11-28 00:47:45,784 - Sending command: SpectPara(2, 5136.18773956614);
+2024-11-28 00:47:46,703 - Response: b'b491\r\n'
+2024-11-28 00:47:46,703 - Sending command: SpectStart;
+2024-11-28 00:47:47,627 - Response: b'f490\r\n'
+2024-11-28 00:47:47,627 - STS 點 (2030.800, 5161.088)
+2024-11-28 00:47:47,627 - Sending command: SpectPara(1, 2030.8);
+2024-11-28 00:47:48,549 - Response: b'b490\r\n'
+2024-11-28 00:47:48,550 - Sending command: SpectPara(2, 5161.08773956614);
+2024-11-28 00:47:49,477 - Response: b'f489\r\n'
+2024-11-28 00:47:49,477 - Sending command: SpectStart;
+2024-11-28 00:47:50,400 - Response: b'b489\r\n'
+2024-11-28 00:47:50,401 - STS 點 (2073.928, 5185.988)
+2024-11-28 00:47:50,401 - Sending command: SpectPara(1, 2073.928065108465);
+2024-11-28 00:47:51,329 - Response: b'f488\r\n'
+2024-11-28 00:47:51,329 - Sending command: SpectPara(2, 5185.987739566141);
+2024-11-28 00:47:52,252 - Response: b'b488\r\n'
+2024-11-28 00:47:52,253 - Sending command: SpectStart;
+2024-11-28 00:47:53,181 - Response: b'f487\r\n'
+2024-11-28 00:47:53,182 - STS 點 (2117.056, 5210.888)
+2024-11-28 00:47:53,182 - Sending command: SpectPara(1, 2117.05613021693);
+2024-11-28 00:47:54,106 - Response: b'b487\r\n'
+2024-11-28 00:47:54,106 - Sending command: SpectPara(2, 5210.88773956614);
+2024-11-28 00:47:55,035 - Response: b'f486\r\n'
+2024-11-28 00:47:55,035 - Sending command: SpectStart;
+2024-11-28 00:47:55,958 - Response: b'b486\r\n'
+2024-11-28 00:47:55,958 - STS 點 (2160.184, 5235.788)
+2024-11-28 00:47:55,958 - Sending command: SpectPara(1, 2160.184195325395);
+2024-11-28 00:47:56,897 - Response: b'f485\r\n'
+2024-11-28 00:47:56,897 - Sending command: SpectPara(2, 5235.78773956614);
+2024-11-28 00:47:57,819 - Response: b'b485\r\n'
+2024-11-28 00:47:57,819 - Sending command: SpectStart;
+2024-11-28 00:47:58,758 - Response: b'f484\r\n'
+2024-11-28 00:47:58,758 - STS 點 (2203.312, 5260.688)
+2024-11-28 00:47:58,758 - Sending command: SpectPara(1, 2203.31226043386);
+2024-11-28 00:47:59,681 - Response: b'b484\r\n'
+2024-11-28 00:47:59,681 - Sending command: SpectPara(2, 5260.68773956614);
+2024-11-28 00:48:00,618 - Response: b'f483\r\n'
+2024-11-28 00:48:00,619 - Sending command: SpectStart;
+2024-11-28 00:48:01,542 - Response: b'b483\r\n'
+2024-11-28 00:48:01,542 - STS 點 (2246.440, 5285.588)
+2024-11-28 00:48:01,542 - Sending command: SpectPara(1, 2246.4403255423254);
+2024-11-28 00:48:02,469 - Response: b'f482\r\n'
+2024-11-28 00:48:02,470 - Sending command: SpectPara(2, 5285.58773956614);
+2024-11-28 00:48:03,394 - Response: b'b482\r\n'
+2024-11-28 00:48:03,394 - Sending command: SpectStart;
+2024-11-28 00:48:04,321 - Response: b'f481\r\n'
+2024-11-28 00:48:04,321 - Sending command: ScanPara('Scan', 1);
+2024-11-28 00:48:05,245 - Response: b'b481\r\n'
+2024-11-28 00:48:05,246 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 00:48:06,175 - Response: b'f480\r\n'
+2024-11-28 00:48:06,175 - Sending command: ScanLine(50);
+2024-11-28 00:48:07,099 - Response: b'b480\r\n'
+2024-11-28 00:48:07,099 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 00:48:08,027 - Response: b'f479\r\n'
+2024-11-28 00:48:08,027 - Sending command: ScanPara('Scan', 0);
+2024-11-28 00:48:08,951 - Response: b'b479\r\n'
+2024-11-28 00:48:08,952 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 00:48:09,879 - Response: b'f478\r\n'
+2024-11-28 00:48:09,880 - 執行第 3/11 條 STS 線
+2024-11-28 00:48:09,880 - STS 點 (1790.260, 5079.716)
+2024-11-28 00:48:09,880 - Sending command: SpectPara(1, 1790.259674457675);
+2024-11-28 00:48:10,805 - Response: b'b478\r\n'
+2024-11-28 00:48:10,805 - Sending command: SpectPara(2, 5079.715804674605);
+2024-11-28 00:48:11,734 - Response: b'f477\r\n'
+2024-11-28 00:48:11,734 - Sending command: SpectStart;
+2024-11-28 00:48:12,658 - Response: b'b477\r\n'
+2024-11-28 00:48:12,658 - STS 點 (1833.388, 5104.616)
+2024-11-28 00:48:12,658 - Sending command: SpectPara(1, 1833.3877395661398);
+2024-11-28 00:48:13,596 - Response: b'f476\r\n'
+2024-11-28 00:48:13,597 - Sending command: SpectPara(2, 5104.615804674605);
+2024-11-28 00:48:14,520 - Response: b'b476\r\n'
+2024-11-28 00:48:14,520 - Sending command: SpectStart;
+2024-11-28 00:48:15,453 - Response: b'f475\r\n'
+2024-11-28 00:48:15,453 - STS 點 (1876.516, 5129.516)
+2024-11-28 00:48:15,453 - Sending command: SpectPara(1, 1876.5158046746049);
+2024-11-28 00:48:16,377 - Response: b'b475\r\n'
+2024-11-28 00:48:16,377 - Sending command: SpectPara(2, 5129.5158046746055);
+2024-11-28 00:48:17,305 - Response: b'f474\r\n'
+2024-11-28 00:48:17,305 - Sending command: SpectStart;
+2024-11-28 00:48:18,230 - Response: b'b474\r\n'
+2024-11-28 00:48:18,230 - STS 點 (1919.644, 5154.416)
+2024-11-28 00:48:18,230 - Sending command: SpectPara(1, 1919.64386978307);
+2024-11-28 00:48:19,159 - Response: b'f473\r\n'
+2024-11-28 00:48:19,159 - Sending command: SpectPara(2, 5154.415804674605);
+2024-11-28 00:48:20,083 - Response: b'b473\r\n'
+2024-11-28 00:48:20,083 - Sending command: SpectStart;
+2024-11-28 00:48:21,013 - Response: b'f472\r\n'
+2024-11-28 00:48:21,013 - STS 點 (1962.772, 5179.316)
+2024-11-28 00:48:21,013 - Sending command: SpectPara(1, 1962.771934891535);
+2024-11-28 00:48:21,939 - Response: b'b472\r\n'
+2024-11-28 00:48:21,939 - Sending command: SpectPara(2, 5179.315804674605);
+2024-11-28 00:48:22,863 - Response: b'f471\r\n'
+2024-11-28 00:48:22,864 - Sending command: SpectStart;
+2024-11-28 00:48:23,790 - Response: b'b471\r\n'
+2024-11-28 00:48:23,790 - STS 點 (2005.900, 5204.216)
+2024-11-28 00:48:23,790 - Sending command: SpectPara(1, 2005.9);
+2024-11-28 00:48:24,711 - Response: b'f470\r\n'
+2024-11-28 00:48:24,711 - Sending command: SpectPara(2, 5204.215804674605);
+2024-11-28 00:48:25,629 - Response: b'b470\r\n'
+2024-11-28 00:48:25,630 - Sending command: SpectStart;
+2024-11-28 00:48:26,553 - Response: b'f469\r\n'
+2024-11-28 00:48:26,553 - STS 點 (2049.028, 5229.116)
+2024-11-28 00:48:26,553 - Sending command: SpectPara(1, 2049.028065108465);
+2024-11-28 00:48:27,477 - Response: b'b469\r\n'
+2024-11-28 00:48:27,477 - Sending command: SpectPara(2, 5229.115804674605);
+2024-11-28 00:48:28,407 - Response: b'f468\r\n'
+2024-11-28 00:48:28,408 - Sending command: SpectStart;
+2024-11-28 00:48:29,332 - Response: b'b468\r\n'
+2024-11-28 00:48:29,333 - STS 點 (2092.156, 5254.016)
+2024-11-28 00:48:29,333 - Sending command: SpectPara(1, 2092.1561302169303);
+2024-11-28 00:48:29,649 - Scan finished at 2024-11-28 00:48:29.649245
+2024-11-28 00:48:29,649 - Response: 0
+2024-11-28 00:48:29,649 - Sending command: SpectPara(2, 5254.0158046746055);
+2024-11-28 00:48:31,532 - MicState b'1\r\n'
+2024-11-28 00:48:31,532 - Response: b'1\r\n'
+2024-11-28 00:48:31,532 - Sending command: SpectStart;
+2024-11-28 00:48:36,004 - 視窗已關閉，正在清理資源...
+2024-11-28 00:48:36,028 - 
+正在關閉程式...
