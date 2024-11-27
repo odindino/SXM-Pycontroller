@@ -227,7 +227,7 @@ class SXMBase:
             command = f"FeedPara('{param}', {value});"
             success, _ = self._send_command(command)
             
-            if success:
+            if success and param != 'ZOffset':
                 # 驗證設定
                 current_value = self.GetFeedbackPara(param)
                 if current_value is not None:
