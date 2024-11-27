@@ -494,30 +494,113 @@ class STSControl {
             }
         }
     }
+}
 
+// 初始化時建立STS控制實例
+document.addEventListener('DOMContentLoaded', () => {
+    window.stsControl = new STSControl();
+});
+
+// CITS Control class implementation
+class CITSControl {
+    constructor() {
+        // Debug flag
+        this.debug = true;
+        this.log('Initializing CITS Control...');
+        
+        // State management
+        this.isRunning = false;
+        
+        // Initialize controls
+        this.setupControls();
+    }
+    
+    setupControls() {
+        // Points inputs
+        this.pointsX = document.getElementById('citsPointsX');
+        this.pointsY = document.getElementById('citsPointsY');
+        
+        // Direction selector
+        this.scanDirection = document.getElementById('citsScanDirection');
+        
+        // Control buttons
+        this.singleCitsBtn = document.getElementById('startSingleCits');
+        this.multiCitsBtn = document.getElementById('startMultiCits');
+        
+        // Status displays
+        this.status = document.getElementById('citsStatus');
+        this.progress = document.getElementById('citsProgress');
+        this.lastTime = document.getElementById('citsLastTime');
+        
+        this.validateElements();
+        this.setupEventListeners();
+    }
+    
+    validateElements() {
+        // Validate all required elements exist
+        const requiredElements = {
+            'pointsX': this.pointsX,
+            'pointsY': this.pointsY,
+            'scanDirection': this.scanDirection,
+            'singleCitsBtn': this.singleCitsBtn,
+            'multiCitsBtn': this.multiCitsBtn,
+            'status': this.status,
+            'progress': this.progress,
+            'lastTime': this.lastTime
+        };
+        
+        for (const [name, element] of Object.entries(requiredElements)) {
+            if (!element) {
+                throw new Error(`Required element not found: ${name}`);
+            }
+        }
+    }
+    
+    setupEventListeners() {
+        // Single CITS button
+        this.singleCitsBtn.onclick = () => {
+            this.log('Single CITS button clicked');
+            this.startCITS(false);
+        };
+        
+        // Multi CITS button
+        this.multiCitsBtn.onclick = () => {
+            this.log('Multi CITS button clicked');
+            this.startCITS(true);
+        };
+        
+        // Input validation
+        this.pointsX.onchange = () => this.validateInputValue(this.pointsX);
+        this.pointsY.onchange = () => this.validateInputValue(this.pointsY);
+    }
+    
     async startCITS(useMultiSts) {
         try {
             if (this.isRunning) {
-                alert('CITS measurement is already running');
+                this.showError('CITS measurement is already running');
                 return;
             }
             
-            // 獲取參數
+            // Get parameters
             const pointsX = parseInt(this.pointsX.value);
             const pointsY = parseInt(this.pointsY.value);
-            const scanDirection = parseInt(document.getElementById('citsScanDirection').value);
+            const scanDirection = parseInt(this.scanDirection.value);
             
-            // 參數驗證
+            // Validate inputs
             if (!this.validateInputs(pointsX, pointsY)) {
                 return;
             }
             
-            // 更新UI狀態
+            // Update UI state
+            this.setRunningState(true);
             this.updateStatus('Starting CITS...');
-            this.isRunning = true;
-            this.toggleButtons(true);
             
-            // 調用API
+            // Call API
+            this.log(`Starting CITS with parameters: 
+                     X=${pointsX}, Y=${pointsY}, 
+                     direction=${scanDirection}, 
+                     multiSts=${useMultiSts}`);
+                     
             const success = await pywebview.api.start_cits(
                 pointsX, 
                 pointsY, 
@@ -527,26 +610,95 @@ class STSControl {
             
             if (success) {
                 this.updateStatus('CITS completed successfully');
-                this.lastTime.textContent = new Date().toLocaleTimeString();
+                this.updateLastTime();
             } else {
                 throw new Error('CITS measurement failed');
             }
             
         } catch (error) {
-            this.updateStatus(`Error: ${error.message}`);
-            console.error('CITS Error:', error);
-            alert(`Error during CITS: ${error.message}`);
+            this.handleError(error);
         } finally {
-            this.isRunning = false;
-            this.toggleButtons(false);
+            this.setRunningState(false);
+        }
+    }
+    
+    validateInputs(pointsX, pointsY) {
+        if (isNaN(pointsX) || isNaN(pointsY)) {
+            this.showError('Please enter valid numbers for points');
+            return false;
+        }
+        
+        if (pointsX < 1 || pointsX > 512 || pointsY < 1 || pointsY > 512) {
+            this.showError('Points must be between 1 and 512');
+            return false;
+        }
+        
+        return true;
+    }
+    
+    validateInputValue(input) {
+        const value = parseInt(input.value);
+        if (value < 1) input.value = 1;
+        if (value > 512) input.value = 512;
+    }
+    
+    setRunningState(running) {
+        this.isRunning = running;
+        this.toggleControls(!running);
+    }
+    
+    toggleControls(enabled) {
+        // Disable/enable all inputs during measurement
+        this.pointsX.disabled = !enabled;
+        this.pointsY.disabled = !enabled;
+        this.scanDirection.disabled = !enabled;
+        this.singleCitsBtn.disabled = !enabled;
+        this.multiCitsBtn.disabled = !enabled;
+    }
+    
+    updateStatus(message) {
+        if (this.status) {
+            this.status.textContent = message;
+        }
+    }
+    
+    updateProgress(percent) {
+        if (this.progress) {
+            this.progress.textContent = `${Math.round(percent)}%`;
+        }
+    }
+    
+    updateLastTime() {
+        if (this.lastTime) {
+            this.lastTime.textContent = new Date().toLocaleTimeString();
+        }
+    }
+    
+    showError(message) {
+        this.log('Error: ' + message);
+        alert(message);
+    }
+    
+    handleError(error) {
+        const errorMessage = error.message || 'Unknown error occurred';
+        this.updateStatus(`Error: ${errorMessage}`);
+        this.showError(`CITS Error: ${errorMessage}`);
+    }
+    
+    log(message) {
+        if (this.debug) {
+            console.log(`[CITS Control] ${message}`);
         }
     }
 }
 
-
-
-
-// 初始化時建立STS控制實例
+// Initialize CITS Control when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    window.stsControl = new STSControl();
+    try {
+        console.log('Initializing CITS Control...');
+        window.citsControl = new CITSControl();
+        console.log('CITS Control initialized successfully');
+    } catch (error) {
+        console.error('Failed to initialize CITS Control:', error);
+    }
 });
