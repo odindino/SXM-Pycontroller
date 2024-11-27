@@ -14,6 +14,7 @@ class SXMSpectroControl(SXMScanControl):
     def __init__(self, debug_mode=False):
         super().__init__(debug_mode)
         self.FbOn = None  # 回饋狀態
+        self.zoffset = None  # Z軸偏移量
 
     # ========== 回饋控制功能 ========== #
     def feedback_on(self):
@@ -28,6 +29,7 @@ class SXMSpectroControl(SXMScanControl):
         success = self.SetFeedPara('Enable', 0)
         if success:
             self.FbOn = 0
+            print("Feedback on")
         return success
 
     def feedback_off(self):
@@ -42,6 +44,7 @@ class SXMSpectroControl(SXMScanControl):
         success = self.SetFeedPara('Enable', 1)
         if success:
             self.FbOn = 1
+            print("Feedback off")
         return success
 
     def get_feedback_state(self):
@@ -54,7 +57,38 @@ class SXMSpectroControl(SXMScanControl):
             True表示回饋正常，False表示異常
         """
         current_state = self.GetFeedbackPara('Enable')
-        return self.FbOn == current_state
+        self.FbOn = current_state
+        print("current state type:", type(current_state))
+        print("current state:", current_state)
+        return self.FbOn
+    
+    def get_zoffset(self):
+        """
+        獲取Z軸偏移量
+
+        Returns
+        -------
+        float
+            Z軸偏移量（nm）
+        """
+        zoffset = self.GetFeedbackPara('ZOffset')
+        return zoffset
+    
+    def set_zoffset(self, offset):
+        """
+        設定Z軸偏移量
+
+        Parameters
+        ----------
+        offset : float
+            Z軸偏移量（nm）
+
+        Returns
+        -------
+        bool
+            設定是否成功
+        """
+        return self.SetFeedPara('ZOffset', offset)
 
     def set_feedback_mode(self, mode):
         """
