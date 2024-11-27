@@ -412,8 +412,8 @@ class SMUControlAPI:
     def save_sts_script(self, name: str, vds_list: list[float], vg_list: list[float]) -> bool:
         """儲存STS腳本"""
         try:
-            if not self.stm:
-                raise Exception("STS Controller未初始化")
+            if not self.ensure_controller():
+                raise Exception("STM控制器未初始化")
                 
             from modules.SXMSTSController import STSScript
             script = STSScript(name, vds_list, vg_list)
