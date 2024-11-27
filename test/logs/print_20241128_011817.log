@@ -1,0 +1,27 @@
+2024-11-28 01:18:17,897 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 01:18:19,325 - Response: b'f464\r\n'
+2024-11-28 01:18:19,326 - Start spectroscopy_1
+2024-11-28 01:18:19,326 - Sending command: SpectStart;
+2024-11-28 01:18:20,242 - Response: b'b464\r\n'
+2024-11-28 01:18:20,243 - Start scanning
+2024-11-28 01:18:20,243 - Sending command: ScanLine(5);
+2024-11-28 01:18:21,165 - Response: b'f463\r\n'
+2024-11-28 01:18:21,166 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 01:18:22,085 - Response: b'b463\r\n'
+2024-11-28 01:18:22,085 - Start spectroscopy_2
+2024-11-28 01:18:22,085 - Sending command: SpectStart;
+2024-11-28 01:18:23,013 - Response: b'f462\r\n'
+2024-11-28 01:18:23,014 - Start scanning
+2024-11-28 01:18:23,014 - Sending command: ScanLine(5);
+2024-11-28 01:18:23,937 - Response: b'b462\r\n'
+2024-11-28 01:18:23,938 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 01:18:24,866 - Response: b'f461\r\n'
+2024-11-28 01:18:24,866 - Start spectroscopy_3
+2024-11-28 01:18:24,866 - Sending command: SpectStart;
+2024-11-28 01:18:25,791 - Response: b'b461\r\n'
