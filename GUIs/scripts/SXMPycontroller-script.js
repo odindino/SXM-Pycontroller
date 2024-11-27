@@ -494,7 +494,57 @@ class STSControl {
             }
         }
     }
+
+    async startCITS(useMultiSts) {
+        try {
+            if (this.isRunning) {
+                alert('CITS measurement is already running');
+                return;
+            }
+            
+            // 獲取參數
+            const pointsX = parseInt(this.pointsX.value);
+            const pointsY = parseInt(this.pointsY.value);
+            const scanDirection = parseInt(document.getElementById('citsScanDirection').value);
+            
+            // 參數驗證
+            if (!this.validateInputs(pointsX, pointsY)) {
+                return;
+            }
+            
+            // 更新UI狀態
+            this.updateStatus('Starting CITS...');
+            this.isRunning = true;
+            this.toggleButtons(true);
+            
+            // 調用API
+            const success = await pywebview.api.start_cits(
+                pointsX, 
+                pointsY, 
+                useMultiSts,
+                scanDirection
+            );
+            
+            if (success) {
+                this.updateStatus('CITS completed successfully');
+                this.lastTime.textContent = new Date().toLocaleTimeString();
+            } else {
+                throw new Error('CITS measurement failed');
+            }
+            
+        } catch (error) {
+            this.updateStatus(`Error: ${error.message}`);
+            console.error('CITS Error:', error);
+            alert(`Error during CITS: ${error.message}`);
+        } finally {
+            this.isRunning = false;
+            this.toggleButtons(false);
+        }
+    }
 }
+
+
+
 
 // 初始化時建立STS控制實例
 document.addEventListener('DOMContentLoaded', () => {

@@ -226,3 +226,17 @@ button.danger { background-color: var(--danger-color); }
     display: flex;
     justify-content: space-between;
 }
+
+.select-input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    min-width: 120px;
+}
+
+.select-input:focus {
+    border-color: var(--secondary-color);
+    outline: none;
+}

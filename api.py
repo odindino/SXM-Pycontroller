@@ -435,7 +435,54 @@ class SMUControlAPI:
             }
         except Exception as e:
             raise Exception(f"取得腳本列表失敗: {str(e)}")
-    ## ========== STS functions END ==========
+    # ========== STS functions END ========== #
+
+    # ========== CITS functions ========== #
+    def start_cits(self, points_x: int, points_y: int, use_multi_sts: bool = False, scan_direction: int = 1) -> bool:
+        """
+        啟動 CITS 量測
+        
+        Parameters
+        ----------
+        points_x : int
+            X方向的測量點數
+        points_y : int
+            Y方向的測量點數
+        use_multi_sts : bool
+            是否使用 Multi-STS 模式
+        scan_direction : int
+            掃描方向 (1: 向上, -1: 向下)
+            
+        Returns
+        -------
+        bool
+            是否成功啟動量測
+        """
+        try:
+            # 確保 STM 控制器連接正常
+            if not self.ensure_controller():
+                print("Failed to ensure STM controller")
+                raise Exception("Failed to initialize controller")
+
+            # 參數驗證
+            if not (1 <= points_x <= 512 and 1 <= points_y <= 512):
+                raise ValueError("點數必須在 1 到 512 之間")
+                
+            if scan_direction not in (1, -1):
+                raise ValueError("掃描方向必須是 1 (向上) 或 -1 (向下)")
+                
+            success = self.stm.standard_cits(
+                num_points_x=points_x,
+                num_points_y=points_y,
+                scan_direction=scan_direction,
+                use_multi_sts=use_multi_sts
+            )
+            
+            return success
+            
+        except Exception as e:
+            raise Exception(f"CITS量測失敗: {str(e)}")
+    # ========== CITS functions END ========== #
 
     def cleanup(self):
         """清理資源"""
