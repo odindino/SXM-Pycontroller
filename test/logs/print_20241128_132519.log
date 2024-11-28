@@ -1,0 +1,42 @@
+2024-11-28 13:25:19,771 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 13:25:20,982 - Response: b'f499\r\n'
+2024-11-28 13:25:20,982 - Scanning: forward line 499
+2024-11-28 13:25:22,903 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 13:25:22,904 - Scan finished at 2024-11-28 13:25:22.904078
+2024-11-28 13:25:22,904 - Response: b'DDE Cmd 2555\r\n'
+2024-11-28 13:25:22,904 - Scan completed
+2024-11-28 13:25:23,405 - 掃描完成
+2024-11-28 13:25:23,405 - 
+>>> 執行第 1/11 條 STS 線
+2024-11-28 13:25:23,405 -   STS點 (1/11): (1912.972, 5265.572)
+2024-11-28 13:25:23,405 - Sending command: SpectPara(1, 1912.971934891535);
+2024-11-28 13:25:23,406 - Response: b'DDE Cmd 2556\r\n0\r\n'
+2024-11-28 13:25:23,607 - Sending command: SpectPara(2, 5265.571934891535);
+2024-11-28 13:25:23,608 - Response: b'DDE Cmd 2557\r\n'
+2024-11-28 13:25:23,809 - Sending command: SpectStart;
+2024-11-28 13:25:23,810 - Response: b'DDE Cmd 2558\r\n'
+2024-11-28 13:25:24,811 -   STS點 (2/11): (1921.598, 5270.552)
+2024-11-28 13:25:24,811 - Sending command: SpectPara(1, 1921.597547913228);
+2024-11-28 13:25:26,439 - Response: b'DDE Cmd 2560\r\n'
+2024-11-28 13:25:26,640 - Sending command: SpectPara(2, 5270.551934891535);
+2024-11-28 13:25:26,644 - Response: b'DDE Cmd 2561\r\n'
+2024-11-28 13:25:26,845 - Sending command: SpectStart;
+2024-11-28 13:25:29,405 - Response: b'DDE Cmd 2562\r\n'
+2024-11-28 13:25:30,406 -   STS點 (3/11): (1930.223, 5275.532)
+2024-11-28 13:25:30,406 - Sending command: SpectPara(1, 1930.223160934921);
+2024-11-28 13:25:30,410 - Response: b'DDE Cmd 2563\r\n'
+2024-11-28 13:25:30,611 - Sending command: SpectPara(2, 5275.5319348915355);
+2024-11-28 13:25:30,614 - Response: b'DDE Cmd 2564\r\n'
+2024-11-28 13:25:30,814 - Sending command: SpectStart;
+2024-11-28 13:25:33,482 - Response: b'DDE Cmd 2565\r\n'
+2024-11-28 13:25:33,739 - Sending command: FeedPara('Enable', 0);
+2024-11-28 13:25:33,741 - Response: b'DDE Cmd 2566\r\n'
+2024-11-28 13:25:33,742 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-28 13:25:33,744 - Response: b'DDE Cmd 2567\r\n0\r\n'
+2024-11-28 13:25:33,744 - Feedback on

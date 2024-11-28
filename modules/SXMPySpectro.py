@@ -100,6 +100,7 @@ class SXMSpectroControl(SXMScanControl):
             # X軸移動
             command1 = f"SpectPara(1, {x});"
             success1, response1 = self._send_command(command1)
+            success1, response1 = self._send_command(command1)
             if not success1:
                 if self.debug_mode:
                     print(f"X軸移動失敗: {x}")
@@ -110,6 +111,7 @@ class SXMSpectroControl(SXMScanControl):
             
             # Y軸移動
             command2 = f"SpectPara(2, {y});"
+            success2, response2 = self._send_command(command2)
             success2, response2 = self._send_command(command2)
             if not success2:
                 if self.debug_mode:
