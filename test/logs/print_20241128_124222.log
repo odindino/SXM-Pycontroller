@@ -1,0 +1,929 @@
+2024-11-28 12:42:22,918 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:42:23,719 - Response: b'f500\r\n'
+2024-11-28 12:42:23,719 - Scanning: forward line 500
+2024-11-28 12:42:25,641 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:42:25,641 - Scan finished at 2024-11-28 12:42:25.641680
+2024-11-28 12:42:25,642 - Response: b'DDE Cmd 2263\r\n'
+2024-11-28 12:42:25,642 - Scan completed
+2024-11-28 12:42:26,143 - 掃描完成
+2024-11-28 12:42:26,143 - 
+>>> 執行第 1/11 條 STS 線
+2024-11-28 12:42:26,143 -   STS點 (1/11): (1912.972, 5265.572)
+2024-11-28 12:42:26,143 - x:
+2024-11-28 12:42:26,143 - 1912.971934891535
+2024-11-28 12:42:26,143 - Sending command: SpectPara(1, 1912.971934891535);
+2024-11-28 12:42:26,144 - Response: b'DDE Cmd 2264\r\n0\r\n'
+2024-11-28 12:42:26,245 - y:
+2024-11-28 12:42:26,245 - 5265.571934891535
+2024-11-28 12:42:26,245 - Sending command: SpectPara(2, 5265.571934891535);
+2024-11-28 12:42:26,246 - Response: b'DDE Cmd 2265\r\n'
+2024-11-28 12:42:26,347 - Sending command: SpectStart;
+2024-11-28 12:42:26,347 - Response: b'DDE Cmd 2266\r\n'
+2024-11-28 12:42:27,348 -   STS點 (2/11): (1921.598, 5270.552)
+2024-11-28 12:42:27,348 - x:
+2024-11-28 12:42:27,348 - 1921.597547913228
+2024-11-28 12:42:27,348 - Sending command: SpectPara(1, 1921.597547913228);
+2024-11-28 12:42:28,948 - Response: b'DDE Cmd 2268\r\n'
+2024-11-28 12:42:29,049 - y:
+2024-11-28 12:42:29,049 - 5270.551934891535
+2024-11-28 12:42:29,049 - Sending command: SpectPara(2, 5270.551934891535);
+2024-11-28 12:42:29,051 - Response: b'DDE Cmd 2269\r\n'
+2024-11-28 12:42:29,152 - Sending command: SpectStart;
+2024-11-28 12:42:31,721 - Response: b'DDE Cmd 2270\r\n'
+2024-11-28 12:42:32,722 -   STS點 (3/11): (1930.223, 5275.532)
+2024-11-28 12:42:32,722 - x:
+2024-11-28 12:42:32,722 - 1930.223160934921
+2024-11-28 12:42:32,722 - Sending command: SpectPara(1, 1930.223160934921);
+2024-11-28 12:42:32,726 - Response: b'DDE Cmd 2271\r\n'
+2024-11-28 12:42:32,827 - y:
+2024-11-28 12:42:32,827 - 5275.5319348915355
+2024-11-28 12:42:32,827 - Sending command: SpectPara(2, 5275.5319348915355);
+2024-11-28 12:42:32,830 - Response: b'DDE Cmd 2272\r\n'
+2024-11-28 12:42:32,931 - Sending command: SpectStart;
+2024-11-28 12:42:35,597 - Response: b'DDE Cmd 2273\r\n'
+2024-11-28 12:42:36,598 -   STS點 (4/11): (1938.849, 5280.512)
+2024-11-28 12:42:36,598 - x:
+2024-11-28 12:42:36,598 - 1938.848773956614
+2024-11-28 12:42:36,598 - Sending command: SpectPara(1, 1938.848773956614);
+2024-11-28 12:42:36,601 - Response: b'DDE Cmd 2274\r\n'
+2024-11-28 12:42:36,702 - y:
+2024-11-28 12:42:36,702 - 5280.511934891535
+2024-11-28 12:42:36,702 - Sending command: SpectPara(2, 5280.511934891535);
+2024-11-28 12:42:36,704 - Response: b'DDE Cmd 2275\r\n'
+2024-11-28 12:42:36,805 - Sending command: SpectStart;
+2024-11-28 12:42:39,408 - Response: b'DDE Cmd 2276\r\n'
+2024-11-28 12:42:40,409 -   STS點 (5/11): (1947.474, 5285.492)
+2024-11-28 12:42:40,409 - x:
+2024-11-28 12:42:40,409 - 1947.474386978307
+2024-11-28 12:42:40,409 - Sending command: SpectPara(1, 1947.474386978307);
+2024-11-28 12:42:40,412 - Response: b'DDE Cmd 2277\r\n'
+2024-11-28 12:42:40,513 - y:
+2024-11-28 12:42:40,513 - 5285.4919348915355
+2024-11-28 12:42:40,513 - Sending command: SpectPara(2, 5285.4919348915355);
+2024-11-28 12:42:40,516 - Response: b'DDE Cmd 2278\r\n'
+2024-11-28 12:42:40,617 - Sending command: SpectStart;
+2024-11-28 12:42:43,202 - Response: b'DDE Cmd 2279\r\n'
+2024-11-28 12:42:44,202 -   STS點 (6/11): (1956.100, 5290.472)
+2024-11-28 12:42:44,202 - x:
+2024-11-28 12:42:44,202 - 1956.1000000000001
+2024-11-28 12:42:44,202 - Sending command: SpectPara(1, 1956.1000000000001);
+2024-11-28 12:42:44,206 - Response: b'DDE Cmd 2280\r\n'
+2024-11-28 12:42:44,306 - y:
+2024-11-28 12:42:44,306 - 5290.471934891535
+2024-11-28 12:42:44,306 - Sending command: SpectPara(2, 5290.471934891535);
+2024-11-28 12:42:44,310 - Response: b'DDE Cmd 2281\r\n'
+2024-11-28 12:42:44,411 - Sending command: SpectStart;
+2024-11-28 12:42:47,000 - Response: b'DDE Cmd 2282\r\n'
+2024-11-28 12:42:48,001 -   STS點 (7/11): (1964.726, 5295.452)
+2024-11-28 12:42:48,001 - x:
+2024-11-28 12:42:48,001 - 1964.725613021693
+2024-11-28 12:42:48,001 - Sending command: SpectPara(1, 1964.725613021693);
+2024-11-28 12:42:48,004 - Response: b'DDE Cmd 2283\r\n'
+2024-11-28 12:42:48,105 - y:
+2024-11-28 12:42:48,105 - 5295.4519348915355
+2024-11-28 12:42:48,105 - Sending command: SpectPara(2, 5295.4519348915355);
+2024-11-28 12:42:48,108 - Response: b'DDE Cmd 2284\r\n'
+2024-11-28 12:42:48,209 - Sending command: SpectStart;
+2024-11-28 12:42:50,808 - Response: b'DDE Cmd 2285\r\n'
+2024-11-28 12:42:51,809 -   STS點 (8/11): (1973.351, 5300.432)
+2024-11-28 12:42:51,809 - x:
+2024-11-28 12:42:51,809 - 1973.351226043386
+2024-11-28 12:42:51,809 - Sending command: SpectPara(1, 1973.351226043386);
+2024-11-28 12:42:51,812 - Response: b'DDE Cmd 2286\r\n'
+2024-11-28 12:42:51,913 - y:
+2024-11-28 12:42:51,913 - 5300.431934891535
+2024-11-28 12:42:51,913 - Sending command: SpectPara(2, 5300.431934891535);
+2024-11-28 12:42:51,916 - Response: b'DDE Cmd 2287\r\n'
+2024-11-28 12:42:52,017 - Sending command: SpectStart;
+2024-11-28 12:42:54,624 - Response: b'DDE Cmd 2288\r\n'
+2024-11-28 12:42:55,624 -   STS點 (9/11): (1981.977, 5305.412)
+2024-11-28 12:42:55,624 - x:
+2024-11-28 12:42:55,624 - 1981.976839065079
+2024-11-28 12:42:55,624 - Sending command: SpectPara(1, 1981.976839065079);
+2024-11-28 12:42:55,627 - Response: b'DDE Cmd 2289\r\n'
+2024-11-28 12:42:55,728 - y:
+2024-11-28 12:42:55,728 - 5305.411934891536
+2024-11-28 12:42:55,728 - Sending command: SpectPara(2, 5305.411934891536);
+2024-11-28 12:42:55,732 - Response: b'DDE Cmd 2290\r\n'
+2024-11-28 12:42:55,832 - Sending command: SpectStart;
+2024-11-28 12:42:58,431 - Response: b'DDE Cmd 2291\r\n'
+2024-11-28 12:42:59,432 -   STS點 (10/11): (1990.602, 5310.392)
+2024-11-28 12:42:59,432 - x:
+2024-11-28 12:42:59,432 - 1990.602452086772
+2024-11-28 12:42:59,432 - Sending command: SpectPara(1, 1990.602452086772);
+2024-11-28 12:42:59,435 - Response: b'DDE Cmd 2292\r\n'
+2024-11-28 12:42:59,536 - y:
+2024-11-28 12:42:59,536 - 5310.391934891535
+2024-11-28 12:42:59,536 - Sending command: SpectPara(2, 5310.391934891535);
+2024-11-28 12:42:59,538 - Response: b'DDE Cmd 2293\r\n'
+2024-11-28 12:42:59,639 - Sending command: SpectStart;
+2024-11-28 12:43:02,242 - Response: b'DDE Cmd 2294\r\n'
+2024-11-28 12:43:03,243 -   STS點 (11/11): (1999.228, 5315.372)
+2024-11-28 12:43:03,243 - x:
+2024-11-28 12:43:03,243 - 1999.228065108465
+2024-11-28 12:43:03,243 - Sending command: SpectPara(1, 1999.228065108465);
+2024-11-28 12:43:03,247 - Response: b'DDE Cmd 2295\r\n'
+2024-11-28 12:43:03,347 - y:
+2024-11-28 12:43:03,347 - 5315.371934891536
+2024-11-28 12:43:03,347 - Sending command: SpectPara(2, 5315.371934891536);
+2024-11-28 12:43:03,350 - Response: b'DDE Cmd 2296\r\n'
+2024-11-28 12:43:03,451 - Sending command: SpectStart;
+2024-11-28 12:43:06,072 - Response: b'DDE Cmd 2297\r\n'
+2024-11-28 12:43:07,073 - <<< 完成第 1/11 條 STS 線
+2024-11-28 12:43:07,073 - 
+=== 掃描第 2 段 50 條線 ===
+2024-11-28 12:43:07,073 - 開始掃描 50 條線
+2024-11-28 12:43:07,073 - Sending command: ScanLine(50);
+2024-11-28 12:43:07,075 - Scan started at 2024-11-28 12:43:07.075645
+2024-11-28 12:43:07,075 - Response: 1
+2024-11-28 12:43:07,075 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:08,628 - Response: b'f499\r\n'
+2024-11-28 12:43:08,628 - Scanning: forward line 499
+2024-11-28 12:43:10,548 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:10,549 - Response: b'f498\r\n'
+2024-11-28 12:43:10,549 - Scanning: forward line 498
+2024-11-28 12:43:12,399 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:12,400 - Response: b'f497\r\n'
+2024-11-28 12:43:12,400 - Scanning: forward line 497
+2024-11-28 12:43:14,251 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:14,252 - Response: b'f496\r\n'
+2024-11-28 12:43:14,252 - Scanning: forward line 496
+2024-11-28 12:43:16,104 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:16,105 - Response: b'f495\r\n'
+2024-11-28 12:43:16,105 - Scanning: forward line 495
+2024-11-28 12:43:17,956 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:17,956 - Response: b'f494\r\n'
+2024-11-28 12:43:17,956 - Scanning: forward line 494
+2024-11-28 12:43:19,814 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:19,815 - Response: b'f493\r\n'
+2024-11-28 12:43:19,815 - Scanning: forward line 493
+2024-11-28 12:43:21,676 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:21,677 - Response: b'f492\r\n'
+2024-11-28 12:43:21,677 - Scanning: forward line 492
+2024-11-28 12:43:23,539 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:23,540 - Response: b'f491\r\n'
+2024-11-28 12:43:23,540 - Scanning: forward line 491
+2024-11-28 12:43:25,401 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:25,402 - Response: b'f490\r\n'
+2024-11-28 12:43:25,402 - Scanning: forward line 490
+2024-11-28 12:43:27,258 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:27,259 - Response: b'f489\r\n'
+2024-11-28 12:43:27,260 - Scanning: forward line 489
+2024-11-28 12:43:29,113 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:29,120 - Response: b'f488\r\n'
+2024-11-28 12:43:29,120 - Scanning: forward line 488
+2024-11-28 12:43:30,963 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:30,966 - Response: b'f487\r\n'
+2024-11-28 12:43:30,966 - Scanning: forward line 487
+2024-11-28 12:43:32,817 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:32,818 - Response: b'f486\r\n'
+2024-11-28 12:43:32,818 - Scanning: forward line 486
+2024-11-28 12:43:34,666 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:34,667 - Response: b'f485\r\n'
+2024-11-28 12:43:34,667 - Scanning: forward line 485
+2024-11-28 12:43:36,511 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:36,512 - Response: b'f484\r\n'
+2024-11-28 12:43:36,512 - Scanning: forward line 484
+2024-11-28 12:43:38,355 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:38,356 - Response: b'f483\r\n'
+2024-11-28 12:43:38,356 - Scanning: forward line 483
+2024-11-28 12:43:40,212 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:40,212 - Response: b'f482\r\n'
+2024-11-28 12:43:40,212 - Scanning: forward line 482
+2024-11-28 12:43:42,065 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:42,066 - Response: b'f481\r\n'
+2024-11-28 12:43:42,066 - Scanning: forward line 481
+2024-11-28 12:43:43,917 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:43,925 - Response: b'f480\r\n'
+2024-11-28 12:43:43,925 - Scanning: forward line 480
+2024-11-28 12:43:45,772 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:45,774 - Response: b'f479\r\n'
+2024-11-28 12:43:45,774 - Scanning: forward line 479
+2024-11-28 12:43:47,626 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:47,627 - Response: b'f478\r\n'
+2024-11-28 12:43:47,627 - Scanning: forward line 478
+2024-11-28 12:43:49,480 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:49,481 - Response: b'f477\r\n'
+2024-11-28 12:43:49,481 - Scanning: forward line 477
+2024-11-28 12:43:51,332 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:51,332 - Response: b'f476\r\n'
+2024-11-28 12:43:51,332 - Scanning: forward line 476
+2024-11-28 12:43:53,186 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:53,187 - Response: b'f475\r\n'
+2024-11-28 12:43:53,187 - Scanning: forward line 475
+2024-11-28 12:43:55,040 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:55,042 - Response: b'f474\r\n'
+2024-11-28 12:43:55,042 - Scanning: forward line 474
+2024-11-28 12:43:56,894 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:56,895 - Response: b'f473\r\n'
+2024-11-28 12:43:56,895 - Scanning: forward line 473
+2024-11-28 12:43:58,746 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:43:58,747 - Response: b'f472\r\n'
+2024-11-28 12:43:58,748 - Scanning: forward line 472
+2024-11-28 12:44:00,600 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:00,601 - Response: b'f471\r\n'
+2024-11-28 12:44:00,601 - Scanning: forward line 471
+2024-11-28 12:44:02,452 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:02,453 - Response: b'f470\r\n'
+2024-11-28 12:44:02,453 - Scanning: forward line 470
+2024-11-28 12:44:04,304 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:04,311 - Response: b'f469\r\n'
+2024-11-28 12:44:04,311 - Scanning: forward line 469
+2024-11-28 12:44:06,156 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:06,157 - Response: b'f468\r\n'
+2024-11-28 12:44:06,157 - Scanning: forward line 468
+2024-11-28 12:44:08,007 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:08,008 - Response: b'f467\r\n'
+2024-11-28 12:44:08,008 - Scanning: forward line 467
+2024-11-28 12:44:09,861 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:09,862 - Response: b'f466\r\n'
+2024-11-28 12:44:09,862 - Scanning: forward line 466
+2024-11-28 12:44:11,713 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:11,714 - Response: b'f465\r\n'
+2024-11-28 12:44:11,714 - Scanning: forward line 465
+2024-11-28 12:44:13,566 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:13,567 - Response: b'f464\r\n'
+2024-11-28 12:44:13,567 - Scanning: forward line 464
+2024-11-28 12:44:15,423 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:15,425 - Response: b'f463\r\n'
+2024-11-28 12:44:15,425 - Scanning: forward line 463
+2024-11-28 12:44:17,274 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:17,277 - Response: b'f462\r\n'
+2024-11-28 12:44:17,277 - Scanning: forward line 462
+2024-11-28 12:44:19,129 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:19,130 - Response: b'f461\r\n'
+2024-11-28 12:44:19,130 - Scanning: forward line 461
+2024-11-28 12:44:20,981 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:20,982 - Response: b'f460\r\n'
+2024-11-28 12:44:20,982 - Scanning: forward line 460
+2024-11-28 12:44:22,833 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:22,834 - Response: b'f459\r\n'
+2024-11-28 12:44:22,834 - Scanning: forward line 459
+2024-11-28 12:44:24,686 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:24,687 - Response: b'f458\r\n'
+2024-11-28 12:44:24,687 - Scanning: forward line 458
+2024-11-28 12:44:26,539 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:26,540 - Response: b'f457\r\n'
+2024-11-28 12:44:26,540 - Scanning: forward line 457
+2024-11-28 12:44:28,392 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:28,394 - Response: b'f456\r\n'
+2024-11-28 12:44:28,394 - Scanning: forward line 456
+2024-11-28 12:44:30,243 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:30,244 - Response: b'f455\r\n'
+2024-11-28 12:44:30,244 - Scanning: forward line 455
+2024-11-28 12:44:32,089 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:32,089 - Response: b'f454\r\n'
+2024-11-28 12:44:32,090 - Scanning: forward line 454
+2024-11-28 12:44:33,930 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:33,931 - Response: b'f453\r\n'
+2024-11-28 12:44:33,931 - Scanning: forward line 453
+2024-11-28 12:44:35,783 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:35,783 - Response: b'f452\r\n'
+2024-11-28 12:44:35,783 - Scanning: forward line 452
+2024-11-28 12:44:37,635 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:37,636 - Response: b'f451\r\n'
+2024-11-28 12:44:37,636 - Scanning: forward line 451
+2024-11-28 12:44:39,489 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:39,489 - Response: b'f450\r\n'
+2024-11-28 12:44:39,489 - Scanning: forward line 450
+2024-11-28 12:44:41,342 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:44:41,342 - Scan finished at 2024-11-28 12:44:41.342262
+2024-11-28 12:44:41,342 - Response: b'DDE Cmd 2348\r\n'
+2024-11-28 12:44:41,342 - Scan completed
+2024-11-28 12:44:41,844 - 掃描完成
+2024-11-28 12:44:41,844 - 
+>>> 執行第 2/11 條 STS 線
+2024-11-28 12:44:41,844 -   STS點 (1/11): (1907.992, 5274.198)
+2024-11-28 12:44:41,844 - x:
+2024-11-28 12:44:41,844 - 1907.991934891535
+2024-11-28 12:44:41,844 - Sending command: SpectPara(1, 1907.991934891535);
+2024-11-28 12:44:41,845 - Response: b'DDE Cmd 2349\r\n0\r\n'
+2024-11-28 12:44:41,946 - y:
+2024-11-28 12:44:41,946 - 5274.197547913228
+2024-11-28 12:44:41,946 - Sending command: SpectPara(2, 5274.197547913228);
+2024-11-28 12:44:41,947 - Response: b'DDE Cmd 2350\r\n'
+2024-11-28 12:44:42,048 - Sending command: SpectStart;
+2024-11-28 12:44:42,048 - Response: b'DDE Cmd 2351\r\n'
+2024-11-28 12:44:43,049 -   STS點 (2/11): (1916.618, 5279.178)
+2024-11-28 12:44:43,049 - x:
+2024-11-28 12:44:43,049 - 1916.617547913228
+2024-11-28 12:44:43,049 - Sending command: SpectPara(1, 1916.617547913228);
+2024-11-28 12:44:44,652 - Response: b'DDE Cmd 2353\r\n'
+2024-11-28 12:44:44,753 - y:
+2024-11-28 12:44:44,753 - 5279.177547913228
+2024-11-28 12:44:44,753 - Sending command: SpectPara(2, 5279.177547913228);
+2024-11-28 12:44:44,755 - Response: b'DDE Cmd 2354\r\n'
+2024-11-28 12:44:44,856 - Sending command: SpectStart;
+2024-11-28 12:44:47,434 - Response: b'DDE Cmd 2355\r\n'
+2024-11-28 12:44:48,435 -   STS點 (3/11): (1925.243, 5284.158)
+2024-11-28 12:44:48,435 - x:
+2024-11-28 12:44:48,435 - 1925.243160934921
+2024-11-28 12:44:48,435 - Sending command: SpectPara(1, 1925.243160934921);
+2024-11-28 12:44:48,438 - Response: b'DDE Cmd 2356\r\n'
+2024-11-28 12:44:48,540 - y:
+2024-11-28 12:44:48,540 - 5284.157547913228
+2024-11-28 12:44:48,540 - Sending command: SpectPara(2, 5284.157547913228);
+2024-11-28 12:44:48,542 - Response: b'DDE Cmd 2357\r\n'
+2024-11-28 12:44:48,643 - Sending command: SpectStart;
+2024-11-28 12:44:51,295 - Response: b'DDE Cmd 2358\r\n'
+2024-11-28 12:44:52,296 -   STS點 (4/11): (1933.869, 5289.138)
+2024-11-28 12:44:52,296 - x:
+2024-11-28 12:44:52,296 - 1933.868773956614
+2024-11-28 12:44:52,296 - Sending command: SpectPara(1, 1933.868773956614);
+2024-11-28 12:44:52,299 - Response: b'DDE Cmd 2359\r\n'
+2024-11-28 12:44:52,400 - y:
+2024-11-28 12:44:52,400 - 5289.137547913228
+2024-11-28 12:44:52,400 - Sending command: SpectPara(2, 5289.137547913228);
+2024-11-28 12:44:52,403 - Response: b'DDE Cmd 2360\r\n'
+2024-11-28 12:44:52,503 - Sending command: SpectStart;
+2024-11-28 12:44:55,105 - Response: b'DDE Cmd 2361\r\n'
+2024-11-28 12:44:56,106 -   STS點 (5/11): (1942.494, 5294.118)
+2024-11-28 12:44:56,106 - x:
+2024-11-28 12:44:56,106 - 1942.494386978307
+2024-11-28 12:44:56,106 - Sending command: SpectPara(1, 1942.494386978307);
+2024-11-28 12:44:56,109 - Response: b'DDE Cmd 2362\r\n'
+2024-11-28 12:44:56,210 - y:
+2024-11-28 12:44:56,210 - 5294.117547913228
+2024-11-28 12:44:56,210 - Sending command: SpectPara(2, 5294.117547913228);
+2024-11-28 12:44:56,213 - Response: b'DDE Cmd 2363\r\n'
+2024-11-28 12:44:56,314 - Sending command: SpectStart;
+2024-11-28 12:44:58,935 - Response: b'DDE Cmd 2364\r\n'
+2024-11-28 12:44:59,936 -   STS點 (6/11): (1951.120, 5299.098)
+2024-11-28 12:44:59,936 - x:
+2024-11-28 12:44:59,936 - 1951.1200000000001
+2024-11-28 12:44:59,936 - Sending command: SpectPara(1, 1951.1200000000001);
+2024-11-28 12:44:59,939 - Response: b'DDE Cmd 2365\r\n'
+2024-11-28 12:45:00,040 - y:
+2024-11-28 12:45:00,040 - 5299.0975479132285
+2024-11-28 12:45:00,040 - Sending command: SpectPara(2, 5299.0975479132285);
+2024-11-28 12:45:00,043 - Response: b'DDE Cmd 2366\r\n'
+2024-11-28 12:45:00,144 - Sending command: SpectStart;
+2024-11-28 12:45:02,749 - Response: b'DDE Cmd 2367\r\n'
+2024-11-28 12:45:03,750 -   STS點 (7/11): (1959.746, 5304.078)
+2024-11-28 12:45:03,750 - x:
+2024-11-28 12:45:03,750 - 1959.745613021693
+2024-11-28 12:45:03,750 - Sending command: SpectPara(1, 1959.745613021693);
+2024-11-28 12:45:03,753 - Response: b'DDE Cmd 2368\r\n'
+2024-11-28 12:45:03,854 - y:
+2024-11-28 12:45:03,854 - 5304.077547913228
+2024-11-28 12:45:03,854 - Sending command: SpectPara(2, 5304.077547913228);
+2024-11-28 12:45:03,857 - Response: b'DDE Cmd 2369\r\n'
+2024-11-28 12:45:03,958 - Sending command: SpectStart;
+2024-11-28 12:45:06,572 - Response: b'DDE Cmd 2370\r\n'
+2024-11-28 12:45:07,573 -   STS點 (8/11): (1968.371, 5309.058)
+2024-11-28 12:45:07,573 - x:
+2024-11-28 12:45:07,573 - 1968.371226043386
+2024-11-28 12:45:07,573 - Sending command: SpectPara(1, 1968.371226043386);
+2024-11-28 12:45:07,576 - Response: b'DDE Cmd 2371\r\n'
+2024-11-28 12:45:07,677 - y:
+2024-11-28 12:45:07,677 - 5309.0575479132285
+2024-11-28 12:45:07,677 - Sending command: SpectPara(2, 5309.0575479132285);
+2024-11-28 12:45:07,680 - Response: b'DDE Cmd 2372\r\n'
+2024-11-28 12:45:07,781 - Sending command: SpectStart;
+2024-11-28 12:45:10,383 - Response: b'DDE Cmd 2373\r\n'
+2024-11-28 12:45:11,385 -   STS點 (9/11): (1976.997, 5314.038)
+2024-11-28 12:45:11,385 - x:
+2024-11-28 12:45:11,385 - 1976.996839065079
+2024-11-28 12:45:11,385 - Sending command: SpectPara(1, 1976.996839065079);
+2024-11-28 12:45:11,390 - Response: b'DDE Cmd 2374\r\n'
+2024-11-28 12:45:11,490 - y:
+2024-11-28 12:45:11,490 - 5314.037547913228
+2024-11-28 12:45:11,490 - Sending command: SpectPara(2, 5314.037547913228);
+2024-11-28 12:45:11,493 - Response: b'DDE Cmd 2375\r\n'
+2024-11-28 12:45:11,594 - Sending command: SpectStart;
+2024-11-28 12:45:14,190 - Response: b'DDE Cmd 2376\r\n'
+2024-11-28 12:45:15,191 -   STS點 (10/11): (1985.622, 5319.018)
+2024-11-28 12:45:15,191 - x:
+2024-11-28 12:45:15,191 - 1985.622452086772
+2024-11-28 12:45:15,191 - Sending command: SpectPara(1, 1985.622452086772);
+2024-11-28 12:45:15,194 - Response: b'DDE Cmd 2377\r\n'
+2024-11-28 12:45:15,295 - y:
+2024-11-28 12:45:15,295 - 5319.017547913229
+2024-11-28 12:45:15,295 - Sending command: SpectPara(2, 5319.017547913229);
+2024-11-28 12:45:15,298 - Response: b'DDE Cmd 2378\r\n'
+2024-11-28 12:45:15,398 - Sending command: SpectStart;
+2024-11-28 12:45:18,000 - Response: b'DDE Cmd 2379\r\n'
+2024-11-28 12:45:19,001 -   STS點 (11/11): (1994.248, 5323.998)
+2024-11-28 12:45:19,001 - x:
+2024-11-28 12:45:19,001 - 1994.2480651084652
+2024-11-28 12:45:19,001 - Sending command: SpectPara(1, 1994.2480651084652);
+2024-11-28 12:45:19,004 - Response: b'DDE Cmd 2380\r\n'
+2024-11-28 12:45:19,105 - y:
+2024-11-28 12:45:19,105 - 5323.997547913228
+2024-11-28 12:45:19,105 - Sending command: SpectPara(2, 5323.997547913228);
+2024-11-28 12:45:19,110 - Response: b'DDE Cmd 2381\r\n'
+2024-11-28 12:45:19,210 - Sending command: SpectStart;
+2024-11-28 12:45:21,806 - Response: b'DDE Cmd 2382\r\n'
+2024-11-28 12:45:22,807 - <<< 完成第 2/11 條 STS 線
+2024-11-28 12:45:22,807 - 
+=== 掃描第 3 段 50 條線 ===
+2024-11-28 12:45:22,807 - 開始掃描 50 條線
+2024-11-28 12:45:22,807 - Sending command: ScanLine(50);
+2024-11-28 12:45:22,809 - Scan started at 2024-11-28 12:45:22.809444
+2024-11-28 12:45:22,809 - Response: 1
+2024-11-28 12:45:22,810 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:45:24,367 - Response: b'f449\r\n'
+2024-11-28 12:45:24,367 - Scanning: forward line 449
+2024-11-28 12:45:26,292 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:45:26,294 - Response: b'f448\r\n'
+2024-11-28 12:45:26,295 - Scanning: forward line 448
+2024-11-28 12:45:28,146 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:45:28,147 - Response: b'f447\r\n'
+2024-11-28 12:45:28,147 - Scanning: forward line 447
+2024-11-28 12:45:29,999 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:45:30,000 - Response: b'f446\r\n'
+2024-11-28 12:45:30,000 - Scanning: forward line 446
+2024-11-28 12:45:31,851 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:45:31,852 - Response: b'f445\r\n'
+2024-11-28 12:45:31,852 - Scanning: forward line 445
+2024-11-28 12:45:33,708 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:45:33,709 - Response: b'f444\r\n'
+2024-11-28 12:45:33,709 - Scanning: forward line 444
+2024-11-28 12:45:35,567 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:45:35,568 - Response: b'f443\r\n'
+2024-11-28 12:45:35,568 - Scanning: forward line 443
+2024-11-28 12:45:37,424 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:45:37,425 - Response: b'f442\r\n'
+2024-11-28 12:45:37,425 - Scanning: forward line 442
+2024-11-28 12:45:39,280 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:45:39,281 - Response: b'f441\r\n'
+2024-11-28 12:45:39,281 - Scanning: forward line 441
+2024-11-28 12:45:41,139 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:45:41,140 - Response: b'f440\r\n'
+2024-11-28 12:45:41,140 - Scanning: forward line 440
+2024-11-28 12:45:42,996 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:45:42,997 - Response: b'f439\r\n'
+2024-11-28 12:45:42,997 - Scanning: forward line 439
+2024-11-28 12:45:44,857 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:45:44,858 - Response: b'f438\r\n'
+2024-11-28 12:45:44,858 - Scanning: forward line 438
+2024-11-28 12:45:46,713 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:45:46,715 - Response: b'f437\r\n'
+2024-11-28 12:45:46,715 - Scanning: forward line 437
+2024-11-28 12:45:48,564 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:45:48,565 - Response: b'f436\r\n'
+2024-11-28 12:45:48,565 - Scanning: forward line 436
+2024-11-28 12:45:50,417 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:45:50,418 - Response: b'f435\r\n'
+2024-11-28 12:45:50,418 - Scanning: forward line 435
+2024-11-28 12:45:52,270 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:45:52,270 - Response: b'f434\r\n'
+2024-11-28 12:45:52,270 - Scanning: forward line 434
+2024-11-28 12:45:54,125 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:45:54,126 - Response: b'f433\r\n'
+2024-11-28 12:45:54,126 - Scanning: forward line 433
+2024-11-28 12:45:55,984 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:45:55,985 - Response: b'f432\r\n'
+2024-11-28 12:45:55,985 - Scanning: forward line 432
+2024-11-28 12:45:57,836 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:45:57,837 - Response: b'f431\r\n'
+2024-11-28 12:45:57,837 - Scanning: forward line 431
+2024-11-28 12:45:59,690 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:45:59,692 - Response: b'f430\r\n'
+2024-11-28 12:45:59,692 - Scanning: forward line 430
+2024-11-28 12:46:01,542 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:01,542 - Response: b'f429\r\n'
+2024-11-28 12:46:01,542 - Scanning: forward line 429
+2024-11-28 12:46:03,395 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:03,396 - Response: b'f428\r\n'
+2024-11-28 12:46:03,396 - Scanning: forward line 428
+2024-11-28 12:46:05,252 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:05,253 - Response: b'f427\r\n'
+2024-11-28 12:46:05,253 - Scanning: forward line 427
+2024-11-28 12:46:07,104 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:07,105 - Response: b'f426\r\n'
+2024-11-28 12:46:07,105 - Scanning: forward line 426
+2024-11-28 12:46:08,958 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:08,959 - Response: b'f425\r\n'
+2024-11-28 12:46:08,959 - Scanning: forward line 425
+2024-11-28 12:46:10,811 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:10,812 - Response: b'f424\r\n'
+2024-11-28 12:46:10,812 - Scanning: forward line 424
+2024-11-28 12:46:12,664 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:12,665 - Response: b'f423\r\n'
+2024-11-28 12:46:12,665 - Scanning: forward line 423
+2024-11-28 12:46:14,516 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:14,517 - Response: b'f422\r\n'
+2024-11-28 12:46:14,517 - Scanning: forward line 422
+2024-11-28 12:46:16,369 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:16,370 - Response: b'f421\r\n'
+2024-11-28 12:46:16,370 - Scanning: forward line 421
+2024-11-28 12:46:18,224 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:18,225 - Response: b'f420\r\n'
+2024-11-28 12:46:18,225 - Scanning: forward line 420
+2024-11-28 12:46:20,081 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:20,082 - Response: b'f419\r\n'
+2024-11-28 12:46:20,082 - Scanning: forward line 419
+2024-11-28 12:46:21,939 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:21,940 - Response: b'f418\r\n'
+2024-11-28 12:46:21,940 - Scanning: forward line 418
+2024-11-28 12:46:23,792 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:23,792 - Response: b'f417\r\n'
+2024-11-28 12:46:23,792 - Scanning: forward line 417
+2024-11-28 12:46:25,644 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:25,645 - Response: b'f416\r\n'
+2024-11-28 12:46:25,645 - Scanning: forward line 416
+2024-11-28 12:46:27,497 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:27,498 - Response: b'f415\r\n'
+2024-11-28 12:46:27,498 - Scanning: forward line 415
+2024-11-28 12:46:29,350 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:29,353 - Response: b'f414\r\n'
+2024-11-28 12:46:29,353 - Scanning: forward line 414
+2024-11-28 12:46:31,202 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:31,210 - Response: b'f413\r\n'
+2024-11-28 12:46:31,210 - Scanning: forward line 413
+2024-11-28 12:46:33,055 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:33,059 - Response: b'f412\r\n'
+2024-11-28 12:46:33,059 - Scanning: forward line 412
+2024-11-28 12:46:34,908 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:34,910 - Response: b'f411\r\n'
+2024-11-28 12:46:34,910 - Scanning: forward line 411
+2024-11-28 12:46:36,761 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:36,762 - Response: b'f410\r\n'
+2024-11-28 12:46:36,762 - Scanning: forward line 410
+2024-11-28 12:46:38,616 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:38,616 - Response: b'f409\r\n'
+2024-11-28 12:46:38,616 - Scanning: forward line 409
+2024-11-28 12:46:40,470 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:40,470 - Response: b'f408\r\n'
+2024-11-28 12:46:40,470 - Scanning: forward line 408
+2024-11-28 12:46:42,321 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:42,322 - Response: b'f407\r\n'
+2024-11-28 12:46:42,322 - Scanning: forward line 407
+2024-11-28 12:46:44,175 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:44,176 - Response: b'f406\r\n'
+2024-11-28 12:46:44,176 - Scanning: forward line 406
+2024-11-28 12:46:46,029 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:46,030 - Response: b'f405\r\n'
+2024-11-28 12:46:46,030 - Scanning: forward line 405
+2024-11-28 12:46:47,882 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:47,883 - Response: b'f404\r\n'
+2024-11-28 12:46:47,883 - Scanning: forward line 404
+2024-11-28 12:46:49,736 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:49,736 - Response: b'f403\r\n'
+2024-11-28 12:46:49,736 - Scanning: forward line 403
+2024-11-28 12:46:51,589 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:51,589 - Response: b'f402\r\n'
+2024-11-28 12:46:51,589 - Scanning: forward line 402
+2024-11-28 12:46:53,443 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:53,444 - Response: b'f401\r\n'
+2024-11-28 12:46:53,444 - Scanning: forward line 401
+2024-11-28 12:46:55,295 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:55,296 - Response: b'f400\r\n'
+2024-11-28 12:46:55,296 - Scanning: forward line 400
+2024-11-28 12:46:57,147 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:46:57,147 - Scan finished at 2024-11-28 12:46:57.147926
+2024-11-28 12:46:57,148 - Response: b'DDE Cmd 2433\r\n'
+2024-11-28 12:46:57,148 - Scan completed
+2024-11-28 12:46:57,649 - 掃描完成
+2024-11-28 12:46:57,649 - 
+>>> 執行第 3/11 條 STS 線
+2024-11-28 12:46:57,649 -   STS點 (1/11): (1903.012, 5282.823)
+2024-11-28 12:46:57,649 - x:
+2024-11-28 12:46:57,649 - 1903.011934891535
+2024-11-28 12:46:57,649 - Sending command: SpectPara(1, 1903.011934891535);
+2024-11-28 12:46:57,649 - Response: b'DDE Cmd 2434\r\n0\r\n'
+2024-11-28 12:46:57,751 - y:
+2024-11-28 12:46:57,751 - 5282.823160934921
+2024-11-28 12:46:57,751 - Sending command: SpectPara(2, 5282.823160934921);
+2024-11-28 12:46:57,752 - Response: b'DDE Cmd 2435\r\n'
+2024-11-28 12:46:57,852 - Sending command: SpectStart;
+2024-11-28 12:46:57,853 - Response: b'DDE Cmd 2436\r\n'
+2024-11-28 12:46:58,854 -   STS點 (2/11): (1911.638, 5287.803)
+2024-11-28 12:46:58,854 - x:
+2024-11-28 12:46:58,854 - 1911.637547913228
+2024-11-28 12:46:58,854 - Sending command: SpectPara(1, 1911.637547913228);
+2024-11-28 12:47:00,452 - Response: b'DDE Cmd 2438\r\n'
+2024-11-28 12:47:00,552 - y:
+2024-11-28 12:47:00,552 - 5287.803160934921
+2024-11-28 12:47:00,552 - Sending command: SpectPara(2, 5287.803160934921);
+2024-11-28 12:47:00,561 - Response: b'DDE Cmd 2439\r\n'
+2024-11-28 12:47:00,662 - Sending command: SpectStart;
+2024-11-28 12:47:03,232 - Response: b'DDE Cmd 2440\r\n'
+2024-11-28 12:47:04,233 -   STS點 (3/11): (1920.263, 5292.783)
+2024-11-28 12:47:04,233 - x:
+2024-11-28 12:47:04,233 - 1920.263160934921
+2024-11-28 12:47:04,233 - Sending command: SpectPara(1, 1920.263160934921);
+2024-11-28 12:47:04,241 - Response: b'DDE Cmd 2441\r\n'
+2024-11-28 12:47:04,342 - y:
+2024-11-28 12:47:04,342 - 5292.783160934921
+2024-11-28 12:47:04,342 - Sending command: SpectPara(2, 5292.783160934921);
+2024-11-28 12:47:04,349 - Response: b'DDE Cmd 2442\r\n'
+2024-11-28 12:47:04,450 - Sending command: SpectStart;
+2024-11-28 12:47:07,115 - Response: b'DDE Cmd 2443\r\n'
+2024-11-28 12:47:08,116 -   STS點 (4/11): (1928.889, 5297.763)
+2024-11-28 12:47:08,116 - x:
+2024-11-28 12:47:08,116 - 1928.888773956614
+2024-11-28 12:47:08,116 - Sending command: SpectPara(1, 1928.888773956614);
+2024-11-28 12:47:08,124 - Response: b'DDE Cmd 2444\r\n'
+2024-11-28 12:47:08,226 - y:
+2024-11-28 12:47:08,226 - 5297.763160934921
+2024-11-28 12:47:08,226 - Sending command: SpectPara(2, 5297.763160934921);
+2024-11-28 12:47:08,233 - Response: b'DDE Cmd 2445\r\n'
+2024-11-28 12:47:08,334 - Sending command: SpectStart;
+2024-11-28 12:47:10,932 - Response: b'DDE Cmd 2446\r\n'
+2024-11-28 12:47:11,932 -   STS點 (5/11): (1937.514, 5302.743)
+2024-11-28 12:47:11,932 - x:
+2024-11-28 12:47:11,932 - 1937.5143869783071
+2024-11-28 12:47:11,932 - Sending command: SpectPara(1, 1937.5143869783071);
+2024-11-28 12:47:11,940 - Response: b'DDE Cmd 2447\r\n'
+2024-11-28 12:47:12,041 - y:
+2024-11-28 12:47:12,041 - 5302.743160934921
+2024-11-28 12:47:12,041 - Sending command: SpectPara(2, 5302.743160934921);
+2024-11-28 12:47:12,047 - Response: b'DDE Cmd 2448\r\n'
+2024-11-28 12:47:12,148 - Sending command: SpectStart;
+2024-11-28 12:47:14,760 - Response: b'DDE Cmd 2449\r\n'
+2024-11-28 12:47:15,761 -   STS點 (6/11): (1946.140, 5307.723)
+2024-11-28 12:47:15,761 - x:
+2024-11-28 12:47:15,761 - 1946.14
+2024-11-28 12:47:15,761 - Sending command: SpectPara(1, 1946.14);
+2024-11-28 12:47:15,769 - Response: b'DDE Cmd 2450\r\n'
+2024-11-28 12:47:15,871 - y:
+2024-11-28 12:47:15,871 - 5307.723160934921
+2024-11-28 12:47:15,871 - Sending command: SpectPara(2, 5307.723160934921);
+2024-11-28 12:47:15,878 - Response: b'DDE Cmd 2451\r\n'
+2024-11-28 12:47:15,978 - Sending command: SpectStart;
+2024-11-28 12:47:18,574 - Response: b'DDE Cmd 2452\r\n'
+2024-11-28 12:47:19,575 -   STS點 (7/11): (1954.766, 5312.703)
+2024-11-28 12:47:19,575 - x:
+2024-11-28 12:47:19,575 - 1954.765613021693
+2024-11-28 12:47:19,575 - Sending command: SpectPara(1, 1954.765613021693);
+2024-11-28 12:47:19,582 - Response: b'DDE Cmd 2453\r\n'
+2024-11-28 12:47:19,683 - y:
+2024-11-28 12:47:19,683 - 5312.7031609349215
+2024-11-28 12:47:19,683 - Sending command: SpectPara(2, 5312.7031609349215);
+2024-11-28 12:47:19,691 - Response: b'DDE Cmd 2454\r\n'
+2024-11-28 12:47:19,792 - Sending command: SpectStart;
+2024-11-28 12:47:22,382 - Response: b'DDE Cmd 2455\r\n'
+2024-11-28 12:47:23,384 -   STS點 (8/11): (1963.391, 5317.683)
+2024-11-28 12:47:23,384 - x:
+2024-11-28 12:47:23,384 - 1963.391226043386
+2024-11-28 12:47:23,384 - Sending command: SpectPara(1, 1963.391226043386);
+2024-11-28 12:47:23,392 - Response: b'DDE Cmd 2456\r\n'
+2024-11-28 12:47:23,492 - y:
+2024-11-28 12:47:23,492 - 5317.683160934921
+2024-11-28 12:47:23,492 - Sending command: SpectPara(2, 5317.683160934921);
+2024-11-28 12:47:23,499 - Response: b'DDE Cmd 2457\r\n'
+2024-11-28 12:47:23,600 - Sending command: SpectStart;
+2024-11-28 12:47:26,193 - Response: b'DDE Cmd 2458\r\n'
+2024-11-28 12:47:27,193 -   STS點 (9/11): (1972.017, 5322.663)
+2024-11-28 12:47:27,193 - x:
+2024-11-28 12:47:27,193 - 1972.016839065079
+2024-11-28 12:47:27,193 - Sending command: SpectPara(1, 1972.016839065079);
+2024-11-28 12:47:27,202 - Response: b'DDE Cmd 2459\r\n'
+2024-11-28 12:47:27,303 - y:
+2024-11-28 12:47:27,303 - 5322.6631609349215
+2024-11-28 12:47:27,303 - Sending command: SpectPara(2, 5322.6631609349215);
+2024-11-28 12:47:27,310 - Response: b'DDE Cmd 2460\r\n'
+2024-11-28 12:47:27,411 - Sending command: SpectStart;
+2024-11-28 12:47:30,012 - Response: b'DDE Cmd 2461\r\n'
+2024-11-28 12:47:31,013 -   STS點 (10/11): (1980.642, 5327.643)
+2024-11-28 12:47:31,013 - x:
+2024-11-28 12:47:31,013 - 1980.642452086772
+2024-11-28 12:47:31,013 - Sending command: SpectPara(1, 1980.642452086772);
+2024-11-28 12:47:31,020 - Response: b'DDE Cmd 2462\r\n'
+2024-11-28 12:47:31,122 - y:
+2024-11-28 12:47:31,122 - 5327.643160934921
+2024-11-28 12:47:31,122 - Sending command: SpectPara(2, 5327.643160934921);
+2024-11-28 12:47:31,129 - Response: b'DDE Cmd 2463\r\n'
+2024-11-28 12:47:31,230 - Sending command: SpectStart;
+2024-11-28 12:47:33,829 - Response: b'DDE Cmd 2464\r\n'
+2024-11-28 12:47:34,830 -   STS點 (11/11): (1989.268, 5332.623)
+2024-11-28 12:47:34,830 - x:
+2024-11-28 12:47:34,830 - 1989.2680651084652
+2024-11-28 12:47:34,830 - Sending command: SpectPara(1, 1989.2680651084652);
+2024-11-28 12:47:34,837 - Response: b'DDE Cmd 2465\r\n'
+2024-11-28 12:47:34,938 - y:
+2024-11-28 12:47:34,938 - 5332.6231609349215
+2024-11-28 12:47:34,938 - Sending command: SpectPara(2, 5332.6231609349215);
+2024-11-28 12:47:34,946 - Response: b'DDE Cmd 2466\r\n'
+2024-11-28 12:47:35,047 - Sending command: SpectStart;
+2024-11-28 12:47:37,654 - Response: b'DDE Cmd 2467\r\n'
+2024-11-28 12:47:38,655 - <<< 完成第 3/11 條 STS 線
+2024-11-28 12:47:38,655 - 
+=== 掃描第 4 段 49 條線 ===
+2024-11-28 12:47:38,655 - 開始掃描 49 條線
+2024-11-28 12:47:38,655 - Sending command: ScanLine(49);
+2024-11-28 12:47:38,661 - Scan started at 2024-11-28 12:47:38.661620
+2024-11-28 12:47:38,662 - Response: 1
+2024-11-28 12:47:38,662 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 12:47:40,218 - 
+Monitoring interrupted by user
+2024-11-28 12:47:40,218 - 掃描等待超時
+2024-11-28 12:47:40,218 - 
+CITS量測錯誤: 掃描第 4 段失敗
+2024-11-28 12:47:40,219 - Sending command: FeedPara('Enable', 0);
+2024-11-28 12:47:41,146 - Response: b'b399\r\n'
+2024-11-28 12:47:41,146 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);

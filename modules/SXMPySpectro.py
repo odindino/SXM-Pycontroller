@@ -111,11 +111,11 @@ class SXMSpectroControl(SXMScanControl):
         """
         try:
             # 先移動Y軸，再移動X軸
-            command1 = f"SpectPara(2, {y});"  # Y軸
-            command2 = f"SpectPara(1, {x});"  # X軸
-
-            success2 = self._send_command(command2)[0]
-            if not success2:
+            command1 = f"SpectPara(1, {x});"  # X軸
+            command2 = f"SpectPara(2, {y});"  # Y軸
+            print('x:', x)
+            success1 = self._send_command(command1)[0]
+            if not success1:
                 if self.debug_mode:
                     print(f"X軸移動失敗: {x}")
                 return False
@@ -124,8 +124,9 @@ class SXMSpectroControl(SXMScanControl):
             time.sleep(0.1)
             
             # 確保命令依序執行且等待執行完成
-            success1 = self._send_command(command1)[0]
-            if not success1:
+            print('y:', y)
+            success2 = self._send_command(command2)[0]
+            if not success2:
                 if self.debug_mode:
                     print(f"Y軸移動失敗: {y}")
                 return False
