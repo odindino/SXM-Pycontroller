@@ -213,9 +213,16 @@ function setupChannelEvents(channelNum) {
 
 // 初始化
 function initialize() {
-    // 設置事件監聽器
+    // 先檢查元素是否存在
+    if (!elements.connectBtn || !elements.disconnectBtn) {
+        console.warn('Required elements not found, skipping initialization');
+        return;
+    }
+    
+    // 再進行事件監聽器綁定
     elements.connectBtn.addEventListener('click', handleConnect);
     elements.disconnectBtn.addEventListener('click', handleDisconnect);
+
     
     // 設置通道事件
     setupChannelEvents(1);
@@ -246,8 +253,11 @@ function initialize() {
 // STS控制相關功能
 class STSControl {
     constructor() {
-        this.setupEventListeners();
-        this.loadScripts();
+        // 等待 pywebview 就緒
+        this.waitForPywebview().then(() => {
+            this.setupEventListeners();
+            this.loadScripts();
+        });
         this.stsStatus = document.getElementById('stsStatus');
     }
 
@@ -302,6 +312,20 @@ class STSControl {
         if (rows.length > 1) {  // 保持至少一行
             button.closest('.sts-row').remove();
         }
+    }
+
+    async waitForPywebview() {
+        const maxAttempts = 10;
+        let attempts = 0;
+        
+        while (attempts < maxAttempts) {
+            if (typeof pywebview !== 'undefined') {
+                return true;
+            }
+            await new Promise(resolve => setTimeout(resolve, 500));
+            attempts++;
+        }
+        throw new Error('pywebview initialization timeout');
     }
 
     async saveCurrentScript() {
@@ -684,8 +708,14 @@ class CITSControl {
     }
 }
 
-// 頁面載入完成後初始化
-document.addEventListener('DOMContentLoaded', initialize);
+// 使用 DOMContentLoaded 確保 DOM 完全載入
+document.addEventListener('DOMContentLoaded', function() {
+    try {
+        initialize();
+    } catch (error) {
+        console.error('Initialization error:', error);
+    }
+});
 
 // // 初始化時建立STS控制實例
 // document.addEventListener('DOMContentLoaded', () => {

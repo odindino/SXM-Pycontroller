@@ -143,6 +143,8 @@ class SXMController(SXMCITSControl):
             
         finally:
             try:
+                self.feedback_on()
+                self.set_zoffset(10)
                 # 恢復原始電壓
                 for ch in [1, 2]:
                     if original_states[f'ch{ch}_output']:
@@ -158,9 +160,10 @@ class SXMController(SXMCITSControl):
                         self.smu.disable_output(Channel(ch))
                 
                 # 恢復回饋狀態
-                if original_states['feedback'] != self.FbOn:
-                    self.feedback_on()
-                    self.set_zoffset(10)
+                # if original_states['feedback'] != self.FbOn:
+                    
+                    
+                    
 
                 
             except Exception as e:
