@@ -95,33 +95,51 @@ class SXMSpectroControl(SXMScanControl):
         return self.SetFeedPara('Mode', mode)
 
     # ========== 光譜測量功能 ========== #
-    def move_tip_for_spectro(self, x, y):
+    def move_tip_for_spectro(self, x: float, y: float) -> bool:
         """
         移動探針到指定位置進行光譜測量
-
+        
         Parameters
         ----------
         x, y : float
             目標位置（nm）
-
+            
         Returns
         -------
         bool
             移動是否成功
         """
         try:
-            # 設定光譜測量位置
-            command1 = f"SpectPara(1, {x});"
-            command2 = f"SpectPara(2, {y});"
+            # 先移動Y軸，再移動X軸
+            command1 = f"SpectPara(2, {y});"  # Y軸
+            command2 = f"SpectPara(1, {x});"  # X軸
 
-            success = (self._send_command(command1)[0] and
-                       self._send_command(command2)[0])
-
-            return success
-
+            success2 = self._send_command(command2)[0]
+            if not success2:
+                if self.debug_mode:
+                    print(f"X軸移動失敗: {x}")
+                return False
+                
+            # 等待X軸移動完成
+            time.sleep(0.1)
+            
+            # 確保命令依序執行且等待執行完成
+            success1 = self._send_command(command1)[0]
+            if not success1:
+                if self.debug_mode:
+                    print(f"Y軸移動失敗: {y}")
+                return False
+                
+            # 等待Y軸移動完成
+            time.sleep(0.1)
+            
+            
+            
+            return True
+            
         except Exception as e:
             if self.debug_mode:
-                print(f"Move tip error: {str(e)}")
+                print(f"移動探針錯誤: {str(e)}")
             return False
 
     def setup_spectroscopy(self, mode, params=None):
