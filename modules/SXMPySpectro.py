@@ -95,33 +95,48 @@ class SXMSpectroControl(SXMScanControl):
         return self.SetFeedPara('Mode', mode)
 
     # ========== 光譜測量功能 ========== #
+    def move_tip_x_spectpos(self, x: float) -> bool:
+        """
+        移動探針至指定的X位置
+
+        Parameters
+        ----------
+        x : float
+            X位置（nm）
+
+        Returns
+        -------
+        bool
+            移動是否成功
+        """
+        return self._send_command(f"SpectPara(1, {x});")[0]
+    
+    def move_tip_y_spectpos(self, y: float) -> bool:
+        """
+        移動探針至指定的Y位置
+
+        Parameters
+        ----------
+        y : float
+            Y位置（nm）
+
+        Returns
+        -------
+        bool
+            移動是否成功
+        """
+        return self._send_command(f"SpectPara(2, {y});")[0]
+
     def move_tip_for_spectro(self, x: float, y: float) -> bool:
         try:
-            # X軸移動
-            command1 = f"SpectPara(1, {x});"
-            success1, response1 = self._send_command(command1)
-            success1, response1 = self._send_command(command1)
-            if not success1:
+
+            success = self.move_tip_x_spectpos(x) and self.move_tip_y_spectpos(y)
+            success = self.move_tip_x_spectpos(x) and self.move_tip_y_spectpos(y)
+
+            if not success:
                 if self.debug_mode:
-                    print(f"X軸移動失敗: {x}")
-                return False
-                
-            # 等待X軸移動完成並確認
-            time.sleep(0.2)  # 增加等待時間
-            
-            # Y軸移動
-            command2 = f"SpectPara(2, {y});"
-            success2, response2 = self._send_command(command2)
-            success2, response2 = self._send_command(command2)
-            if not success2:
-                if self.debug_mode:
-                    print(f"Y軸移動失敗: {y}")
-                return False
-                
-            # 等待Y軸移動完成並確認
-            time.sleep(0.2)  # 增加等待時間
-            
-            return True
+                    print(f"Move tip for spectroscopy failed: ({x}, {y})")
+            return success
             
         except Exception as e:
             if self.debug_mode:

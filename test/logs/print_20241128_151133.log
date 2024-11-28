@@ -1,0 +1,48 @@
+2024-11-28 15:11:33,215 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 15:11:34,015 - Response: b'f500\r\n'
+2024-11-28 15:11:34,015 - Scanning: forward line 500
+2024-11-28 15:11:35,935 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 15:11:35,936 - Scan finished at 2024-11-28 15:11:35.936289
+2024-11-28 15:11:35,936 - Response: b'DDE Cmd 1194\r\n'
+2024-11-28 15:11:35,937 - Scan completed
+2024-11-28 15:11:36,437 - 掃描完成
+2024-11-28 15:11:36,437 - 
+>>> 執行第 1/11 條 STS 線
+2024-11-28 15:11:36,437 -   STS點 (1/11): (1912.972, 5265.572)
+2024-11-28 15:11:36,438 - Sending command: SpectPara(1, 1912.971934891535);
+2024-11-28 15:11:36,438 - Response: b'DDE Cmd 1195\r\n0\r\n'
+2024-11-28 15:11:36,438 - Sending command: SpectPara(2, 5265.571934891535);
+2024-11-28 15:11:36,440 - Response: b'DDE Cmd 1197\r\n'
+2024-11-28 15:11:36,440 - Sending command: SpectStart;
+2024-11-28 15:11:40,077 - Response: b'DDE Cmd 1198\r\n'
+2024-11-28 15:11:41,078 -   STS點 (2/11): (1921.598, 5270.552)
+2024-11-28 15:11:41,078 - Sending command: SpectPara(1, 1921.597547913228);
+2024-11-28 15:11:41,081 - Response: b'DDE Cmd 1199\r\n'
+2024-11-28 15:11:41,081 - Sending command: SpectPara(2, 5270.551934891535);
+2024-11-28 15:11:41,087 - Response: b'DDE Cmd 1200\r\n'
+2024-11-28 15:11:41,087 - Sending command: SpectStart;
+2024-11-28 15:11:44,645 - Response: b'DDE Cmd 1201\r\n'
+2024-11-28 15:11:45,646 -   STS點 (3/11): (1930.223, 5275.532)
+2024-11-28 15:11:45,646 - Sending command: SpectPara(1, 1930.223160934921);
+2024-11-28 15:11:45,648 - Response: b'DDE Cmd 1202\r\n'
+2024-11-28 15:11:45,649 - Sending command: SpectPara(2, 5275.5319348915355);
+2024-11-28 15:11:45,655 - Response: b'DDE Cmd 1203\r\n'
+2024-11-28 15:11:45,655 - Sending command: SpectStart;
+2024-11-28 15:11:48,253 - Response: b'DDE Cmd 1204\r\n'
+2024-11-28 15:11:49,254 -   STS點 (4/11): (1938.849, 5280.512)
+2024-11-28 15:11:49,254 - Sending command: SpectPara(1, 1938.848773956614);
+2024-11-28 15:11:49,257 - Response: b'DDE Cmd 1205\r\n'
+2024-11-28 15:11:49,257 - Sending command: SpectPara(2, 5280.511934891535);
+2024-11-28 15:11:49,263 - Response: b'DDE Cmd 1206\r\n'
+2024-11-28 15:11:49,263 - Sending command: SpectStart;
+2024-11-28 15:11:51,868 - Sending command: FeedPara('Enable', 0);
+2024-11-28 15:11:51,870 - Response: b'DDE Cmd 1208\r\n'
+2024-11-28 15:11:51,870 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-28 15:11:51,873 - Response: b'DDE Cmd 1209\r\n0\r\n'
+2024-11-28 15:11:51,873 - Feedback on

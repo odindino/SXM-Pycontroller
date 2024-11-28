@@ -77,17 +77,6 @@ class SXMCITSControl(SXMSpectroControl):
                         if self.debug_mode:
                             print(f"  STS點 ({j+1}/{len(sts_line)}): ({x:.3f}, {y:.3f})")
                         
-                        # # 移動探針
-                        # if not self.move_tip_for_spectro(x, y):
-                        #     raise RuntimeError(f"移動探針失敗: ({x}, {y})")
-                        
-                        #  # 額外等待確保位置穩定
-                        # time.sleep(0.3)
-
-                        # # 執行STS測量
-                        # success = self.spectroscopy_start()
-                        # if not success:
-                        #     raise RuntimeError(f"STS測量失敗: ({x}, {y})")
                         if not self.simple_spectroscopy(x, y):
                             raise RuntimeError(f"STS測量失敗: ({x}, {y})")
                         

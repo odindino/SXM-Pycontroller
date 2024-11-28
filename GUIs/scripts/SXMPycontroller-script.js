@@ -243,9 +243,6 @@ function initialize() {
     updateConnectionStatus(false);
 }
 
-// 頁面載入完成後初始化
-document.addEventListener('DOMContentLoaded', initialize);
-
 // STS控制相關功能
 class STSControl {
     constructor() {
@@ -496,11 +493,6 @@ class STSControl {
     }
 }
 
-// 初始化時建立STS控制實例
-document.addEventListener('DOMContentLoaded', () => {
-    window.stsControl = new STSControl();
-});
-
 // CITS Control class implementation
 class CITSControl {
     constructor() {
@@ -692,11 +684,20 @@ class CITSControl {
     }
 }
 
+// 頁面載入完成後初始化
+document.addEventListener('DOMContentLoaded', initialize);
+
+// // 初始化時建立STS控制實例
+// document.addEventListener('DOMContentLoaded', () => {
+    
+// });
+
 // Initialize CITS Control when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     try {
         console.log('Initializing CITS Control...');
         window.citsControl = new CITSControl();
+        window.stsControl = new STSControl();
         console.log('CITS Control initialized successfully');
     } catch (error) {
         console.error('Failed to initialize CITS Control:', error);
