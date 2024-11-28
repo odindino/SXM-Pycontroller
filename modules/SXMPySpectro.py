@@ -13,7 +13,7 @@ class SXMSpectroControl(SXMScanControl):
 
     def __init__(self, debug_mode=False):
         super().__init__(debug_mode)
-        self.FbOn = None  # 回饋狀態
+        self.FbOn = self.get_feedback_state()  # 回饋狀態
         self.zoffset = None  # Z軸偏移量
 
     # ========== 回饋控制功能 ========== #
@@ -26,6 +26,7 @@ class SXMSpectroControl(SXMScanControl):
         bool
             是否成功開啟
         """
+        success = self.SetFeedPara('Enable', 0)
         success = self.SetFeedPara('Enable', 0)
         if success:
             self.FbOn = 0
@@ -41,6 +42,7 @@ class SXMSpectroControl(SXMScanControl):
         bool
             是否成功關閉
         """
+        success = self.SetFeedPara('Enable', 1)
         success = self.SetFeedPara('Enable', 1)
         if success:
             self.FbOn = 1
