@@ -1,0 +1,34 @@
+2024-11-28 11:14:12,089 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 11:14:13,717 - Response: b'f410\r\n'
+2024-11-28 11:14:13,717 - Scanning: forward line 410
+2024-11-28 11:14:15,642 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 11:14:15,643 - Response: b'f409\r\n'
+2024-11-28 11:14:15,643 - Scanning: forward line 409
+2024-11-28 11:14:17,494 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 11:14:17,496 - Response: b'f408\r\n'
+2024-11-28 11:14:17,496 - Scanning: forward line 408
+2024-11-28 11:14:19,347 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 11:14:19,357 - Response: b'f407\r\n'
+2024-11-28 11:14:19,358 - Scanning: forward line 407
+2024-11-28 11:14:21,199 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 11:14:21,200 - Response: b'f406\r\n'
+2024-11-28 11:14:21,200 - Scanning: forward line 406
+2024-11-28 11:14:23,051 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 11:14:23,051 - Scan finished at 2024-11-28 11:14:23.051873
+2024-11-28 11:14:23,052 - Response: b'DDE Cmd 1057\r\n'
+2024-11-28 11:14:23,052 - Scan completed
+2024-11-28 11:14:23,553 - 掃描完成
+2024-11-28 11:14:23,553 - Sending command: SpectStart;
+2024-11-28 11:14:23,554 - Response: b'DDE Cmd 1058\r\n0\r\n'

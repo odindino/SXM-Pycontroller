@@ -219,6 +219,60 @@ class SXMScanControl(SXMEventHandler):
             if self.debug_mode:
                 print(f"Error during line scan: {str(e)}")
             return False
+        
+    def scan_lines_for_sts(self, num_lines: int, timeout: float = None) -> bool:
+        """
+        執行指定行數的掃描並等待完成，專門為STS測量設計
+        
+        Parameters
+        ----------
+        num_lines : int
+            要掃描的行數
+        timeout : float, optional
+            等待超時時間（秒）。如果不指定，預設為每行10秒
+            
+        Returns
+        -------
+        bool
+            掃描是否成功完成
+        """
+        try:
+            if self.debug_mode:
+                print(f"開始掃描 {num_lines} 條線")
+                
+            # 設定合理的超時時間
+            if timeout is None:
+                timeout = num_lines * 10  # 每行給10秒
+                
+            # 發送掃描命令
+            command = f"ScanLine({num_lines});"
+            success, _ = self._send_command(command)
+            
+            if not success:
+                if self.debug_mode:
+                    print("發送掃描命令失敗")
+                return False
+                
+            # 等待掃描開始（短暫延遲）
+            # time.sleep(0.5)
+            
+            # 使用wait_for_scan_complete等待掃描完成
+            if not self.wait_for_scan_complete(timeout):
+                if self.debug_mode:
+                    print("掃描等待超時")
+                return False
+                
+            # 額外等待系統穩定
+            time.sleep(0.5)
+            
+            if self.debug_mode:
+                print("掃描完成")
+            return True
+            
+        except Exception as e:
+            if self.debug_mode:
+                print(f"掃描過程發生錯誤: {str(e)}")
+            return False
 
     @track_function
     def wait_for_scan_complete(self, timeout=None):
