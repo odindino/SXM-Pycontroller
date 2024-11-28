@@ -48,6 +48,9 @@ class SXMCITSControl(SXMSpectroControl):
                 center_x, center_y, scan_range, scan_angle,
                 num_points_x, num_points_y, total_lines, scan_direction
             )
+
+            # check coordinates
+            print(f"coordinates: {coordinates}")
             
             if self.debug_mode:
                 print(f"開始CITS量測:")
