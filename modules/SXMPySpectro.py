@@ -96,45 +96,28 @@ class SXMSpectroControl(SXMScanControl):
 
     # ========== 光譜測量功能 ========== #
     def move_tip_for_spectro(self, x: float, y: float) -> bool:
-        """
-        移動探針到指定位置進行光譜測量
-        
-        Parameters
-        ----------
-        x, y : float
-            目標位置（nm）
-            
-        Returns
-        -------
-        bool
-            移動是否成功
-        """
         try:
-            # 先移動Y軸，再移動X軸
-            command1 = f"SpectPara(1, {x});"  # X軸
-            command2 = f"SpectPara(2, {y});"  # Y軸
-            print('x:', x)
-            success1 = self._send_command(command1)[0]
+            # X軸移動
+            command1 = f"SpectPara(1, {x});"
+            success1, response1 = self._send_command(command1)
             if not success1:
                 if self.debug_mode:
                     print(f"X軸移動失敗: {x}")
                 return False
                 
-            # 等待X軸移動完成
-            time.sleep(0.1)
+            # 等待X軸移動完成並確認
+            time.sleep(0.2)  # 增加等待時間
             
-            # 確保命令依序執行且等待執行完成
-            print('y:', y)
-            success2 = self._send_command(command2)[0]
+            # Y軸移動
+            command2 = f"SpectPara(2, {y});"
+            success2, response2 = self._send_command(command2)
             if not success2:
                 if self.debug_mode:
                     print(f"Y軸移動失敗: {y}")
                 return False
                 
-            # 等待Y軸移動完成
-            time.sleep(0.1)
-            
-            
+            # 等待Y軸移動完成並確認
+            time.sleep(0.2)  # 增加等待時間
             
             return True
             
@@ -198,15 +181,27 @@ class SXMSpectroControl(SXMScanControl):
             return False
 
     def spectroscopy_start(self):
-        """
-        開始光譜測量
-
-        Returns
-        -------
-        bool
-            啟動是否成功
-        """
-        return self._send_command("SpectStart;")[0]
+        """執行光譜測量"""
+        try:
+            # 發送開始測量命令
+            success, _ = self._send_command("SpectStart;")
+            if not success:
+                return False
+                
+            # # 等待測量開始
+            # time.sleep(0.5)
+            
+            # # 等待測量完成
+            # # 此處可能需要實作一個等待機制
+            # # 暫時使用固定等待時間
+            # time.sleep(1.0)
+            
+            return True
+            
+        except Exception as e:
+            if self.debug_mode:
+                print(f"光譜測量錯誤: {str(e)}")
+            return False
     
     def simple_spectroscopy(self, x, y):
         """

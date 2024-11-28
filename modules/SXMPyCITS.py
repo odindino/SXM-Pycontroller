@@ -81,6 +81,9 @@ class SXMCITSControl(SXMSpectroControl):
                         if not self.move_tip_for_spectro(x, y):
                             raise RuntimeError(f"移動探針失敗: ({x}, {y})")
                         
+                         # 額外等待確保位置穩定
+                        time.sleep(0.3)
+
                         # 執行STS測量
                         success = self.spectroscopy_start()
                         if not success:
