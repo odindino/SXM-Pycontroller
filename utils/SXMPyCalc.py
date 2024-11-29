@@ -442,3 +442,123 @@ class LocalCITSCalculator:
             validation_results.append(is_valid)
             
         return validation_results
+    
+    @staticmethod
+    def calculate_local_scanline_distribution(
+        coordinates: np.ndarray,
+        scan_center_x: float,
+        scan_center_y: float,
+        scan_angle: float,
+        scan_range: float,
+        total_lines: int
+    ) -> List[int]:
+        """
+        計算Local CITS量測時的掃描線分布
+        
+        此函數根據Local CITS點位的分布，計算每次應該掃描的線數。
+        在接近CITS量測區時會自動減少掃描線數，以確保準確的量測位置。
+        
+        Parameters
+        ----------
+        coordinates : np.ndarray
+            CITS量測點的座標陣列，形狀為(N, 2)，每行包含(x, y)座標
+        scan_center_x, scan_center_y : float
+            掃描中心座標
+        scan_angle : float
+            掃描角度（度）
+        scan_range : float
+            掃描範圍（nm）
+        total_lines : int
+            總掃描線數
+            
+        Returns
+        -------
+        List[int]
+            掃描線分布列表，每個元素代表該次應掃描的線數
+        """
+        try:
+            # 1. 將座標轉換回原點並旋轉至水平
+            coordinates_normalized = LocalCITSCalculator._normalize_coordinates(
+                coordinates, scan_center_x, scan_center_y, scan_angle)
+            
+            # 2. 計算掃描線間距
+            line_spacing = scan_range / total_lines
+            
+            # 3. 初始化結果列表和計數器
+            scanline_distribution = []
+            current_y = -scan_range/2  # 從最底部開始
+            accumulated_lines = 0
+            step_count = 0
+            
+            # 4. 主要計算邏輯
+            while accumulated_lines < total_lines:
+                next_y = current_y + line_spacing
+                
+                # 檢查是否有CITS點位在這個範圍內
+                points_in_range = np.sum(
+                    (coordinates_normalized[:, 1] > current_y) & 
+                    (coordinates_normalized[:, 1] <= next_y)
+                )
+                
+                if points_in_range > 0:
+                    # 如果有CITS點位，記錄當前累積的掃描線數
+                    if step_count > 0:
+                        scanline_distribution.append(step_count)
+                        accumulated_lines += step_count
+                        step_count = 0
+                    # 加入單行掃描
+                    scanline_distribution.append(1)
+                    accumulated_lines += 1
+                else:
+                    step_count += 1
+                    
+                current_y = next_y
+                
+                # 處理最後剩餘的線數
+                if current_y >= scan_range/2 and step_count > 0:
+                    remaining_lines = total_lines - accumulated_lines
+                    if remaining_lines > 0:
+                        scanline_distribution.append(remaining_lines)
+                    break
+            
+            return scanline_distribution
+            
+        except Exception as e:
+            print(f"計算掃描線分布時發生錯誤: {str(e)}")
+            return [1] * total_lines  # 發生錯誤時返回最安全的配置
+
+    @staticmethod    
+    def _normalize_coordinates(
+        coordinates: np.ndarray,
+        center_x: float,
+        center_y: float,
+        angle: float
+    ) -> np.ndarray:
+        """
+        將座標平移到原點並旋轉至水平
+        
+        Parameters
+        ----------
+        coordinates : np.ndarray
+            原始座標陣列
+        center_x, center_y : float
+            掃描中心座標
+        angle : float
+            要旋轉的角度（度）
+            
+        Returns
+        -------
+        np.ndarray
+            正規化後的座標陣列
+        """
+        # 1. 平移到原點
+        coords_centered = coordinates - np.array([center_x, center_y])
+        
+        # 2. 旋轉至水平（逆時針旋轉回原位）
+        angle_rad = np.radians(angle)
+        rotation_matrix = np.array([
+            [np.cos(angle_rad), np.sin(angle_rad)],
+            [-np.sin(angle_rad), np.cos(angle_rad)]
+        ])
+        
+        return coords_centered @ rotation_matrix
