@@ -29,7 +29,7 @@ class LocalCITSVisualizer:
         plt.figure(figsize=(12, 8))
         
         # Calculate combined coordinates
-        coordinates, _, _ = LocalCITSCalculator.combi_local_cits_coordinates(
+        coordinates, _, _, (slow_axis, fast_axis) = LocalCITSCalculator.combi_local_cits_coordinates(
             params['scan_center_x'],
             params['scan_center_y'],
             params['scan_range'],
@@ -48,8 +48,28 @@ class LocalCITSVisualizer:
         
         # Print coordinates for reference
         self._print_coordinates_info(coordinates)
+
+        # Plot scan axes
+        self._plot_scan_axes(params['scan_center_x'], params['scan_center_y'],
+                        slow_axis, fast_axis)
         
         plt.show()
+
+    def _plot_scan_axes(self, center_x: float, center_y: float, 
+                   slow_axis: np.ndarray, fast_axis: np.ndarray,
+                   scale: float = 100):
+        """繪製掃描軸方向"""
+        # 繪製慢軸（藍色）
+        plt.arrow(center_x, center_y, 
+                slow_axis[0] * scale, slow_axis[1] * scale,
+                color='blue', width=2, head_width=10,
+                label='Slow Axis')
+                
+        # 繪製快軸（紅色）
+        plt.arrow(center_x, center_y,
+                fast_axis[0] * scale, fast_axis[1] * scale,
+                color='red', width=2, head_width=10,
+                label='Fast Axis')
         
     def _draw_scan_area(self, params: dict):
         """
@@ -169,7 +189,7 @@ def main():
         'scan_center_x': 250,
         'scan_center_y': 250,
         'scan_range': 500,
-        'scan_angle': 90,
+        'scan_angle': 80,
         'local_areas': [
             LocalCITSParams(
                 start_x=125, start_y=125,

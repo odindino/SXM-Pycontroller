@@ -214,20 +214,20 @@ class LocalCITSCalculator:
     """Local area CITS coordinate calculator with fixed base point"""
     
     @staticmethod
-    def calculate_local_cits_coordinates(params: LocalCITSParams) -> np.ndarray:
+    def calculate_local_cits_coordinates(
+        params: LocalCITSParams,
+        scan_center_x: float,
+        scan_center_y: float,
+        scan_angle: float
+    ) -> np.ndarray:
         """
-        生成單一區域的 CITS 座標點
-        只考慮起始點方向，不考慮掃描方向
+        生成並轉換單一區域的 CITS 座標點
         
-        Parameters
-        ----------
-        params : LocalCITSParams
-            區域參數
-            
-        Returns
-        -------
-        np.ndarray
-            形狀為 (nx * ny, 2) 的座標陣列，每一行為 [x, y]
+        工作流程：
+        1. 在原點生成基本網格
+        2. 移動到指定起始點
+        3. 移動到掃描中心進行旋轉
+        4. 移回正確位置
         """
         # 在原點生成基本網格
         x = np.linspace(0, params.dx * (params.nx - 1), params.nx)
@@ -235,23 +235,60 @@ class LocalCITSCalculator:
         if params.startpoint_direction == -1:
             y *= -1
         
-                    
-        # # 根據起始點方向決定是否反轉 y 方向
-        # print("params.startpoint_direction): ", params.startpoint_direction)
-        # if params.startpoint_direction == -1:
-        #     y = y[::-1]
-            
-        # 建立網格點
+        # 建立網格點(在原點)
         X, Y = np.meshgrid(x, y)
-        
-        # 整理成 (n, 2) 形狀的座標陣列
         coordinates = np.column_stack((X.ravel(), Y.ravel()))
+        
+        # 2. 旋轉（逆時針為正）
+        angle_rad = np.radians(scan_angle)
+        rotation_matrix = np.array([
+            [ np.cos(angle_rad), np.sin(angle_rad)],
+            [-np.sin(angle_rad), np.cos(angle_rad)]
+        ])
+        coordinates = np.matmul(coordinates, rotation_matrix)
 
         # 移動到起始點
         coordinates += np.array([params.start_x, params.start_y])
         
         return coordinates
-    
+
+    @staticmethod
+    def get_scan_axes(scan_angle: float) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        計算掃描的快軸和慢軸方向向量
+        
+        Returns
+        -------
+        Tuple[np.ndarray, np.ndarray]
+            (慢軸向量, 快軸向量)，都是單位向量
+        """
+        angle_rad = np.radians(scan_angle)
+        
+        # 慢軸：和x軸夾角為scan_angle
+        slow_axis = np.array([np.cos(angle_rad), np.sin(angle_rad)])
+        
+        # 快軸：慢軸逆時針旋轉90度
+        fast_axis = np.array([-np.sin(angle_rad), np.cos(angle_rad)])
+        
+        return slow_axis, fast_axis
+
+    @staticmethod
+    def sort_coordinates_by_scan_direction(
+        coordinates: np.ndarray,
+        slow_axis: np.ndarray,
+        fast_axis: np.ndarray
+    ) -> np.ndarray:
+        """
+        根據掃描方向對座標進行排序
+        """
+        # 計算在慢軸和快軸方向的投影
+        slow_proj = coordinates @ slow_axis
+        fast_proj = coordinates @ fast_axis
+        
+        # 排序：先依快軸，再依慢軸
+        sorted_indices = np.lexsort((slow_proj, fast_proj))
+        return coordinates[sorted_indices]
+
     @staticmethod
     def combi_local_cits_coordinates(
         scan_center_x: float,
@@ -259,78 +296,41 @@ class LocalCITSCalculator:
         scan_range: float,
         scan_angle: float,
         local_areas: List[LocalCITSParams]
-    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, Tuple[np.ndarray, np.ndarray]]:
         """
-        組合多個區域的座標並進行整體轉換
+        組合多個區域的座標並排序
         
-        工作流程：
-        1. 收集並組合所有區域座標
-        2. 依掃描方向排序（y優先，再依x）
-        3. 移除重複座標點
-        4. 進行座標轉換（平移→旋轉→平移回原位）
-        
-        Parameters
-        ----------
-        scan_center_x : float
-            掃描中心 X 座標（nm）
-        scan_center_y : float
-            掃描中心 Y 座標（nm）
-        scan_range : float
-            掃描範圍（nm）
-        scan_angle : float
-            掃描角度（度），逆時針為正
-        local_areas : List[LocalCITSParams]
-            區域參數列表
-            
-        Returns
-        -------
-        Tuple[np.ndarray, np.ndarray, np.ndarray]
-            - coordinates: 最終座標陣列，形狀為 (n, 2)
-            - start_points: 掃描線起點陣列，形狀為 (n-1, 2)
-            - end_points: 掃描線終點陣列，形狀為 (n-1, 2)
+        Returns 增加了快慢軸方向向量
         """
-        # 組合所有區域的座標
+        # 獲取快慢軸方向
+        slow_axis, fast_axis = LocalCITSCalculator.get_scan_axes(scan_angle)
+        
+        # 收集並組合所有區域的座標
         coordinates = np.concatenate([
-            LocalCITSCalculator.calculate_local_cits_coordinates(area)
+            LocalCITSCalculator.calculate_local_cits_coordinates(
+                area, scan_center_x, scan_center_y, scan_angle
+            )
             for area in local_areas
         ])
         
-        # 依y座標優先排序，再依x座標排序
-        sorted_indices = np.lexsort((coordinates[:, 0], coordinates[:, 1]))
-        sorted_coordinates = coordinates[sorted_indices]
+        # 根據掃描方向排序
+        coordinates = LocalCITSCalculator.sort_coordinates_by_scan_direction(
+            coordinates, slow_axis, fast_axis
+        )
         
-        # 將NumPy陣列轉換為列表以便處理重複點
-        sorted_coordinates = sorted_coordinates.tolist()
-        
-        # 移除重複座標點
+        # 移除重複點
+        sorted_coordinates = coordinates.tolist()
         unique_coordinates = []
         for coord in sorted_coordinates:
             if coord not in unique_coordinates:
                 unique_coordinates.append(coord)
-                
-        # 轉回NumPy陣列進行後續處理
         coordinates = np.array(unique_coordinates)
         
-        # 座標轉換
-        # 1. 移動到原點
-        coordinates -= np.array([scan_center_x, scan_center_y])
-        
-        # 2. 旋轉（逆時針為正）
-        angle_rad = np.radians(scan_angle)
-        rotation_matrix = np.array([
-            [np.cos(angle_rad), np.sin(angle_rad)],
-            [-np.sin(angle_rad), np.cos(angle_rad)]
-        ])
-        coordinates = coordinates @ rotation_matrix
-        
-        # 3. 移回掃描中心
-        coordinates += np.array([scan_center_x, scan_center_y])
-        
         # 產生掃描線的起點和終點
-        start_points = coordinates[:-1]  # 除了最後一點
-        end_points = coordinates[1:]     # 除了第一點
+        start_points = coordinates[:-1]
+        end_points = coordinates[1:]
         
-        return coordinates, start_points, end_points
+        return coordinates, start_points, end_points, (slow_axis, fast_axis)
 
     @staticmethod
     def validate_local_area(
