@@ -253,25 +253,25 @@ def main():
         'local_areas': [
             LocalCITSParams(
                 start_x=125, start_y=125,
-                dx=15, dy=15,
-                nx=3, ny=3,
+                dx=0.5, dy=0.5,
+                nx=20, ny=20,
                 scan_direction=1,
                 startpoint_direction=1
             ),
-            LocalCITSParams(
-                start_x=125, start_y=125,
-                dx=20, dy=20,
-                nx=5, ny=5,
-                scan_direction=1,
-                startpoint_direction=-1
-            ),
-            LocalCITSParams(
-                start_x=230, start_y=180,
-                dx=30, dy=30,
-                nx=3, ny=3,
-                scan_direction=1,
-                startpoint_direction=-1
-            )
+            # LocalCITSParams(
+            #     start_x=125, start_y=125,
+            #     dx=20, dy=20,
+            #     nx=5, ny=5,
+            #     scan_direction=1,
+            #     startpoint_direction=-1
+            # ),
+            # LocalCITSParams(
+            #     start_x=230, start_y=180,
+            #     dx=30, dy=30,
+            #     nx=3, ny=3,
+            #     scan_direction=1,
+            #     startpoint_direction=-1
+            # )
         ]
     }
     

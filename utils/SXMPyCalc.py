@@ -454,61 +454,48 @@ class LocalCITSCalculator:
     ) -> Tuple[List[int], List[np.ndarray]]:
         """
         計算Local CITS量測時的掃描線分布及對應的量測點分布
-        
-        Parameters
-        ----------
-        [原有參數說明保持不變]
         """
         try:
-            # 計算慢軸方向和投影
+            # 計算基本參數
             angle_rad = np.radians(scan_angle)
             slow_axis = np.array([-np.sin(angle_rad), np.cos(angle_rad)])
             scan_step = scan_range / total_lines
             
-            # 計算所有點的投影值
+            # 計算所有點在慢軸上的投影位置
             coords_centered = coordinates - np.array([scan_center_x, scan_center_y])
             projections = np.dot(coords_centered, slow_axis)
             
-            # 初始化掃描參數
-            start_pos = -scan_range/2
+            # 找出CITS區域範圍
+            min_proj = np.min(projections)
+            max_proj = np.max(projections)
+            
+            # 計算起始步數（到達第一個量測點前的距離）
+            start_steps = int(np.floor((min_proj - (-scan_range/2)) / scan_step))
+            
+            # 初始化結果
             scanline_distribution = []
             coordinate_distribution = []
             
-            # 建立投影值到座標的映射
-            proj_dict = {}
-            for i, proj in enumerate(projections):
-                # 使用round避免浮點數精度問題
-                proj_key = round(proj, 8)
-                if proj_key not in proj_dict:
-                    proj_dict[proj_key] = []
-                proj_dict[proj_key].append(i)
-            
-            # 依序處理每個投影值
-            sorted_projections = sorted(proj_dict.keys())
-            current_pos = start_pos
-            
-            for proj in sorted_projections:
-                # 計算到這個投影值需要的步數
-                distance = proj - current_pos
-                steps = max(1, int(np.round(distance / scan_step)))
+            # 添加初始移動步數
+            if start_steps > 0:
+                scanline_distribution.append(start_steps)
                 
-                if steps > 0:
-                    # 記錄步數
-                    scanline_distribution.append(steps)
-                    
-                    # 記錄這個投影值對應的座標點
-                    point_indices = proj_dict[proj]
-                    coordinate_distribution.append(coordinates[point_indices])
-                    
-                    # 更新當前位置
-                    current_pos = proj
-            
-            # 處理到掃描範圍末端的剩餘步數
-            remaining_distance = scan_range/2 - current_pos
-            remaining_steps = max(0, int(np.round(remaining_distance / scan_step)))
+            # 在投影軸上依序處理每個測量位置
+            current_pos = -scan_range/2 + start_steps * scan_step
+            while current_pos < max_proj:
+                # 找出在當前掃描線位置的所有點
+                mask = np.abs(projections - current_pos) < scan_step/2
+                if np.any(mask):
+                    points = coordinates[mask]
+                    scanline_distribution.append(1)
+                    coordinate_distribution.append(points)
+                current_pos += scan_step
+                
+            # 添加結束移動步數
+            remaining_steps = total_lines - sum(scanline_distribution)
             if remaining_steps > 0:
                 scanline_distribution.append(remaining_steps)
-            
+                
             return scanline_distribution, coordinate_distribution
             
         except Exception as e:
