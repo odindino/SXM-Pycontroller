@@ -5,6 +5,7 @@ from pathlib import Path
 from modules.SXMPyCITS import SXMCITSControl
 from utils.logger import track_function
 from utils.KB2902BSMU import KeysightB2902B, Channel, OutputMode
+from utils.SXMPyCalc import CITSCalculator
 
 class STSScript:
     """STS量測腳本資料結構"""
@@ -103,8 +104,12 @@ class SXMController(SXMCITSControl):
                     self.smu.enable_output(Channel(ch))
                     time.sleep(0.001)  # 等待output穩定
             
-            # 關閉回饋
+           
+             # 執行一次基本STS以確認探針位置
+            self.spectroscopy_start()
+            # time.sleep(0.5)  # 等待系統穩定           
             
+            # 關閉回饋
             self.set_zoffset(0.0)
             self.feedback_off()
             # time.sleep(0.5)  # 等待系統穩定
@@ -162,7 +167,7 @@ class SXMController(SXMCITSControl):
                 if original_states['feedback'] != self.FbOn:
                     self.feedback_on()
                     self.set_zoffset(10)
-                    print("Feedback recovered")
+                    print(f"Feedback recover to {self.FbOn}")
                     
                     
                     
@@ -170,6 +175,131 @@ class SXMController(SXMCITSControl):
                 
             except Exception as e:
                 print(f"Error restoring original states: {str(e)}")
+
+
+    def standard_msts_cits(self, num_points_x: int, num_points_y: int,
+                      script_name: str = None, scan_direction: int = 1) -> bool:
+        """
+        執行 Multi-STS CITS 量測，在每個 CITS 點位執行多組不同偏壓的 STS 量測
+        
+        此函數將 CITS 和 Multi-STS 整合在一起，在每個 CITS 點位上執行一系列
+        不同偏壓組合的 STS 量測。整個過程會自動管理掃描、定位和回饋控制。
+        
+        Parameters
+        ----------
+        num_points_x : int
+            X方向量測點數（1-512）
+        num_points_y : int
+            Y方向量測點數（1-512）
+        script_name : str
+            Multi-STS 腳本名稱，定義了要執行的 Vds 和 Vg 組合
+        scan_direction : int, optional
+            掃描方向：1 表示由下到上，-1 表示由上到下
+            
+        Returns
+        -------
+        bool
+            量測是否成功完成
+            
+        Notes
+        -----
+        執行流程：
+        1. 驗證參數和獲取 Multi-STS 腳本
+        2. 計算 CITS 掃描座標和線數分配
+        3. 對每個 CITS 點位：
+        - 移動到指定位置
+        - 執行 Multi-STS 量測（包含多組偏壓設定）
+        4. 在適當位置執行掃描線
+        5. 確保系統回到安全狀態
+        """
+        try:
+            # 驗證和獲取 Multi-STS 腳本
+            if not script_name:
+                raise ValueError("必須提供 Multi-STS 腳本名稱")
+            
+            script = self.get_script(script_name)
+            if not script:
+                raise ValueError(f"找不到腳本: {script_name}")
+            
+            # 獲取掃描參數
+            center_x = self.GetScanPara('X')
+            center_y = self.GetScanPara('Y')
+            scan_range = self.GetScanPara('Range')
+            scan_angle = self.GetScanPara('Angle')
+            total_lines = self.GetScanPara('Pixel')
+            
+            if any(v is None for v in [center_x, center_y, scan_range, scan_angle, total_lines]):
+                raise ValueError("無法獲取掃描參數")
+            
+            # 計算 CITS 座標點位
+            coordinates, _, _, scanlines = CITSCalculator.calculate_cits_coordinates(
+                center_x, center_y, scan_range, scan_angle,
+                num_points_x, num_points_y, total_lines, scan_direction
+            )
+            
+            if self.debug_mode:
+                print(f"\n開始 Multi-STS CITS 量測:")
+                print(f"點數: {num_points_x}x{num_points_y}")
+                print(f"掃描範圍: {scan_range} nm")
+                print(f"掃描線分配: {scanlines}")
+                print(f"總掃描線數: {sum(scanlines)}")
+                
+            # 執行主要量測循環
+            for i, (sts_line, scan_count) in enumerate(zip(coordinates, scanlines[:-1])):
+                # 執行掃描線（如果需要）
+                if scan_count > 0:
+                    if self.debug_mode:
+                        print(f"\n=== 掃描第 {i+1} 段 {scan_count} 條線 ===")
+                    
+                    if not self.scan_lines_for_sts(scan_count):
+                        print(f"警告: 掃描第 {i+1} 段失敗")
+                        continue
+                
+                # 執行該行的 Multi-STS 量測
+                if self.debug_mode:
+                    print(f"\n>>> 執行第 {i+1}/{num_points_y} 條 Multi-STS 線")
+                
+                for j, point in enumerate(sts_line):
+                    try:
+                        if self.debug_mode:
+                            print(f"  Multi-STS點 ({j+1}/{len(sts_line)}): "
+                                f"({point[0]:.3f}, {point[1]:.3f})")
+                        
+                        # 移動到量測點位並執行 Multi-STS
+                        self.move_tip_for_spectro(point[0], point[1])
+                        
+                        # 執行該點的 Multi-STS 量測
+                        if not self.perform_multi_sts(script):
+                            print(f"警告: 位置 ({point[0]}, {point[1]}) "
+                                f"的 Multi-STS 量測失敗")
+                            
+                    except Exception as e:
+                        print(f"Multi-STS點量測失敗 ({point[0]}, {point[1]}): {str(e)}")
+                        continue
+            
+            # 執行最後一段掃描（如果有的話）
+            if scanlines[-1] > 0:
+                if self.debug_mode:
+                    print(f"\n=== 執行最後 {scanlines[-1]} 條掃描線 ===")
+                if not self.scan_lines_for_sts(scanlines[-1]):
+                    print("警告: 最後一段掃描失敗")
+            
+            if self.debug_mode:
+                print("\nMulti-STS CITS 量測完成")
+            return True
+            
+        except Exception as e:
+            print(f"\nMulti-STS CITS 量測錯誤: {str(e)}")
+            return False
+            
+        finally:
+            # 確保系統回到安全狀態
+            try:
+                self.feedback_on()
+                if self.debug_mode:
+                    print("系統回到安全狀態")
+            except Exception as e:
+                print(f"回復安全狀態時發生錯誤: {str(e)}")
     # ========== STSxSMU functions END ========== #
 
     # ========== STSxSMU script functions ========== #

@@ -438,7 +438,7 @@ class SMUControlAPI:
     # ========== STS functions END ========== #
 
     # ========== CITS functions ========== #
-    def start_cits(self, points_x: int, points_y: int, use_multi_sts: bool = False, scan_direction: int = 1) -> bool:
+    def start_ssts_cits(self, points_x: int, points_y: int, use_multi_sts: bool = False, scan_direction: int = 1) -> bool:
         """
         啟動 CITS 量測
         
@@ -482,6 +482,72 @@ class SMUControlAPI:
             
         except Exception as e:
             raise Exception(f"CITS量測失敗: {str(e)}")
+        
+
+    def start_msts_cits(self, points_x: int, points_y: int, script_name: str, scan_direction: int = 1) -> bool:
+        """
+        啟動 Multi-STS CITS 量測
+        
+        在每個 CITS 點位上執行多組不同偏壓組合的 STS 量測，同時整合了掃描、定位和
+        偏壓控制功能。
+        
+        Parameters
+        ----------
+        points_x : int
+            X方向的測量點數（1-512）
+        points_y : int
+            Y方向的測量點數（1-512）
+        script_name : str
+            要執行的 Multi-STS 腳本名稱，定義了 Vds 和 Vg 的組合
+        scan_direction : int, optional
+            掃描方向：1 表示由下到上，-1 表示由上到下
+            
+        Returns
+        -------
+        bool
+            量測是否成功開始
+            
+        Raises
+        ------
+        Exception
+            當發生錯誤時拋出異常，包含詳細的錯誤訊息
+        """
+        try:
+            # 確保 STM 控制器已初始化
+            if not self.ensure_controller():
+                raise Exception("STM 控制器未初始化")
+            
+            # 確保 SMU 已連接
+            if not self.smu:
+                raise Exception("SMU 未連接")
+            
+            # 參數驗證
+            if not (1 <= points_x <= 512 and 1 <= points_y <= 512):
+                raise ValueError("點數必須在 1 到 512 之間")
+            
+            if scan_direction not in (1, -1):
+                raise ValueError("掃描方向必須是 1 (向上) 或 -1 (向下)")
+                
+            if not script_name:
+                raise ValueError("必須提供 Multi-STS 腳本名稱")
+                
+            # 執行 Multi-STS CITS 量測
+            success = self.stm.standard_msts_cits(
+                num_points_x=points_x,
+                num_points_y=points_y,
+                script_name=script_name,
+                scan_direction=scan_direction
+            )
+            
+            if not success:
+                raise Exception("Multi-STS CITS 量測失敗")
+                
+            return success
+            
+        except Exception as e:
+            error_message = f"Multi-STS CITS 量測錯誤: {str(e)}"
+            print(error_message)
+            raise Exception(error_message)
     # ========== CITS functions END ========== #
 
     def cleanup(self):

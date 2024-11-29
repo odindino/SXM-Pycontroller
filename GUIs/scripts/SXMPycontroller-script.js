@@ -541,7 +541,7 @@ class CITSControl {
         
         // Control buttons
         this.singleCitsBtn = document.getElementById('startSingleCits');
-        this.multiCitsBtn = document.getElementById('startMultiCits');
+        this.multiCitsBtn = document.getElementById('startMstsCits');
         
         // Status displays
         this.status = document.getElementById('citsStatus');
@@ -576,13 +576,13 @@ class CITSControl {
         // Single CITS button
         this.singleCitsBtn.onclick = () => {
             this.log('Single CITS button clicked');
-            this.startCITS(false);
+            this.startSstsCits();
         };
         
         // Multi CITS button
         this.multiCitsBtn.onclick = () => {
             this.log('Multi CITS button clicked');
-            this.startCITS(true);
+            this.startMstsCits();
         };
         
         // Input validation
@@ -590,45 +590,42 @@ class CITSControl {
         this.pointsY.onchange = () => this.validateInputValue(this.pointsY);
     }
     
-    async startCITS(useMultiSts) {
+    async startSstsCits() {
+        
+        // 執行單一 STS CITS 量測
+        // 每個 CITS 點位只執行一次基本的 STS 量測
+        
         try {
-            if (this.isRunning) {
-                this.showError('CITS measurement is already running');
-                return;
-            }
-            
-            // Get parameters
+            // 獲取並驗證參數
             const pointsX = parseInt(this.pointsX.value);
             const pointsY = parseInt(this.pointsY.value);
             const scanDirection = parseInt(this.scanDirection.value);
             
-            // Validate inputs
+            // 驗證輸入
             if (!this.validateInputs(pointsX, pointsY)) {
                 return;
             }
             
-            // Update UI state
+            // 更新介面狀態
             this.setRunningState(true);
-            this.updateStatus('Starting CITS...');
+            this.updateStatus('Starting Single-STS CITS...');
             
-            // Call API
-            this.log(`Starting CITS with parameters: 
+            // 呼叫後端 API
+            this.log(`Starting Single-STS CITS: 
                      X=${pointsX}, Y=${pointsY}, 
-                     direction=${scanDirection}, 
-                     multiSts=${useMultiSts}`);
+                     direction=${scanDirection}`);
                      
-            const success = await pywebview.api.start_cits(
+            const success = await pywebview.api.start_ssts_cits(
                 pointsX, 
                 pointsY, 
-                useMultiSts,
                 scanDirection
             );
             
             if (success) {
-                this.updateStatus('CITS completed successfully');
+                this.updateStatus('Single-STS CITS completed successfully');
                 this.updateLastTime();
             } else {
-                throw new Error('CITS measurement failed');
+                throw new Error('Single-STS CITS measurement failed');
             }
             
         } catch (error) {
@@ -637,6 +634,51 @@ class CITSControl {
             this.setRunningState(false);
         }
     }
+
+    async startMstsCits() {
+
+        // 執行多重 STS CITS 量測
+        // 在每個 CITS 點位執行多組不同偏壓的 STS 量測
+        
+        try {
+            const pointsX = parseInt(this.pointsX.value);
+            const pointsY = parseInt(this.pointsY.value);
+            const scanDirection = parseInt(this.scanDirection.value);
+            
+            // 取得選擇的腳本
+            const scriptSelect = document.getElementById('scriptSelect');
+            const selectedScript = scriptSelect.value;
+            
+            if (!selectedScript) {
+                throw new Error("請選擇 Multi-STS 腳本");
+            }
+            
+            // 更新介面狀態
+            this.setRunningState(true);
+            this.updateStatus('Starting Multi-STS CITS...');
+            
+            // 調用後端 API
+            const success = await pywebview.api.start_msts_cits(
+                pointsX,
+                pointsY,
+                selectedScript,
+                scanDirection
+            );
+            
+            if (success) {
+                this.updateStatus('Multi-STS CITS completed successfully');
+                this.updateLastTime();
+            } else {
+                throw new Error('Multi-STS CITS measurement failed');
+            }
+            
+        } catch (error) {
+            this.handleError(error);
+        } finally {
+            this.setRunningState(false);
+        }
+    }
+
     
     validateInputs(pointsX, pointsY) {
         if (isNaN(pointsX) || isNaN(pointsY)) {
