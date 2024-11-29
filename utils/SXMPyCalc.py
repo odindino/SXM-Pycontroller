@@ -1,6 +1,29 @@
+"""
+SXMPyCalc Module
+Advanced calculation utilities for STM measurements including CITS and Local CITS.
+
+This module provides comprehensive coordinate calculation support for:
+- Standard CITS measurements
+- Local area CITS measurements
+- Combined multi-area CITS measurements with different spacings
+"""
+
 import math
 import numpy as np
+from dataclasses import dataclass
+from typing import Tuple, List
 
+@dataclass
+class LocalCITSParams:
+    """Parameters for defining a local CITS measurement area"""
+    start_x: float      # Starting X position (nm)
+    start_y: float      # Starting Y position (nm)
+    dx: float          # X direction step size (nm)
+    dy: float          # Y direction step size (nm)
+    nx: int            # Number of points in X direction
+    ny: int            # Number of points in Y direction
+    scan_direction: int = 1     # 1 for upward scan, -1 for downward scan
+    startpoint_direction: int = 1  # 1 for upward distribution, -1 for downward distribution
 class SXMCalculator:
     """計算工具類別"""
     
@@ -179,3 +202,219 @@ class CITSCalculator:
         )
         
         return scanlines
+    
+"""
+Local CITS Calculator Module
+Provides functionality for calculating measurement points for local area CITS.
+
+This calculator allows users to specify a local area within the scan range
+and generates measurement coordinates for that specific region.
+"""
+class LocalCITSCalculator:
+    """Local area CITS coordinate calculator with fixed base point"""
+    
+    @staticmethod
+    def calculate_local_cits_coordinates(params: LocalCITSParams) -> np.ndarray:
+        """
+        生成單一區域的 CITS 座標點
+        只考慮起始點方向，不考慮掃描方向
+        
+        Parameters
+        ----------
+        params : LocalCITSParams
+            區域參數
+            
+        Returns
+        -------
+        np.ndarray
+            形狀為 (nx * ny, 2) 的座標陣列，每一行為 [x, y]
+        """
+        # 在原點生成基本網格
+        x = np.linspace(0, params.dx * (params.nx - 1), params.nx)
+        y = np.linspace(0, params.dy * (params.ny - 1), params.ny)
+        if params.startpoint_direction == -1:
+            y *= -1
+        
+                    
+        # # 根據起始點方向決定是否反轉 y 方向
+        # print("params.startpoint_direction): ", params.startpoint_direction)
+        # if params.startpoint_direction == -1:
+        #     y = y[::-1]
+            
+        # 建立網格點
+        X, Y = np.meshgrid(x, y)
+        
+        # 整理成 (n, 2) 形狀的座標陣列
+        coordinates = np.column_stack((X.ravel(), Y.ravel()))
+
+        # 移動到起始點
+        coordinates += np.array([params.start_x, params.start_y])
+        
+        return coordinates
+    
+    @staticmethod
+    def combi_local_cits_coordinates(
+        scan_center_x: float,
+        scan_center_y: float,
+        scan_range: float,
+        scan_angle: float,
+        local_areas: List[LocalCITSParams]
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+        """
+        組合多個區域的座標並進行整體轉換
+        
+        工作流程：
+        1. 收集並組合所有區域座標
+        2. 依掃描方向排序（y優先，再依x）
+        3. 移除重複座標點
+        4. 進行座標轉換（平移→旋轉→平移回原位）
+        
+        Parameters
+        ----------
+        scan_center_x : float
+            掃描中心 X 座標（nm）
+        scan_center_y : float
+            掃描中心 Y 座標（nm）
+        scan_range : float
+            掃描範圍（nm）
+        scan_angle : float
+            掃描角度（度），逆時針為正
+        local_areas : List[LocalCITSParams]
+            區域參數列表
+            
+        Returns
+        -------
+        Tuple[np.ndarray, np.ndarray, np.ndarray]
+            - coordinates: 最終座標陣列，形狀為 (n, 2)
+            - start_points: 掃描線起點陣列，形狀為 (n-1, 2)
+            - end_points: 掃描線終點陣列，形狀為 (n-1, 2)
+        """
+        # 組合所有區域的座標
+        coordinates = np.concatenate([
+            LocalCITSCalculator.calculate_local_cits_coordinates(area)
+            for area in local_areas
+        ])
+        
+        # 依y座標優先排序，再依x座標排序
+        sorted_indices = np.lexsort((coordinates[:, 0], coordinates[:, 1]))
+        sorted_coordinates = coordinates[sorted_indices]
+        
+        # 將NumPy陣列轉換為列表以便處理重複點
+        sorted_coordinates = sorted_coordinates.tolist()
+        
+        # 移除重複座標點
+        unique_coordinates = []
+        for coord in sorted_coordinates:
+            if coord not in unique_coordinates:
+                unique_coordinates.append(coord)
+                
+        # 轉回NumPy陣列進行後續處理
+        coordinates = np.array(unique_coordinates)
+        
+        # 座標轉換
+        # 1. 移動到原點
+        coordinates -= np.array([scan_center_x, scan_center_y])
+        
+        # 2. 旋轉（逆時針為正）
+        angle_rad = np.radians(scan_angle)
+        rotation_matrix = np.array([
+            [np.cos(angle_rad), np.sin(angle_rad)],
+            [-np.sin(angle_rad), np.cos(angle_rad)]
+        ])
+        coordinates = coordinates @ rotation_matrix
+        
+        # 3. 移回掃描中心
+        coordinates += np.array([scan_center_x, scan_center_y])
+        
+        # 產生掃描線的起點和終點
+        start_points = coordinates[:-1]  # 除了最後一點
+        end_points = coordinates[1:]     # 除了第一點
+        
+        return coordinates, start_points, end_points
+
+    @staticmethod
+    def validate_local_area(
+            scan_center_x: float,
+            scan_center_y: float,
+            scan_range: float,
+            start_x: float,
+            start_y: float,
+            dx: float,
+            dy: float,
+            nx: int,
+            ny: int,
+            scan_angle: float) -> bool:
+        """
+        Validate if the local CITS area is within scan range.
+        
+        Parameters
+        ----------
+        Same as calculate_local_cits_coordinates
+        
+        Returns
+        -------
+        bool
+            True if local area is valid, False otherwise
+            
+        Notes
+        -----
+        This method checks if all corner points of the measurement
+        area fall within the scan range after rotation.
+        """
+        # Create test coordinates
+        coords, _, _ = LocalCITSCalculator.calculate_local_cits_coordinates(
+            scan_center_x, scan_center_y, scan_range, scan_angle,
+            start_x, start_y, dx, dy, nx, ny
+        )
+        
+        # Calculate scan area bounds
+        half_range = scan_range / 2
+        min_x = scan_center_x - half_range
+        max_x = scan_center_x + half_range
+        min_y = scan_center_y - half_range
+        max_y = scan_center_y + half_range
+        
+        # Check if all points are within bounds
+        x_coords = coords[:, :, 0].flatten()
+        y_coords = coords[:, :, 1].flatten()
+        
+        return (np.all(x_coords >= min_x) and np.all(x_coords <= max_x) and
+                np.all(y_coords >= min_y) and np.all(y_coords <= max_y))
+    
+    @staticmethod
+    def validate_combined_areas(
+            scan_center_x: float,
+            scan_center_y: float,
+            scan_range: float,
+            scan_angle: float,
+            local_areas: List[LocalCITSParams]) -> List[bool]:
+        """
+        Validate all local CITS areas.
+        
+        Parameters
+        ----------
+        Same as combi_local_cits_coordinates
+        
+        Returns
+        -------
+        List[bool]
+            Validation result for each area
+        """
+        validation_results = []
+        
+        for area in local_areas:
+            is_valid = LocalCITSCalculator.validate_local_area(
+                scan_center_x=scan_center_x,
+                scan_center_y=scan_center_y,
+                scan_range=scan_range,
+                scan_angle=scan_angle,
+                start_x=area.start_x,
+                start_y=area.start_y,
+                dx=area.dx,
+                dy=area.dy,
+                nx=area.nx,
+                ny=area.ny
+            )
+            validation_results.append(is_valid)
+            
+        return validation_results
