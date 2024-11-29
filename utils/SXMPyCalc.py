@@ -280,13 +280,37 @@ class LocalCITSCalculator:
     ) -> np.ndarray:
         """
         根據掃描方向對座標進行排序
-        """
-        # 計算在慢軸和快軸方向的投影
-        slow_proj = coordinates @ slow_axis
-        fast_proj = coordinates @ fast_axis
         
-        # 排序：先依快軸，再依慢軸
-        sorted_indices = np.lexsort((slow_proj, fast_proj))
+        改進的排序邏輯：
+        1. 計算快軸和慢軸投影
+        2. 將快軸投影值四捨五入到特定精度，避免浮點數比較問題
+        3. 對相同快軸值的點，根據慢軸投影進行二次排序
+        4. 使用穩定的排序算法確保相對順序保持一致
+        """
+        # 計算投影值
+        fast_proj = coordinates @ fast_axis
+        slow_proj = coordinates @ slow_axis
+        
+        # 將投影值四捨五入到特定精度以處理浮點數誤差
+        precision = 1e-10
+        fast_proj = np.round(fast_proj / precision) * precision
+        slow_proj = np.round(slow_proj / precision) * precision
+        
+        # 建立複合排序鍵
+        # 首先依據快軸線上的群組進行排序
+        fast_groups = np.unique(fast_proj)
+        sorted_indices = []
+        
+        for fast_val in fast_groups:
+            # 找出在同一快軸線上的點
+            group_mask = (fast_proj == fast_val)
+            group_indices = np.where(group_mask)[0]
+            
+            # 依據慢軸投影值排序同一快軸線上的點
+            group_slow_proj = slow_proj[group_indices]
+            group_sorted = group_indices[np.argsort(group_slow_proj)]
+            sorted_indices.extend(group_sorted)
+        
         return coordinates[sorted_indices]
 
     @staticmethod

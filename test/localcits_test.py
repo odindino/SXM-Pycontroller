@@ -53,7 +53,18 @@ class LocalCITSVisualizer:
         self._plot_scan_axes(params['scan_center_x'], params['scan_center_y'],
                         slow_axis, fast_axis)
         
+        # Plot coordinates with index for reference
+        self._plot_coordinates_with_index(coordinates)
+        
         plt.show()
+
+    def _plot_coordinates_with_index(self, coordinates, sample_indices=[-1, -2, -3, -4]):
+        """在特定點位標示序號，方便檢查排序結果"""
+        for idx in sample_indices:
+            plt.annotate(f'P{len(coordinates)+idx}', 
+                        coordinates[idx],
+                        xytext=(5, 5), 
+                        textcoords='offset points')
 
     def _plot_scan_axes(self, center_x: float, center_y: float, 
                    slow_axis: np.ndarray, fast_axis: np.ndarray,
@@ -189,7 +200,7 @@ def main():
         'scan_center_x': 250,
         'scan_center_y': 250,
         'scan_range': 500,
-        'scan_angle': 80,
+        'scan_angle': 60,
         'local_areas': [
             LocalCITSParams(
                 start_x=125, start_y=125,
