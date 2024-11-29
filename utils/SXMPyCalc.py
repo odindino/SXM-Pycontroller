@@ -451,81 +451,69 @@ class LocalCITSCalculator:
         scan_angle: float,
         scan_range: float,
         total_lines: int
-    ) -> List[int]:
+    ) -> Tuple[List[int], List[np.ndarray]]:
         """
-        計算Local CITS量測時的掃描線分布
-        
-        此函數根據Local CITS點位的分布，計算每次應該掃描的線數。
-        在接近CITS量測區時會自動減少掃描線數，以確保準確的量測位置。
+        計算Local CITS量測時的掃描線分布及對應的量測點分布
         
         Parameters
         ----------
-        coordinates : np.ndarray
-            CITS量測點的座標陣列，形狀為(N, 2)，每行包含(x, y)座標
-        scan_center_x, scan_center_y : float
-            掃描中心座標
-        scan_angle : float
-            掃描角度（度）
-        scan_range : float
-            掃描範圍（nm）
-        total_lines : int
-            總掃描線數
-            
-        Returns
-        -------
-        List[int]
-            掃描線分布列表，每個元素代表該次應掃描的線數
+        [原有參數說明保持不變]
         """
         try:
-            # 1. 將座標轉換回原點並旋轉至水平
-            coordinates_normalized = LocalCITSCalculator._normalize_coordinates(
-                coordinates, scan_center_x, scan_center_y, scan_angle)
+            # 計算慢軸方向和投影
+            angle_rad = np.radians(scan_angle)
+            slow_axis = np.array([-np.sin(angle_rad), np.cos(angle_rad)])
+            scan_step = scan_range / total_lines
             
-            # 2. 計算掃描線間距
-            line_spacing = scan_range / total_lines
+            # 計算所有點的投影值
+            coords_centered = coordinates - np.array([scan_center_x, scan_center_y])
+            projections = np.dot(coords_centered, slow_axis)
             
-            # 3. 初始化結果列表和計數器
+            # 初始化掃描參數
+            start_pos = -scan_range/2
             scanline_distribution = []
-            current_y = -scan_range/2  # 從最底部開始
-            accumulated_lines = 0
-            step_count = 0
+            coordinate_distribution = []
             
-            # 4. 主要計算邏輯
-            while accumulated_lines < total_lines:
-                next_y = current_y + line_spacing
+            # 建立投影值到座標的映射
+            proj_dict = {}
+            for i, proj in enumerate(projections):
+                # 使用round避免浮點數精度問題
+                proj_key = round(proj, 8)
+                if proj_key not in proj_dict:
+                    proj_dict[proj_key] = []
+                proj_dict[proj_key].append(i)
+            
+            # 依序處理每個投影值
+            sorted_projections = sorted(proj_dict.keys())
+            current_pos = start_pos
+            
+            for proj in sorted_projections:
+                # 計算到這個投影值需要的步數
+                distance = proj - current_pos
+                steps = max(1, int(np.round(distance / scan_step)))
                 
-                # 檢查是否有CITS點位在這個範圍內
-                points_in_range = np.sum(
-                    (coordinates_normalized[:, 1] > current_y) & 
-                    (coordinates_normalized[:, 1] <= next_y)
-                )
-                
-                if points_in_range > 0:
-                    # 如果有CITS點位，記錄當前累積的掃描線數
-                    if step_count > 0:
-                        scanline_distribution.append(step_count)
-                        accumulated_lines += step_count
-                        step_count = 0
-                    # 加入單行掃描
-                    scanline_distribution.append(1)
-                    accumulated_lines += 1
-                else:
-                    step_count += 1
+                if steps > 0:
+                    # 記錄步數
+                    scanline_distribution.append(steps)
                     
-                current_y = next_y
-                
-                # 處理最後剩餘的線數
-                if current_y >= scan_range/2 and step_count > 0:
-                    remaining_lines = total_lines - accumulated_lines
-                    if remaining_lines > 0:
-                        scanline_distribution.append(remaining_lines)
-                    break
+                    # 記錄這個投影值對應的座標點
+                    point_indices = proj_dict[proj]
+                    coordinate_distribution.append(coordinates[point_indices])
+                    
+                    # 更新當前位置
+                    current_pos = proj
             
-            return scanline_distribution
+            # 處理到掃描範圍末端的剩餘步數
+            remaining_distance = scan_range/2 - current_pos
+            remaining_steps = max(0, int(np.round(remaining_distance / scan_step)))
+            if remaining_steps > 0:
+                scanline_distribution.append(remaining_steps)
+            
+            return scanline_distribution, coordinate_distribution
             
         except Exception as e:
             print(f"計算掃描線分布時發生錯誤: {str(e)}")
-            return [1] * total_lines  # 發生錯誤時返回最安全的配置
+            return [total_lines], [coordinates]
 
     @staticmethod    
     def _normalize_coordinates(

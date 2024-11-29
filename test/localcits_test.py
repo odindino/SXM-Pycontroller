@@ -36,20 +36,7 @@ class LocalCITSVisualizer:
     """
     
     def visualize_cits_points(self, params: dict) -> None:
-        """
-        視覺化 Local CITS 量測點和掃描序列
-        
-        Parameters
-        ----------
-        params : dict
-            量測參數字典，包含：
-            - scan_center_x, scan_center_y: 掃描中心座標
-            - scan_range: 掃描範圍
-            - scan_angle: 掃描角度
-            - total_lines: 總掃描線數
-            - local_areas: Local CITS 區域參數列表
-        """
-        # 建立新圖形
+        """視覺化 Local CITS 量測點和掃描序列"""
         plt.figure(figsize=(12, 8))
         
         # 計算座標和掃描參數
@@ -61,8 +48,8 @@ class LocalCITSVisualizer:
             params['local_areas']
         )
         
-        # 計算掃描線分布
-        scanline_distribution = LocalCITSCalculator.calculate_local_scanline_distribution(
+        # 計算掃描線分布（現在回傳一個元組）
+        scanline_info = LocalCITSCalculator.calculate_local_scanline_distribution(
             coordinates,
             params['scan_center_x'],
             params['scan_center_y'],
@@ -78,7 +65,7 @@ class LocalCITSVisualizer:
             params['scan_center_y'],
             params['scan_range'],
             params['scan_angle'],
-            scanline_distribution
+            scanline_info
         )
         self._plot_measurement_sequence(coordinates)
         self._plot_scan_axes(
@@ -126,11 +113,11 @@ class LocalCITSVisualizer:
 
     def _draw_scanlines(self, center_x: float, center_y: float, 
                    scan_range: float, angle: float, 
-                   scanline_distribution: List[int],
+                   scanline_info: Tuple[List[int], List[np.ndarray]],
                    color: str = 'gray',
                    alpha: float = 0.5) -> None:
         """
-        繪製掃描線，只在指定的掃描步數位置繪製
+        繪製掃描線
         
         Parameters
         ----------
@@ -140,46 +127,47 @@ class LocalCITSVisualizer:
             掃描範圍
         angle : float
             掃描角度（度）
-        scanline_distribution : List[int]
-            掃描線分布列表
+        scanline_info : Tuple[List[int], List[np.ndarray]]
+            第一個元素是掃描線分布列表
+            第二個元素是每個掃描位置的量測點列表
         color : str
             掃描線顏色
         alpha : float
             透明度
         """
+        scanline_distribution, coordinate_distribution = scanline_info  # 解構元組
+        print("scanline_distribution: ", scanline_distribution)
+        print("coordinate_distribution: ", coordinate_distribution)
+        
         angle_rad = np.radians(angle)
+        cos_angle = np.cos(angle_rad)
+        sin_angle = np.sin(angle_rad)
+        
         half_range = scan_range / 2
-        total_lines = sum(scanline_distribution)
+        total_lines = sum(scanline_distribution)  # 現在可以正確計算總線數
         line_spacing = scan_range / total_lines
-
-        print(f"scanline_distribution: {scanline_distribution}")
-        print(f"total_lines: {total_lines}")
         
-        # 追蹤累積的線數
-        accumulated_lines = 0
-        
-        # 對每個分布步數繪製一條線
+        # 繪製每條掃描線
+        current_y = -half_range
         for step_count in scanline_distribution:
-            # 更新累積線數
-            accumulated_lines += step_count
-            
-            # 計算目前的 y 位置
-            current_y = -half_range + accumulated_lines * line_spacing
-            
             # 計算線的起點和終點
             start_x = -half_range
             end_x = half_range
             
             # 旋轉並平移端點
-            start_rotated = self._rotate_and_translate(
-                [start_x, current_y], angle_rad, center_x, center_y)
-            end_rotated = self._rotate_and_translate(
-                [end_x, current_y], angle_rad, center_x, center_y)
+            start_rotated_x = start_x * cos_angle - current_y * sin_angle + center_x
+            start_rotated_y = start_x * sin_angle + current_y * cos_angle + center_y
+            
+            end_rotated_x = end_x * cos_angle - current_y * sin_angle + center_x
+            end_rotated_y = end_x * sin_angle + current_y * cos_angle + center_y
             
             # 繪製掃描線
-            plt.plot([start_rotated[0], end_rotated[0]],
-                    [start_rotated[1], end_rotated[1]],
+            plt.plot([start_rotated_x, end_rotated_x],
+                    [start_rotated_y, end_rotated_y],
                     color=color, alpha=alpha, linestyle='-')
+            
+            # 更新位置
+            current_y += step_count * line_spacing
 
     def _plot_measurement_sequence(self, coordinates: np.ndarray) -> None:
         """繪製量測點序列"""
@@ -265,8 +253,8 @@ def main():
         'local_areas': [
             LocalCITSParams(
                 start_x=125, start_y=125,
-                dx=10, dy=10,
-                nx=10, ny=10,
+                dx=15, dy=15,
+                nx=3, ny=3,
                 scan_direction=1,
                 startpoint_direction=1
             ),
@@ -278,9 +266,9 @@ def main():
                 startpoint_direction=-1
             ),
             LocalCITSParams(
-                start_x=250, start_y=250,
+                start_x=230, start_y=180,
                 dx=30, dy=30,
-                nx=5, ny=5,
+                nx=3, ny=3,
                 scan_direction=1,
                 startpoint_direction=-1
             )
