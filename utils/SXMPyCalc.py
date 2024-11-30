@@ -1,6 +1,29 @@
+"""
+SXMPyCalc Module
+Advanced calculation utilities for STM measurements including CITS and Local CITS.
+
+This module provides comprehensive coordinate calculation support for:
+- Standard CITS measurements
+- Local area CITS measurements
+- Combined multi-area CITS measurements with different spacings
+"""
+
 import math
 import numpy as np
+from dataclasses import dataclass
+from typing import Tuple, List
 
+@dataclass
+class LocalCITSParams:
+    """Parameters for defining a local CITS measurement area"""
+    start_x: float      # Starting X position (nm)
+    start_y: float      # Starting Y position (nm)
+    dx: float          # X direction step size (nm)
+    dy: float          # Y direction step size (nm)
+    nx: int            # Number of points in X direction
+    ny: int            # Number of points in Y direction
+    scan_direction: int = 1     # 1 for upward scan, -1 for downward scan
+    startpoint_direction: int = 1  # 1 for upward distribution, -1 for downward distribution
 class SXMCalculator:
     """計算工具類別"""
     
@@ -179,3 +202,354 @@ class CITSCalculator:
         )
         
         return scanlines
+    
+"""
+Local CITS Calculator Module
+Provides functionality for calculating measurement points for local area CITS.
+
+This calculator allows users to specify a local area within the scan range
+and generates measurement coordinates for that specific region.
+"""
+class LocalCITSCalculator:
+    """Local area CITS coordinate calculator with fixed base point"""
+    
+    @staticmethod
+    def calculate_local_cits_coordinates(
+        params: LocalCITSParams,
+        scan_center_x: float,
+        scan_center_y: float,
+        scan_angle: float
+    ) -> np.ndarray:
+        """
+        生成並轉換單一區域的 CITS 座標點
+        
+        工作流程：
+        1. 在原點生成基本網格
+        2. 移動到指定起始點
+        3. 移動到掃描中心進行旋轉
+        4. 移回正確位置
+        """
+        # 在原點生成基本網格
+        x = np.linspace(0, params.dx * (params.nx - 1), params.nx)
+        y = np.linspace(0, params.dy * (params.ny - 1), params.ny)
+        if params.startpoint_direction == -1:
+            y *= -1
+        
+        # 建立網格點(在原點)
+        X, Y = np.meshgrid(x, y)
+        coordinates = np.column_stack((X.ravel(), Y.ravel()))
+        
+        # 2. 旋轉（逆時針為正）
+        angle_rad = np.radians(scan_angle)
+        rotation_matrix = np.array([
+            [ np.cos(angle_rad), np.sin(angle_rad)],
+            [-np.sin(angle_rad), np.cos(angle_rad)]
+        ])
+        coordinates = np.matmul(coordinates, rotation_matrix)
+
+        # 移動到起始點
+        coordinates += np.array([params.start_x, params.start_y])
+        
+        return coordinates
+
+    @staticmethod
+    def get_scan_axes(scan_angle: float, scan_direction: int) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        計算掃描的快軸和慢軸方向向量
+        
+        Parameters
+        ----------
+        scan_angle : float
+            掃描角度（度）
+        scan_direction : int
+            掃描方向（1: 由下到上, -1: 由上到下）
+
+        Returns
+        -------
+        Tuple[np.ndarray, np.ndarray]
+            (慢軸向量, 快軸向量)，都是單位向量
+
+        """
+        angle_rad = np.radians(scan_angle)
+        
+        # 快軸：和x軸夾角為scan_angle
+        fast_axis = np.array([np.cos(angle_rad), np.sin(angle_rad)])
+        
+        # 慢軸：慢軸逆時針旋轉90度
+        slow_axis = np.array([-np.sin(angle_rad), np.cos(angle_rad)])*scan_direction
+        
+        return slow_axis, fast_axis
+
+    @staticmethod
+    def sort_coordinates_by_scan_direction(
+        coordinates: np.ndarray,
+        slow_axis: np.ndarray,
+        fast_axis: np.ndarray
+    ) -> np.ndarray:
+        """
+        根據掃描方向對座標進行排序
+        
+        改進的排序邏輯：
+        1. 計算快軸和慢軸投影
+        2. 將快軸投影值四捨五入到特定精度，避免浮點數比較問題
+        3. 對相同快軸值的點，根據慢軸投影進行二次排序
+        4. 使用穩定的排序算法確保相對順序保持一致
+        """
+        # 計算投影值
+        fast_proj = coordinates @ fast_axis
+        slow_proj = coordinates @ slow_axis
+        
+        # 將投影值四捨五入到特定精度以處理浮點數誤差
+        precision = 1e-10
+        fast_proj = np.round(fast_proj / precision) * precision
+        slow_proj = np.round(slow_proj / precision) * precision
+
+        # 建立複合排序鍵
+        # 首先依據慢軸線上的群組進行排序
+        slow_groups = np.unique(slow_proj)
+        sorted_indices = []
+
+        for slow_val in slow_groups:
+            # 找出在同一慢軸線上的點
+            group_mask = (slow_proj == slow_val)
+            group_indices = np.where(group_mask)[0]
+            
+            # 依據快軸投影值排序同一慢軸線上的點
+            group_fast_proj = fast_proj[group_indices]
+            group_sorted = group_indices[np.argsort(group_fast_proj)]
+            sorted_indices.extend(group_sorted)
+        
+        return coordinates[sorted_indices]
+
+    @staticmethod
+    def combi_local_cits_coordinates(
+        scan_center_x: float,
+        scan_center_y: float,
+        scan_range: float,
+        scan_angle: float,
+        total_lines: int,
+        scan_direction: int,
+        local_areas: List[LocalCITSParams]
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, Tuple[np.ndarray, np.ndarray]]:
+        """
+        組合多個區域的座標並排序
+        
+        Returns 增加了快慢軸方向向量
+        """
+        # 獲取快慢軸方向
+        slow_axis, fast_axis = LocalCITSCalculator.get_scan_axes(scan_angle, scan_direction)
+        
+        # 收集並組合所有區域的座標
+        coordinates = np.concatenate([
+            LocalCITSCalculator.calculate_local_cits_coordinates(
+                area, scan_center_x, scan_center_y, scan_angle
+            )
+            for area in local_areas
+        ])
+        
+        # 根據掃描方向排序
+        coordinates = LocalCITSCalculator.sort_coordinates_by_scan_direction(
+            coordinates, slow_axis, fast_axis
+        )
+        
+        # 移除重複點
+        sorted_coordinates = coordinates.tolist()
+        unique_coordinates = []
+        for coord in sorted_coordinates:
+            if coord not in unique_coordinates:
+                unique_coordinates.append(coord)
+        coordinates = np.array(unique_coordinates)
+        
+        
+        # 產生掃描線的起點和終點
+        start_points = coordinates[:-1]
+        end_points = coordinates[1:]
+        
+        return coordinates, start_points, end_points, (slow_axis, fast_axis)
+
+    
+    @staticmethod
+    def calculate_local_scanline_distribution(
+        coordinates: np.ndarray,
+        center_x: float,
+        center_y: float,
+        angle: float,
+        scan_range: float,
+        scan_direction: int = 1,
+        total_lines: int = 500
+    ) -> Tuple[List[int], List[np.ndarray]]:
+        """
+        Calculate scanline distribution and coordinate grouping based on slow axis projection
+        
+        This function determines how many scanlines should be performed between STS measurements
+        by projecting measurement points onto the slow axis and grouping them by their positions.
+        
+        Parameters
+        ----------
+        coordinates : np.ndarray
+            Array of measurement coordinates (N x 2)
+        center_x, center_y : float
+            Scan center position
+        angle : float
+            Scan angle in degrees
+        scan_range : float
+            Total scan range in nm
+        scan_direction : int
+            Scan direction (1: bottom to top, -1: top to bottom)
+        total_lines : int
+            Total number of scan lines
+            
+        Returns
+        -------
+        Tuple[List[int], List[np.ndarray]]
+            - List of scanline counts between STS measurements
+            - List of coordinate arrays for each STS measurement position
+        """
+        try:
+            # Convert angle to radians and calculate slow axis unit vector
+            angle_rad = np.radians(angle)
+            slow_axis = np.array([
+                -np.sin(angle_rad),
+                np.cos(angle_rad)
+            ]) * scan_direction
+            
+            # Translate coordinates to origin
+            translated_coords = coordinates - np.array([center_x, center_y])
+            
+            # Project points onto slow axis
+            projections = np.dot(translated_coords, slow_axis)
+            
+            # Scale projections to match scan line numbers
+            # Map from [-scan_range/2, scan_range/2] to [0, total_lines]
+            scaled_projections = (projections + scan_range/2) * (total_lines/scan_range)
+            scan_positions = np.floor(scaled_projections).astype(int)
+            
+            # Sort coordinates by their scan line positions
+            sorted_indices = np.argsort(scan_positions)
+            sorted_positions = scan_positions[sorted_indices]
+            sorted_coords = coordinates[sorted_indices]
+            
+            # Initialize results
+            scanline_distribution = []
+            coordinate_distribution = []
+            
+            # Process points in groups
+            current_line = 0
+            current_group = []
+            
+            for i, pos in enumerate(sorted_positions):
+                if len(current_group) == 0:
+                    # Start new group
+                    steps = pos - current_line
+                    if steps > 0:
+                        scanline_distribution.append(steps)
+                    current_line = pos
+                    current_group = [sorted_coords[i]]
+                elif pos == current_line:
+                    # Add to current group
+                    current_group.append(sorted_coords[i])
+                else:
+                    # Save current group and start new one
+                    coordinate_distribution.append(np.array(current_group))
+                    steps = pos - current_line
+                    scanline_distribution.append(steps)
+                    current_line = pos
+                    current_group = [sorted_coords[i]]
+            
+            # Handle last group
+            if current_group:
+                coordinate_distribution.append(np.array(current_group))
+                
+            # Add remaining lines to reach total_lines
+            remaining_lines = total_lines - current_line
+            if remaining_lines > 0:
+                scanline_distribution.append(remaining_lines)
+
+            # 在返回結果之前，執行驗證檢查
+            # 1. 檢查點數總和
+            total_coords_in_distribution = sum(len(coords) for coords in coordinate_distribution)
+            if total_coords_in_distribution != len(coordinates):
+                raise ValueError(
+                    f"Coordinate count mismatch: "
+                    f"Original={len(coordinates)}, "
+                    f"Distributed={total_coords_in_distribution}"
+                )
+                
+            # 2. 檢查分布段數與掃描線列表的對應關係
+            if len(coordinate_distribution) != len(scanline_distribution) - 1:
+                raise ValueError(
+                    f"Distribution length mismatch: "
+                    f"Coordinates={len(coordinate_distribution)}, "
+                    f"Scanlines={len(scanline_distribution)}, "
+                    f"Expected Scanlines={len(coordinate_distribution) + 1}"
+                )
+                
+            # 3. 檢查掃描線總數
+            total_scanlines = sum(scanline_distribution)
+            if total_scanlines != total_lines:
+                raise ValueError(
+                    f"Total scanlines mismatch: "
+                    f"Calculated={total_scanlines}, "
+                    f"Expected={total_lines}"
+                )
+                
+            if total_scanlines > total_lines:
+                raise ValueError(
+                    f"Total scanlines exceeds limit: "
+                    f"Calculated={total_scanlines}, "
+                    f"Limit={total_lines}"
+                )
+                
+            # 如果所有檢查都通過，則輸出驗證訊息
+            print("\nValidation Results:")
+            print(f"Total coordinates: Original={len(coordinates)}, "
+                f"Distributed={total_coords_in_distribution}")
+            print(f"Distribution segments: Coordinates={len(coordinate_distribution)}, "
+                f"Scanlines={len(scanline_distribution)}")
+            print(f"Total scanlines: Calculated={total_scanlines}, "
+                f"Expected={total_lines}")
+            
+            return scanline_distribution, coordinate_distribution
+                
+            return scanline_distribution, coordinate_distribution
+            
+        except Exception as e:
+            print(f"Error in calculate_local_scanline_distribution: {str(e)}")
+            raise
+    
+
+    @staticmethod    
+    def _normalize_coordinates(
+        coordinates: np.ndarray,
+        center_x: float,
+        center_y: float,
+        angle: float
+    ) -> np.ndarray:
+        """
+        將座標平移到原點並旋轉至水平
+        
+        Parameters
+        ----------
+        coordinates : np.ndarray
+            原始座標陣列
+        center_x, center_y : float
+            掃描中心座標
+        angle : float
+            要旋轉的角度（度）
+            
+        Returns
+        -------
+        np.ndarray
+            正規化後的座標陣列
+        """
+        # 1. 平移到原點
+        coords_centered = coordinates - np.array([center_x, center_y])
+        
+        # 2. 旋轉至水平（逆時針旋轉回原位）
+        angle_rad = np.radians(angle)
+        rotation_matrix = np.array([
+            [np.cos(angle_rad), np.sin(angle_rad)],
+            [-np.sin(angle_rad), np.cos(angle_rad)]
+        ])
+        
+        return coords_centered @ rotation_matrix

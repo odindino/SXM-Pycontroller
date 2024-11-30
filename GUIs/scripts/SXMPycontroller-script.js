@@ -775,3 +775,284 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Failed to initialize CITS Control:', error);
     }
 });
+
+class LocalCITSControl {
+    /**
+     * Local CITS 控制器類別
+     * 負責管理局部 CITS 量測的使用者介面互動和資料處理
+     */
+    constructor() {
+        this.localAreas = [];
+        this.previewCanvas = null;
+        this.previewContext = null;
+        this.initialize();
+    }
+
+    initialize() {
+        // 初始化預覽畫布
+        this.previewCanvas = document.getElementById('previewCanvas');
+        this.previewContext = this.previewCanvas.getContext('2d');
+        
+        // 設定事件監聽器
+        this.setupEventListeners();
+        
+        // 添加第一個預設區域
+        this.addLocalArea();
+    }
+
+    setupEventListeners() {
+        // 區域管理按鈕
+        document.getElementById('addLocalArea').addEventListener('click', () => {
+            this.addLocalArea();
+        });
+
+        // 功能按鈕
+        document.getElementById('previewLocalCits').addEventListener('click', () => {
+            this.previewLocalCits();
+        });
+
+        document.getElementById('startLocalStsCits').addEventListener('click', () => {
+            this.startLocalStsCits();
+        });
+
+        document.getElementById('startLocalMultiStsCits').addEventListener('click', () => {
+            this.startLocalMultiStsCits();
+        });
+
+        // 移除區域按鈕的事件委派
+        document.querySelector('#localCitsPanel').addEventListener('click', (e) => {
+            if (e.target.classList.contains('remove-area')) {
+                this.removeLocalArea(e.target.closest('.local-area-container'));
+            }
+        });
+    }
+
+    addLocalArea() {
+        const container = document.createElement('div');
+        container.className = 'local-area-container';
+        container.innerHTML = `
+            <div class="local-area-row">
+                <div class="input-field">
+                    <label>X Start Position</label>
+                    <div class="input-with-unit">
+                        <input type="number" class="local-cits-input start-x" value="0" step="0.1">
+                        <span class="unit">nm</span>
+                    </div>
+                </div>
+                <div class="input-field">
+                    <label>Y Start Position</label>
+                    <div class="input-with-unit">
+                        <input type="number" class="local-cits-input start-y" value="0" step="0.1">
+                        <span class="unit">nm</span>
+                    </div>
+                </div>
+                <div class="input-field">
+                    <label>Scan Direction</label>
+                    <select class="direction-select">
+                        <option value="1">Up</option>
+                        <option value="-1">Down</option>
+                    </select>
+                </div>
+            </div>
+            <div class="local-area-row">
+                <div class="input-field">
+                    <label>Step Size X (ΔX)</label>
+                    <div class="input-with-unit">
+                        <input type="number" class="local-cits-input dx" value="10" step="0.1">
+                        <span class="unit">nm</span>
+                    </div>
+                </div>
+                <div class="input-field">
+                    <label>Step Size Y (ΔY)</label>
+                    <div class="input-with-unit">
+                        <input type="number" class="local-cits-input dy" value="10" step="0.1">
+                        <span class="unit">nm</span>
+                    </div>
+                </div>
+                <div class="input-field">
+                    <label>Points X (Nx)</label>
+                    <input type="number" class="local-cits-input nx" value="5" min="1" max="512">
+                </div>
+                <div class="input-field">
+                    <label>Points Y (Ny)</label>
+                    <input type="number" class="local-cits-input ny" value="5" min="1" max="512">
+                </div>
+            </div>
+            <button class="remove-area danger-btn" title="Remove Area">Remove Area</button>
+        `;
+        
+        document.getElementById('localCitsPanel').appendChild(container);
+    }
+
+    removeLocalArea(container) {
+        const containers = document.querySelectorAll('.local-area-container');
+        if (containers.length > 1) {
+            container.remove();
+        } else {
+            alert('At least one local area must be maintained');
+        }
+    }
+
+    collectLocalAreas() {
+        const areas = [];
+        document.querySelectorAll('.local-area-container').forEach(container => {
+            areas.push({
+                start_x: parseFloat(container.querySelector('.start-x').value),
+                start_y: parseFloat(container.querySelector('.start-y').value),
+                dx: parseFloat(container.querySelector('.dx').value),
+                dy: parseFloat(container.querySelector('.dy').value),
+                nx: parseInt(container.querySelector('.nx').value),
+                ny: parseInt(container.querySelector('.ny').value),
+                startpoint_direction: parseInt(container.querySelector('.direction-select').value)
+            });
+        });
+        return areas;
+    }
+
+    async previewLocalCits() {
+        try {
+            const areas = this.collectLocalAreas();
+            
+            // 獲取掃描參數
+            const scanRange = parseFloat(document.getElementById('scanRange').value);
+            const scanAngle = parseFloat(document.getElementById('scanAngle').value);
+            
+            // 清除畫布
+            this.previewContext.clearRect(0, 0, this.previewCanvas.width, this.previewCanvas.height);
+            
+            // 繪製掃描區域和點位
+            this.drawScanArea(scanRange, scanAngle);
+            this.drawLocalAreas(areas);
+            
+            // 更新預覽資訊
+            this.updatePreviewInfo(areas);
+            
+        } catch (error) {
+            console.error('Preview error:', error);
+            this.updateStatus('Preview failed: ' + error.message);
+        }
+    }
+
+    drawScanArea(range, angle) {
+        const ctx = this.previewContext;
+        const centerX = this.previewCanvas.width / 2;
+        const centerY = this.previewCanvas.height / 2;
+        const scale = this.previewCanvas.width / range;
+
+        ctx.save();
+        ctx.translate(centerX, centerY);
+        ctx.rotate(angle * Math.PI / 180);
+        
+        // 繪製掃描範圍框
+        ctx.strokeStyle = '#2c3e50';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(-range * scale / 2, -range * scale / 2, 
+                      range * scale, range * scale);
+        
+        ctx.restore();
+    }
+
+    drawLocalAreas(areas) {
+        const ctx = this.previewContext;
+        const centerX = this.previewCanvas.width / 2;
+        const centerY = this.previewCanvas.height / 2;
+        
+        areas.forEach((area, index) => {
+            // 為每個區域使用不同顏色
+            ctx.fillStyle = `hsl(${index * 360 / areas.length}, 70%, 50%)`;
+            
+            // 繪製該區域的所有點位
+            for (let i = 0; i < area.nx; i++) {
+                for (let j = 0; j < area.ny; j++) {
+                    const x = area.start_x + i * area.dx;
+                    const y = area.start_y + j * area.dy;
+                    
+                    ctx.beginPath();
+                    ctx.arc(centerX + x, centerY + y, 2, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
+            }
+        });
+    }
+
+    updatePreviewInfo(areas) {
+        // 計算總點數
+        const totalPoints = areas.reduce((sum, area) => sum + area.nx * area.ny, 0);
+        
+        // 更新顯示
+        document.getElementById('previewTotalPoints').textContent = totalPoints;
+        document.getElementById('previewScanRange').textContent = 
+            document.getElementById('scanRange').value;
+        document.getElementById('previewScanAngle').textContent = 
+            document.getElementById('scanAngle').value;
+    }
+
+    async startLocalStsCits() {
+        try {
+            const areas = this.collectLocalAreas();
+            const scanDirection = parseInt(document.getElementById('scanDirection').value);
+            
+            this.updateStatus('Starting Local CITS...');
+            
+            const success = await pywebview.api.start_local_ssts_cits(areas, scanDirection);
+            
+            if (success) {
+                this.updateStatus('Local CITS completed successfully');
+                this.updateLastTime();
+            } else {
+                throw new Error('Local CITS failed');
+            }
+            
+        } catch (error) {
+            console.error('Local CITS error:', error);
+            this.updateStatus('Error: ' + error.message);
+        }
+    }
+
+    async startLocalMultiStsCits() {
+        try {
+            const areas = this.collectLocalAreas();
+            const scanDirection = parseInt(document.getElementById('scanDirection').value);
+            const scriptName = document.getElementById('scriptSelect').value;
+            
+            if (!scriptName) {
+                throw new Error('Please select a Multi-STS script');
+            }
+            
+            this.updateStatus('Starting Local Multi-STS CITS...');
+            
+            const success = await pywebview.api.start_local_msts_cits(
+                areas, scriptName, scanDirection
+            );
+            
+            if (success) {
+                this.updateStatus('Local Multi-STS CITS completed successfully');
+                this.updateLastTime();
+            } else {
+                throw new Error('Local Multi-STS CITS failed');
+            }
+            
+        } catch (error) {
+            console.error('Local Multi-STS CITS error:', error);
+            this.updateStatus('Error: ' + error.message);
+        }
+    }
+
+    updateStatus(message) {
+        document.getElementById('localCitsStatus').textContent = message;
+    }
+
+    updateProgress(value) {
+        document.getElementById('localCitsProgress').textContent = value + '%';
+    }
+
+    updateLastTime() {
+        document.getElementById('localCitsLastTime').textContent = 
+            new Date().toLocaleTimeString();
+    }
+}
+
+// 在頁面載入時初始化控制器
+document.addEventListener('DOMContentLoaded', () => {
+    window.localCitsControl = new LocalCITSControl();
+});

@@ -191,12 +191,12 @@ def main():
     """主測試函數"""
     # 測試參數
     test_params = {
-        'center_x': 250,      # 掃描中心X座標 (nm)
-        'center_y': 250,      # 掃描中心Y座標 (nm)
+        'center_x': 900,      # 掃描中心X座標 (nm)
+        'center_y': 900,      # 掃描中心Y座標 (nm)
         'scan_range': 500,    # 掃描範圍 (nm)
-        'angle': 0,          # 掃描角度 (度)
+        'angle': 30,          # 掃描角度 (度)
         'num_points_x': 11,   # X方向CITS點數
-        'num_points_y': 51,   # Y方向CITS點數
+        'num_points_y': 21,   # Y方向CITS點數
         'scan_direction': 1,  # 掃描方向 (1: 向上, -1: 向下)
         'total_scan_lines': 500  # 總掃描線數
     }
