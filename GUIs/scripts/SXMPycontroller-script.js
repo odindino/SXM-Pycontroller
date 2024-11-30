@@ -777,10 +777,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 class LocalCITSControl {
-    /**
-     * Local CITS 控制器類別
-     * 負責管理局部 CITS 量測的使用者介面互動和資料處理
-     */
     constructor() {
         this.localAreas = [];
         this.previewCanvas = null;
@@ -789,24 +785,17 @@ class LocalCITSControl {
     }
 
     initialize() {
-        // 初始化預覽畫布
         this.previewCanvas = document.getElementById('previewCanvas');
         this.previewContext = this.previewCanvas.getContext('2d');
-        
-        // 設定事件監聽器
         this.setupEventListeners();
-        
-        // 添加第一個預設區域
-        this.addLocalArea();
+        this.addLocalArea(); // 添加第一個預設區域
     }
 
     setupEventListeners() {
-        // 區域管理按鈕
         document.getElementById('addLocalArea').addEventListener('click', () => {
             this.addLocalArea();
         });
 
-        // 功能按鈕
         document.getElementById('previewLocalCits').addEventListener('click', () => {
             this.previewLocalCits();
         });
@@ -820,7 +809,7 @@ class LocalCITSControl {
         });
 
         // 移除區域按鈕的事件委派
-        document.querySelector('#localCitsPanel').addEventListener('click', (e) => {
+        document.getElementById('localAreasContainer').addEventListener('click', (e) => {
             if (e.target.classList.contains('remove-area')) {
                 this.removeLocalArea(e.target.closest('.local-area-container'));
             }
@@ -835,14 +824,14 @@ class LocalCITSControl {
                 <div class="input-field">
                     <label>X Start Position</label>
                     <div class="input-with-unit">
-                        <input type="number" class="local-cits-input start-x" value="0" step="0.1">
+                        <input type="number" class="local-cits-input start-x" value="200" step="0.1">
                         <span class="unit">nm</span>
                     </div>
                 </div>
                 <div class="input-field">
                     <label>Y Start Position</label>
                     <div class="input-with-unit">
-                        <input type="number" class="local-cits-input start-y" value="0" step="0.1">
+                        <input type="number" class="local-cits-input start-y" value="200" step="0.1">
                         <span class="unit">nm</span>
                     </div>
                 </div>
@@ -858,14 +847,14 @@ class LocalCITSControl {
                 <div class="input-field">
                     <label>Step Size X (ΔX)</label>
                     <div class="input-with-unit">
-                        <input type="number" class="local-cits-input dx" value="10" step="0.1">
+                        <input type="number" class="local-cits-input dx" value="20" step="0.1">
                         <span class="unit">nm</span>
                     </div>
                 </div>
                 <div class="input-field">
                     <label>Step Size Y (ΔY)</label>
                     <div class="input-with-unit">
-                        <input type="number" class="local-cits-input dy" value="10" step="0.1">
+                        <input type="number" class="local-cits-input dy" value="20" step="0.1">
                         <span class="unit">nm</span>
                     </div>
                 </div>
@@ -875,13 +864,13 @@ class LocalCITSControl {
                 </div>
                 <div class="input-field">
                     <label>Points Y (Ny)</label>
-                    <input type="number" class="local-cits-input ny" value="5" min="1" max="512">
+                    <input type="number" class="local-cits-input ny" value="3" min="1" max="512">
                 </div>
             </div>
             <button class="remove-area danger-btn" title="Remove Area">Remove Area</button>
         `;
-        
-        document.getElementById('localCitsPanel').appendChild(container);
+
+        document.getElementById('localAreasContainer').appendChild(container);
     }
 
     removeLocalArea(container) {
@@ -913,19 +902,34 @@ class LocalCITSControl {
         try {
             const areas = this.collectLocalAreas();
             
-            // 獲取掃描參數
-            const scanRange = parseFloat(document.getElementById('scanRange').value);
-            const scanAngle = parseFloat(document.getElementById('scanAngle').value);
+            // 獲取掃描參數（從其他輸入欄）
+            const scanCenter = document.getElementById('scanCenter');
+            const scanRange = document.getElementById('scanRange');
+            const scanAngle = document.getElementById('scanAngle');
+            
+            if (!scanCenter || !scanRange || !scanAngle) {
+                throw new Error('Unable to find scan parameters');
+            }
+
+            const centerX = parseFloat(scanCenter.value) || 250;
+            const centerY = parseFloat(scanCenter.value) || 250;
+            const range = parseFloat(scanRange.value) || 500;
+            const angle = parseFloat(scanAngle.value) || 60;
             
             // 清除畫布
             this.previewContext.clearRect(0, 0, this.previewCanvas.width, this.previewCanvas.height);
             
-            // 繪製掃描區域和點位
-            this.drawScanArea(scanRange, scanAngle);
-            this.drawLocalAreas(areas);
+            // 設定座標系統
+            this.setupCoordinateSystem();
+            
+            // 繪製掃描區域
+            this.drawScanArea(centerX, centerY, range, angle);
+            
+            // 繪製局部區域點位
+            this.drawLocalAreas(areas, centerX, centerY, angle);
             
             // 更新預覽資訊
-            this.updatePreviewInfo(areas);
+            this.updatePreviewInfo(centerX, centerY, range, angle, areas);
             
         } catch (error) {
             console.error('Preview error:', error);
@@ -933,68 +937,122 @@ class LocalCITSControl {
         }
     }
 
-    drawScanArea(range, angle) {
+    setupCoordinateSystem() {
+        this.previewContext.setTransform(1, 0, 0, -1, 0, this.previewCanvas.height);
+        this.previewContext.translate(this.previewCanvas.width/2, this.previewCanvas.height/2);
+    }
+
+    drawScanArea(centerX, centerY, range, angle) {
         const ctx = this.previewContext;
-        const centerX = this.previewCanvas.width / 2;
-        const centerY = this.previewCanvas.height / 2;
-        const scale = this.previewCanvas.width / range;
+        const scale = 0.8; // 調整掃描區域在畫布中的大小
 
         ctx.save();
-        ctx.translate(centerX, centerY);
         ctx.rotate(angle * Math.PI / 180);
-        
+
         // 繪製掃描範圍框
-        ctx.strokeStyle = '#2c3e50';
-        ctx.lineWidth = 2;
-        ctx.strokeRect(-range * scale / 2, -range * scale / 2, 
-                      range * scale, range * scale);
+        ctx.strokeStyle = '#000';
+        ctx.setLineDash([5, 5]);
+        ctx.strokeRect(-range*scale/2, -range*scale/2, range*scale, range*scale);
+        
+        // 繪製掃描中心
+        ctx.fillStyle = 'red';
+        ctx.beginPath();
+        ctx.arc(0, 0, 3, 0, 2*Math.PI);
+        ctx.fill();
+        
+        // 繪製軸向
+        ctx.strokeStyle = 'blue';
+        ctx.setLineDash([]);
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(0, range*scale/3);
+        ctx.stroke();
+        
+        ctx.strokeStyle = 'red';
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(range*scale/3, 0);
+        ctx.stroke();
+
+        ctx.restore();
+    }
+
+    drawLocalAreas(areas, centerX, centerY, angle) {
+        const ctx = this.previewContext;
+        const scale = 0.8;
+        
+        ctx.save();
+        ctx.rotate(angle * Math.PI / 180);
+
+        areas.forEach((area, index) => {
+            const colorHue = (index * 360 / areas.length + 120) % 360;
+            ctx.fillStyle = `hsla(${colorHue}, 70%, 50%, 0.6)`;
+            
+            for (let i = 0; i < area.nx; i++) {
+                for (let j = 0; j < area.ny; j++) {
+                    const x = (area.start_x + i * area.dx - centerX) * scale;
+                    const y = (area.start_y + j * area.dy - centerY) * scale;
+                    
+                    ctx.beginPath();
+                    ctx.arc(x, y, 2, 0, 2*Math.PI);
+                    ctx.fill();
+                    
+                    // 標記特殊點位
+                    if (i === 0 && j === 0) {
+                        ctx.fillStyle = '#000';
+                        ctx.beginPath();
+                        ctx.arc(x, y, 4, 0, 2*Math.PI);
+                        ctx.fill();
+                    }
+                    if (i === area.nx-1 && j === area.ny-1) {
+                        ctx.fillStyle = 'red';
+                        ctx.beginPath();
+                        ctx.arc(x, y, 4, 0, 2*Math.PI);
+                        ctx.fill();
+                    }
+                }
+            }
+        });
         
         ctx.restore();
     }
 
-    drawLocalAreas(areas) {
-        const ctx = this.previewContext;
-        const centerX = this.previewCanvas.width / 2;
-        const centerY = this.previewCanvas.height / 2;
-        
-        areas.forEach((area, index) => {
-            // 為每個區域使用不同顏色
-            ctx.fillStyle = `hsl(${index * 360 / areas.length}, 70%, 50%)`;
-            
-            // 繪製該區域的所有點位
-            for (let i = 0; i < area.nx; i++) {
-                for (let j = 0; j < area.ny; j++) {
-                    const x = area.start_x + i * area.dx;
-                    const y = area.start_y + j * area.dy;
-                    
-                    ctx.beginPath();
-                    ctx.arc(centerX + x, centerY + y, 2, 0, 2 * Math.PI);
-                    ctx.fill();
-                }
-            }
-        });
-    }
-
-    updatePreviewInfo(areas) {
-        // 計算總點數
+    updatePreviewInfo(centerX, centerY, range, angle, areas) {
         const totalPoints = areas.reduce((sum, area) => sum + area.nx * area.ny, 0);
         
-        // 更新顯示
+        document.getElementById('previewCenter').textContent = `(${centerX}, ${centerY})`;
+        document.getElementById('previewRange').textContent = range;
+        document.getElementById('previewAngle').textContent = angle;
         document.getElementById('previewTotalPoints').textContent = totalPoints;
-        document.getElementById('previewScanRange').textContent = 
-            document.getElementById('scanRange').value;
-        document.getElementById('previewScanAngle').textContent = 
-            document.getElementById('scanAngle').value;
+    }
+
+    updateStatus(message) {
+        document.getElementById('localCitsStatus').textContent = message;
+    }
+
+    updateProgress(value) {
+        document.getElementById('localCitsProgress').textContent = value + '%';
+    }
+
+    updateLastTime() {
+        document.getElementById('localCitsLastTime').textContent = 
+            new Date().toLocaleTimeString();
     }
 
     async startLocalStsCits() {
         try {
             const areas = this.collectLocalAreas();
-            const scanDirection = parseInt(document.getElementById('scanDirection').value);
+            const scanDirection = document.getElementById('scanDirection');
+            
+            if (!scanDirection) {
+                throw new Error('Scan direction parameter not found');
+            }
+            
+            const direction = parseInt(scanDirection.value) || 1;
             
             this.updateStatus('Starting Local CITS...');
             
-            const success = await pywebview.api.start_local_ssts_cits(areas, scanDirection);
+            const success = await pywebview.api.start_local_ssts_cits(areas, direction);
             
             if (success) {
                 this.updateStatus('Local CITS completed successfully');
@@ -1012,17 +1070,23 @@ class LocalCITSControl {
     async startLocalMultiStsCits() {
         try {
             const areas = this.collectLocalAreas();
-            const scanDirection = parseInt(document.getElementById('scanDirection').value);
-            const scriptName = document.getElementById('scriptSelect').value;
+            const scanDirection = document.getElementById('scanDirection');
+            const scriptSelect = document.getElementById('scriptSelect');
             
-            if (!scriptName) {
+            if (!scanDirection || !scriptSelect) {
+                throw new Error('Required parameters not found');
+            }
+            
+            if (!scriptSelect.value) {
                 throw new Error('Please select a Multi-STS script');
             }
+            
+            const direction = parseInt(scanDirection.value) || 1;
             
             this.updateStatus('Starting Local Multi-STS CITS...');
             
             const success = await pywebview.api.start_local_msts_cits(
-                areas, scriptName, scanDirection
+                areas, scriptSelect.value, direction
             );
             
             if (success) {
@@ -1037,22 +1101,9 @@ class LocalCITSControl {
             this.updateStatus('Error: ' + error.message);
         }
     }
-
-    updateStatus(message) {
-        document.getElementById('localCitsStatus').textContent = message;
-    }
-
-    updateProgress(value) {
-        document.getElementById('localCitsProgress').textContent = value + '%';
-    }
-
-    updateLastTime() {
-        document.getElementById('localCitsLastTime').textContent = 
-            new Date().toLocaleTimeString();
-    }
 }
 
-// 在頁面載入時初始化控制器
+// 初始化
 document.addEventListener('DOMContentLoaded', () => {
     window.localCitsControl = new LocalCITSControl();
 });

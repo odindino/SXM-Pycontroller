@@ -196,89 +196,108 @@
                 <h3>Local Area Settings</h3>
         
                 <div id="localCitsPanel">
-                    <div class="local-area-container">
-                        <div class="local-area-row">
-                            <div class="input-field">
-                                <label for="start-x">X Start Position</label>
-                                <div class="input-with-unit">
-                                    <input type="number" id="start-x" class="local-cits-input start-x" value="0" step="0.1">
-                                    <span class="unit">nm</span>
-                                </div>
-                            </div>
-        
-                            <div class="input-field">
-                                <label for="start-y">Y Start Position</label>
-                                <div class="input-with-unit">
-                                    <input type="number" id="start-y" class="local-cits-input start-y" value="0" step="0.1">
-                                    <span class="unit">nm</span>
-                                </div>
-                            </div>
-        
-                            <div class="input-field">
-                                <label for="start-direction">Scan Direction</label>
-                                <select id="start-direction" class="direction-select">
-                                    <option value="1">Up</option>
-                                    <option value="-1">Down</option>
-                                </select>
-                            </div>
-                        </div>
-        
-                        <div class="local-area-row">
-                            <div class="input-field">
-                                <label for="delta-x">Step Size X (ΔX)</label>
-                                <div class="input-with-unit">
-                                    <input type="number" id="delta-x" class="local-cits-input dx" value="10" step="0.1">
-                                    <span class="unit">nm</span>
-                                </div>
-                            </div>
-        
-                            <div class="input-field">
-                                <label for="delta-y">Step Size Y (ΔY)</label>
-                                <div class="input-with-unit">
-                                    <input type="number" id="delta-y" class="local-cits-input dy" value="10" step="0.1">
-                                    <span class="unit">nm</span>
-                                </div>
-                            </div>
-        
-                            <div class="input-field">
-                                <label for="points-x">Points X (Nx)</label>
-                                <input type="number" id="points-x" class="local-cits-input nx" value="5" min="1" max="512">
-                            </div>
-        
-                            <div class="input-field">
-                                <label for="points-y">Points Y (Ny)</label>
-                                <input type="number" id="points-y" class="local-cits-input ny" value="5" min="1" max="512">
-                            </div>
+                    image.png
+Z
+好的，這個分散的js我還沒有執行，現在的程式碼還是全部都在一個檔案的
+我在測試的時後發現幾個問題，
+1. 按下add local area後，按鈕就消失了，這樣不能增加到第三個區域。而按下後產生的第二個區域輸入欄，排版和第一區的輸入欄版型不一樣，這部分要修正
+2. 按下preview沒有產生preview的影像，我目前希望的是看到類似附圖的影像
+3. 按下start local-sts CITS按鈕後，沒有順利執行，跳出錯誤Error: can not read properties of null (reading 'value')
+
+以上三個要再檢查一下，也要看看是否有其他類似的問題，希望可以一併修正，再麻煩您提供完整的程式碼了，謝謝
+
+我理解了您提到的問題。讓我們一一解決這些問題，並提供完整的修正程式碼。
+
+首先是 HTML 的修正：
+
+html
+
+Copy
+<div class="channel-panel">
+    <h2>Local CITS Control</h2>
+
+    <div class="input-group">
+        <h3>Local Area Settings</h3>
+
+        <div id="localCitsPanel">
+            <!-- 區域容器，動態添加的區域會放在這裡 -->
+            <div id="localAreasContainer"></div>
+                
+                <div class="local-area-row">
+                    <div class="input-field">
+                        <label for="start-x">X Start Position</label>
+                        <div class="input-with-unit">
+                            <input type="number" id="start-x" class="local-cits-input start-x" value="0" step="0.1">
+                            <span class="unit">nm</span>
                         </div>
                     </div>
         
-                    <div class="button-group">
-                        <button id="addLocalArea" class="secondary-btn">Add Local Area</button>
-                        <button class="remove-area danger-btn" title="Remove Area">Remove Area</button>
+                    <div class="input-field">
+                        <label for="start-y">Y Start Position</label>
+                        <div class="input-with-unit">
+                            <input type="number" id="start-y" class="local-cits-input start-y" value="0" step="0.1">
+                            <span class="unit">nm</span>
+                        </div>
+                    </div>
+        
+                    <div class="input-field">
+                        <label for="start-direction">Scan Direction</label>
+                        <select id="start-direction" class="direction-select">
+                            <option value="1">Up</option>
+                            <option value="-1">Down</option>
+                        </select>
+                    </div>
+                </div>
+        
+                <div class="local-area-row">
+                    <div class="input-field">
+                        <label for="delta-x">Step Size X (ΔX)</label>
+                        <div class="input-with-unit">
+                            <input type="number" id="delta-x" class="local-cits-input dx" value="10" step="0.1">
+                            <span class="unit">nm</span>
+                        </div>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="delta-y">Step Size Y (ΔY)</label>
+                        <div class="input-with-unit">
+                            <input type="number" id="delta-y" class="local-cits-input dy" value="10" step="0.1">
+                            <span class="unit">nm</span>
+                        </div>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="points-x">Points X (Nx)</label>
+                        <input type="number" id="points-x" class="local-cits-input nx" value="5" min="1" max="512">
+                    </div>
+
+                    <div class="input-field">
+                        <label for="points-y">Points Y (Ny)</label>
+                        <input type="number" id="points-y" class="local-cits-input ny" value="5" min="1" max="512">
                     </div>
                 </div>
             </div>
         
-            <div class="cits-control-buttons">
-                <button id="previewLocalCits" class="primary-btn">
-                    Preview Local CITS
-                </button>
-        
-                <button id="startLocalStsCits" class="primary-btn">
-                    Start Local-STS CITS
-                </button>
-        
-                <button id="startLocalMultiStsCits" class="primary-btn">
-                    Start Local Multi-STS CITS
-                </button>
+            <div class="button-group">
+                <button id="addLocalArea" class="secondary-btn">Add Local Area</button>
+                <button class="remove-area danger-btn" title="Remove Area">Remove Area</button>
             </div>
+        </div>
+    </div>
+        
+    <div class="cits-control-buttons">
+        <button id="previewLocalCits" class="primary-btn">Preview Local CITS</button>
+        <button id="startLocalStsCits" class="primary-btn">Start Local-STS CITS</button>
+        <button id="startLocalMultiStsCits" class="primary-btn">Start Local Multi-STS CITS</button>
+    </div>
         
             <div class="preview-container">
-                <canvas id="previewCanvas" width="400" height="400"></canvas>
+                <canvas id="previewCanvas" width="600" height="600"></canvas>
                 <div class="preview-info">
-                    <div>Scan Range: <span id="previewScanRange">0</span> nm</div>
-                    <div>Scan Angle: <span id="previewScanAngle">0</span>°</div>
-                    <div>Total Points: <span id="previewTotalPoints">0</span></div>
+                    <div>Scan Center: <span id="previewCenter">-</span></div>
+                    <div>Scan Range: <span id="previewRange">-</span> nm</div>
+                    <div>Scan Angle: <span id="previewAngle">-</span>°</div>
+                    <div>Total Points: <span id="previewTotalPoints">-</span></div>
                 </div>
             </div>
         
@@ -286,11 +305,9 @@
                 <div class="status-line">
                     Status: <span id="localCitsStatus">Idle</span>
                 </div>
-        
                 <div class="progress-line">
                     Progress: <span id="localCitsProgress">0%</span>
                 </div>
-        
                 <div class="timestamp">
                     Last CITS: <span id="localCitsLastTime">Never</span>
                 </div>
