@@ -253,22 +253,32 @@ class LocalCITSCalculator:
         return coordinates
 
     @staticmethod
-    def get_scan_axes(scan_angle: float) -> Tuple[np.ndarray, np.ndarray]:
+    def get_scan_axes(scan_angle: float, scan_direction: int) -> Tuple[np.ndarray, np.ndarray]:
         """
         計算掃描的快軸和慢軸方向向量
         
+        Parameters
+        ----------
+        scan_angle : float
+            掃描角度（度）
+        scan_direction : int
+            掃描方向（1: 由下到上, -1: 由上到下）
+
         Returns
         -------
         Tuple[np.ndarray, np.ndarray]
             (慢軸向量, 快軸向量)，都是單位向量
+
         """
         angle_rad = np.radians(scan_angle)
         
-        # 慢軸：和x軸夾角為scan_angle
-        slow_axis = np.array([np.cos(angle_rad), np.sin(angle_rad)])
+        # 快軸：和x軸夾角為scan_angle
+        fast_axis = np.array([np.cos(angle_rad), np.sin(angle_rad)])
         
-        # 快軸：慢軸逆時針旋轉90度
-        fast_axis = np.array([-np.sin(angle_rad), np.cos(angle_rad)])
+        # 慢軸：慢軸逆時針旋轉90度
+        slow_axis = np.array([-np.sin(angle_rad), np.cos(angle_rad)])
+        if scan_direction == -1:
+            slow_axis = -slow_axis
         
         return slow_axis, fast_axis
 
@@ -296,19 +306,34 @@ class LocalCITSCalculator:
         fast_proj = np.round(fast_proj / precision) * precision
         slow_proj = np.round(slow_proj / precision) * precision
         
+        # # 建立複合排序鍵
+        # # 首先依據快軸線上的群組進行排序
+        # fast_groups = np.unique(fast_proj)
+        # sorted_indices = []
+
         # 建立複合排序鍵
-        # 首先依據快軸線上的群組進行排序
-        fast_groups = np.unique(fast_proj)
+        # 首先依據慢軸線上的群組進行排序
+        slow_groups = np.unique(slow_proj)
         sorted_indices = []
         
-        for fast_val in fast_groups:
-            # 找出在同一快軸線上的點
-            group_mask = (fast_proj == fast_val)
+        # for fast_val in fast_groups:
+        #     # 找出在同一快軸線上的點
+        #     group_mask = (fast_proj == fast_val)
+        #     group_indices = np.where(group_mask)[0]
+            
+        #     # 依據慢軸投影值排序同一快軸線上的點
+        #     group_slow_proj = slow_proj[group_indices]
+        #     group_sorted = group_indices[np.argsort(group_slow_proj)]
+        #     sorted_indices.extend(group_sorted)
+
+        for slow_val in slow_groups:
+            # 找出在同一慢軸線上的點
+            group_mask = (slow_proj == slow_val)
             group_indices = np.where(group_mask)[0]
             
-            # 依據慢軸投影值排序同一快軸線上的點
-            group_slow_proj = slow_proj[group_indices]
-            group_sorted = group_indices[np.argsort(group_slow_proj)]
+            # 依據快軸投影值排序同一慢軸線上的點
+            group_fast_proj = fast_proj[group_indices]
+            group_sorted = group_indices[np.argsort(group_fast_proj)]
             sorted_indices.extend(group_sorted)
         
         return coordinates[sorted_indices]
@@ -329,7 +354,7 @@ class LocalCITSCalculator:
         Returns 增加了快慢軸方向向量
         """
         # 獲取快慢軸方向
-        slow_axis, fast_axis = LocalCITSCalculator.get_scan_axes(scan_angle)
+        slow_axis, fast_axis = LocalCITSCalculator.get_scan_axes(scan_angle, scan_direction)
         
         # 收集並組合所有區域的座標
         coordinates = np.concatenate([
@@ -454,7 +479,7 @@ class LocalCITSCalculator:
 
             if scan_direction == -1:
                 scanline_distribution = scanline_distribution[::-1]
-                coordinate_distribution = coordinate_distribution[::-1]
+                # coordinate_distribution = coordinate_distribution[::-1]
             print("total_coordinates: ", total_coordinates)
 
             return scanline_distribution, coordinate_distribution

@@ -69,6 +69,7 @@ class LocalCITSVisualizer:
             params['scan_center_y'],
             params['scan_range'],
             params['scan_angle'],
+            params['scan_direction'],
             scanline_info
         )
         self._plot_measurement_sequence(coordinates)
@@ -76,13 +77,14 @@ class LocalCITSVisualizer:
             params['scan_center_x'],
             params['scan_center_y'],
             slow_axis,
-            fast_axis
+            fast_axis,
+            params['scan_direction']
         )
         
         # 設定圖表屬性和資訊
         self._set_plot_properties(params)
         self._print_coordinates_info(coordinates)
-        
+        self._plot_coordinates_with_index(coordinates)
         plt.show()
 
     def _draw_scan_area(self, params: dict) -> None:
@@ -116,7 +118,7 @@ class LocalCITSVisualizer:
                 'r+', markersize=10, label='Scan Center')
 
     def _draw_scanlines(self, center_x: float, center_y: float, 
-                   scan_range: float, angle: float, 
+                   scan_range: float, angle: float, scan_direction: int,
                    scanline_info: Tuple[List[int], List[np.ndarray]],
                    color: str = 'gray',
                    alpha: float = 0.5) -> None:
@@ -151,9 +153,14 @@ class LocalCITSVisualizer:
         half_range = scan_range / 2
         total_lines = sum(scanline_distribution)  # 現在可以正確計算總線數
         line_spacing = scan_range / total_lines
-        
+        if scan_direction == -1:
+            line_spacing *= -1
+
         # 繪製每條掃描線
         current_y = -half_range
+        if scan_direction == -1:
+            current_y = half_range
+
         for step_count in scanline_distribution:
             # 計算線的起點和終點
             start_x = -half_range
@@ -190,9 +197,14 @@ class LocalCITSVisualizer:
                 markersize=10, label='Last Point')
 
     def _plot_scan_axes(self, center_x: float, center_y: float, 
-                       slow_axis: np.ndarray, fast_axis: np.ndarray,
+                       slow_axis: np.ndarray, fast_axis: np.ndarray, 
+                       scan_direction: int = 1,
                        scale: float = 100) -> None:
         """繪製掃描軸方向"""
+        # if scan_direction == -1:
+        #     slow_axis[0] *= -1
+        #     fast_axis[1] *= -1
+
         plt.arrow(center_x, center_y, 
                  slow_axis[0] * scale, slow_axis[1] * scale,
                  color='blue', width=2, head_width=10,
@@ -246,6 +258,14 @@ class LocalCITSVisualizer:
         for i, (x, y) in enumerate(coordinates):
             print(f"Point {i+1}: ({x:.2f}, {y:.2f})")
 
+    def _plot_coordinates_with_index(self, coordinates, sample_indices=[-1, -2, -3]):
+        """在特定點位標示序號，方便檢查排序結果"""
+        for idx in sample_indices:
+            plt.annotate(f'P{len(coordinates)+idx}', 
+                        coordinates[idx],
+                        xytext=(5, 5), 
+                        textcoords='offset points')
+
 def main():
     """主測試函數"""
     # 測試參數設定
@@ -253,9 +273,9 @@ def main():
         'scan_center_x': 250,
         'scan_center_y': 250,
         'scan_range': 500,
-        'scan_angle': 90,
+        'scan_angle': 00,
         'total_lines': 500,
-        'scan_direction': -1,
+        'scan_direction': 1,
         'local_areas': [
             LocalCITSParams(
                 start_x=123, start_y=123,
