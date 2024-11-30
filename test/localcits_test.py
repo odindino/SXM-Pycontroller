@@ -275,10 +275,10 @@ def main():
         'scan_range': 500,
         'scan_angle': 00,
         'total_lines': 500,
-        'scan_direction': 1,
+        'scan_direction': -1,
         'local_areas': [
             LocalCITSParams(
-                start_x=123, start_y=123,
+                start_x=125, start_y=125,
                 dx=0.5, dy=0.5,
                 nx=5, ny=20,
                 startpoint_direction=1

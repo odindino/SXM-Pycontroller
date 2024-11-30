@@ -276,9 +276,7 @@ class LocalCITSCalculator:
         fast_axis = np.array([np.cos(angle_rad), np.sin(angle_rad)])
         
         # 慢軸：慢軸逆時針旋轉90度
-        slow_axis = np.array([-np.sin(angle_rad), np.cos(angle_rad)])
-        if scan_direction == -1:
-            slow_axis = -slow_axis
+        slow_axis = np.array([-np.sin(angle_rad), np.cos(angle_rad)])*scan_direction
         
         return slow_axis, fast_axis
 
@@ -305,26 +303,11 @@ class LocalCITSCalculator:
         precision = 1e-10
         fast_proj = np.round(fast_proj / precision) * precision
         slow_proj = np.round(slow_proj / precision) * precision
-        
-        # # 建立複合排序鍵
-        # # 首先依據快軸線上的群組進行排序
-        # fast_groups = np.unique(fast_proj)
-        # sorted_indices = []
 
         # 建立複合排序鍵
         # 首先依據慢軸線上的群組進行排序
         slow_groups = np.unique(slow_proj)
         sorted_indices = []
-        
-        # for fast_val in fast_groups:
-        #     # 找出在同一快軸線上的點
-        #     group_mask = (fast_proj == fast_val)
-        #     group_indices = np.where(group_mask)[0]
-            
-        #     # 依據慢軸投影值排序同一快軸線上的點
-        #     group_slow_proj = slow_proj[group_indices]
-        #     group_sorted = group_indices[np.argsort(group_slow_proj)]
-        #     sorted_indices.extend(group_sorted)
 
         for slow_val in slow_groups:
             # 找出在同一慢軸線上的點
@@ -368,11 +351,6 @@ class LocalCITSCalculator:
         coordinates = LocalCITSCalculator.sort_coordinates_by_scan_direction(
             coordinates, slow_axis, fast_axis
         )
-
-        # check scan_direction
-        # scan_direction = local_areas[0].scan_direction
-        # if scan_direction == -1:
-        #     coordinates = coordinates[::-1]
         
         # 移除重複點
         sorted_coordinates = coordinates.tolist()
@@ -397,93 +375,144 @@ class LocalCITSCalculator:
         center_y: float,
         angle: float,
         scan_range: float,
-        scan_direction: int,
-        total_lines: int
+        scan_direction: int = 1,
+        total_lines: int = 500
     ) -> Tuple[List[int], List[np.ndarray]]:
         """
-        計算局部 CITS 的掃描線分布，考慮掃描角度的投影
+        Calculate scanline distribution and coordinate grouping based on slow axis projection
+        
+        This function determines how many scanlines should be performed between STS measurements
+        by projecting measurement points onto the slow axis and grouping them by their positions.
+        
+        Parameters
+        ----------
+        coordinates : np.ndarray
+            Array of measurement coordinates (N x 2)
+        center_x, center_y : float
+            Scan center position
+        angle : float
+            Scan angle in degrees
+        scan_range : float
+            Total scan range in nm
+        scan_direction : int
+            Scan direction (1: bottom to top, -1: top to bottom)
+        total_lines : int
+            Total number of scan lines
+            
+        Returns
+        -------
+        Tuple[List[int], List[np.ndarray]]
+            - List of scanline counts between STS measurements
+            - List of coordinate arrays for each STS measurement position
         """
         try:
-            # 1. 基本參數計算
+            # Convert angle to radians and calculate slow axis unit vector
             angle_rad = np.radians(angle)
-            cos_angle = np.cos(angle_rad)
-            sin_angle = np.sin(angle_rad)
-            line_spacing = scan_range / total_lines
-            half_range = scan_range / 2
-
-            # 2. 計算每個點在掃描方向上的投影位置
-            local_indices = []
-            sorted_coordinates = []
+            slow_axis = np.array([
+                -np.sin(angle_rad),
+                np.cos(angle_rad)
+            ]) * scan_direction
             
-            # 旋轉矩陣（逆時針旋轉-angle度）
-            rot_matrix = np.array([
-                [cos_angle, sin_angle],
-                [-sin_angle, cos_angle]
-            ])
+            # Translate coordinates to origin
+            translated_coords = coordinates - np.array([center_x, center_y])
             
-            # 計算每個點的投影
-            for coord in coordinates:
-                # 相對於中心的位置
-                rel_pos = coord - np.array([center_x, center_y])
-                # 旋轉到掃描座標系
-                rot_pos = np.dot(rot_matrix, rel_pos)
-                # 計算掃描線索引（使用y座標）
-                line_idx = int((rot_pos[1] + half_range) / line_spacing)
-                if 0 <= line_idx < total_lines:
-                    local_indices.append(line_idx)
-                    sorted_coordinates.append(coord)
-
-            # 3. 將點按照掃描線排序
-            if local_indices:
-                sort_idx = np.argsort(local_indices)
-                local_indices = np.array(local_indices)[sort_idx]
-                sorted_coordinates = np.array(sorted_coordinates)[sort_idx]
+            # Project points onto slow axis
+            projections = np.dot(translated_coords, slow_axis)
             
-                # 4. 找出唯一的掃描線位置
-                unique_lines = np.unique(local_indices)
-                
-                # 5. 生成掃描線分布
-                if len(unique_lines) > 1:
-                    # 從底部到第一條線
-                    scanline_distribution = [unique_lines[0]]
-                    # 相鄰線之間的間隔
-                    scanline_distribution.extend(np.diff(unique_lines))
-                    # 最後一條線到頂部
-                    scanline_distribution.append(total_lines - 1 - unique_lines[-1])
+            # Scale projections to match scan line numbers
+            # Map from [-scan_range/2, scan_range/2] to [0, total_lines]
+            scaled_projections = (projections + scan_range/2) * (total_lines/scan_range)
+            scan_positions = np.floor(scaled_projections).astype(int)
+            
+            # Sort coordinates by their scan line positions
+            sorted_indices = np.argsort(scan_positions)
+            sorted_positions = scan_positions[sorted_indices]
+            sorted_coords = coordinates[sorted_indices]
+            
+            # Initialize results
+            scanline_distribution = []
+            coordinate_distribution = []
+            
+            # Process points in groups
+            current_line = 0
+            current_group = []
+            
+            for i, pos in enumerate(sorted_positions):
+                if len(current_group) == 0:
+                    # Start new group
+                    steps = pos - current_line
+                    if steps > 0:
+                        scanline_distribution.append(steps)
+                    current_line = pos
+                    current_group = [sorted_coords[i]]
+                elif pos == current_line:
+                    # Add to current group
+                    current_group.append(sorted_coords[i])
                 else:
-                    scanline_distribution = [total_lines - 1]
-
-                # 6. 按掃描線分組座標點
-                coordinate_distribution = []
-                prev_idx = None
-                current_group = []
-                
-                for i, line_idx in enumerate(local_indices):
-                    if prev_idx is None or line_idx == prev_idx:
-                        current_group.append(sorted_coordinates[i])
-                    else:
-                        coordinate_distribution.append(np.array(current_group))
-                        current_group = [sorted_coordinates[i]]
-                    prev_idx = line_idx
-                    
-                if current_group:
+                    # Save current group and start new one
                     coordinate_distribution.append(np.array(current_group))
-            else:
-                scanline_distribution = [total_lines - 1]
-                coordinate_distribution = []
+                    steps = pos - current_line
+                    scanline_distribution.append(steps)
+                    current_line = pos
+                    current_group = [sorted_coords[i]]
+            
+            # Handle last group
+            if current_group:
+                coordinate_distribution.append(np.array(current_group))
+                
+            # Add remaining lines to reach total_lines
+            remaining_lines = total_lines - current_line
+            if remaining_lines > 0:
+                scanline_distribution.append(remaining_lines)
 
-            total_coordinates = 0
-            for i in range(len(coordinate_distribution)):
-                print(f"coordinate_distribution[{i}]: ", len(coordinate_distribution[i]))
-                total_coordinates += len(coordinate_distribution[i])
-
-            if scan_direction == -1:
-                scanline_distribution = scanline_distribution[::-1]
-                # coordinate_distribution = coordinate_distribution[::-1]
-            print("total_coordinates: ", total_coordinates)
-
+            # 在返回結果之前，執行驗證檢查
+            # 1. 檢查點數總和
+            total_coords_in_distribution = sum(len(coords) for coords in coordinate_distribution)
+            if total_coords_in_distribution != len(coordinates):
+                raise ValueError(
+                    f"Coordinate count mismatch: "
+                    f"Original={len(coordinates)}, "
+                    f"Distributed={total_coords_in_distribution}"
+                )
+                
+            # 2. 檢查分布段數與掃描線列表的對應關係
+            if len(coordinate_distribution) != len(scanline_distribution) - 1:
+                raise ValueError(
+                    f"Distribution length mismatch: "
+                    f"Coordinates={len(coordinate_distribution)}, "
+                    f"Scanlines={len(scanline_distribution)}, "
+                    f"Expected Scanlines={len(coordinate_distribution) + 1}"
+                )
+                
+            # 3. 檢查掃描線總數
+            total_scanlines = sum(scanline_distribution)
+            if total_scanlines != total_lines:
+                raise ValueError(
+                    f"Total scanlines mismatch: "
+                    f"Calculated={total_scanlines}, "
+                    f"Expected={total_lines}"
+                )
+                
+            if total_scanlines > total_lines:
+                raise ValueError(
+                    f"Total scanlines exceeds limit: "
+                    f"Calculated={total_scanlines}, "
+                    f"Limit={total_lines}"
+                )
+                
+            # 如果所有檢查都通過，則輸出驗證訊息
+            print("\nValidation Results:")
+            print(f"Total coordinates: Original={len(coordinates)}, "
+                f"Distributed={total_coords_in_distribution}")
+            print(f"Distribution segments: Coordinates={len(coordinate_distribution)}, "
+                f"Scanlines={len(scanline_distribution)}")
+            print(f"Total scanlines: Calculated={total_scanlines}, "
+                f"Expected={total_lines}")
+            
             return scanline_distribution, coordinate_distribution
-
+                
+            return scanline_distribution, coordinate_distribution
+            
         except Exception as e:
             print(f"Error in calculate_local_scanline_distribution: {str(e)}")
             raise
