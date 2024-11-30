@@ -319,6 +319,8 @@ class LocalCITSCalculator:
         scan_center_y: float,
         scan_range: float,
         scan_angle: float,
+        total_lines: int,
+        scan_direction: int,
         local_areas: List[LocalCITSParams]
     ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, Tuple[np.ndarray, np.ndarray]]:
         """
@@ -341,6 +343,11 @@ class LocalCITSCalculator:
         coordinates = LocalCITSCalculator.sort_coordinates_by_scan_direction(
             coordinates, slow_axis, fast_axis
         )
+
+        # check scan_direction
+        # scan_direction = local_areas[0].scan_direction
+        # if scan_direction == -1:
+        #     coordinates = coordinates[::-1]
         
         # 移除重複點
         sorted_coordinates = coordinates.tolist()
@@ -350,157 +357,112 @@ class LocalCITSCalculator:
                 unique_coordinates.append(coord)
         coordinates = np.array(unique_coordinates)
         
+        
         # 產生掃描線的起點和終點
         start_points = coordinates[:-1]
         end_points = coordinates[1:]
         
         return coordinates, start_points, end_points, (slow_axis, fast_axis)
 
-    @staticmethod
-    def validate_local_area(
-            scan_center_x: float,
-            scan_center_y: float,
-            scan_range: float,
-            start_x: float,
-            start_y: float,
-            dx: float,
-            dy: float,
-            nx: int,
-            ny: int,
-            scan_angle: float) -> bool:
-        """
-        Validate if the local CITS area is within scan range.
-        
-        Parameters
-        ----------
-        Same as calculate_local_cits_coordinates
-        
-        Returns
-        -------
-        bool
-            True if local area is valid, False otherwise
-            
-        Notes
-        -----
-        This method checks if all corner points of the measurement
-        area fall within the scan range after rotation.
-        """
-        # Create test coordinates
-        coords, _, _ = LocalCITSCalculator.calculate_local_cits_coordinates(
-            scan_center_x, scan_center_y, scan_range, scan_angle,
-            start_x, start_y, dx, dy, nx, ny
-        )
-        
-        # Calculate scan area bounds
-        half_range = scan_range / 2
-        min_x = scan_center_x - half_range
-        max_x = scan_center_x + half_range
-        min_y = scan_center_y - half_range
-        max_y = scan_center_y + half_range
-        
-        # Check if all points are within bounds
-        x_coords = coords[:, :, 0].flatten()
-        y_coords = coords[:, :, 1].flatten()
-        
-        return (np.all(x_coords >= min_x) and np.all(x_coords <= max_x) and
-                np.all(y_coords >= min_y) and np.all(y_coords <= max_y))
-    
-    @staticmethod
-    def validate_combined_areas(
-            scan_center_x: float,
-            scan_center_y: float,
-            scan_range: float,
-            scan_angle: float,
-            local_areas: List[LocalCITSParams]) -> List[bool]:
-        """
-        Validate all local CITS areas.
-        
-        Parameters
-        ----------
-        Same as combi_local_cits_coordinates
-        
-        Returns
-        -------
-        List[bool]
-            Validation result for each area
-        """
-        validation_results = []
-        
-        for area in local_areas:
-            is_valid = LocalCITSCalculator.validate_local_area(
-                scan_center_x=scan_center_x,
-                scan_center_y=scan_center_y,
-                scan_range=scan_range,
-                scan_angle=scan_angle,
-                start_x=area.start_x,
-                start_y=area.start_y,
-                dx=area.dx,
-                dy=area.dy,
-                nx=area.nx,
-                ny=area.ny
-            )
-            validation_results.append(is_valid)
-            
-        return validation_results
     
     @staticmethod
     def calculate_local_scanline_distribution(
         coordinates: np.ndarray,
-        scan_center_x: float,
-        scan_center_y: float,
-        scan_angle: float,
+        center_x: float,
+        center_y: float,
+        angle: float,
         scan_range: float,
+        scan_direction: int,
         total_lines: int
     ) -> Tuple[List[int], List[np.ndarray]]:
         """
-        計算Local CITS量測時的掃描線分布及對應的量測點分布
+        計算局部 CITS 的掃描線分布，考慮掃描角度的投影
         """
         try:
-            # 計算基本參數
-            angle_rad = np.radians(scan_angle)
-            slow_axis = np.array([-np.sin(angle_rad), np.cos(angle_rad)])
-            scan_step = scan_range / total_lines
+            # 1. 基本參數計算
+            angle_rad = np.radians(angle)
+            cos_angle = np.cos(angle_rad)
+            sin_angle = np.sin(angle_rad)
+            line_spacing = scan_range / total_lines
+            half_range = scan_range / 2
+
+            # 2. 計算每個點在掃描方向上的投影位置
+            local_indices = []
+            sorted_coordinates = []
             
-            # 計算所有點在慢軸上的投影位置
-            coords_centered = coordinates - np.array([scan_center_x, scan_center_y])
-            projections = np.dot(coords_centered, slow_axis)
+            # 旋轉矩陣（逆時針旋轉-angle度）
+            rot_matrix = np.array([
+                [cos_angle, sin_angle],
+                [-sin_angle, cos_angle]
+            ])
             
-            # 找出CITS區域範圍
-            min_proj = np.min(projections)
-            max_proj = np.max(projections)
+            # 計算每個點的投影
+            for coord in coordinates:
+                # 相對於中心的位置
+                rel_pos = coord - np.array([center_x, center_y])
+                # 旋轉到掃描座標系
+                rot_pos = np.dot(rot_matrix, rel_pos)
+                # 計算掃描線索引（使用y座標）
+                line_idx = int((rot_pos[1] + half_range) / line_spacing)
+                if 0 <= line_idx < total_lines:
+                    local_indices.append(line_idx)
+                    sorted_coordinates.append(coord)
+
+            # 3. 將點按照掃描線排序
+            if local_indices:
+                sort_idx = np.argsort(local_indices)
+                local_indices = np.array(local_indices)[sort_idx]
+                sorted_coordinates = np.array(sorted_coordinates)[sort_idx]
             
-            # 計算起始步數（到達第一個量測點前的距離）
-            start_steps = int(np.floor((min_proj - (-scan_range/2)) / scan_step))
-            
-            # 初始化結果
-            scanline_distribution = []
-            coordinate_distribution = []
-            
-            # 添加初始移動步數
-            if start_steps > 0:
-                scanline_distribution.append(start_steps)
+                # 4. 找出唯一的掃描線位置
+                unique_lines = np.unique(local_indices)
                 
-            # 在投影軸上依序處理每個測量位置
-            current_pos = -scan_range/2 + start_steps * scan_step
-            while current_pos < max_proj:
-                # 找出在當前掃描線位置的所有點
-                mask = np.abs(projections - current_pos) < scan_step/2
-                if np.any(mask):
-                    points = coordinates[mask]
-                    scanline_distribution.append(1)
-                    coordinate_distribution.append(points)
-                current_pos += scan_step
+                # 5. 生成掃描線分布
+                if len(unique_lines) > 1:
+                    # 從底部到第一條線
+                    scanline_distribution = [unique_lines[0]]
+                    # 相鄰線之間的間隔
+                    scanline_distribution.extend(np.diff(unique_lines))
+                    # 最後一條線到頂部
+                    scanline_distribution.append(total_lines - 1 - unique_lines[-1])
+                else:
+                    scanline_distribution = [total_lines - 1]
+
+                # 6. 按掃描線分組座標點
+                coordinate_distribution = []
+                prev_idx = None
+                current_group = []
                 
-            # 添加結束移動步數
-            remaining_steps = total_lines - sum(scanline_distribution)
-            if remaining_steps > 0:
-                scanline_distribution.append(remaining_steps)
-                
+                for i, line_idx in enumerate(local_indices):
+                    if prev_idx is None or line_idx == prev_idx:
+                        current_group.append(sorted_coordinates[i])
+                    else:
+                        coordinate_distribution.append(np.array(current_group))
+                        current_group = [sorted_coordinates[i]]
+                    prev_idx = line_idx
+                    
+                if current_group:
+                    coordinate_distribution.append(np.array(current_group))
+            else:
+                scanline_distribution = [total_lines - 1]
+                coordinate_distribution = []
+
+            total_coordinates = 0
+            for i in range(len(coordinate_distribution)):
+                print(f"coordinate_distribution[{i}]: ", len(coordinate_distribution[i]))
+                total_coordinates += len(coordinate_distribution[i])
+
+            if scan_direction == -1:
+                scanline_distribution = scanline_distribution[::-1]
+                coordinate_distribution = coordinate_distribution[::-1]
+            print("total_coordinates: ", total_coordinates)
+
             return scanline_distribution, coordinate_distribution
-            
+
         except Exception as e:
-            print(f"計算掃描線分布時發生錯誤: {str(e)}")
-            return [total_lines], [coordinates]
+            print(f"Error in calculate_local_scanline_distribution: {str(e)}")
+            raise
+    
 
     @staticmethod    
     def _normalize_coordinates(

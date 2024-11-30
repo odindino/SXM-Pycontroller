@@ -45,6 +45,8 @@ class LocalCITSVisualizer:
             params['scan_center_y'],
             params['scan_range'],
             params['scan_angle'],
+            params['total_lines'],
+            params['scan_direction'],
             params['local_areas']
         )
         
@@ -55,7 +57,9 @@ class LocalCITSVisualizer:
             params['scan_center_y'],
             params['scan_angle'],
             params['scan_range'],
+            params['scan_direction'],
             params['total_lines']
+            
         )
         
         # 繪製各個圖層
@@ -138,6 +142,7 @@ class LocalCITSVisualizer:
         scanline_distribution, coordinate_distribution = scanline_info  # 解構元組
         print("scanline_distribution: ", scanline_distribution)
         print("coordinate_distribution: ", coordinate_distribution)
+        print(np.shape(coordinate_distribution))
         
         angle_rad = np.radians(angle)
         cos_angle = np.cos(angle_rad)
@@ -248,30 +253,28 @@ def main():
         'scan_center_x': 250,
         'scan_center_y': 250,
         'scan_range': 500,
-        'scan_angle': 30,
+        'scan_angle': 90,
         'total_lines': 500,
+        'scan_direction': -1,
         'local_areas': [
             LocalCITSParams(
-                start_x=125, start_y=125,
+                start_x=123, start_y=123,
                 dx=0.5, dy=0.5,
-                nx=20, ny=20,
-                scan_direction=1,
+                nx=5, ny=20,
                 startpoint_direction=1
             ),
-            # LocalCITSParams(
-            #     start_x=125, start_y=125,
-            #     dx=20, dy=20,
-            #     nx=5, ny=5,
-            #     scan_direction=1,
-            #     startpoint_direction=-1
-            # ),
-            # LocalCITSParams(
-            #     start_x=230, start_y=180,
-            #     dx=30, dy=30,
-            #     nx=3, ny=3,
-            #     scan_direction=1,
-            #     startpoint_direction=-1
-            # )
+            LocalCITSParams(
+                start_x=125, start_y=125,
+                dx=20, dy=20,
+                nx=5, ny=5,
+                startpoint_direction=-1
+            ),
+            LocalCITSParams(
+                start_x=230, start_y=180,
+                dx=40, dy=40,
+                nx=3, ny=3,
+                startpoint_direction=-1
+            )
         ]
     }
     
