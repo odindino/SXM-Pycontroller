@@ -820,56 +820,60 @@ class LocalCITSControl {
         const container = document.createElement('div');
         container.className = 'local-area-container';
         container.innerHTML = `
-            <div class="local-area-row">
-                <div class="input-field">
-                    <label>X Start Position</label>
-                    <div class="input-with-unit">
-                        <input type="number" class="local-cits-input start-x" value="200" step="0.1">
-                        <span class="unit">nm</span>
+            <div class="local-area-grid">
+                <div class="input-row">
+                    <div class="input-field">
+                        <label>X Start Position</label>
+                        <div class="input-with-unit">
+                            <input type="number" class="local-cits-input start-x" value="200" step="0.1">
+                            <span class="unit">nm</span>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label>Y Start Position</label>
+                        <div class="input-with-unit">
+                            <input type="number" class="local-cits-input start-y" value="200" step="0.1">
+                            <span class="unit">nm</span>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label>Start Point Direction</label>
+                        <select class="startpoint-direction-select">
+                            <option value="1">Up</option>
+                            <option value="-1">Down</option>
+                        </select>
                     </div>
                 </div>
-                <div class="input-field">
-                    <label>Y Start Position</label>
-                    <div class="input-with-unit">
-                        <input type="number" class="local-cits-input start-y" value="200" step="0.1">
-                        <span class="unit">nm</span>
+                <div class="parameters-row">
+                    <div class="input-field">
+                        <label>Step Size X (ΔX)</label>
+                        <div class="input-with-unit">
+                            <input type="number" class="local-cits-input dx" value="20" step="0.1">
+                            <span class="unit">nm</span>
+                        </div>
                     </div>
-                </div>
-                <div class="input-field">
-                    <label>Scan Direction</label>
-                    <select class="direction-select">
-                        <option value="1">Up</option>
-                        <option value="-1">Down</option>
-                    </select>
+                    <div class="input-field">
+                        <label>Step Size Y (ΔY)</label>
+                        <div class="input-with-unit">
+                            <input type="number" class="local-cits-input dy" value="20" step="0.1">
+                            <span class="unit">nm</span>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label>Points X (Nx)</label>
+                        <input type="number" class="local-cits-input nx" value="5" min="1" max="512">
+                    </div>
+                    <div class="input-field">
+                        <label>Points Y (Ny)</label>
+                        <input type="number" class="local-cits-input ny" value="3" min="1" max="512">
+                    </div>
                 </div>
             </div>
-            <div class="local-area-row">
-                <div class="input-field">
-                    <label>Step Size X (ΔX)</label>
-                    <div class="input-with-unit">
-                        <input type="number" class="local-cits-input dx" value="20" step="0.1">
-                        <span class="unit">nm</span>
-                    </div>
-                </div>
-                <div class="input-field">
-                    <label>Step Size Y (ΔY)</label>
-                    <div class="input-with-unit">
-                        <input type="number" class="local-cits-input dy" value="20" step="0.1">
-                        <span class="unit">nm</span>
-                    </div>
-                </div>
-                <div class="input-field">
-                    <label>Points X (Nx)</label>
-                    <input type="number" class="local-cits-input nx" value="5" min="1" max="512">
-                </div>
-                <div class="input-field">
-                    <label>Points Y (Ny)</label>
-                    <input type="number" class="local-cits-input ny" value="3" min="1" max="512">
-                </div>
+            <div class="area-controls">
+                <button class="danger-btn remove-area">Remove Area</button>
             </div>
-            <button class="remove-area danger-btn" title="Remove Area">Remove Area</button>
         `;
-
+    
         document.getElementById('localAreasContainer').appendChild(container);
     }
 
@@ -892,7 +896,7 @@ class LocalCITSControl {
                 dy: parseFloat(container.querySelector('.dy').value),
                 nx: parseInt(container.querySelector('.nx').value),
                 ny: parseInt(container.querySelector('.ny').value),
-                startpoint_direction: parseInt(container.querySelector('.direction-select').value)
+                startpoint_direction: parseInt(container.querySelector('.startpoint-direction-select').value)
             });
         });
         return areas;
@@ -1042,17 +1046,14 @@ class LocalCITSControl {
     async startLocalStsCits() {
         try {
             const areas = this.collectLocalAreas();
-            const scanDirection = document.getElementById('scanDirection');
-            
-            if (!scanDirection) {
-                throw new Error('Scan direction parameter not found');
-            }
-            
-            const direction = parseInt(scanDirection.value) || 1;
+            const globalScanDirection = parseInt(document.getElementById('globalScanDirection').value);
             
             this.updateStatus('Starting Local CITS...');
             
-            const success = await pywebview.api.start_local_ssts_cits(areas, direction);
+            const success = await pywebview.api.start_local_ssts_cits(
+                areas, 
+                globalScanDirection
+            );
             
             if (success) {
                 this.updateStatus('Local CITS completed successfully');
@@ -1070,10 +1071,10 @@ class LocalCITSControl {
     async startLocalMultiStsCits() {
         try {
             const areas = this.collectLocalAreas();
-            const scanDirection = document.getElementById('scanDirection');
+            const globalScanDirection = parseInt(document.getElementById('globalScanDirection').value);
             const scriptSelect = document.getElementById('scriptSelect');
             
-            if (!scanDirection || !scriptSelect) {
+            if (!globalScanDirection || !scriptSelect) {
                 throw new Error('Required parameters not found');
             }
             
@@ -1081,12 +1082,10 @@ class LocalCITSControl {
                 throw new Error('Please select a Multi-STS script');
             }
             
-            const direction = parseInt(scanDirection.value) || 1;
-            
             this.updateStatus('Starting Local Multi-STS CITS...');
             
             const success = await pywebview.api.start_local_msts_cits(
-                areas, scriptSelect.value, direction
+                areas, scriptSelect.value, globalScanDirection
             );
             
             if (success) {

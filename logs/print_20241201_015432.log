@@ -1,0 +1,2739 @@
+2024-12-01 01:54:32,223 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:54:33,399 - Response: b'f1\r\n'
+2024-12-01 01:54:33,399 - Scanning: forward line 1
+2024-12-01 01:54:35,740 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:54:36,077 - Response: b'f2\r\n'
+2024-12-01 01:54:36,077 - Scanning: forward line 2
+2024-12-01 01:54:38,406 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:54:38,745 - Response: b'f3\r\n'
+2024-12-01 01:54:38,745 - Scanning: forward line 3
+2024-12-01 01:54:41,090 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:54:41,442 - Response: b'f4\r\n'
+2024-12-01 01:54:41,442 - Scanning: forward line 4
+2024-12-01 01:54:43,786 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:54:44,134 - Response: b'f5\r\n'
+2024-12-01 01:54:44,134 - Scanning: forward line 5
+2024-12-01 01:54:46,480 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:54:46,832 - Response: b'f6\r\n'
+2024-12-01 01:54:46,833 - Scanning: forward line 6
+2024-12-01 01:54:49,178 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:54:49,529 - Response: b'f7\r\n'
+2024-12-01 01:54:49,530 - Scanning: forward line 7
+2024-12-01 01:54:51,867 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:54:52,203 - Response: b'f8\r\n'
+2024-12-01 01:54:52,203 - Scanning: forward line 8
+2024-12-01 01:54:54,533 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:54:54,873 - Response: b'f9\r\n'
+2024-12-01 01:54:54,873 - Scanning: forward line 9
+2024-12-01 01:54:57,209 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:54:57,558 - Response: b'f10\r\n'
+2024-12-01 01:54:57,558 - Scanning: forward line 10
+2024-12-01 01:54:59,888 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:00,223 - Response: b'f11\r\n'
+2024-12-01 01:55:00,223 - Scanning: forward line 11
+2024-12-01 01:55:02,555 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:02,904 - Response: b'f12\r\n'
+2024-12-01 01:55:02,904 - Scanning: forward line 12
+2024-12-01 01:55:05,242 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:05,591 - Response: b'f13\r\n'
+2024-12-01 01:55:05,592 - Scanning: forward line 13
+2024-12-01 01:55:07,930 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:08,265 - Response: b'f14\r\n'
+2024-12-01 01:55:08,265 - Scanning: forward line 14
+2024-12-01 01:55:10,595 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:10,936 - Response: b'f15\r\n'
+2024-12-01 01:55:10,936 - Scanning: forward line 15
+2024-12-01 01:55:13,288 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:13,635 - Response: b'f16\r\n'
+2024-12-01 01:55:13,636 - Scanning: forward line 16
+2024-12-01 01:55:15,982 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:16,332 - Response: b'f17\r\n'
+2024-12-01 01:55:16,332 - Scanning: forward line 17
+2024-12-01 01:55:18,674 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:19,024 - Response: b'f18\r\n'
+2024-12-01 01:55:19,024 - Scanning: forward line 18
+2024-12-01 01:55:21,368 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:21,721 - Response: b'f19\r\n'
+2024-12-01 01:55:21,721 - Scanning: forward line 19
+2024-12-01 01:55:24,065 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:24,415 - Response: b'f20\r\n'
+2024-12-01 01:55:24,416 - Scanning: forward line 20
+2024-12-01 01:55:26,767 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:27,114 - Response: b'f21\r\n'
+2024-12-01 01:55:27,114 - Scanning: forward line 21
+2024-12-01 01:55:29,451 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:29,786 - Response: b'f22\r\n'
+2024-12-01 01:55:29,786 - Scanning: forward line 22
+2024-12-01 01:55:32,117 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:32,453 - Response: b'f23\r\n'
+2024-12-01 01:55:32,453 - Scanning: forward line 23
+2024-12-01 01:55:34,795 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:35,142 - Response: b'f24\r\n'
+2024-12-01 01:55:35,143 - Scanning: forward line 24
+2024-12-01 01:55:37,488 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:37,836 - Response: b'f25\r\n'
+2024-12-01 01:55:37,836 - Scanning: forward line 25
+2024-12-01 01:55:40,180 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:40,528 - Response: b'f26\r\n'
+2024-12-01 01:55:40,528 - Scanning: forward line 26
+2024-12-01 01:55:42,877 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:43,225 - Response: b'f27\r\n'
+2024-12-01 01:55:43,226 - Scanning: forward line 27
+2024-12-01 01:55:45,569 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:45,919 - Response: b'f28\r\n'
+2024-12-01 01:55:45,919 - Scanning: forward line 28
+2024-12-01 01:55:48,264 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:48,611 - Response: b'f29\r\n'
+2024-12-01 01:55:48,611 - Scanning: forward line 29
+2024-12-01 01:55:50,955 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:51,303 - Response: b'f30\r\n'
+2024-12-01 01:55:51,303 - Scanning: forward line 30
+2024-12-01 01:55:53,647 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:53,995 - Response: b'f31\r\n'
+2024-12-01 01:55:53,996 - Scanning: forward line 31
+2024-12-01 01:55:56,339 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:56,688 - Response: b'f32\r\n'
+2024-12-01 01:55:56,688 - Scanning: forward line 32
+2024-12-01 01:55:59,031 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:55:59,379 - Response: b'f33\r\n'
+2024-12-01 01:55:59,379 - Scanning: forward line 33
+2024-12-01 01:56:01,724 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:02,073 - Response: b'f34\r\n'
+2024-12-01 01:56:02,074 - Scanning: forward line 34
+2024-12-01 01:56:04,419 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:04,769 - Response: b'f35\r\n'
+2024-12-01 01:56:04,769 - Scanning: forward line 35
+2024-12-01 01:56:07,113 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:07,462 - Response: b'f36\r\n'
+2024-12-01 01:56:07,462 - Scanning: forward line 36
+2024-12-01 01:56:09,807 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:10,157 - Response: b'f37\r\n'
+2024-12-01 01:56:10,157 - Scanning: forward line 37
+2024-12-01 01:56:12,501 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:12,849 - Response: b'f38\r\n'
+2024-12-01 01:56:12,849 - Scanning: forward line 38
+2024-12-01 01:56:15,188 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:15,525 - Response: b'f39\r\n'
+2024-12-01 01:56:15,525 - Scanning: forward line 39
+2024-12-01 01:56:17,853 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:18,189 - Response: b'f40\r\n'
+2024-12-01 01:56:18,189 - Scanning: forward line 40
+2024-12-01 01:56:20,525 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:20,873 - Response: b'f41\r\n'
+2024-12-01 01:56:20,873 - Scanning: forward line 41
+2024-12-01 01:56:23,218 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:23,566 - Response: b'f42\r\n'
+2024-12-01 01:56:23,566 - Scanning: forward line 42
+2024-12-01 01:56:25,910 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:26,260 - Response: b'f43\r\n'
+2024-12-01 01:56:26,260 - Scanning: forward line 43
+2024-12-01 01:56:28,604 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:28,953 - Response: b'f44\r\n'
+2024-12-01 01:56:28,953 - Scanning: forward line 44
+2024-12-01 01:56:31,300 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:31,634 - Response: b'f45\r\n'
+2024-12-01 01:56:31,634 - Scanning: forward line 45
+2024-12-01 01:56:33,963 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:34,298 - Response: b'f46\r\n'
+2024-12-01 01:56:34,298 - Scanning: forward line 46
+2024-12-01 01:56:36,637 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:36,988 - Response: b'f47\r\n'
+2024-12-01 01:56:36,988 - Scanning: forward line 47
+2024-12-01 01:56:39,332 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:39,681 - Response: b'f48\r\n'
+2024-12-01 01:56:39,681 - Scanning: forward line 48
+2024-12-01 01:56:42,025 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:42,374 - Response: b'f49\r\n'
+2024-12-01 01:56:42,374 - Scanning: forward line 49
+2024-12-01 01:56:44,717 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:45,067 - Response: b'f50\r\n'
+2024-12-01 01:56:45,067 - Scanning: forward line 50
+2024-12-01 01:56:47,410 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:47,759 - Response: b'f51\r\n'
+2024-12-01 01:56:47,759 - Scanning: forward line 51
+2024-12-01 01:56:50,102 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:50,451 - Response: b'f52\r\n'
+2024-12-01 01:56:50,451 - Scanning: forward line 52
+2024-12-01 01:56:52,796 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:53,144 - Response: b'f53\r\n'
+2024-12-01 01:56:53,144 - Scanning: forward line 53
+2024-12-01 01:56:55,488 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:55,837 - Response: b'f54\r\n'
+2024-12-01 01:56:55,837 - Scanning: forward line 54
+2024-12-01 01:56:58,181 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:56:58,530 - Response: b'f55\r\n'
+2024-12-01 01:56:58,530 - Scanning: forward line 55
+2024-12-01 01:57:00,874 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:01,223 - Response: b'f56\r\n'
+2024-12-01 01:57:01,223 - Scanning: forward line 56
+2024-12-01 01:57:03,567 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:03,915 - Response: b'f57\r\n'
+2024-12-01 01:57:03,916 - Scanning: forward line 57
+2024-12-01 01:57:06,260 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:06,609 - Response: b'f58\r\n'
+2024-12-01 01:57:06,609 - Scanning: forward line 58
+2024-12-01 01:57:08,952 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:09,300 - Response: b'f59\r\n'
+2024-12-01 01:57:09,300 - Scanning: forward line 59
+2024-12-01 01:57:11,646 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:11,995 - Response: b'f60\r\n'
+2024-12-01 01:57:11,995 - Scanning: forward line 60
+2024-12-01 01:57:14,340 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:14,688 - Response: b'f61\r\n'
+2024-12-01 01:57:14,688 - Scanning: forward line 61
+2024-12-01 01:57:17,032 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:17,381 - Response: b'f62\r\n'
+2024-12-01 01:57:17,381 - Scanning: forward line 62
+2024-12-01 01:57:19,725 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:20,075 - Response: b'f63\r\n'
+2024-12-01 01:57:20,075 - Scanning: forward line 63
+2024-12-01 01:57:22,419 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:22,770 - Response: b'f64\r\n'
+2024-12-01 01:57:22,770 - Scanning: forward line 64
+2024-12-01 01:57:25,112 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:25,461 - Response: b'f65\r\n'
+2024-12-01 01:57:25,461 - Scanning: forward line 65
+2024-12-01 01:57:27,807 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:28,159 - Response: b'f66\r\n'
+2024-12-01 01:57:28,159 - Scanning: forward line 66
+2024-12-01 01:57:30,501 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:30,850 - Response: b'f67\r\n'
+2024-12-01 01:57:30,851 - Scanning: forward line 67
+2024-12-01 01:57:33,194 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:33,545 - Response: b'f68\r\n'
+2024-12-01 01:57:33,545 - Scanning: forward line 68
+2024-12-01 01:57:35,887 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:36,236 - Response: b'f69\r\n'
+2024-12-01 01:57:36,237 - Scanning: forward line 69
+2024-12-01 01:57:38,580 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:38,929 - Response: b'f70\r\n'
+2024-12-01 01:57:38,929 - Scanning: forward line 70
+2024-12-01 01:57:41,275 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:41,625 - Response: b'f71\r\n'
+2024-12-01 01:57:41,625 - Scanning: forward line 71
+2024-12-01 01:57:43,970 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:44,318 - Response: b'f72\r\n'
+2024-12-01 01:57:44,318 - Scanning: forward line 72
+2024-12-01 01:57:46,662 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:47,011 - Response: b'f73\r\n'
+2024-12-01 01:57:47,011 - Scanning: forward line 73
+2024-12-01 01:57:49,355 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:49,704 - Response: b'f74\r\n'
+2024-12-01 01:57:49,704 - Scanning: forward line 74
+2024-12-01 01:57:52,048 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:52,398 - Response: b'f75\r\n'
+2024-12-01 01:57:52,398 - Scanning: forward line 75
+2024-12-01 01:57:54,738 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:55,072 - Response: b'f76\r\n'
+2024-12-01 01:57:55,074 - Scanning: forward line 76
+2024-12-01 01:57:57,403 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:57:57,743 - Response: b'f77\r\n'
+2024-12-01 01:57:57,743 - Scanning: forward line 77
+2024-12-01 01:58:00,088 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:00,436 - Response: b'f78\r\n'
+2024-12-01 01:58:00,436 - Scanning: forward line 78
+2024-12-01 01:58:02,781 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:03,129 - Response: b'f79\r\n'
+2024-12-01 01:58:03,129 - Scanning: forward line 79
+2024-12-01 01:58:05,475 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:05,824 - Response: b'f80\r\n'
+2024-12-01 01:58:05,824 - Scanning: forward line 80
+2024-12-01 01:58:08,169 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:08,520 - Response: b'f81\r\n'
+2024-12-01 01:58:08,520 - Scanning: forward line 81
+2024-12-01 01:58:10,865 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:11,213 - Response: b'f82\r\n'
+2024-12-01 01:58:11,213 - Scanning: forward line 82
+2024-12-01 01:58:13,559 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:13,908 - Response: b'f83\r\n'
+2024-12-01 01:58:13,908 - Scanning: forward line 83
+2024-12-01 01:58:16,252 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:16,601 - Response: b'f84\r\n'
+2024-12-01 01:58:16,601 - Scanning: forward line 84
+2024-12-01 01:58:18,946 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:19,296 - Response: b'f85\r\n'
+2024-12-01 01:58:19,296 - Scanning: forward line 85
+2024-12-01 01:58:21,640 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:21,989 - Response: b'f86\r\n'
+2024-12-01 01:58:21,989 - Scanning: forward line 86
+2024-12-01 01:58:24,334 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:24,684 - Response: b'f87\r\n'
+2024-12-01 01:58:24,684 - Scanning: forward line 87
+2024-12-01 01:58:27,028 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:27,377 - Response: b'f88\r\n'
+2024-12-01 01:58:27,378 - Scanning: forward line 88
+2024-12-01 01:58:29,722 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:30,071 - Response: b'f89\r\n'
+2024-12-01 01:58:30,071 - Scanning: forward line 89
+2024-12-01 01:58:32,416 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:32,768 - Response: b'f90\r\n'
+2024-12-01 01:58:32,768 - Scanning: forward line 90
+2024-12-01 01:58:35,112 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:35,462 - Response: b'f91\r\n'
+2024-12-01 01:58:35,462 - Scanning: forward line 91
+2024-12-01 01:58:37,807 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:38,155 - Response: b'f92\r\n'
+2024-12-01 01:58:38,156 - Scanning: forward line 92
+2024-12-01 01:58:40,501 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:40,850 - Response: b'f93\r\n'
+2024-12-01 01:58:40,851 - Scanning: forward line 93
+2024-12-01 01:58:43,197 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:43,547 - Response: b'f94\r\n'
+2024-12-01 01:58:43,547 - Scanning: forward line 94
+2024-12-01 01:58:45,891 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:46,241 - Response: b'f95\r\n'
+2024-12-01 01:58:46,242 - Scanning: forward line 95
+2024-12-01 01:58:48,584 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:48,934 - Response: b'f96\r\n'
+2024-12-01 01:58:48,934 - Scanning: forward line 96
+2024-12-01 01:58:51,278 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:51,628 - Response: b'f97\r\n'
+2024-12-01 01:58:51,628 - Scanning: forward line 97
+2024-12-01 01:58:53,972 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:54,321 - Response: b'f98\r\n'
+2024-12-01 01:58:54,321 - Scanning: forward line 98
+2024-12-01 01:58:56,665 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:57,014 - Response: b'f99\r\n'
+2024-12-01 01:58:57,015 - Scanning: forward line 99
+2024-12-01 01:58:59,358 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:58:59,709 - Response: b'f100\r\n'
+2024-12-01 01:58:59,710 - Scanning: forward line 100
+2024-12-01 01:59:02,051 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:02,401 - Response: b'f101\r\n'
+2024-12-01 01:59:02,401 - Scanning: forward line 101
+2024-12-01 01:59:04,745 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:05,097 - Response: b'f102\r\n'
+2024-12-01 01:59:05,097 - Scanning: forward line 102
+2024-12-01 01:59:07,440 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:07,789 - Response: b'f103\r\n'
+2024-12-01 01:59:07,789 - Scanning: forward line 103
+2024-12-01 01:59:10,135 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:10,483 - Response: b'f104\r\n'
+2024-12-01 01:59:10,483 - Scanning: forward line 104
+2024-12-01 01:59:12,827 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:13,177 - Response: b'f105\r\n'
+2024-12-01 01:59:13,177 - Scanning: forward line 105
+2024-12-01 01:59:15,523 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:15,871 - Response: b'f106\r\n'
+2024-12-01 01:59:15,871 - Scanning: forward line 106
+2024-12-01 01:59:18,215 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:18,565 - Response: b'f107\r\n'
+2024-12-01 01:59:18,565 - Scanning: forward line 107
+2024-12-01 01:59:20,909 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:21,258 - Response: b'f108\r\n'
+2024-12-01 01:59:21,258 - Scanning: forward line 108
+2024-12-01 01:59:23,604 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:23,953 - Response: b'f109\r\n'
+2024-12-01 01:59:23,953 - Scanning: forward line 109
+2024-12-01 01:59:26,297 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:26,645 - Response: b'f110\r\n'
+2024-12-01 01:59:26,645 - Scanning: forward line 110
+2024-12-01 01:59:28,990 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:29,338 - Response: b'f111\r\n'
+2024-12-01 01:59:29,339 - Scanning: forward line 111
+2024-12-01 01:59:31,682 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:32,034 - Response: b'f112\r\n'
+2024-12-01 01:59:32,034 - Scanning: forward line 112
+2024-12-01 01:59:34,377 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:34,727 - Response: b'f113\r\n'
+2024-12-01 01:59:34,728 - Scanning: forward line 113
+2024-12-01 01:59:37,071 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:37,422 - Response: b'f114\r\n'
+2024-12-01 01:59:37,422 - Scanning: forward line 114
+2024-12-01 01:59:39,766 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:40,115 - Response: b'f115\r\n'
+2024-12-01 01:59:40,115 - Scanning: forward line 115
+2024-12-01 01:59:42,457 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:42,807 - Response: b'f116\r\n'
+2024-12-01 01:59:42,808 - Scanning: forward line 116
+2024-12-01 01:59:45,152 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:45,501 - Response: b'f117\r\n'
+2024-12-01 01:59:45,502 - Scanning: forward line 117
+2024-12-01 01:59:47,845 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:48,195 - Response: b'f118\r\n'
+2024-12-01 01:59:48,195 - Scanning: forward line 118
+2024-12-01 01:59:50,538 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:50,888 - Response: b'f119\r\n'
+2024-12-01 01:59:50,888 - Scanning: forward line 119
+2024-12-01 01:59:53,232 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:53,580 - Response: b'f120\r\n'
+2024-12-01 01:59:53,580 - Scanning: forward line 120
+2024-12-01 01:59:55,925 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:56,273 - Response: b'f121\r\n'
+2024-12-01 01:59:56,274 - Scanning: forward line 121
+2024-12-01 01:59:58,616 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 01:59:58,965 - Response: b'f122\r\n'
+2024-12-01 01:59:58,966 - Scanning: forward line 122
+2024-12-01 02:00:01,311 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:01,658 - Response: b'f123\r\n'
+2024-12-01 02:00:01,659 - Scanning: forward line 123
+2024-12-01 02:00:04,004 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:04,355 - Response: b'f124\r\n'
+2024-12-01 02:00:04,355 - Scanning: forward line 124
+2024-12-01 02:00:06,698 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:07,048 - Response: b'f125\r\n'
+2024-12-01 02:00:07,048 - Scanning: forward line 125
+2024-12-01 02:00:09,391 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:09,741 - Response: b'f126\r\n'
+2024-12-01 02:00:09,741 - Scanning: forward line 126
+2024-12-01 02:00:12,085 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:12,433 - Response: b'f127\r\n'
+2024-12-01 02:00:12,434 - Scanning: forward line 127
+2024-12-01 02:00:14,778 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:15,126 - Response: b'f128\r\n'
+2024-12-01 02:00:15,126 - Scanning: forward line 128
+2024-12-01 02:00:17,471 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:17,821 - Response: b'f129\r\n'
+2024-12-01 02:00:17,822 - Scanning: forward line 129
+2024-12-01 02:00:20,165 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:20,513 - Response: b'f130\r\n'
+2024-12-01 02:00:20,513 - Scanning: forward line 130
+2024-12-01 02:00:22,859 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:23,208 - Response: b'f131\r\n'
+2024-12-01 02:00:23,208 - Scanning: forward line 131
+2024-12-01 02:00:25,552 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:25,901 - Response: b'f132\r\n'
+2024-12-01 02:00:25,901 - Scanning: forward line 132
+2024-12-01 02:00:28,244 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:28,585 - Response: b'f133\r\n'
+2024-12-01 02:00:28,585 - Scanning: forward line 133
+2024-12-01 02:00:30,917 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:31,249 - Response: b'f134\r\n'
+2024-12-01 02:00:31,250 - Scanning: forward line 134
+2024-12-01 02:00:33,583 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:33,923 - Response: b'f135\r\n'
+2024-12-01 02:00:33,924 - Scanning: forward line 135
+2024-12-01 02:00:36,254 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:36,589 - Response: b'f136\r\n'
+2024-12-01 02:00:36,590 - Scanning: forward line 136
+2024-12-01 02:00:38,922 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:39,272 - Response: b'f137\r\n'
+2024-12-01 02:00:39,272 - Scanning: forward line 137
+2024-12-01 02:00:41,616 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:41,961 - Response: b'f138\r\n'
+2024-12-01 02:00:41,962 - Scanning: forward line 138
+2024-12-01 02:00:44,298 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:44,645 - Response: b'f139\r\n'
+2024-12-01 02:00:44,645 - Scanning: forward line 139
+2024-12-01 02:00:46,995 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:47,343 - Response: b'f140\r\n'
+2024-12-01 02:00:47,344 - Scanning: forward line 140
+2024-12-01 02:00:49,680 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:50,031 - Response: b'f141\r\n'
+2024-12-01 02:00:50,031 - Scanning: forward line 141
+2024-12-01 02:00:52,373 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:52,722 - Response: b'f142\r\n'
+2024-12-01 02:00:52,722 - Scanning: forward line 142
+2024-12-01 02:00:55,065 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:55,414 - Response: b'f143\r\n'
+2024-12-01 02:00:55,414 - Scanning: forward line 143
+2024-12-01 02:00:57,759 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:00:58,108 - Response: b'f144\r\n'
+2024-12-01 02:00:58,109 - Scanning: forward line 144
+2024-12-01 02:01:00,452 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:00,802 - Response: b'f145\r\n'
+2024-12-01 02:01:00,802 - Scanning: forward line 145
+2024-12-01 02:01:03,146 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:03,495 - Response: b'f146\r\n'
+2024-12-01 02:01:03,496 - Scanning: forward line 146
+2024-12-01 02:01:05,842 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:06,189 - Response: b'f147\r\n'
+2024-12-01 02:01:06,189 - Scanning: forward line 147
+2024-12-01 02:01:08,533 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:08,882 - Response: b'f148\r\n'
+2024-12-01 02:01:08,882 - Scanning: forward line 148
+2024-12-01 02:01:11,227 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:11,575 - Response: b'f149\r\n'
+2024-12-01 02:01:11,576 - Scanning: forward line 149
+2024-12-01 02:01:13,923 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:14,270 - Response: b'f150\r\n'
+2024-12-01 02:01:14,270 - Scanning: forward line 150
+2024-12-01 02:01:16,614 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:16,964 - Response: b'f151\r\n'
+2024-12-01 02:01:16,964 - Scanning: forward line 151
+2024-12-01 02:01:19,310 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:19,657 - Response: b'f152\r\n'
+2024-12-01 02:01:19,657 - Scanning: forward line 152
+2024-12-01 02:01:21,999 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:22,344 - Response: b'f153\r\n'
+2024-12-01 02:01:22,344 - Scanning: forward line 153
+2024-12-01 02:01:24,691 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:25,041 - Response: b'f154\r\n'
+2024-12-01 02:01:25,042 - Scanning: forward line 154
+2024-12-01 02:01:27,385 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:27,734 - Response: b'f155\r\n'
+2024-12-01 02:01:27,735 - Scanning: forward line 155
+2024-12-01 02:01:30,077 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:30,426 - Response: b'f156\r\n'
+2024-12-01 02:01:30,426 - Scanning: forward line 156
+2024-12-01 02:01:32,770 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:33,119 - Response: b'f157\r\n'
+2024-12-01 02:01:33,119 - Scanning: forward line 157
+2024-12-01 02:01:35,462 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:35,811 - Response: b'f158\r\n'
+2024-12-01 02:01:35,812 - Scanning: forward line 158
+2024-12-01 02:01:38,155 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:38,504 - Response: b'f159\r\n'
+2024-12-01 02:01:38,504 - Scanning: forward line 159
+2024-12-01 02:01:40,848 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:41,198 - Response: b'f160\r\n'
+2024-12-01 02:01:41,198 - Scanning: forward line 160
+2024-12-01 02:01:43,541 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:43,890 - Response: b'f161\r\n'
+2024-12-01 02:01:43,890 - Scanning: forward line 161
+2024-12-01 02:01:46,234 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:46,582 - Response: b'f162\r\n'
+2024-12-01 02:01:46,582 - Scanning: forward line 162
+2024-12-01 02:01:48,927 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:49,276 - Response: b'f163\r\n'
+2024-12-01 02:01:49,276 - Scanning: forward line 163
+2024-12-01 02:01:51,620 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:51,970 - Response: b'f164\r\n'
+2024-12-01 02:01:51,970 - Scanning: forward line 164
+2024-12-01 02:01:54,313 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:54,661 - Response: b'f165\r\n'
+2024-12-01 02:01:54,661 - Scanning: forward line 165
+2024-12-01 02:01:57,004 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:01:57,354 - Response: b'f166\r\n'
+2024-12-01 02:01:57,354 - Scanning: forward line 166
+2024-12-01 02:01:59,697 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:00,045 - Response: b'f167\r\n'
+2024-12-01 02:02:00,046 - Scanning: forward line 167
+2024-12-01 02:02:02,392 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:02,740 - Response: b'f168\r\n'
+2024-12-01 02:02:02,740 - Scanning: forward line 168
+2024-12-01 02:02:05,083 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:05,433 - Response: b'f169\r\n'
+2024-12-01 02:02:05,433 - Scanning: forward line 169
+2024-12-01 02:02:07,777 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:08,125 - Response: b'f170\r\n'
+2024-12-01 02:02:08,125 - Scanning: forward line 170
+2024-12-01 02:02:10,469 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:10,819 - Response: b'f171\r\n'
+2024-12-01 02:02:10,819 - Scanning: forward line 171
+2024-12-01 02:02:13,163 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:13,511 - Response: b'f172\r\n'
+2024-12-01 02:02:13,511 - Scanning: forward line 172
+2024-12-01 02:02:15,856 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:16,206 - Response: b'f173\r\n'
+2024-12-01 02:02:16,207 - Scanning: forward line 173
+2024-12-01 02:02:18,549 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:18,898 - Response: b'f174\r\n'
+2024-12-01 02:02:18,898 - Scanning: forward line 174
+2024-12-01 02:02:21,241 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:21,590 - Response: b'f175\r\n'
+2024-12-01 02:02:21,591 - Scanning: forward line 175
+2024-12-01 02:02:23,935 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:24,282 - Response: b'f176\r\n'
+2024-12-01 02:02:24,282 - Scanning: forward line 176
+2024-12-01 02:02:26,627 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:26,977 - Response: b'f177\r\n'
+2024-12-01 02:02:26,977 - Scanning: forward line 177
+2024-12-01 02:02:29,320 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:29,671 - Response: b'f178\r\n'
+2024-12-01 02:02:29,671 - Scanning: forward line 178
+2024-12-01 02:02:32,015 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:32,363 - Response: b'f179\r\n'
+2024-12-01 02:02:32,364 - Scanning: forward line 179
+2024-12-01 02:02:34,707 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:35,057 - Response: b'f180\r\n'
+2024-12-01 02:02:35,058 - Scanning: forward line 180
+2024-12-01 02:02:37,401 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:37,750 - Response: b'f181\r\n'
+2024-12-01 02:02:37,751 - Scanning: forward line 181
+2024-12-01 02:02:40,094 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:40,441 - Response: b'f182\r\n'
+2024-12-01 02:02:40,441 - Scanning: forward line 182
+2024-12-01 02:02:42,785 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:43,135 - Response: b'f183\r\n'
+2024-12-01 02:02:43,135 - Scanning: forward line 183
+2024-12-01 02:02:45,480 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:45,828 - Response: b'f184\r\n'
+2024-12-01 02:02:45,828 - Scanning: forward line 184
+2024-12-01 02:02:48,173 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:48,523 - Response: b'f185\r\n'
+2024-12-01 02:02:48,524 - Scanning: forward line 185
+2024-12-01 02:02:50,865 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:51,214 - Response: b'f186\r\n'
+2024-12-01 02:02:51,214 - Scanning: forward line 186
+2024-12-01 02:02:53,559 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:53,908 - Response: b'f187\r\n'
+2024-12-01 02:02:53,908 - Scanning: forward line 187
+2024-12-01 02:02:56,251 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:56,600 - Response: b'f188\r\n'
+2024-12-01 02:02:56,601 - Scanning: forward line 188
+2024-12-01 02:02:58,944 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:02:59,294 - Response: b'f189\r\n'
+2024-12-01 02:02:59,294 - Scanning: forward line 189
+2024-12-01 02:03:01,637 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:03:01,987 - Response: b'f190\r\n'
+2024-12-01 02:03:01,987 - Scanning: forward line 190
+2024-12-01 02:03:04,332 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:03:04,680 - Response: b'f191\r\n'
+2024-12-01 02:03:04,680 - Scanning: forward line 191
+2024-12-01 02:03:07,025 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:03:07,373 - Response: b'f192\r\n'
+2024-12-01 02:03:07,373 - Scanning: forward line 192
+2024-12-01 02:03:09,717 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:03:10,060 - Response: b'f193\r\n'
+2024-12-01 02:03:10,061 - Scanning: forward line 193
+2024-12-01 02:03:12,392 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:03:12,728 - Response: b'f194\r\n'
+2024-12-01 02:03:12,728 - Scanning: forward line 194
+2024-12-01 02:03:15,068 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:03:15,416 - Response: b'f195\r\n'
+2024-12-01 02:03:15,416 - Scanning: forward line 195
+2024-12-01 02:03:17,762 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:03:18,109 - Response: b'f196\r\n'
+2024-12-01 02:03:18,109 - Scanning: forward line 196
+2024-12-01 02:03:20,453 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:03:20,802 - Response: b'f197\r\n'
+2024-12-01 02:03:20,802 - Scanning: forward line 197
+2024-12-01 02:03:23,146 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:03:23,493 - Response: b'f198\r\n'
+2024-12-01 02:03:23,493 - Scanning: forward line 198
+2024-12-01 02:03:25,837 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:03:26,186 - Response: b'f199\r\n'
+2024-12-01 02:03:26,186 - Scanning: forward line 199
+2024-12-01 02:03:28,531 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:03:28,879 - Response: b'f200\r\n'
+2024-12-01 02:03:28,879 - Scanning: forward line 200
+2024-12-01 02:03:31,223 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:03:31,223 - Scan finished at 2024-12-01 02:03:31.223841
+2024-12-01 02:03:31,224 - Response: b'DDE Cmd 6592\r\n'
+2024-12-01 02:03:31,224 - Scan completed
+2024-12-01 02:03:31,725 - 掃描完成
+2024-12-01 02:03:31,725 - 
+>>> 執行第 1/3 群組的 STS 量測
+2024-12-01 02:03:31,725 -   STS點 (1/5): (-2550.000, 3120.000)
+2024-12-01 02:03:31,725 - Sending command: SpectPara(1, -2550.0);
+2024-12-01 02:03:31,726 - Response: b'DDE Cmd 6593\r\n0\r\n'
+2024-12-01 02:03:31,726 - Sending command: SpectPara(2, 3120.0);
+2024-12-01 02:03:31,734 - Response: b'DDE Cmd 6595\r\n'
+2024-12-01 02:03:31,735 - Sending command: SpectPara(1, -2550.0);
+2024-12-01 02:03:31,740 - Response: b'DDE Cmd 6596\r\n'
+2024-12-01 02:03:31,740 - Sending command: SpectPara(2, 3120.0);
+2024-12-01 02:03:31,746 - Response: b'DDE Cmd 6597\r\n'
+2024-12-01 02:03:31,746 - Sending command: SpectStart;
+2024-12-01 02:03:34,909 - Response: b'DDE Cmd 6598\r\n'
+2024-12-01 02:03:35,909 -   STS點 (2/5): (-2544.000, 3120.000)
+2024-12-01 02:03:35,909 - Sending command: SpectPara(1, -2544.0);
+2024-12-01 02:03:35,917 - Response: b'DDE Cmd 6599\r\n'
+2024-12-01 02:03:35,917 - Sending command: SpectPara(2, 3120.0);
+2024-12-01 02:03:35,923 - Response: b'DDE Cmd 6600\r\n'
+2024-12-01 02:03:35,923 - Sending command: SpectPara(1, -2544.0);
+2024-12-01 02:03:35,931 - Response: b'DDE Cmd 6601\r\n'
+2024-12-01 02:03:35,931 - Sending command: SpectPara(2, 3120.0);
+2024-12-01 02:03:35,934 - Response: b'DDE Cmd 6602\r\n'
+2024-12-01 02:03:35,934 - Sending command: SpectStart;
+2024-12-01 02:03:38,489 - Response: b'DDE Cmd 6603\r\n'
+2024-12-01 02:03:39,490 -   STS點 (3/5): (-2538.000, 3120.000)
+2024-12-01 02:03:39,490 - Sending command: SpectPara(1, -2538.0);
+2024-12-01 02:03:39,497 - Response: b'DDE Cmd 6604\r\n'
+2024-12-01 02:03:39,497 - Sending command: SpectPara(2, 3120.0);
+2024-12-01 02:03:39,502 - Response: b'DDE Cmd 6605\r\n'
+2024-12-01 02:03:39,503 - Sending command: SpectPara(1, -2538.0);
+2024-12-01 02:03:39,508 - Response: b'DDE Cmd 6606\r\n'
+2024-12-01 02:03:39,508 - Sending command: SpectPara(2, 3120.0);
+2024-12-01 02:03:39,512 - Response: b'DDE Cmd 6607\r\n'
+2024-12-01 02:03:39,512 - Sending command: SpectStart;
+2024-12-01 02:03:42,092 - Response: b'DDE Cmd 6608\r\n'
+2024-12-01 02:03:43,093 -   STS點 (4/5): (-2532.000, 3120.000)
+2024-12-01 02:03:43,093 - Sending command: SpectPara(1, -2532.0);
+2024-12-01 02:03:43,101 - Response: b'DDE Cmd 6609\r\n'
+2024-12-01 02:03:43,101 - Sending command: SpectPara(2, 3120.0);
+2024-12-01 02:03:43,105 - Response: b'DDE Cmd 6610\r\n'
+2024-12-01 02:03:43,105 - Sending command: SpectPara(1, -2532.0);
+2024-12-01 02:03:43,111 - Response: b'DDE Cmd 6611\r\n'
+2024-12-01 02:03:43,111 - Sending command: SpectPara(2, 3120.0);
+2024-12-01 02:03:43,116 - Response: b'DDE Cmd 6612\r\n'
+2024-12-01 02:03:43,116 - Sending command: SpectStart;
+2024-12-01 02:03:45,675 - Response: b'DDE Cmd 6613\r\n'
+2024-12-01 02:03:46,676 -   STS點 (5/5): (-2526.000, 3120.000)
+2024-12-01 02:03:46,676 - Sending command: SpectPara(1, -2526.0);
+2024-12-01 02:03:46,684 - Response: b'DDE Cmd 6614\r\n'
+2024-12-01 02:03:46,684 - Sending command: SpectPara(2, 3120.0);
+2024-12-01 02:03:46,689 - Response: b'DDE Cmd 6615\r\n'
+2024-12-01 02:03:46,689 - Sending command: SpectPara(1, -2526.0);
+2024-12-01 02:03:46,694 - Response: b'DDE Cmd 6616\r\n'
+2024-12-01 02:03:46,694 - Sending command: SpectPara(2, 3120.0);
+2024-12-01 02:03:46,699 - Response: b'DDE Cmd 6617\r\n'
+2024-12-01 02:03:46,699 - Sending command: SpectStart;
+2024-12-01 02:03:49,259 - Response: b'DDE Cmd 6618\r\n'
+2024-12-01 02:03:50,260 - <<< 完成第 1/3 群組
+2024-12-01 02:03:50,260 - 
+=== 掃描第 2 段 25 條線 ===
+2024-12-01 02:03:50,260 - 開始掃描 25 條線
+2024-12-01 02:03:50,260 - Sending command: ScanLine(25);
+2024-12-01 02:03:50,266 - Scan started at 2024-12-01 02:03:50.266989
+2024-12-01 02:03:50,267 - Response: 1
+2024-12-01 02:03:50,267 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:03:52,199 - Response: b'f201\r\n'
+2024-12-01 02:03:52,199 - Scanning: forward line 201
+2024-12-01 02:03:54,545 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:03:54,892 - Response: b'f202\r\n'
+2024-12-01 02:03:54,892 - Scanning: forward line 202
+2024-12-01 02:03:57,237 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:03:57,584 - Response: b'f203\r\n'
+2024-12-01 02:03:57,585 - Scanning: forward line 203
+2024-12-01 02:03:59,928 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:00,276 - Response: b'f204\r\n'
+2024-12-01 02:04:00,276 - Scanning: forward line 204
+2024-12-01 02:04:02,620 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:02,970 - Response: b'f205\r\n'
+2024-12-01 02:04:02,970 - Scanning: forward line 205
+2024-12-01 02:04:05,315 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:05,662 - Response: b'f206\r\n'
+2024-12-01 02:04:05,662 - Scanning: forward line 206
+2024-12-01 02:04:08,005 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:08,352 - Response: b'f207\r\n'
+2024-12-01 02:04:08,352 - Scanning: forward line 207
+2024-12-01 02:04:10,696 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:11,044 - Response: b'f208\r\n'
+2024-12-01 02:04:11,044 - Scanning: forward line 208
+2024-12-01 02:04:13,388 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:13,736 - Response: b'f209\r\n'
+2024-12-01 02:04:13,736 - Scanning: forward line 209
+2024-12-01 02:04:16,082 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:16,431 - Response: b'f210\r\n'
+2024-12-01 02:04:16,432 - Scanning: forward line 210
+2024-12-01 02:04:18,775 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:19,123 - Response: b'f211\r\n'
+2024-12-01 02:04:19,123 - Scanning: forward line 211
+2024-12-01 02:04:21,467 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:21,817 - Response: b'f212\r\n'
+2024-12-01 02:04:21,817 - Scanning: forward line 212
+2024-12-01 02:04:24,159 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:24,508 - Response: b'f213\r\n'
+2024-12-01 02:04:24,508 - Scanning: forward line 213
+2024-12-01 02:04:26,852 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:27,200 - Response: b'f214\r\n'
+2024-12-01 02:04:27,200 - Scanning: forward line 214
+2024-12-01 02:04:29,544 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:29,893 - Response: b'f215\r\n'
+2024-12-01 02:04:29,893 - Scanning: forward line 215
+2024-12-01 02:04:32,237 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:32,585 - Response: b'f216\r\n'
+2024-12-01 02:04:32,585 - Scanning: forward line 216
+2024-12-01 02:04:34,930 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:35,279 - Response: b'f217\r\n'
+2024-12-01 02:04:35,280 - Scanning: forward line 217
+2024-12-01 02:04:37,623 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:37,973 - Response: b'f218\r\n'
+2024-12-01 02:04:37,973 - Scanning: forward line 218
+2024-12-01 02:04:40,317 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:40,665 - Response: b'f219\r\n'
+2024-12-01 02:04:40,666 - Scanning: forward line 219
+2024-12-01 02:04:43,010 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:43,360 - Response: b'f220\r\n'
+2024-12-01 02:04:43,360 - Scanning: forward line 220
+2024-12-01 02:04:45,704 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:46,052 - Response: b'f221\r\n'
+2024-12-01 02:04:46,052 - Scanning: forward line 221
+2024-12-01 02:04:48,398 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:48,745 - Response: b'f222\r\n'
+2024-12-01 02:04:48,745 - Scanning: forward line 222
+2024-12-01 02:04:51,087 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:51,443 - Response: b'f223\r\n'
+2024-12-01 02:04:51,444 - Scanning: forward line 223
+2024-12-01 02:04:53,787 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:54,134 - Response: b'f224\r\n'
+2024-12-01 02:04:54,134 - Scanning: forward line 224
+2024-12-01 02:04:56,478 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:56,827 - Response: b'f225\r\n'
+2024-12-01 02:04:56,827 - Scanning: forward line 225
+2024-12-01 02:04:59,170 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:04:59,171 - Scan finished at 2024-12-01 02:04:59.171464
+2024-12-01 02:04:59,171 - Response: b'DDE Cmd 6644\r\n'
+2024-12-01 02:04:59,171 - Scan completed
+2024-12-01 02:04:59,672 - 掃描完成
+2024-12-01 02:04:59,672 - 
+>>> 執行第 2/3 群組的 STS 量測
+2024-12-01 02:04:59,672 -   STS點 (1/5): (-2550.000, 3110.000)
+2024-12-01 02:04:59,672 - Sending command: SpectPara(1, -2550.0);
+2024-12-01 02:04:59,673 - Response: b'DDE Cmd 6645\r\n0\r\n'
+2024-12-01 02:04:59,673 - Sending command: SpectPara(2, 3110.0);
+2024-12-01 02:04:59,676 - Response: b'DDE Cmd 6647\r\n'
+2024-12-01 02:04:59,676 - Sending command: SpectPara(1, -2550.0);
+2024-12-01 02:04:59,682 - Response: b'DDE Cmd 6648\r\n'
+2024-12-01 02:04:59,682 - Sending command: SpectPara(2, 3110.0);
+2024-12-01 02:04:59,687 - Response: b'DDE Cmd 6649\r\n'
+2024-12-01 02:04:59,687 - Sending command: SpectStart;
+2024-12-01 02:05:02,838 - Response: b'DDE Cmd 6650\r\n'
+2024-12-01 02:05:03,839 -   STS點 (2/5): (-2544.000, 3110.000)
+2024-12-01 02:05:03,839 - Sending command: SpectPara(1, -2544.0);
+2024-12-01 02:05:03,842 - Response: b'DDE Cmd 6651\r\n'
+2024-12-01 02:05:03,842 - Sending command: SpectPara(2, 3110.0);
+2024-12-01 02:05:03,848 - Response: b'DDE Cmd 6652\r\n'
+2024-12-01 02:05:03,848 - Sending command: SpectPara(1, -2544.0);
+2024-12-01 02:05:03,853 - Response: b'DDE Cmd 6653\r\n'
+2024-12-01 02:05:03,853 - Sending command: SpectPara(2, 3110.0);
+2024-12-01 02:05:03,857 - Response: b'DDE Cmd 6654\r\n'
+2024-12-01 02:05:03,858 - Sending command: SpectStart;
+2024-12-01 02:05:06,425 - Response: b'DDE Cmd 6655\r\n'
+2024-12-01 02:05:07,427 -   STS點 (3/5): (-2538.000, 3110.000)
+2024-12-01 02:05:07,427 - Sending command: SpectPara(1, -2538.0);
+2024-12-01 02:05:07,430 - Response: b'DDE Cmd 6656\r\n'
+2024-12-01 02:05:07,430 - Sending command: SpectPara(2, 3110.0);
+2024-12-01 02:05:07,435 - Response: b'DDE Cmd 6657\r\n'
+2024-12-01 02:05:07,436 - Sending command: SpectPara(1, -2538.0);
+2024-12-01 02:05:07,441 - Response: b'DDE Cmd 6658\r\n'
+2024-12-01 02:05:07,441 - Sending command: SpectPara(2, 3110.0);
+2024-12-01 02:05:07,445 - Response: b'DDE Cmd 6659\r\n'
+2024-12-01 02:05:07,445 - Sending command: SpectStart;
+2024-12-01 02:05:10,002 - Response: b'DDE Cmd 6660\r\n'
+2024-12-01 02:05:11,004 -   STS點 (4/5): (-2532.000, 3110.000)
+2024-12-01 02:05:11,004 - Sending command: SpectPara(1, -2532.0);
+2024-12-01 02:05:11,007 - Response: b'DDE Cmd 6661\r\n'
+2024-12-01 02:05:11,007 - Sending command: SpectPara(2, 3110.0);
+2024-12-01 02:05:11,012 - Response: b'DDE Cmd 6662\r\n'
+2024-12-01 02:05:11,013 - Sending command: SpectPara(1, -2532.0);
+2024-12-01 02:05:11,018 - Response: b'DDE Cmd 6663\r\n'
+2024-12-01 02:05:11,018 - Sending command: SpectPara(2, 3110.0);
+2024-12-01 02:05:11,022 - Response: b'DDE Cmd 6664\r\n'
+2024-12-01 02:05:11,022 - Sending command: SpectStart;
+2024-12-01 02:05:13,594 - Response: b'DDE Cmd 6665\r\n'
+2024-12-01 02:05:14,595 -   STS點 (5/5): (-2526.000, 3110.000)
+2024-12-01 02:05:14,595 - Sending command: SpectPara(1, -2526.0);
+2024-12-01 02:05:14,598 - Response: b'DDE Cmd 6666\r\n'
+2024-12-01 02:05:14,598 - Sending command: SpectPara(2, 3110.0);
+2024-12-01 02:05:14,604 - Response: b'DDE Cmd 6667\r\n'
+2024-12-01 02:05:14,604 - Sending command: SpectPara(1, -2526.0);
+2024-12-01 02:05:14,609 - Response: b'DDE Cmd 6668\r\n'
+2024-12-01 02:05:14,609 - Sending command: SpectPara(2, 3110.0);
+2024-12-01 02:05:14,614 - Response: b'DDE Cmd 6669\r\n'
+2024-12-01 02:05:14,614 - Sending command: SpectStart;
+2024-12-01 02:05:17,189 - Response: b'DDE Cmd 6670\r\n'
+2024-12-01 02:05:18,190 - <<< 完成第 2/3 群組
+2024-12-01 02:05:18,190 - 
+=== 掃描第 3 段 25 條線 ===
+2024-12-01 02:05:18,190 - 開始掃描 25 條線
+2024-12-01 02:05:18,190 - Sending command: ScanLine(25);
+2024-12-01 02:05:18,192 - Scan started at 2024-12-01 02:05:18.192577
+2024-12-01 02:05:18,192 - Response: 1
+2024-12-01 02:05:18,193 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:05:20,123 - Response: b'f226\r\n'
+2024-12-01 02:05:20,123 - Scanning: forward line 226
+2024-12-01 02:05:22,466 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:05:22,815 - Response: b'f227\r\n'
+2024-12-01 02:05:22,815 - Scanning: forward line 227
+2024-12-01 02:05:25,160 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:05:25,507 - Response: b'f228\r\n'
+2024-12-01 02:05:25,507 - Scanning: forward line 228
+2024-12-01 02:05:27,852 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:05:28,200 - Response: b'f229\r\n'
+2024-12-01 02:05:28,200 - Scanning: forward line 229
+2024-12-01 02:05:30,544 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:05:30,892 - Response: b'f230\r\n'
+2024-12-01 02:05:30,892 - Scanning: forward line 230
+2024-12-01 02:05:33,237 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:05:33,586 - Response: b'f231\r\n'
+2024-12-01 02:05:33,587 - Scanning: forward line 231
+2024-12-01 02:05:35,931 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:05:36,280 - Response: b'f232\r\n'
+2024-12-01 02:05:36,281 - Scanning: forward line 232
+2024-12-01 02:05:38,624 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:05:38,972 - Response: b'f233\r\n'
+2024-12-01 02:05:38,972 - Scanning: forward line 233
+2024-12-01 02:05:41,317 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:05:41,668 - Response: b'f234\r\n'
+2024-12-01 02:05:41,668 - Scanning: forward line 234
+2024-12-01 02:05:44,011 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:05:44,359 - Response: b'f235\r\n'
+2024-12-01 02:05:44,359 - Scanning: forward line 235
+2024-12-01 02:05:46,704 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:05:47,053 - Response: b'f236\r\n'
+2024-12-01 02:05:47,054 - Scanning: forward line 236
+2024-12-01 02:05:49,398 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:05:49,747 - Response: b'f237\r\n'
+2024-12-01 02:05:49,748 - Scanning: forward line 237
+2024-12-01 02:05:52,092 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:05:52,442 - Response: b'f238\r\n'
+2024-12-01 02:05:52,442 - Scanning: forward line 238
+2024-12-01 02:05:54,784 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:05:55,133 - Response: b'f239\r\n'
+2024-12-01 02:05:55,133 - Scanning: forward line 239
+2024-12-01 02:05:57,478 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:05:57,826 - Response: b'f240\r\n'
+2024-12-01 02:05:57,826 - Scanning: forward line 240
+2024-12-01 02:06:00,169 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:06:00,518 - Response: b'f241\r\n'
+2024-12-01 02:06:00,518 - Scanning: forward line 241
+2024-12-01 02:06:02,861 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:06:03,208 - Response: b'f242\r\n'
+2024-12-01 02:06:03,208 - Scanning: forward line 242
+2024-12-01 02:06:05,552 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:06:05,900 - Response: b'f243\r\n'
+2024-12-01 02:06:05,900 - Scanning: forward line 243
+2024-12-01 02:06:08,244 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:06:08,593 - Response: b'f244\r\n'
+2024-12-01 02:06:08,593 - Scanning: forward line 244
+2024-12-01 02:06:10,936 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:06:11,285 - Response: b'f245\r\n'
+2024-12-01 02:06:11,285 - Scanning: forward line 245
+2024-12-01 02:06:13,629 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:06:13,978 - Response: b'f246\r\n'
+2024-12-01 02:06:13,978 - Scanning: forward line 246
+2024-12-01 02:06:16,322 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:06:16,671 - Response: b'f247\r\n'
+2024-12-01 02:06:16,672 - Scanning: forward line 247
+2024-12-01 02:06:19,015 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:06:19,364 - Response: b'f248\r\n'
+2024-12-01 02:06:19,364 - Scanning: forward line 248
+2024-12-01 02:06:21,708 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:06:22,056 - Response: b'f249\r\n'
+2024-12-01 02:06:22,057 - Scanning: forward line 249
+2024-12-01 02:06:24,404 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:06:24,752 - Response: b'f250\r\n'
+2024-12-01 02:06:24,752 - Scanning: forward line 250
+2024-12-01 02:06:27,095 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:06:27,095 - Scan finished at 2024-12-01 02:06:27.095456
+2024-12-01 02:06:27,096 - Response: b'DDE Cmd 6696\r\n'
+2024-12-01 02:06:27,096 - Scan completed
+2024-12-01 02:06:27,597 - 掃描完成
+2024-12-01 02:06:27,597 - 
+>>> 執行第 3/3 群組的 STS 量測
+2024-12-01 02:06:27,597 -   STS點 (1/5): (-2550.000, 3100.000)
+2024-12-01 02:06:27,597 - Sending command: SpectPara(1, -2550.0);
+2024-12-01 02:06:27,598 - Response: b'DDE Cmd 6697\r\n0\r\n'
+2024-12-01 02:06:27,598 - Sending command: SpectPara(2, 3100.0);
+2024-12-01 02:06:27,599 - Response: b'DDE Cmd 6699\r\n'
+2024-12-01 02:06:27,600 - Sending command: SpectPara(1, -2550.0);
+2024-12-01 02:06:27,607 - Response: b'DDE Cmd 6700\r\n'
+2024-12-01 02:06:27,607 - Sending command: SpectPara(2, 3100.0);
+2024-12-01 02:06:27,612 - Response: b'DDE Cmd 6701\r\n'
+2024-12-01 02:06:27,612 - Sending command: SpectStart;
+2024-12-01 02:06:30,787 - Response: b'DDE Cmd 6702\r\n'
+2024-12-01 02:06:31,788 -   STS點 (2/5): (-2544.000, 3100.000)
+2024-12-01 02:06:31,788 - Sending command: SpectPara(1, -2544.0);
+2024-12-01 02:06:31,791 - Response: b'DDE Cmd 6703\r\n'
+2024-12-01 02:06:31,791 - Sending command: SpectPara(2, 3100.0);
+2024-12-01 02:06:31,797 - Response: b'DDE Cmd 6704\r\n'
+2024-12-01 02:06:31,797 - Sending command: SpectPara(1, -2544.0);
+2024-12-01 02:06:31,802 - Response: b'DDE Cmd 6705\r\n'
+2024-12-01 02:06:31,802 - Sending command: SpectPara(2, 3100.0);
+2024-12-01 02:06:31,807 - Response: b'DDE Cmd 6706\r\n'
+2024-12-01 02:06:31,807 - Sending command: SpectStart;
+2024-12-01 02:06:34,377 - Response: b'DDE Cmd 6707\r\n'
+2024-12-01 02:06:35,378 -   STS點 (3/5): (-2538.000, 3100.000)
+2024-12-01 02:06:35,378 - Sending command: SpectPara(1, -2538.0);
+2024-12-01 02:06:35,380 - Response: b'DDE Cmd 6708\r\n'
+2024-12-01 02:06:35,380 - Sending command: SpectPara(2, 3100.0);
+2024-12-01 02:06:35,386 - Response: b'DDE Cmd 6709\r\n'
+2024-12-01 02:06:35,387 - Sending command: SpectPara(1, -2538.0);
+2024-12-01 02:06:35,392 - Response: b'DDE Cmd 6710\r\n'
+2024-12-01 02:06:35,392 - Sending command: SpectPara(2, 3100.0);
+2024-12-01 02:06:35,397 - Response: b'DDE Cmd 6711\r\n'
+2024-12-01 02:06:35,397 - Sending command: SpectStart;
+2024-12-01 02:06:37,962 - Response: b'DDE Cmd 6712\r\n'
+2024-12-01 02:06:38,963 -   STS點 (4/5): (-2532.000, 3100.000)
+2024-12-01 02:06:38,963 - Sending command: SpectPara(1, -2532.0);
+2024-12-01 02:06:38,965 - Response: b'DDE Cmd 6713\r\n'
+2024-12-01 02:06:38,965 - Sending command: SpectPara(2, 3100.0);
+2024-12-01 02:06:38,972 - Response: b'DDE Cmd 6714\r\n'
+2024-12-01 02:06:38,972 - Sending command: SpectPara(1, -2532.0);
+2024-12-01 02:06:38,977 - Response: b'DDE Cmd 6715\r\n'
+2024-12-01 02:06:38,977 - Sending command: SpectPara(2, 3100.0);
+2024-12-01 02:06:38,981 - Response: b'DDE Cmd 6716\r\n'
+2024-12-01 02:06:38,981 - Sending command: SpectStart;
+2024-12-01 02:06:41,535 - Response: b'DDE Cmd 6717\r\n'
+2024-12-01 02:06:42,536 -   STS點 (5/5): (-2526.000, 3100.000)
+2024-12-01 02:06:42,536 - Sending command: SpectPara(1, -2526.0);
+2024-12-01 02:06:42,539 - Response: b'DDE Cmd 6718\r\n'
+2024-12-01 02:06:42,539 - Sending command: SpectPara(2, 3100.0);
+2024-12-01 02:06:42,545 - Response: b'DDE Cmd 6719\r\n'
+2024-12-01 02:06:42,546 - Sending command: SpectPara(1, -2526.0);
+2024-12-01 02:06:42,550 - Response: b'DDE Cmd 6720\r\n'
+2024-12-01 02:06:42,551 - Sending command: SpectPara(2, 3100.0);
+2024-12-01 02:06:42,555 - Response: b'DDE Cmd 6721\r\n'
+2024-12-01 02:06:42,555 - Sending command: SpectStart;
+2024-12-01 02:06:45,133 - Response: b'DDE Cmd 6722\r\n'
+2024-12-01 02:06:46,134 - <<< 完成第 3/3 群組
+2024-12-01 02:06:46,134 - 
+=== 執行最後 250.0 條掃描線 ===
+2024-12-01 02:06:46,134 - 開始掃描 250.0 條線
+2024-12-01 02:06:46,134 - Sending command: ScanLine(250.0);
+2024-12-01 02:06:46,141 - Scan started at 2024-12-01 02:06:46.141946
+2024-12-01 02:06:46,141 - Response: 1
+2024-12-01 02:06:46,142 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:06:48,052 - Response: b'f251\r\n'
+2024-12-01 02:06:48,052 - Scanning: forward line 251
+2024-12-01 02:06:50,384 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:06:50,727 - Response: b'f252\r\n'
+2024-12-01 02:06:50,727 - Scanning: forward line 252
+2024-12-01 02:06:53,069 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:06:53,419 - Response: b'f253\r\n'
+2024-12-01 02:06:53,419 - Scanning: forward line 253
+2024-12-01 02:06:55,763 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:06:56,113 - Response: b'f254\r\n'
+2024-12-01 02:06:56,113 - Scanning: forward line 254
+2024-12-01 02:06:58,457 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:06:58,805 - Response: b'f255\r\n'
+2024-12-01 02:06:58,806 - Scanning: forward line 255
+2024-12-01 02:07:01,150 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:01,500 - Response: b'f256\r\n'
+2024-12-01 02:07:01,501 - Scanning: forward line 256
+2024-12-01 02:07:03,847 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:04,196 - Response: b'f257\r\n'
+2024-12-01 02:07:04,196 - Scanning: forward line 257
+2024-12-01 02:07:06,540 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:06,890 - Response: b'f258\r\n'
+2024-12-01 02:07:06,890 - Scanning: forward line 258
+2024-12-01 02:07:09,234 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:09,585 - Response: b'f259\r\n'
+2024-12-01 02:07:09,585 - Scanning: forward line 259
+2024-12-01 02:07:11,929 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:12,279 - Response: b'f260\r\n'
+2024-12-01 02:07:12,280 - Scanning: forward line 260
+2024-12-01 02:07:14,625 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:14,982 - Response: b'f261\r\n'
+2024-12-01 02:07:14,983 - Scanning: forward line 261
+2024-12-01 02:07:17,325 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:17,674 - Response: b'f262\r\n'
+2024-12-01 02:07:17,674 - Scanning: forward line 262
+2024-12-01 02:07:20,027 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:20,376 - Response: b'f263\r\n'
+2024-12-01 02:07:20,377 - Scanning: forward line 263
+2024-12-01 02:07:22,721 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:23,071 - Response: b'f264\r\n'
+2024-12-01 02:07:23,071 - Scanning: forward line 264
+2024-12-01 02:07:25,409 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:25,760 - Response: b'f265\r\n'
+2024-12-01 02:07:25,760 - Scanning: forward line 265
+2024-12-01 02:07:28,096 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:28,435 - Response: b'f266\r\n'
+2024-12-01 02:07:28,435 - Scanning: forward line 266
+2024-12-01 02:07:30,763 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:31,102 - Response: b'f267\r\n'
+2024-12-01 02:07:31,102 - Scanning: forward line 267
+2024-12-01 02:07:33,433 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:33,773 - Response: b'f268\r\n'
+2024-12-01 02:07:33,773 - Scanning: forward line 268
+2024-12-01 02:07:36,114 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:36,449 - Response: b'f269\r\n'
+2024-12-01 02:07:36,449 - Scanning: forward line 269
+2024-12-01 02:07:38,781 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:39,119 - Response: b'f270\r\n'
+2024-12-01 02:07:39,119 - Scanning: forward line 270
+2024-12-01 02:07:41,451 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:41,792 - Response: b'f271\r\n'
+2024-12-01 02:07:41,792 - Scanning: forward line 271
+2024-12-01 02:07:44,120 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:44,456 - Response: b'f272\r\n'
+2024-12-01 02:07:44,457 - Scanning: forward line 272
+2024-12-01 02:07:46,788 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:47,124 - Response: b'f273\r\n'
+2024-12-01 02:07:47,124 - Scanning: forward line 273
+2024-12-01 02:07:49,457 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:49,798 - Response: b'f274\r\n'
+2024-12-01 02:07:49,798 - Scanning: forward line 274
+2024-12-01 02:07:52,128 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:52,464 - Response: b'f275\r\n'
+2024-12-01 02:07:52,465 - Scanning: forward line 275
+2024-12-01 02:07:54,796 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:55,132 - Response: b'f276\r\n'
+2024-12-01 02:07:55,132 - Scanning: forward line 276
+2024-12-01 02:07:57,464 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:07:57,800 - Response: b'f277\r\n'
+2024-12-01 02:07:57,800 - Scanning: forward line 277
+2024-12-01 02:08:00,131 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:00,467 - Response: b'f278\r\n'
+2024-12-01 02:08:00,467 - Scanning: forward line 278
+2024-12-01 02:08:02,798 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:03,135 - Response: b'f279\r\n'
+2024-12-01 02:08:03,135 - Scanning: forward line 279
+2024-12-01 02:08:05,466 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:05,802 - Response: b'f280\r\n'
+2024-12-01 02:08:05,802 - Scanning: forward line 280
+2024-12-01 02:08:08,134 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:08,470 - Response: b'f281\r\n'
+2024-12-01 02:08:08,470 - Scanning: forward line 281
+2024-12-01 02:08:10,801 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:11,143 - Response: b'f282\r\n'
+2024-12-01 02:08:11,143 - Scanning: forward line 282
+2024-12-01 02:08:13,471 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:13,807 - Response: b'f283\r\n'
+2024-12-01 02:08:13,808 - Scanning: forward line 283
+2024-12-01 02:08:16,138 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:16,474 - Response: b'f284\r\n'
+2024-12-01 02:08:16,475 - Scanning: forward line 284
+2024-12-01 02:08:18,806 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:19,146 - Response: b'f285\r\n'
+2024-12-01 02:08:19,147 - Scanning: forward line 285
+2024-12-01 02:08:21,476 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:21,812 - Response: b'f286\r\n'
+2024-12-01 02:08:21,813 - Scanning: forward line 286
+2024-12-01 02:08:24,143 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:24,479 - Response: b'f287\r\n'
+2024-12-01 02:08:24,480 - Scanning: forward line 287
+2024-12-01 02:08:26,811 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:27,151 - Response: b'f288\r\n'
+2024-12-01 02:08:27,152 - Scanning: forward line 288
+2024-12-01 02:08:29,481 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:29,817 - Response: b'f289\r\n'
+2024-12-01 02:08:29,817 - Scanning: forward line 289
+2024-12-01 02:08:32,148 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:32,485 - Response: b'f290\r\n'
+2024-12-01 02:08:32,485 - Scanning: forward line 290
+2024-12-01 02:08:34,816 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:35,152 - Response: b'f291\r\n'
+2024-12-01 02:08:35,152 - Scanning: forward line 291
+2024-12-01 02:08:37,486 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:37,821 - Response: b'f292\r\n'
+2024-12-01 02:08:37,821 - Scanning: forward line 292
+2024-12-01 02:08:40,153 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:40,488 - Response: b'f293\r\n'
+2024-12-01 02:08:40,488 - Scanning: forward line 293
+2024-12-01 02:08:42,820 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:43,161 - Response: b'f294\r\n'
+2024-12-01 02:08:43,161 - Scanning: forward line 294
+2024-12-01 02:08:45,490 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:45,827 - Response: b'f295\r\n'
+2024-12-01 02:08:45,827 - Scanning: forward line 295
+2024-12-01 02:08:48,158 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:48,495 - Response: b'f296\r\n'
+2024-12-01 02:08:48,495 - Scanning: forward line 296
+2024-12-01 02:08:50,827 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:51,164 - Response: b'f297\r\n'
+2024-12-01 02:08:51,164 - Scanning: forward line 297
+2024-12-01 02:08:53,496 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:53,830 - Response: b'f298\r\n'
+2024-12-01 02:08:53,830 - Scanning: forward line 298
+2024-12-01 02:08:56,161 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:56,498 - Response: b'f299\r\n'
+2024-12-01 02:08:56,498 - Scanning: forward line 299
+2024-12-01 02:08:58,828 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:08:59,165 - Response: b'f300\r\n'
+2024-12-01 02:08:59,165 - Scanning: forward line 300
+2024-12-01 02:09:01,500 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:01,834 - Response: b'f301\r\n'
+2024-12-01 02:09:01,834 - Scanning: forward line 301
+2024-12-01 02:09:04,165 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:04,501 - Response: b'f302\r\n'
+2024-12-01 02:09:04,501 - Scanning: forward line 302
+2024-12-01 02:09:06,833 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:07,171 - Response: b'f303\r\n'
+2024-12-01 02:09:07,172 - Scanning: forward line 303
+2024-12-01 02:09:09,501 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:09,838 - Response: b'f304\r\n'
+2024-12-01 02:09:09,838 - Scanning: forward line 304
+2024-12-01 02:09:12,169 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:12,507 - Response: b'f305\r\n'
+2024-12-01 02:09:12,507 - Scanning: forward line 305
+2024-12-01 02:09:14,838 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:15,174 - Response: b'f306\r\n'
+2024-12-01 02:09:15,174 - Scanning: forward line 306
+2024-12-01 02:09:17,505 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:17,841 - Response: b'f307\r\n'
+2024-12-01 02:09:17,842 - Scanning: forward line 307
+2024-12-01 02:09:20,172 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:20,509 - Response: b'f308\r\n'
+2024-12-01 02:09:20,510 - Scanning: forward line 308
+2024-12-01 02:09:22,840 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:23,176 - Response: b'f309\r\n'
+2024-12-01 02:09:23,176 - Scanning: forward line 309
+2024-12-01 02:09:25,507 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:25,844 - Response: b'f310\r\n'
+2024-12-01 02:09:25,844 - Scanning: forward line 310
+2024-12-01 02:09:28,175 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:28,511 - Response: b'f311\r\n'
+2024-12-01 02:09:28,511 - Scanning: forward line 311
+2024-12-01 02:09:30,842 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:31,181 - Response: b'f312\r\n'
+2024-12-01 02:09:31,181 - Scanning: forward line 312
+2024-12-01 02:09:33,511 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:33,847 - Response: b'f313\r\n'
+2024-12-01 02:09:33,847 - Scanning: forward line 313
+2024-12-01 02:09:36,178 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:36,514 - Response: b'f314\r\n'
+2024-12-01 02:09:36,515 - Scanning: forward line 314
+2024-12-01 02:09:38,846 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:39,182 - Response: b'f315\r\n'
+2024-12-01 02:09:39,182 - Scanning: forward line 315
+2024-12-01 02:09:41,513 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:41,849 - Response: b'f316\r\n'
+2024-12-01 02:09:41,849 - Scanning: forward line 316
+2024-12-01 02:09:44,181 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:44,517 - Response: b'f317\r\n'
+2024-12-01 02:09:44,518 - Scanning: forward line 317
+2024-12-01 02:09:46,850 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:47,185 - Response: b'f318\r\n'
+2024-12-01 02:09:47,185 - Scanning: forward line 318
+2024-12-01 02:09:49,516 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:49,852 - Response: b'f319\r\n'
+2024-12-01 02:09:49,853 - Scanning: forward line 319
+2024-12-01 02:09:52,184 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:52,520 - Response: b'f320\r\n'
+2024-12-01 02:09:52,520 - Scanning: forward line 320
+2024-12-01 02:09:54,851 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:55,187 - Response: b'f321\r\n'
+2024-12-01 02:09:55,188 - Scanning: forward line 321
+2024-12-01 02:09:57,519 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:09:57,857 - Response: b'f322\r\n'
+2024-12-01 02:09:57,857 - Scanning: forward line 322
+2024-12-01 02:10:00,188 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:00,524 - Response: b'f323\r\n'
+2024-12-01 02:10:00,524 - Scanning: forward line 323
+2024-12-01 02:10:02,855 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:03,192 - Response: b'f324\r\n'
+2024-12-01 02:10:03,192 - Scanning: forward line 324
+2024-12-01 02:10:05,523 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:05,860 - Response: b'f325\r\n'
+2024-12-01 02:10:05,860 - Scanning: forward line 325
+2024-12-01 02:10:08,191 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:08,527 - Response: b'f326\r\n'
+2024-12-01 02:10:08,527 - Scanning: forward line 326
+2024-12-01 02:10:10,858 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:11,194 - Response: b'f327\r\n'
+2024-12-01 02:10:11,194 - Scanning: forward line 327
+2024-12-01 02:10:13,525 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:13,861 - Response: b'f328\r\n'
+2024-12-01 02:10:13,861 - Scanning: forward line 328
+2024-12-01 02:10:16,192 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:16,530 - Response: b'f329\r\n'
+2024-12-01 02:10:16,530 - Scanning: forward line 329
+2024-12-01 02:10:18,860 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:19,197 - Response: b'f330\r\n'
+2024-12-01 02:10:19,198 - Scanning: forward line 330
+2024-12-01 02:10:21,528 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:21,866 - Response: b'f331\r\n'
+2024-12-01 02:10:21,866 - Scanning: forward line 331
+2024-12-01 02:10:24,197 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:24,533 - Response: b'f332\r\n'
+2024-12-01 02:10:24,533 - Scanning: forward line 332
+2024-12-01 02:10:26,864 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:27,200 - Response: b'f333\r\n'
+2024-12-01 02:10:27,200 - Scanning: forward line 333
+2024-12-01 02:10:29,531 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:29,868 - Response: b'f334\r\n'
+2024-12-01 02:10:29,868 - Scanning: forward line 334
+2024-12-01 02:10:32,199 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:32,535 - Response: b'f335\r\n'
+2024-12-01 02:10:32,536 - Scanning: forward line 335
+2024-12-01 02:10:34,866 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:35,203 - Response: b'f336\r\n'
+2024-12-01 02:10:35,203 - Scanning: forward line 336
+2024-12-01 02:10:37,535 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:37,870 - Response: b'f337\r\n'
+2024-12-01 02:10:37,870 - Scanning: forward line 337
+2024-12-01 02:10:40,201 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:40,538 - Response: b'f338\r\n'
+2024-12-01 02:10:40,538 - Scanning: forward line 338
+2024-12-01 02:10:42,869 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:43,205 - Response: b'f339\r\n'
+2024-12-01 02:10:43,206 - Scanning: forward line 339
+2024-12-01 02:10:45,537 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:45,873 - Response: b'f340\r\n'
+2024-12-01 02:10:45,873 - Scanning: forward line 340
+2024-12-01 02:10:48,204 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:48,540 - Response: b'f341\r\n'
+2024-12-01 02:10:48,540 - Scanning: forward line 341
+2024-12-01 02:10:50,873 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:51,209 - Response: b'f342\r\n'
+2024-12-01 02:10:51,209 - Scanning: forward line 342
+2024-12-01 02:10:53,540 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:53,875 - Response: b'f343\r\n'
+2024-12-01 02:10:53,875 - Scanning: forward line 343
+2024-12-01 02:10:56,206 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:56,542 - Response: b'f344\r\n'
+2024-12-01 02:10:56,542 - Scanning: forward line 344
+2024-12-01 02:10:58,873 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:10:59,212 - Response: b'f345\r\n'
+2024-12-01 02:10:59,212 - Scanning: forward line 345
+2024-12-01 02:11:01,544 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:01,878 - Response: b'f346\r\n'
+2024-12-01 02:11:01,879 - Scanning: forward line 346
+2024-12-01 02:11:04,210 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:04,546 - Response: b'f347\r\n'
+2024-12-01 02:11:04,546 - Scanning: forward line 347
+2024-12-01 02:11:06,877 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:07,214 - Response: b'f348\r\n'
+2024-12-01 02:11:07,214 - Scanning: forward line 348
+2024-12-01 02:11:09,545 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:09,881 - Response: b'f349\r\n'
+2024-12-01 02:11:09,882 - Scanning: forward line 349
+2024-12-01 02:11:12,213 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:12,548 - Response: b'f350\r\n'
+2024-12-01 02:11:12,549 - Scanning: forward line 350
+2024-12-01 02:11:14,880 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:15,217 - Response: b'f351\r\n'
+2024-12-01 02:11:15,217 - Scanning: forward line 351
+2024-12-01 02:11:17,549 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:17,885 - Response: b'f352\r\n'
+2024-12-01 02:11:17,885 - Scanning: forward line 352
+2024-12-01 02:11:20,216 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:20,553 - Response: b'f353\r\n'
+2024-12-01 02:11:20,553 - Scanning: forward line 353
+2024-12-01 02:11:22,884 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:23,221 - Response: b'f354\r\n'
+2024-12-01 02:11:23,222 - Scanning: forward line 354
+2024-12-01 02:11:25,556 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:25,895 - Response: b'f355\r\n'
+2024-12-01 02:11:25,896 - Scanning: forward line 355
+2024-12-01 02:11:28,229 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:28,570 - Response: b'f356\r\n'
+2024-12-01 02:11:28,570 - Scanning: forward line 356
+2024-12-01 02:11:30,904 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:31,243 - Response: b'f357\r\n'
+2024-12-01 02:11:31,244 - Scanning: forward line 357
+2024-12-01 02:11:33,578 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:33,917 - Response: b'f358\r\n'
+2024-12-01 02:11:33,917 - Scanning: forward line 358
+2024-12-01 02:11:36,248 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:36,585 - Response: b'f359\r\n'
+2024-12-01 02:11:36,585 - Scanning: forward line 359
+2024-12-01 02:11:38,918 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:39,255 - Response: b'f360\r\n'
+2024-12-01 02:11:39,255 - Scanning: forward line 360
+2024-12-01 02:11:41,587 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:41,926 - Response: b'f361\r\n'
+2024-12-01 02:11:41,927 - Scanning: forward line 361
+2024-12-01 02:11:44,258 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:44,595 - Response: b'f362\r\n'
+2024-12-01 02:11:44,595 - Scanning: forward line 362
+2024-12-01 02:11:46,928 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:47,264 - Response: b'f363\r\n'
+2024-12-01 02:11:47,264 - Scanning: forward line 363
+2024-12-01 02:11:49,596 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:49,932 - Response: b'f364\r\n'
+2024-12-01 02:11:49,932 - Scanning: forward line 364
+2024-12-01 02:11:52,263 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:52,601 - Response: b'f365\r\n'
+2024-12-01 02:11:52,601 - Scanning: forward line 365
+2024-12-01 02:11:54,934 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:55,272 - Response: b'f366\r\n'
+2024-12-01 02:11:55,272 - Scanning: forward line 366
+2024-12-01 02:11:57,602 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:11:57,936 - Response: b'f367\r\n'
+2024-12-01 02:11:57,936 - Scanning: forward line 367
+2024-12-01 02:12:00,268 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:00,605 - Response: b'f368\r\n'
+2024-12-01 02:12:00,605 - Scanning: forward line 368
+2024-12-01 02:12:02,937 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:03,275 - Response: b'f369\r\n'
+2024-12-01 02:12:03,275 - Scanning: forward line 369
+2024-12-01 02:12:05,606 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:05,941 - Response: b'f370\r\n'
+2024-12-01 02:12:05,941 - Scanning: forward line 370
+2024-12-01 02:12:08,272 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:08,608 - Response: b'f371\r\n'
+2024-12-01 02:12:08,609 - Scanning: forward line 371
+2024-12-01 02:12:10,940 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:11,277 - Response: b'f372\r\n'
+2024-12-01 02:12:11,277 - Scanning: forward line 372
+2024-12-01 02:12:13,608 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:13,945 - Response: b'f373\r\n'
+2024-12-01 02:12:13,946 - Scanning: forward line 373
+2024-12-01 02:12:16,276 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:16,612 - Response: b'f374\r\n'
+2024-12-01 02:12:16,612 - Scanning: forward line 374
+2024-12-01 02:12:18,944 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:19,281 - Response: b'f375\r\n'
+2024-12-01 02:12:19,281 - Scanning: forward line 375
+2024-12-01 02:12:21,611 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:21,948 - Response: b'f376\r\n'
+2024-12-01 02:12:21,948 - Scanning: forward line 376
+2024-12-01 02:12:24,280 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:24,617 - Response: b'f377\r\n'
+2024-12-01 02:12:24,617 - Scanning: forward line 377
+2024-12-01 02:12:26,949 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:27,284 - Response: b'f378\r\n'
+2024-12-01 02:12:27,284 - Scanning: forward line 378
+2024-12-01 02:12:29,616 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:29,951 - Response: b'f379\r\n'
+2024-12-01 02:12:29,951 - Scanning: forward line 379
+2024-12-01 02:12:32,282 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:32,617 - Response: b'f380\r\n'
+2024-12-01 02:12:32,618 - Scanning: forward line 380
+2024-12-01 02:12:34,948 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:35,286 - Response: b'f381\r\n'
+2024-12-01 02:12:35,287 - Scanning: forward line 381
+2024-12-01 02:12:37,618 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:37,954 - Response: b'f382\r\n'
+2024-12-01 02:12:37,954 - Scanning: forward line 382
+2024-12-01 02:12:40,284 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:40,621 - Response: b'f383\r\n'
+2024-12-01 02:12:40,621 - Scanning: forward line 383
+2024-12-01 02:12:42,950 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:43,289 - Response: b'f384\r\n'
+2024-12-01 02:12:43,289 - Scanning: forward line 384
+2024-12-01 02:12:45,622 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:45,959 - Response: b'f385\r\n'
+2024-12-01 02:12:45,959 - Scanning: forward line 385
+2024-12-01 02:12:48,294 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:48,631 - Response: b'f386\r\n'
+2024-12-01 02:12:48,631 - Scanning: forward line 386
+2024-12-01 02:12:50,964 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:51,302 - Response: b'f387\r\n'
+2024-12-01 02:12:51,302 - Scanning: forward line 387
+2024-12-01 02:12:53,633 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:53,968 - Response: b'f388\r\n'
+2024-12-01 02:12:53,968 - Scanning: forward line 388
+2024-12-01 02:12:56,301 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:56,638 - Response: b'f389\r\n'
+2024-12-01 02:12:56,638 - Scanning: forward line 389
+2024-12-01 02:12:58,973 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:12:59,311 - Response: b'f390\r\n'
+2024-12-01 02:12:59,311 - Scanning: forward line 390
+2024-12-01 02:13:01,643 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:01,982 - Response: b'f391\r\n'
+2024-12-01 02:13:01,982 - Scanning: forward line 391
+2024-12-01 02:13:04,312 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:04,648 - Response: b'f392\r\n'
+2024-12-01 02:13:04,649 - Scanning: forward line 392
+2024-12-01 02:13:06,980 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:07,316 - Response: b'f393\r\n'
+2024-12-01 02:13:07,316 - Scanning: forward line 393
+2024-12-01 02:13:09,648 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:09,984 - Response: b'f394\r\n'
+2024-12-01 02:13:09,985 - Scanning: forward line 394
+2024-12-01 02:13:12,316 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:12,652 - Response: b'f395\r\n'
+2024-12-01 02:13:12,652 - Scanning: forward line 395
+2024-12-01 02:13:14,983 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:15,319 - Response: b'f396\r\n'
+2024-12-01 02:13:15,319 - Scanning: forward line 396
+2024-12-01 02:13:17,651 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:17,988 - Response: b'f397\r\n'
+2024-12-01 02:13:17,988 - Scanning: forward line 397
+2024-12-01 02:13:20,318 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:20,660 - Response: b'f398\r\n'
+2024-12-01 02:13:20,660 - Scanning: forward line 398
+2024-12-01 02:13:22,995 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:23,332 - Response: b'f399\r\n'
+2024-12-01 02:13:23,333 - Scanning: forward line 399
+2024-12-01 02:13:25,664 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:25,999 - Response: b'f400\r\n'
+2024-12-01 02:13:26,000 - Scanning: forward line 400
+2024-12-01 02:13:28,331 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:28,667 - Response: b'f401\r\n'
+2024-12-01 02:13:28,668 - Scanning: forward line 401
+2024-12-01 02:13:31,002 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:31,338 - Response: b'f402\r\n'
+2024-12-01 02:13:31,338 - Scanning: forward line 402
+2024-12-01 02:13:33,667 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:34,007 - Response: b'f403\r\n'
+2024-12-01 02:13:34,008 - Scanning: forward line 403
+2024-12-01 02:13:36,343 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:36,689 - Response: b'f404\r\n'
+2024-12-01 02:13:36,689 - Scanning: forward line 404
+2024-12-01 02:13:39,025 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:39,372 - Response: b'f405\r\n'
+2024-12-01 02:13:39,372 - Scanning: forward line 405
+2024-12-01 02:13:41,709 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:42,050 - Response: b'f406\r\n'
+2024-12-01 02:13:42,050 - Scanning: forward line 406
+2024-12-01 02:13:44,383 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:44,721 - Response: b'f407\r\n'
+2024-12-01 02:13:44,722 - Scanning: forward line 407
+2024-12-01 02:13:47,054 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:47,394 - Response: b'f408\r\n'
+2024-12-01 02:13:47,394 - Scanning: forward line 408
+2024-12-01 02:13:49,724 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:50,063 - Response: b'f409\r\n'
+2024-12-01 02:13:50,063 - Scanning: forward line 409
+2024-12-01 02:13:52,397 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:52,737 - Response: b'f410\r\n'
+2024-12-01 02:13:52,737 - Scanning: forward line 410
+2024-12-01 02:13:55,068 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:55,405 - Response: b'f411\r\n'
+2024-12-01 02:13:55,405 - Scanning: forward line 411
+2024-12-01 02:13:57,738 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:13:58,073 - Response: b'f412\r\n'
+2024-12-01 02:13:58,073 - Scanning: forward line 412
+2024-12-01 02:14:00,408 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:00,745 - Response: b'f413\r\n'
+2024-12-01 02:14:00,745 - Scanning: forward line 413
+2024-12-01 02:14:03,080 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:03,420 - Response: b'f414\r\n'
+2024-12-01 02:14:03,420 - Scanning: forward line 414
+2024-12-01 02:14:05,753 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:06,089 - Response: b'f415\r\n'
+2024-12-01 02:14:06,089 - Scanning: forward line 415
+2024-12-01 02:14:08,421 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:08,755 - Response: b'f416\r\n'
+2024-12-01 02:14:08,756 - Scanning: forward line 416
+2024-12-01 02:14:11,086 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:11,422 - Response: b'f417\r\n'
+2024-12-01 02:14:11,422 - Scanning: forward line 417
+2024-12-01 02:14:13,765 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:14,103 - Response: b'f418\r\n'
+2024-12-01 02:14:14,103 - Scanning: forward line 418
+2024-12-01 02:14:16,439 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:16,781 - Response: b'f419\r\n'
+2024-12-01 02:14:16,782 - Scanning: forward line 419
+2024-12-01 02:14:19,115 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:19,455 - Response: b'f420\r\n'
+2024-12-01 02:14:19,455 - Scanning: forward line 420
+2024-12-01 02:14:21,789 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:22,125 - Response: b'f421\r\n'
+2024-12-01 02:14:22,125 - Scanning: forward line 421
+2024-12-01 02:14:24,457 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:24,793 - Response: b'f422\r\n'
+2024-12-01 02:14:24,793 - Scanning: forward line 422
+2024-12-01 02:14:27,124 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:27,460 - Response: b'f423\r\n'
+2024-12-01 02:14:27,460 - Scanning: forward line 423
+2024-12-01 02:14:29,793 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:30,131 - Response: b'f424\r\n'
+2024-12-01 02:14:30,132 - Scanning: forward line 424
+2024-12-01 02:14:32,463 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:32,802 - Response: b'f425\r\n'
+2024-12-01 02:14:32,802 - Scanning: forward line 425
+2024-12-01 02:14:35,135 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:35,472 - Response: b'f426\r\n'
+2024-12-01 02:14:35,472 - Scanning: forward line 426
+2024-12-01 02:14:37,805 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:38,142 - Response: b'f427\r\n'
+2024-12-01 02:14:38,143 - Scanning: forward line 427
+2024-12-01 02:14:40,475 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:40,814 - Response: b'f428\r\n'
+2024-12-01 02:14:40,814 - Scanning: forward line 428
+2024-12-01 02:14:43,147 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:43,485 - Response: b'f429\r\n'
+2024-12-01 02:14:43,486 - Scanning: forward line 429
+2024-12-01 02:14:45,818 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:46,157 - Response: b'f430\r\n'
+2024-12-01 02:14:46,158 - Scanning: forward line 430
+2024-12-01 02:14:48,489 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:48,827 - Response: b'f431\r\n'
+2024-12-01 02:14:48,827 - Scanning: forward line 431
+2024-12-01 02:14:51,157 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:51,494 - Response: b'f432\r\n'
+2024-12-01 02:14:51,494 - Scanning: forward line 432
+2024-12-01 02:14:53,826 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:54,163 - Response: b'f433\r\n'
+2024-12-01 02:14:54,163 - Scanning: forward line 433
+2024-12-01 02:14:56,495 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:56,833 - Response: b'f434\r\n'
+2024-12-01 02:14:56,833 - Scanning: forward line 434
+2024-12-01 02:14:59,165 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:14:59,501 - Response: b'f435\r\n'
+2024-12-01 02:14:59,501 - Scanning: forward line 435
+2024-12-01 02:15:01,835 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:02,172 - Response: b'f436\r\n'
+2024-12-01 02:15:02,172 - Scanning: forward line 436
+2024-12-01 02:15:04,505 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:04,842 - Response: b'f437\r\n'
+2024-12-01 02:15:04,842 - Scanning: forward line 437
+2024-12-01 02:15:07,173 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:07,514 - Response: b'f438\r\n'
+2024-12-01 02:15:07,514 - Scanning: forward line 438
+2024-12-01 02:15:09,846 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:10,184 - Response: b'f439\r\n'
+2024-12-01 02:15:10,184 - Scanning: forward line 439
+2024-12-01 02:15:12,516 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:12,856 - Response: b'f440\r\n'
+2024-12-01 02:15:12,856 - Scanning: forward line 440
+2024-12-01 02:15:15,187 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:15,525 - Response: b'f441\r\n'
+2024-12-01 02:15:15,526 - Scanning: forward line 441
+2024-12-01 02:15:17,861 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:18,196 - Response: b'f442\r\n'
+2024-12-01 02:15:18,196 - Scanning: forward line 442
+2024-12-01 02:15:20,528 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:20,868 - Response: b'f443\r\n'
+2024-12-01 02:15:20,868 - Scanning: forward line 443
+2024-12-01 02:15:23,203 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:23,540 - Response: b'f444\r\n'
+2024-12-01 02:15:23,540 - Scanning: forward line 444
+2024-12-01 02:15:25,872 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:26,211 - Response: b'f445\r\n'
+2024-12-01 02:15:26,211 - Scanning: forward line 445
+2024-12-01 02:15:28,542 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:28,880 - Response: b'f446\r\n'
+2024-12-01 02:15:28,880 - Scanning: forward line 446
+2024-12-01 02:15:31,212 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:31,548 - Response: b'f447\r\n'
+2024-12-01 02:15:31,548 - Scanning: forward line 447
+2024-12-01 02:15:33,880 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:34,217 - Response: b'f448\r\n'
+2024-12-01 02:15:34,217 - Scanning: forward line 448
+2024-12-01 02:15:36,549 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:36,886 - Response: b'f449\r\n'
+2024-12-01 02:15:36,887 - Scanning: forward line 449
+2024-12-01 02:15:39,218 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:39,554 - Response: b'f450\r\n'
+2024-12-01 02:15:39,555 - Scanning: forward line 450
+2024-12-01 02:15:41,889 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:42,227 - Response: b'f451\r\n'
+2024-12-01 02:15:42,227 - Scanning: forward line 451
+2024-12-01 02:15:44,559 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:44,894 - Response: b'f452\r\n'
+2024-12-01 02:15:44,894 - Scanning: forward line 452
+2024-12-01 02:15:47,225 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:47,563 - Response: b'f453\r\n'
+2024-12-01 02:15:47,563 - Scanning: forward line 453
+2024-12-01 02:15:49,896 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:50,233 - Response: b'f454\r\n'
+2024-12-01 02:15:50,233 - Scanning: forward line 454
+2024-12-01 02:15:52,565 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:52,903 - Response: b'f455\r\n'
+2024-12-01 02:15:52,904 - Scanning: forward line 455
+2024-12-01 02:15:55,238 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:55,575 - Response: b'f456\r\n'
+2024-12-01 02:15:55,575 - Scanning: forward line 456
+2024-12-01 02:15:57,909 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:15:58,246 - Response: b'f457\r\n'
+2024-12-01 02:15:58,246 - Scanning: forward line 457
+2024-12-01 02:16:00,579 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:00,918 - Response: b'f458\r\n'
+2024-12-01 02:16:00,919 - Scanning: forward line 458
+2024-12-01 02:16:03,252 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:03,590 - Response: b'f459\r\n'
+2024-12-01 02:16:03,590 - Scanning: forward line 459
+2024-12-01 02:16:05,923 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:06,261 - Response: b'f460\r\n'
+2024-12-01 02:16:06,261 - Scanning: forward line 460
+2024-12-01 02:16:08,595 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:08,931 - Response: b'f461\r\n'
+2024-12-01 02:16:08,931 - Scanning: forward line 461
+2024-12-01 02:16:11,264 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:11,604 - Response: b'f462\r\n'
+2024-12-01 02:16:11,604 - Scanning: forward line 462
+2024-12-01 02:16:13,939 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:14,275 - Response: b'f463\r\n'
+2024-12-01 02:16:14,275 - Scanning: forward line 463
+2024-12-01 02:16:16,610 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:16,948 - Response: b'f464\r\n'
+2024-12-01 02:16:16,948 - Scanning: forward line 464
+2024-12-01 02:16:19,280 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:19,619 - Response: b'f465\r\n'
+2024-12-01 02:16:19,619 - Scanning: forward line 465
+2024-12-01 02:16:21,950 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:22,288 - Response: b'f466\r\n'
+2024-12-01 02:16:22,288 - Scanning: forward line 466
+2024-12-01 02:16:24,620 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:24,958 - Response: b'f467\r\n'
+2024-12-01 02:16:24,958 - Scanning: forward line 467
+2024-12-01 02:16:27,293 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:27,629 - Response: b'f468\r\n'
+2024-12-01 02:16:27,629 - Scanning: forward line 468
+2024-12-01 02:16:29,961 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:30,297 - Response: b'f469\r\n'
+2024-12-01 02:16:30,298 - Scanning: forward line 469
+2024-12-01 02:16:32,632 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:32,971 - Response: b'f470\r\n'
+2024-12-01 02:16:32,972 - Scanning: forward line 470
+2024-12-01 02:16:35,303 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:35,642 - Response: b'f471\r\n'
+2024-12-01 02:16:35,642 - Scanning: forward line 471
+2024-12-01 02:16:37,974 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:38,310 - Response: b'f472\r\n'
+2024-12-01 02:16:38,311 - Scanning: forward line 472
+2024-12-01 02:16:40,642 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:40,979 - Response: b'f473\r\n'
+2024-12-01 02:16:40,979 - Scanning: forward line 473
+2024-12-01 02:16:43,314 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:43,653 - Response: b'f474\r\n'
+2024-12-01 02:16:43,653 - Scanning: forward line 474
+2024-12-01 02:16:45,984 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:46,322 - Response: b'f475\r\n'
+2024-12-01 02:16:46,322 - Scanning: forward line 475
+2024-12-01 02:16:48,653 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:48,992 - Response: b'f476\r\n'
+2024-12-01 02:16:48,993 - Scanning: forward line 476
+2024-12-01 02:16:51,325 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:51,661 - Response: b'f477\r\n'
+2024-12-01 02:16:51,661 - Scanning: forward line 477
+2024-12-01 02:16:53,993 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:54,330 - Response: b'f478\r\n'
+2024-12-01 02:16:54,330 - Scanning: forward line 478
+2024-12-01 02:16:56,662 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:57,000 - Response: b'f479\r\n'
+2024-12-01 02:16:57,000 - Scanning: forward line 479
+2024-12-01 02:16:59,332 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:16:59,668 - Response: b'f480\r\n'
+2024-12-01 02:16:59,668 - Scanning: forward line 480
+2024-12-01 02:17:01,999 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:02,339 - Response: b'f481\r\n'
+2024-12-01 02:17:02,339 - Scanning: forward line 481
+2024-12-01 02:17:04,671 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:05,008 - Response: b'f482\r\n'
+2024-12-01 02:17:05,008 - Scanning: forward line 482
+2024-12-01 02:17:07,341 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:07,679 - Response: b'f483\r\n'
+2024-12-01 02:17:07,680 - Scanning: forward line 483
+2024-12-01 02:17:10,013 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:10,351 - Response: b'f484\r\n'
+2024-12-01 02:17:10,351 - Scanning: forward line 484
+2024-12-01 02:17:12,687 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:13,025 - Response: b'f485\r\n'
+2024-12-01 02:17:13,025 - Scanning: forward line 485
+2024-12-01 02:17:15,357 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:15,694 - Response: b'f486\r\n'
+2024-12-01 02:17:15,694 - Scanning: forward line 486
+2024-12-01 02:17:18,028 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:18,365 - Response: b'f487\r\n'
+2024-12-01 02:17:18,366 - Scanning: forward line 487
+2024-12-01 02:17:20,697 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:21,034 - Response: b'f488\r\n'
+2024-12-01 02:17:21,034 - Scanning: forward line 488
+2024-12-01 02:17:23,367 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:23,703 - Response: b'f489\r\n'
+2024-12-01 02:17:23,704 - Scanning: forward line 489
+2024-12-01 02:17:26,038 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:26,379 - Response: b'f490\r\n'
+2024-12-01 02:17:26,379 - Scanning: forward line 490
+2024-12-01 02:17:28,713 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:29,052 - Response: b'f491\r\n'
+2024-12-01 02:17:29,052 - Scanning: forward line 491
+2024-12-01 02:17:31,386 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:31,723 - Response: b'f492\r\n'
+2024-12-01 02:17:31,724 - Scanning: forward line 492
+2024-12-01 02:17:34,057 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:34,394 - Response: b'f493\r\n'
+2024-12-01 02:17:34,395 - Scanning: forward line 493
+2024-12-01 02:17:36,727 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:37,068 - Response: b'f494\r\n'
+2024-12-01 02:17:37,069 - Scanning: forward line 494
+2024-12-01 02:17:39,402 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:39,739 - Response: b'f495\r\n'
+2024-12-01 02:17:39,740 - Scanning: forward line 495
+2024-12-01 02:17:42,076 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:42,413 - Response: b'f496\r\n'
+2024-12-01 02:17:42,413 - Scanning: forward line 496
+2024-12-01 02:17:44,745 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:45,081 - Response: b'f497\r\n'
+2024-12-01 02:17:45,081 - Scanning: forward line 497
+2024-12-01 02:17:47,413 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:47,751 - Response: b'f498\r\n'
+2024-12-01 02:17:47,751 - Scanning: forward line 498
+2024-12-01 02:17:50,082 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:50,419 - Response: b'f499\r\n'
+2024-12-01 02:17:50,419 - Scanning: forward line 499
+2024-12-01 02:17:52,751 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:53,088 - Response: b'f500\r\n'
+2024-12-01 02:17:53,088 - Scanning: forward line 500
+2024-12-01 02:17:55,420 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-01 02:17:55,420 - File saved: 20241125_Bi-MoS2-100SiO2_NH4OH_6-1_60
+2024-12-01 02:17:55,420 - Scan finished at 2024-12-01 02:17:55.420562
+2024-12-01 02:17:55,420 - Response: 0
+2024-12-01 02:17:55,420 - Scan completed
+2024-12-01 02:17:55,921 - 掃描完成
+2024-12-01 02:17:55,921 - 
+局部 CITS 量測完成
+2024-12-01 02:17:55,921 - Sending command: FeedPara('Enable', 0);
+2024-12-01 02:17:55,922 - Response: b'DDE Cmd 6974\r\n0\r\n'
+2024-12-01 02:17:55,922 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-01 02:17:55,928 - Response: b'DDE Cmd 6976\r\n'
+2024-12-01 02:17:55,928 - Sending command: FeedPara('Enable', 0);
+2024-12-01 02:17:55,930 - Response: b'DDE Cmd 6977\r\n'
+2024-12-01 02:17:55,930 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-01 02:17:55,935 - Response: b'DDE Cmd 6978\r\n0\r\n'
+2024-12-01 02:17:55,935 - Feedback on
+2024-12-01 02:17:55,935 - 系統回到安全狀態
+2024-12-01 02:17:55,935 - Local CITS measurement started successfully
+2024-12-01 02:18:17,441 - 視窗已關閉，正在清理資源...
