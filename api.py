@@ -15,6 +15,7 @@ from dataclasses import dataclass
 from enum import Enum
 
 from utils.KB2902BSMU import KeysightB2902B, Channel, OutputMode
+from utils.SXMPyCalc import LocalCITSParams
 from modules.SXMPySpectro import SXMSpectroControl
 from modules.SXMPycontroller import SXMController
 
@@ -548,6 +549,194 @@ class SMUControlAPI:
             error_message = f"Multi-STS CITS 量測錯誤: {str(e)}"
             print(error_message)
             raise Exception(error_message)
+    # ========== CITS functions END ========== #
+
+    # ========== Local CITS functions ========== #
+    def start_local_ssts_cits(self, local_areas_params: list, scan_direction: int = 1) -> bool:
+        """
+        啟動局部區域 CITS 量測
+        
+        對特定區域執行 CITS 量測，提供更精確的空間分布控制。此函數允許定義多個
+        局部量測區域，每個區域可以有不同的點密度和分布方式。
+        
+        Parameters
+        ----------
+        local_areas_params : list
+            局部區域參數列表，每個元素都是包含以下鍵值的字典：
+            - start_x (float): 起始 X 座標（nm）
+            - start_y (float): 起始 Y 座標（nm）
+            - dx (float): X 方向步進（nm）
+            - dy (float): Y 方向步進（nm）
+            - nx (int): X 方向點數
+            - ny (int): Y 方向點數
+            - startpoint_direction (int): 起始點方向（1: 向上, -1: 向下）
+        scan_direction : int, optional
+            掃描方向（1: 由下到上, -1: 由上到下），預設為 1
+            
+        Returns
+        -------
+        bool
+            量測是否成功啟動
+            
+        Raises
+        ------
+        Exception
+            當參數無效或執行過程中發生錯誤時
+        """
+        try:
+            # 確保 STM 控制器已初始化
+            if not self.ensure_controller():
+                print("Failed to ensure STM controller")
+                raise Exception("Failed to initialize controller")
+
+            # 參數驗證
+            if not local_areas_params:
+                raise ValueError("必須提供至少一個局部區域參數")
+                
+            if scan_direction not in (1, -1):
+                raise ValueError("掃描方向必須是 1 (向上) 或 -1 (向下)")
+                
+            # 驗證每個局部區域的參數
+            local_areas = []
+            for params in local_areas_params:
+                # 檢查必要參數
+                required_params = ['start_x', 'start_y', 'dx', 'dy', 'nx', 'ny']
+                missing_params = [p for p in required_params if p not in params]
+                if missing_params:
+                    raise ValueError(f"缺少必要參數: {', '.join(missing_params)}")
+                    
+                # 驗證點數範圍
+                if not (1 <= params['nx'] <= 512 and 1 <= params['ny'] <= 512):
+                    raise ValueError(
+                        f"點數必須在 1 到 512 之間，目前: nx={params['nx']}, ny={params['ny']}"
+                    )
+                    
+                # 建立 LocalCITSParams 物件
+                local_area = LocalCITSParams(
+                    start_x=params['start_x'],
+                    start_y=params['start_y'],
+                    dx=params['dx'],
+                    dy=params['dy'],
+                    nx=params['nx'],
+                    ny=params['ny'],
+                    startpoint_direction=params.get('startpoint_direction', 1)
+                )
+                local_areas.append(local_area)
+                
+            # 執行局部 CITS 量測
+            success = self.stm.standard_local_cits(
+                local_areas=local_areas,
+                scan_direction=scan_direction
+            )
+            
+            if success:
+                print("Local CITS measurement started successfully")
+            else:
+                print("Failed to start local CITS measurement")
+                
+            return success
+            
+        except Exception as e:
+            error_message = f"Local CITS measurement error: {str(e)}"
+            print(error_message)
+            raise Exception(error_message)
+        
+    def start_local_msts_cits(self, local_areas_params: list, 
+                         script_name: str, scan_direction: int = 1) -> bool:
+        """
+        啟動局部區域 Multi-STS CITS 量測
+        
+        此 API 函數整合了局部區域 CITS 和 Multi-STS 功能，允許在指定的局部區域內執行
+        CITS 量測，並在每個量測點上進行多組不同偏壓的 STS 量測。
+        
+        Parameters
+        ----------
+        local_areas_params : list
+            局部區域參數列表，每個元素都是包含以下鍵值的字典：
+            - start_x (float): 起始 X 座標（nm）
+            - start_y (float): 起始 Y 座標（nm）
+            - dx (float): X 方向步進（nm）
+            - dy (float): Y 方向步進（nm）
+            - nx (int): X 方向點數
+            - ny (int): Y 方向點數
+            - startpoint_direction (int): 起始點方向（1: 向上, -1: 向下）
+        script_name : str
+            Multi-STS 腳本名稱，定義了要執行的 Vds 和 Vg 組合
+        scan_direction : int, optional
+            掃描方向（1: 由下到上, -1: 由上到下），預設為 1
+            
+        Returns
+        -------
+        bool
+            量測是否成功啟動
+        """
+        try:
+            # 確保控制器初始化
+            if not self.ensure_controller():
+                raise Exception("Failed to initialize controller")
+                
+            # 確保 SMU 已連接
+            if not self.smu:
+                raise Exception("SMU 未連接")
+
+            # 參數驗證
+            if not local_areas_params:
+                raise ValueError("必須提供至少一個局部區域參數")
+                
+            if not script_name:
+                raise ValueError("必須提供 Multi-STS 腳本名稱")
+                
+            if scan_direction not in (1, -1):
+                raise ValueError("掃描方向必須是 1 (向上) 或 -1 (向下)")
+                
+            # 驗證每個局部區域的參數並轉換為 LocalCITSParams 物件
+            local_areas = []
+            for params in local_areas_params:
+                # 檢查必要參數
+                required_params = ['start_x', 'start_y', 'dx', 'dy', 'nx', 'ny']
+                missing_params = [p for p in required_params if p not in params]
+                if missing_params:
+                    raise ValueError(f"缺少必要參數: {', '.join(missing_params)}")
+                    
+                # 驗證點數範圍
+                if not (1 <= params['nx'] <= 512 and 1 <= params['ny'] <= 512):
+                    raise ValueError(
+                        f"點數必須在 1 到 512 之間，目前: nx={params['nx']}, ny={params['ny']}"
+                    )
+                    
+                # 建立 LocalCITSParams 物件
+                local_area = LocalCITSParams(
+                    start_x=params['start_x'],
+                    start_y=params['start_y'],
+                    dx=params['dx'],
+                    dy=params['dy'],
+                    nx=params['nx'],
+                    ny=params['ny'],
+                    startpoint_direction=params.get('startpoint_direction', 1)
+                )
+                local_areas.append(local_area)
+                
+            # 執行局部 Multi-STS CITS 量測
+            success = self.stm.standard_local_msts_cits(
+                local_areas=local_areas,
+                script_name=script_name,
+                scan_direction=scan_direction
+            )
+            
+            if success:
+                print("Local Multi-STS CITS measurement started successfully")
+            else:
+                print("Failed to start local Multi-STS CITS measurement")
+                
+            return success
+            
+        except Exception as e:
+            error_message = f"Local Multi-STS CITS measurement error: {str(e)}"
+            print(error_message)
+            raise Exception(error_message)
+    # ========== Local CITS functions END ========== #
+        
+
     # ========== CITS functions END ========== #
 
     def cleanup(self):
