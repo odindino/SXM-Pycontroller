@@ -9,7 +9,9 @@ class SXMParameters:
         'Scan': (0, 1),             # 0: off, 1: on
         'Angle': (-180.0, 180.0),   # degrees
         'Speed': (0.1, 10.0),       # lines/s
-        'Pixel': [32, 64, 128, 250, 256, 500, 512, 1000, 1024]  # valid pixel values
+        'Pixel': [32, 64, 128, 250, 256, 500, 512, 1000, 1024],  # valid pixel values
+        'PixelRatio': (0.1, 10.0),  # Pixel density ratio
+        'AspectRatio': (0.1, 10.0)  # Image format ratio
     }
     
     # 回饋參數定義
@@ -37,7 +39,8 @@ class SXMParameters:
         'Angle': float,     # 掃描角度
         'LineNr': int,      # 當前掃描行數
         'AutoSave': int,    # 自動儲存
-        'AspectRatio': float,  # 長寬比
+        'PixelRatio': float,   # Pixel density
+        'AspectRatio': float,  # Image format
         'DriftX': float,    # X漂移補償
         'DriftY': float,    # Y漂移補償
         'Slope': int,       # 平面校正模式

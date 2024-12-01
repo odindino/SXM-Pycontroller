@@ -601,3 +601,117 @@ class SXMScanControl(SXMEventHandler):
             raise ValueError(f"Unknown direction: {direction}")
 
         return dx, dy
+    
+
+    # ========== Scan Ratio and Aspect Ratio ========== #
+    def get_pixel_ratio(self) -> float:
+        """
+        獲取Pixel Density值
+        
+        Returns
+        -------
+        float
+            Pixel Density比例，預設為1.0
+        """
+        try:
+            ratio = self.GetScanPara('PixelRatio')
+            if ratio is not None:
+                self.current_state['pixel_ratio'] = ratio
+            return ratio if ratio is not None else self.current_state['pixel_ratio']
+        except Exception as e:
+            if self.debug_mode:
+                print(f"Error getting pixel ratio: {str(e)}")
+            return self.current_state['pixel_ratio']
+
+    def get_aspect_ratio(self) -> float:
+        """
+        獲取Image Format值
+        
+        Returns
+        -------
+        float
+            Image Format比例，預設為1.0
+        """
+        try:
+            ratio = self.GetScanPara('AspectRatio')
+            if ratio is not None:
+                self.current_state['aspect_ratio'] = ratio
+            return ratio if ratio is not None else self.current_state['aspect_ratio']
+        except Exception as e:
+            if self.debug_mode:
+                print(f"Error getting aspect ratio: {str(e)}")
+            return self.current_state['aspect_ratio']
+
+    def calculate_actual_scan_dimensions(self) -> tuple:
+        """
+        計算實際的掃描範圍尺寸
+        
+        當image format改變時，會影響慢軸的掃描範圍。
+        例如：當image format設為0.5時，慢軸掃描範圍會是原來的兩倍。
+        
+        Returns
+        -------
+        tuple
+            (快軸範圍, 慢軸範圍) 單位nm
+        """
+        try:
+            scan_range = self.current_state['range']
+            aspect_ratio = self.get_aspect_ratio()
+            
+            if scan_range is None:
+                scan_range = self.GetScanPara('Range')
+                
+            if scan_range is None or aspect_ratio is None:
+                return (None, None)
+                
+            fast_axis_range = scan_range
+            slow_axis_range = scan_range / aspect_ratio  # 當aspect_ratio < 1時，慢軸範圍會變大
+            
+            return (fast_axis_range, slow_axis_range)
+            
+        except Exception as e:
+            if self.debug_mode:
+                print(f"Error calculating scan dimensions: {str(e)}")
+            return (None, None)
+
+    def calculate_scan_lines(self) -> tuple:
+        """
+        計算實際的掃描線數和間距
+        
+        掃描線數會受到image format和pixel density的共同影響：
+        1. 當image format變小（例如0.5）時，慢軸範圍變大，掃描線數會等比例增加
+        2. 當pixel density變小（例如0.5）時，每個pixel會再分成更多條線
+        
+        Returns
+        -------
+        tuple
+            (掃描線數, 線間距nm)
+            如果計算失敗則返回(None, None)
+        """
+        try:
+            # 取得必要參數
+            pixels = self.GetScanPara('Pixel')
+            pixel_ratio = self.get_pixel_ratio()
+            aspect_ratio = self.get_aspect_ratio()
+            
+            if any(x is None for x in [pixels, pixel_ratio, aspect_ratio]):
+                return (None, None)
+                
+            # 計算實際掃描範圍
+            _, slow_axis_range = self.calculate_actual_scan_dimensions()
+            
+            # 計算實際掃描線數
+            # 1. 基礎線數等於pixel數
+            # 2. 因image format改變而增加的線數：除以aspect_ratio
+            # 3. 因pixel density改變而增加的線數：除以pixel_ratio
+            total_lines = int(pixels / (aspect_ratio * pixel_ratio))
+            
+            # 計算線間距
+            line_spacing = slow_axis_range / total_lines if total_lines > 0 else None
+            
+            return (total_lines, line_spacing)
+            
+        except Exception as e:
+            if self.debug_mode:
+                print(f"Error calculating scan lines: {str(e)}")
+            return (None, None)
