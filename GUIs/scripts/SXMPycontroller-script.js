@@ -1106,3 +1106,101 @@ class LocalCITSControl {
 document.addEventListener('DOMContentLoaded', () => {
     window.localCitsControl = new LocalCITSControl();
 });
+
+// 新增全局狀態對象
+const sxmState = {
+    center_x: null,
+    center_y: null,
+    range: null,
+    angle: null,
+    total_lines: null,
+    last_update: null
+};
+
+// 更新狀態函數
+function updateSxmState(newState) {
+    Object.assign(sxmState, newState);
+    updatePreviewDisplay();
+}
+
+// 更新預覽顯示
+function updatePreviewDisplay() {
+    document.getElementById('previewCenter').textContent = 
+        `(${sxmState.center_x?.toFixed(2) || '-'}, ${sxmState.center_y?.toFixed(2) || '-'})`;
+    document.getElementById('previewRange').textContent = 
+        `${sxmState.range?.toFixed(2) || '-'}`;
+    document.getElementById('previewAngle').textContent = 
+        `${sxmState.angle?.toFixed(2) || '-'}`;
+    
+    // 如果有 canvas，也更新預覽圖
+    if (sxmState.range && sxmState.angle) {
+        updatePreviewCanvas();
+    }
+}
+
+// 獲取 SXM 狀態
+async function getSxmStatus() {
+    try {
+        const button = document.getElementById('getSxmStatus');
+        button.disabled = true;
+        button.textContent = 'Getting Status...';
+        
+        const status = await pywebview.api.get_sxm_status();
+        updateSxmState(status);
+        
+        // 顯示成功消息
+        const statusElement = document.getElementById('localCitsStatus');
+        statusElement.textContent = `Status updated at ${status.timestamp}`;
+        
+    } catch (error) {
+        console.error('Failed to get SXM status:', error);
+        const statusElement = document.getElementById('localCitsStatus');
+        statusElement.textContent = `Error: ${error.message}`;
+    } finally {
+        const button = document.getElementById('getSxmStatus');
+        button.disabled = false;
+        button.textContent = 'Get SXM Status';
+    }
+}
+
+// 更新預覽畫布
+function updatePreviewCanvas() {
+    const canvas = document.getElementById('previewCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    // 清空畫布
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // 計算縮放和旋轉
+    const scale = Math.min(
+        canvas.width / sxmState.range,
+        canvas.height / sxmState.range
+    ) * 0.8; // 留出邊距
+    
+    // 保存當前狀態
+    ctx.save();
+    
+    // 移動到畫布中心
+    ctx.translate(canvas.width/2, canvas.height/2);
+    
+    // 旋轉（角度轉弧度）
+    ctx.rotate(sxmState.angle * Math.PI / 180);
+    
+    // 繪製掃描區域
+    ctx.strokeStyle = '#2c3e50';
+    ctx.lineWidth = 2;
+    const size = sxmState.range * scale;
+    ctx.strokeRect(-size/2, -size/2, size, size);
+    
+    // 繪製中心點
+    ctx.fillStyle = '#e74c3c';
+    ctx.beginPath();
+    ctx.arc(0, 0, 3, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // 恢復狀態
+    ctx.restore();
+}
+
+// 綁定事件監聽器
+document.getElementById('getSxmStatus').addEventListener('click', getSxmStatus);

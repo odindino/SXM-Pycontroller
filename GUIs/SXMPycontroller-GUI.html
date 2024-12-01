@@ -2,250 +2,261 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>SMU Controller</title>
+    <title>STM-SMU Controller</title>
     <link rel="stylesheet" href="./styles/SXMPycontroller-style.css">
+</head>
 <body>
-    <div class="container">
-        <!-- Connection Panel -->
-        <div class="connection-panel">
-            <h2>Connection Settings</h2>
-            <div class="input-group">
-                <label>VISA Address:</label>
-                <input type="text" id="visaAddress" placeholder="TCPIP0::172.30.32.98::inst0::INSTR" value="TCPIP0::172.30.32.98::inst0::INSTR">
-                <button id="connectBtn">Connect</button>
-                <button id="disconnectBtn" class="danger" disabled>Disconnect</button>
-                <span id="connectionStatus" class="status-indicator status-disconnected"></span>
+    <div class="main-container">
+        <!-- Navigation Bar -->
+        <nav class="nav-bar">
+            <div class="nav-links">
+                <a href="#" class="nav-link active" data-target="smu-config">SMU Config</a>
+                <a href="#" class="nav-link" data-target="sts-measurement">STS Measurement</a>
+                <a href="#" class="nav-link" data-target="cits-measurement">CITS Measurement</a>
             </div>
-            <!-- <div class="input-group">
-                <label>Compliance:</label>
-                <input type="number" id="compliance" step="0.001" min="0" value="0.1">
-                <span>A</span>
-                <button id="setComplianceBtn">Set Compliance</button>
-            </div> -->
-        </div>
+        </nav>
 
-        <!-- Channel 1 Panel -->
-        <div class="channel-panel">
-            <h2>Channel 1 (Source-Drain)</h2>
-            <div class="input-group">
-                <label>Mode:</label>
-                <select id="ch1Mode">
-                    <option value="VOLTAGE">Voltage</option>
-                    <option value="CURRENT">Current</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>Output Value:</label>
-                <input type="number" id="ch1Value" step="0.001" value="0.5">
-                <span id="ch1Unit">V</span>
-                <button id="ch1SetBtn">Set</button>
-            </div>
-            <div class="input-group">
-                <label>Compliance:</label>
-                <input type="number" id="ch1Compliance" step="0.001" min="0" value="0.01">
-                <span>A</span>
-                <button id="ch1SetComplianceBtn">Set</button>
-                <button id="ch1ReadComplianceBtn">Read</button>
-            </div>
-            <div class="input-group">
-                <button id="ch1OutputBtn" class="warning">Output OFF</button>
-                <button id="ch1ReadBtn" onclick="readChannel(1)">Read Values</button>
-            </div>
-            <div class="reading-display">
-                <div>Voltage: <span id="ch1Voltage">0.000000 V</span></div>
-                <div>Current: <span id="ch1Current">0.000000 μA</span></div>
-                <div class="timestamp">Last Read: <span id="ch1LastRead">Never</span></div>
-            </div>
-        </div>
+        <!-- SMU Config Page -->
+        <section id="smu-config" class="content-section active">
+            <section class="channel-panel">
+                <h2>Connection Settings</h2>
+                <div class="input-group">
+                    <label>VISA Address:</label>
+                    <input type="text" id="visaAddress" />
+                    <button id="connectBtn" class="primary-btn">Connect</button>
+                    <button id="disconnectBtn" class="warning-btn">Disconnect</button>
+                    <span id="connectionStatus" class="status-indicator status-disconnected"></span>
+                </div>
+            </section>
 
-        <!-- Channel 2 Panel -->
-        <div class="channel-panel">
-            <h2>Channel 2 (Gate)</h2>
-            <div class="input-group">
-                <label>Mode:</label>
-                <select id="ch2Mode">
-                    <option value="VOLTAGE">Voltage</option>
-                    <option value="CURRENT">Current</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>Output Value:</label>
-                <input type="number" id="ch2Value" step="0.001" value="1">
-                <span id="ch2Unit">V</span>
-                <button id="ch2SetBtn">Set</button>
-            </div>
-            <div class="input-group">
-                <label>Compliance:</label>
-                <input type="number" id="ch2Compliance" step="0.001" min="0" value="0.01">
-                <span>A</span>
-                <button id="ch2SetComplianceBtn">Set</button>
-                <button id="ch2ReadComplianceBtn">Read</button>
-            </div>
-            <div class="input-group">
-                <button id="ch2OutputBtn" class="warning">Output OFF</button>
-                <button id="ch2ReadBtn" onclick="readChannel(2)">Read Values</button>
-            </div>
-            <div class="reading-display">
-                <div>Voltage: <span id="ch2Voltage">0.000000 V</span></div>
-                <div>Current: <span id="ch2Current">0.000000 μA</span></div>
-                <div class="timestamp">Last Read: <span id="ch2LastRead">Never</span></div>
-            </div>
-        </div>
-
-        <!-- STM Control Panel -->
-        <!-- STS Control Panel --> 
-        <div class="channel-panel">
-            <h2>STM Control</h2>
-            <div class="input-group">
-                <button id="stsStartBtn" class="success">Start STS</button>        
-            </div>
-            <div id="stsConfigPanel">
-                <h3>STS Voltage Settings</h3>
-                <div id="stsSettingsTable">
-                    <div class="sts-header">
-                        <span>Vds (V)</span>
-                        <span>Vg (V)</span>
-                        <span></span>
+            <div class="content-grid">
+                <!-- Channel 1 -->
+                <section class="channel-panel">
+                    <h2>Channel 1 (Source-Drain)</h2>
+                    <div class="input-group">
+                        <label>Mode:</label>
+                        <select id="ch1Mode">
+                            <option value="VOLTAGE">Voltage</option>
+                            <option value="CURRENT">Current</option>
+                        </select>
                     </div>
-                    <div id="stsSettingsRows">
-                        <div class="sts-row">
-                            <input type="number" class="vds-input" value="0" step="0.1">
-                            <input type="number" class="vg-input" value="0" step="0.1">
-                            <button class="remove-row" title="Remove">×</button>
+                    <div class="input-group compact">
+                        <label>Output Value:</label>
+                        <input type="number" id="ch1Value" step="0.1" />
+                        <span id="ch1Unit">V</span>
+                        <button id="ch1SetBtn" class="primary-btn">Set</button>
+                    </div>
+                    <div class="input-group">
+                        <label>Compliance:</label>
+                        <input type="number" id="ch1Compliance" step="0.001" />
+                        <span>A</span>
+                        <button id="ch1SetComplianceBtn" class="primary-btn">Set</button>
+                        <button id="ch1ReadComplianceBtn">Read</button>
+                    </div>
+                    <div class="control-buttons">
+                        <button id="ch1OutputBtn" class="warning-btn">Output OFF</button>
+                        <button id="ch1ReadBtn">Read Values</button>
+                    </div>
+                    <div class="reading-display">
+                        <div>Voltage: <span id="ch1Voltage">0.000000 V</span></div>
+                        <div>Current: <span id="ch1Current">0.000000 μA</span></div>
+                        <div class="timestamp">Last Read: <span id="ch1LastRead">Never</span></div>
+                    </div>
+                </section>
+
+                <!-- Channel 2 -->
+                <section class="channel-panel">
+                    <h2>Channel 2 (Gate)</h2>
+                    <div class="input-group">
+                        <label>Mode:</label>
+                        <select id="ch2Mode">
+                            <option value="VOLTAGE">Voltage</option>
+                            <option value="CURRENT">Current</option>
+                        </select>
+                    </div>
+                    <div class="input-group compact">
+                        <label>Output Value:</label>
+                        <input type="number" id="ch2Value" step="0.1" />
+                        <span id="ch2Unit">V</span>
+                        <button id="ch2SetBtn" class="primary-btn">Set</button>
+                    </div>
+                    <div class="input-group">
+                        <label>Compliance:</label>
+                        <input type="number" id="ch2Compliance" step="0.001" />
+                        <span>A</span>
+                        <button id="ch2SetComplianceBtn" class="primary-btn">Set</button>
+                        <button id="ch2ReadComplianceBtn">Read</button>
+                    </div>
+                    <div class="control-buttons">
+                        <button id="ch2OutputBtn" class="warning-btn">Output OFF</button>
+                        <button id="ch2ReadBtn">Read Values</button>
+                    </div>
+                    <div class="reading-display">
+                        <div>Voltage: <span id="ch2Voltage">0.000000 V</span></div>
+                        <div>Current: <span id="ch2Current">0.000000 μA</span></div>
+                        <div class="timestamp">Last Read: <span id="ch2LastRead">Never</span></div>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <!-- STS Measurement Page -->
+        <section id="sts-measurement" class="content-section">
+            <section class="channel-panel">
+                <h2>STM Control</h2>
+                <div id="stsConfigPanel">
+                    <h3>STS Voltage Settings</h3>
+                    <div id="stsSettingsTable">
+                        <div class="sts-header">
+                            <span>Vds (V)</span>
+                            <span>Vg (V)</span>
+                        </div>
+                        <div id="stsSettingsRows">
+                            <div class="sts-row">
+                                <input type="number" class="vds-input compact" value="0" step="0.1">
+                                <input type="number" class="vg-input compact" value="0" step="0.1">
+                                <button class="remove-row">×</button>
+                            </div>
                         </div>
                     </div>
+                    <button id="addSetting" class="primary-btn">Add Setting</button>
                 </div>
-                <button id="addStsRow" class="primary-btn">Add Setting</button>
-            </div>
-            <div class="script-control-panel">
-                <input type="text" id="scriptName" placeholder="Script Name">
-                <button id="saveScript" class="secondary-btn">Save Script</button>
-                <select id="scriptSelect">
-                    <option value="">Select Script...</option>
-                </select>
-            </div>
-            <div class="sts-control-buttons">
-                <button id="startSingleSts" class="primary-btn">Start Single STS</button>
-                <button id="startMultiSts" class="primary-btn">Start Multi-STS</button>
-            </div>
-        <div>
-            <div id="stsStatus">Ready for STS measurement</div>
-        </div>
-        </div>
 
-        <!-- CITS Control Panel -->
-        <div class="channel-panel">
-            <h2>CITS Control</h2>
-            
-            <div class="input-group">
-                <label>CITS Points Settings:</label>
-                <div class="points-input-container">
-                    <input id="citsPointsX" 
-                           class="numeric-input" 
-                           type="number" 
-                           value="11" 
-                           min="1" 
-                           max="512" 
-                           placeholder="X Points">
-                    <span>X Points</span>
-                    
-                    <input id="citsPointsY" 
-                           class="numeric-input" 
-                           type="number" 
-                           value="11" 
-                           min="1" 
-                           max="512" 
-                           placeholder="Y Points">
-                    <span>Y Points</span>
+                <div class="script-control-panel">
+                    <input type="text" id="scriptName" placeholder="Script Name" class="compact">
+                    <button id="saveScript" class="primary-btn">Save Script</button>
+                    <select id="scriptSelect">
+                        <option value="">Select Script...</option>
+                    </select>
                 </div>
-            </div>
 
-            <div class="input-group">
-                <label>Scan Direction:</label>
-                <select id="citsScanDirection" class="select-input">
-                    <option value="1">Scan Up</option>
-                    <option value="-1">Scan Down</option>
-                </select>
-            </div>
-        
-            <div class="cits-control-buttons">
-                <button id="startSingleCits" class="primary-btn">Start Single-STS CITS</button>
-                <button id="startMstsCits" class="primary-btn">Start Multi-STS CITS</button>
-            </div>
-        
-            <div class="reading-display">
-                <div class="status-line">
-                    <span>Status:</span>
-                    <span id="citsStatus">Idle</span>
+                <div class="control-buttons">
+                    <button id="startSingleSts" class="success-btn">Start Single STS</button>
+                    <button id="startMultiSts" class="primary-btn">Start Multi-STS</button>
                 </div>
-                <div class="progress-line">
-                    <span>Progress:</span>
-                    <span id="citsProgress">0%</span>
-                </div>
-                <div class="timestamp">
-                    <span>Last CITS:</span>
-                    <span id="citsLastTime">Never</span>
-                </div>
-            </div>
-        </div>
+                <div id="stsStatus" class="status-display">Ready for STS measurement</div>
+            </section>
+        </section>
 
-        <div class="channel-panel">
-            <h2>Local CITS Control</h2>
-        
-            <div id="localCitsPanel">
-                <h3>Local Area Settings</h3>
+        <!-- CITS Measurement Page -->
+        <section id="cits-measurement" class="content-section">
+            <div class="content-grid">
+                <!-- CITS Control -->
+                <section class="channel-panel">
+                    <h2>CITS Control</h2>
+                    <div class="input-group compact">
+                        <label>CITS Points:</label>
+                        <div class="points-input-container">
+                            <input type="number" id="citsPointsX" value="11" min="1" max="512">
+                            <span>X Points</span>
+                            <input type="number" id="citsPointsY" value="11" min="1" max="512">
+                            <span>Y Points</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Scan Direction:</label>
+                        <select id="citsScanDirection">
+                            <option value="1">Scan Up</option>
+                            <option value="-1">Scan Down</option>
+                        </select>
+                    </div>
+                    <div class="control-buttons">
+                        <button id="startSingleStsCits">Start Single-STS CITS</button>
+                        <button id="startMultiStsCits">Start Multi-STS CITS</button>
+                    </div>
+                </section>
 
-                <!-- 新增全域掃描方向設定 -->
-                <div class="global-settings">
-                    <div class="input-field">
-                        <label>Global Scan Direction</label>
-                        <select id="globalScanDirection" class="direction-select">
+                <!-- Local CITS Control -->
+                <section class="channel-panel">
+                    <h2>Local CITS Control</h2>
+                    <div class="input-group">
+                        <label>Global Direction:</label>
+                        <select id="globalScanDirection">
                             <option value="1">Up</option>
                             <option value="-1">Down</option>
                         </select>
                     </div>
-                </div>
-        
-                <div id="localAreasContainer">
-                    <!-- 動態添加的區域會被放在這裡 -->
-                </div>
 
-                    <div class="control-buttons-group">
-                        <button id="addLocalArea" class="primary-btn">Add Local Area</button>
+                    <div id="localAreasContainer">
+                        <div class="local-area-container">
+                            <div class="input-group compact">
+                                <label>Start Position:</label>
+                                <input type="number" class="local-cits-input start-x" value="200">
+                                <span class="unit">nm</span>
+                                <input type="number" class="local-cits-input start-y" value="200">
+                                <span class="unit">nm</span>
+                            </div>
+                            <div class="parameters-row">
+                                <div class="input-field">
+                                    <label>ΔX (nm)</label>
+                                    <input type="number" class="local-cits-input dx" value="20">
+                                </div>
+                                <div class="input-field">
+                                    <label>ΔY (nm)</label>
+                                    <input type="number" class="local-cits-input dy" value="20">
+                                </div>
+                                <div class="input-field">
+                                    <label>Nx</label>
+                                    <input type="number" class="local-cits-input nx" value="5" min="1" max="512">
+                                </div>
+                                <div class="input-field">
+                                    <label>Ny</label>
+                                    <input type="number" class="local-cits-input ny" value="3" min="1" max="512">
+                                </div>
+                            </div>
+                            <button class="remove-area danger-btn">Remove Area</button>
+                        </div>
                     </div>
-                    <!-- <div class="button-group">
-                        <button id="addLocalArea" class="secondary-btn">Add Local Area</button>
-                        <button class="remove-area danger-btn" title="Remove Area">Remove Area</button>
-                    </div> -->
-                </div>
-            </div>
-                
-                <div class="preview-container">
-                <canvas id="previewCanvas" width="600" height="600"></canvas>
-                <div class="preview-info">
-                    <div>Scan Center: <span id="previewCenter">-</span></div>
-                    <div>Scan Range: <span id="previewRange">-</span> nm</div>
-                    <div>Scan Angle: <span id="previewAngle">-</span>°</div>
-                    <div>Total Points: <span id="previewTotalPoints">-</span></div>
-                </div>
-            </div>
+                    <button id="addLocalArea" class="primary-btn">Add Local Area</button>
+                </section>
 
-            <div class="cits-control-buttons">
-                <button id="previewLocalCits" class="secondary-btn">Preview Local CITS</button>
-                <button id="startLocalStsCits" class="primary-btn">Start Local-STS CITS</button>
-                <button id="startLocalMultiStsCits" class="primary-btn">Start Local Multi-STS CITS</button>
+                <!-- Preview Panel -->
+                <section class="preview-panel">
+                    <div class="panel-header">
+                        <h3>Preview</h3>
+                        <button id="getSxmStatus" class="primary-btn">Get SXM Status</button>
+                        <button id="previewLocalCits" class="success-btn">Preview Local CITS</button>
+                    </div>
+                    <div class="preview-info">
+                        <div>Scan Center: <span id="previewCenter">-</span></div>
+                        <div>Scan Range: <span id="previewRange">-</span> nm</div>
+                        <div>Scan Angle: <span id="previewAngle">-</span>°</div>
+                        <div>Total Points: <span id="previewTotalPoints">-</span></div>
+                    </div>
+                    <canvas id="previewCanvas"></canvas>
+                    <div class="status-display">
+                        <div>Status: <span id="localCitsStatus">Idle</span></div>
+                        <div>Progress: <span id="localCitsProgress">0%</span></div>
+                        <div>Last CITS: <span id="localCitsLastTime">Never</span></div>
+                    </div>
+                </section>
             </div>
-
-            <div class="reading-display">
-                <div class="status-line">Status: <span id="localCitsStatus">Idle</span></div>
-                <div class="progress-line">Progress: <span id="localCitsProgress">0%</span></div>
-                <div class="timestamp">Last CITS: <span id="localCitsLastTime">Never</span></div>
-            </div>
-        </div>
+        </section>
     </div>
 
-</div>
-
     <script src="./scripts/SXMPycontroller-script.js"></script>
+    <script>
+    
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-link').forEach(l => 
+                    l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                link.classList.add('active');
+                
+                // Hide all content sections
+                document.querySelectorAll('.content-section').forEach(section => 
+                    section.classList.remove('active'));
+                
+                // Show selected content section
+                const targetId = link.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>

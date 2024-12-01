@@ -734,6 +734,33 @@ class SMUControlAPI:
             error_message = f"Local Multi-STS CITS measurement error: {str(e)}"
             print(error_message)
             raise Exception(error_message)
+        
+    def get_sxm_status(self) -> dict:
+        """
+        獲取 SXM 的當前狀態
+        
+        Returns
+        -------
+        dict
+            包含掃描中心、範圍、角度等資訊的字典
+        """
+        try:
+            if not self.ensure_controller():
+                raise Exception("STM 控制器未初始化")
+                
+            status = {
+                'center_x': self.stm.GetScanPara('X'),
+                'center_y': self.stm.GetScanPara('Y'),
+                'range': self.stm.GetScanPara('Range'),
+                'angle': self.stm.GetScanPara('Angle'),
+                'total_lines': self.stm.GetScanPara('Pixel'),
+                'timestamp': time.strftime("%Y-%m-%d %H:%M:%S")
+            }
+            
+            return status
+            
+        except Exception as e:
+            raise Exception(f"獲取 SXM 狀態失敗: {str(e)}")
     # ========== Local CITS functions END ========== #
         
 

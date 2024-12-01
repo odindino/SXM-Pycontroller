@@ -43,7 +43,7 @@ def main():
             title='STM-SMU Controller',
             url=gui_path,
             js_api=api,
-            width=1200,
+            width=1280,
             height=800,
             resizable=True
         )
