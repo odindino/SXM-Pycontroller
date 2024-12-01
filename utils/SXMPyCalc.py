@@ -72,25 +72,23 @@ class CITSCalculator:
     """CITS 座標計算工具類別"""
     
     @staticmethod
-    def calculate_cits_coordinates(center_x: float, center_y: float, 
-                                scan_range: float, angle: float,
-                                num_points_x: int, num_points_y: int,
-                                total_scan_lines: int = 500,
-                                scan_direction: int = 1) -> tuple:
+    def calculate_cits_coordinates(
+        center_x: float, center_y: float, 
+        scan_range: float, angle: float,
+        num_points_x: int, num_points_y: int,
+        total_scan_lines: int = 500,  # 預設掃描線數
+        scan_direction: int = 1,
+        aspect_ratio: float = 1.0,  # 新增參數：影像長寬比
+    ) -> tuple:
         """
         計算 CITS 量測點的座標矩陣
-        
-        工作流程：
-        1. 在原點(0,0)建立網格點
-        2. 旋轉網格點
-        3. 平移到掃描中心位置
         
         Parameters
         ----------
         center_x, center_y : float
             掃描中心座標 (nm)
         scan_range : float
-            掃描範圍 (nm)
+            快軸掃描範圍 (nm)
         angle : float
             掃描角度 (度)
         num_points_x : int
@@ -101,54 +99,71 @@ class CITSCalculator:
             總掃描線數
         scan_direction : int
             掃描方向 (1: 由下到上, -1: 由上到下)
+        aspect_ratio : float
+            影像長寬比，當小於1時慢軸範圍會變大
             
         Returns
         -------
         tuple
             (座標矩陣, 起始點列表, 結束點列表, 掃描線分配列表)
         """
-        import numpy as np
-        
-        # 計算實際掃描範圍 (考慮安全邊距)
-        safe_margin = 0.004  # 0.4% 邊距 
-        effective_range = scan_range * (1 - safe_margin)
-        half_range = effective_range / 2
+        try:
 
-        # 計算 scanline 的步數 --> list
-        scanlines = CITSCalculator.calculate_scanline_distribution(total_scan_lines, num_points_y, safe_margin)
-        
-        # 步驟1：在原點建立網格點
-        x = np.linspace(-half_range, half_range, num_points_x)
-        y = np.linspace(-half_range, half_range, num_points_y)
-        if scan_direction == -1:
-            y = y[::-1]    
-        X, Y = np.meshgrid(x, y)
-        
-        # 步驟2：旋轉網格點
-        angle_rad = np.radians(angle)
-        cos_angle = np.cos(angle_rad)
-        sin_angle = np.sin(angle_rad)
-        
-        X_rot = X * cos_angle - Y * sin_angle
-        Y_rot = X * sin_angle + Y * cos_angle
-        
-        # 步驟3：平移到掃描中心
-        X_final = X_rot + center_x
-        Y_final = Y_rot + center_y
-        
-        # 組合成座標矩陣 (Ny x Nx x 2)
-        coordinates = np.stack([X_final, Y_final], axis=2)
-        
-        # 計算每條掃描線的起始和結束點
-        line_starts = coordinates[:, 0, :]
-        line_ends = coordinates[:, -1, :]
-        
-        return coordinates, line_starts, line_ends, scanlines
+
+            # 計算實際掃描範圍
+            fast_axis_range = scan_range
+            slow_axis_range = scan_range / aspect_ratio  # 當 aspect_ratio < 1 時慢軸範圍變大
+            
+            # 計算半範圍
+            half_fast_range = fast_axis_range / 2
+            half_slow_range = slow_axis_range / 2
+            
+            # 建立基本網格點
+            x = np.linspace(-half_fast_range, half_fast_range, num_points_x)
+            y = np.linspace(-half_slow_range, half_slow_range, num_points_y)
+            
+            # 如果是向下掃描，反轉Y方向
+            if scan_direction == -1:
+                y = y[::-1]
+                
+            # 建立網格
+            X, Y = np.meshgrid(x, y)
+            
+            # 旋轉網格點
+            angle_rad = np.radians(angle)
+            cos_angle = np.cos(angle_rad)
+            sin_angle = np.sin(angle_rad)
+            
+            X_rot = X * cos_angle - Y * sin_angle
+            Y_rot = X * sin_angle + Y * cos_angle
+            
+            # 平移到掃描中心
+            X_final = X_rot + center_x
+            Y_final = Y_rot + center_y
+            
+            # 組合成座標矩陣
+            coordinates = np.stack([X_final, Y_final], axis=2)
+            
+            # 計算每條掃描線的起始和結束點
+            line_starts = coordinates[:, 0, :]
+            line_ends = coordinates[:, -1, :]
+
+            # 計算掃描線分配
+            scanlines = CITSCalculator.calculate_scanline_distribution(
+                total_scan_lines, num_points_y, 0.02
+            )
+            print(f"掃描線分配: {scanlines}")
+            
+            return coordinates, line_starts, line_ends, scanlines
+            
+        except Exception as e:
+            print(f"Error calculating CITS coordinates: {str(e)}")
+            return None
         
     @staticmethod
     def calculate_scanline_distribution(total_lines: int, num_points: int, safe_margin: float = 0.02):
         """
-        計算掃描線的均勻分配，適用於任意點數的情況
+        計算掃描線的均勻分配，適用於任意點數的情況，考慮影像長寬比的影響
         
         工作原理：
         1. 計算總共需要分配的線數（扣除頭尾安全邊距）
