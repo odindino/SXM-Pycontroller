@@ -1,0 +1,154 @@
+/* CITS Measurement Container */
+.cits-measurement-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+/* CITS Control Panels */
+.cits-control-panel,
+.local-cits-panel {
+    background: var(--panel-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+/* Panel Headers */
+.panel-header {
+    margin-bottom: 20px;
+}
+
+.panel-header h2 {
+    color: var(--primary-color);
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Input Groups */
+.input-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.input-group.compact {
+    max-width: 400px;
+}
+
+.input-group label {
+    min-width: 120px;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* Points Input Container */
+.points-input-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Local Area Container */
+.local-area-container {
+    background: #f8f9fa;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.parameters-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-field label {
+    font-size: 0.9em;
+    color: var(--primary-color);
+}
+
+.input-with-unit {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.unit {
+    color: #666;
+    font-size: 0.9em;
+    min-width: 30px;
+}
+
+/* Control Buttons */
+.control-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: flex-end;
+}
+
+/* Status Display */
+.status-display {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 15px;
+    font-family: monospace;
+}
+
+/* Preview Panel */
+.preview-panel {
+    grid-column: span 2;
+    background: var(--panel-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.preview-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 15px 0;
+}
+
+/* Remove Area Button */
+.remove-area {
+    margin-top: 10px;
+    background-color: var(--danger-color);
+    color: white;
+}
+
+/* Add Area Button */
+.add-local-area {
+    background-color: var(--primary-color);
+    color: white;
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .cits-measurement-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .parameters-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .preview-panel {
+        grid-column: 1;
+    }
+}

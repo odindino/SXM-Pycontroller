@@ -1,0 +1,112 @@
+/* STS Measurement Panel Styles */
+.sts-measurement-section {
+    background: var(--panel-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+/* STS Configuration Panel */
+.sts-config-panel {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+    background-color: #f8f9fa;
+}
+
+/* STS Settings Table */
+.sts-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 40px;
+    gap: 10px;
+    padding: 10px;
+    font-weight: bold;
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 10px;
+}
+
+.sts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 40px;
+    gap: 10px;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.sts-row input {
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    width: 100%;
+}
+
+.sts-row input:focus {
+    border-color: var(--secondary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--button-focus-ring);
+}
+
+/* Script Control Panel */
+.script-control-panel {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    gap: 15px;
+    margin: 20px 0;
+    align-items: center;
+}
+
+.script-control-panel input,
+.script-control-panel select {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    width: 100%;
+}
+
+/* Control Buttons */
+.sts-control-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: flex-end;
+}
+
+/* Status Display */
+.status-display {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 15px;
+    font-family: monospace;
+}
+
+/* Remove Row Button */
+.remove-row {
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .script-control-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .sts-control-buttons {
+        flex-direction: column;
+    }
+
+    .sts-row {
+        grid-template-columns: 1fr 1fr 30px;
+    }
+}
