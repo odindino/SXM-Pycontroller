@@ -29,3 +29,7 @@ Note that Pixels is one of the problem today, since pixel is set according to th
 Trying to figure out the problem of auto_move_scan_area.
 The problem is it cannot operate continueously. Finally, I found that since I change the scan_on into is_scanning in the "perform_scan_sequence" function.
 After add "self.scan_on" before "if not self.is_scanning()", the problem is solved.
+
+2024/11/28 Zi-Liang Yang:
+Testing the CITS function.
+Found that problem is, when SXM is scanning, it can not listen to other command. But Python would keep sending the rest of command and end the program (function, script).

@@ -1,6 +1,6 @@
 # test_sxm_pascal.py
 
-from SXMPycontroller import SXMController
+from modules.SXMPycontroller import SXMController
 import time
 
 # def test_pascal_syntax():

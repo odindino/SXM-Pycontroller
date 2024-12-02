@@ -1,0 +1,149 @@
+2024-11-28 10:55:19,532 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:21,146 - Response: b'f420\r\n'
+2024-11-28 10:55:21,247 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:22,075 - Response: b'b420\r\n'
+2024-11-28 10:55:22,175 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:23,003 - Response: b'f419\r\n'
+2024-11-28 10:55:23,104 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:23,925 - Response: b'b419\r\n'
+2024-11-28 10:55:24,026 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:24,854 - Response: b'f418\r\n'
+2024-11-28 10:55:24,957 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:25,777 - Response: b'b418\r\n'
+2024-11-28 10:55:25,878 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:26,706 - Response: b'f417\r\n'
+2024-11-28 10:55:26,807 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:27,629 - Response: b'b417\r\n'
+2024-11-28 10:55:27,731 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:28,558 - Response: b'f416\r\n'
+2024-11-28 10:55:28,659 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:29,482 - Response: b'b416\r\n'
+2024-11-28 10:55:29,583 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:29,583 - Scan finished at 2024-11-28 10:55:29.583531
+2024-11-28 10:55:29,584 - Response: b'DDE Cmd 1016\r\n'
+2024-11-28 10:55:29,685 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:29,686 - Response: b'DDE Cmd 1017\r\n0\r\n'
+2024-11-28 10:55:29,787 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:29,787 - Response: b'DDE Cmd 1018\r\n0\r\n'
+2024-11-28 10:55:29,889 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:29,889 - Response: b'DDE Cmd 1019\r\n0\r\n'
+2024-11-28 10:55:29,990 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:29,991 - Response: b'DDE Cmd 1020\r\n0\r\n'
+2024-11-28 10:55:30,092 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:30,093 - Response: b'DDE Cmd 1021\r\n0\r\n'
+2024-11-28 10:55:30,193 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:30,194 - Response: b'DDE Cmd 1022\r\n0\r\n'
+2024-11-28 10:55:30,296 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:30,296 - Response: b'DDE Cmd 1023\r\n0\r\n'
+2024-11-28 10:55:30,397 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:30,398 - Response: b'DDE Cmd 1024\r\n0\r\n'
+2024-11-28 10:55:30,499 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:30,501 - Response: b'DDE Cmd 1025\r\n0\r\n'
+2024-11-28 10:55:30,602 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:30,602 - Response: b'DDE Cmd 1026\r\n0\r\n'
+2024-11-28 10:55:30,703 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:30,704 - Response: b'DDE Cmd 1027\r\n0\r\n'
+2024-11-28 10:55:30,805 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:30,806 - Response: b'DDE Cmd 1028\r\n0\r\n'
+2024-11-28 10:55:30,907 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:30,907 - Response: b'DDE Cmd 1029\r\n0\r\n'
+2024-11-28 10:55:31,008 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:31,009 - Response: b'DDE Cmd 1030\r\n0\r\n'
+2024-11-28 10:55:31,110 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:31,110 - Response: b'DDE Cmd 1031\r\n0\r\n'
+2024-11-28 10:55:31,211 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:31,213 - Response: b'DDE Cmd 1032\r\n0\r\n'
+2024-11-28 10:55:31,313 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:31,314 - Response: b'DDE Cmd 1033\r\n0\r\n'
+2024-11-28 10:55:31,415 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:31,416 - Response: b'DDE Cmd 1034\r\n0\r\n'
+2024-11-28 10:55:31,517 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:31,518 - Response: b'DDE Cmd 1035\r\n0\r\n'
+2024-11-28 10:55:31,618 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:31,619 - Response: b'DDE Cmd 1036\r\n0\r\n'
+2024-11-28 10:55:31,720 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:31,721 - Response: b'DDE Cmd 1037\r\n0\r\n'
+2024-11-28 10:55:31,822 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:31,823 - Response: b'DDE Cmd 1038\r\n0\r\n'
+2024-11-28 10:55:31,923 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:31,924 - Response: b'DDE Cmd 1039\r\n0\r\n'
+2024-11-28 10:55:32,025 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:32,025 - Response: b'DDE Cmd 1040\r\n0\r\n'
+2024-11-28 10:55:32,127 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:32,127 - Response: b'DDE Cmd 1041\r\n0\r\n'
+2024-11-28 10:55:32,228 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 10:55:32,230 - Response: b'DDE Cmd 1042\r\n0\r\n'

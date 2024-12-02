@@ -1,0 +1,4 @@
+2024-11-28 01:32:16,664 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 01:32:17,469 - Response: b'f455\r\n'

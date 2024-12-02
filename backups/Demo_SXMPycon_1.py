@@ -1,4 +1,4 @@
-from SXMPycontroller import SXMController
+from modules.SXMPycontroller import SXMController
 
 def demonstrate_sxm_control():
     """

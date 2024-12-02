@@ -1,0 +1,6 @@
+2024-11-28 01:33:22,823 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 01:33:24,411 - Response: b'f445\r\n'
+2024-11-28 01:33:29,412 - Sending command: SpectStart;
+2024-11-28 01:33:29,414 - Response: b'b443\r\n'

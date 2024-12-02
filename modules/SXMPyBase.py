@@ -23,8 +23,9 @@ class SXMBase:
             'range': None,      # 掃描範圍 (nm)
             'angle': None,      # 掃描角度 (degrees)
             'scan_state': None, # 掃描狀態
-            
-            'speed': None      # 掃描速度
+            'speed': None,      # 掃描速度
+            'pixel_ratio': 1.0, # Pixel density (預設1.0)
+            'aspect_ratio': 1.0 # Image format (預設1.0)
         }
         
         # 時間戳記
@@ -227,7 +228,7 @@ class SXMBase:
             command = f"FeedPara('{param}', {value});"
             success, _ = self._send_command(command)
             
-            if success:
+            if success and param != 'ZOffset':
                 # 驗證設定
                 current_value = self.GetFeedbackPara(param)
                 if current_value is not None:

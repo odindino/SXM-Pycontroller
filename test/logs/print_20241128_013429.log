@@ -1,0 +1,12 @@
+2024-11-28 01:34:29,409 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 01:34:31,006 - Response: b'f435\r\n'
+2024-11-28 01:34:41,007 - Sending command: ScanLine(5);
+2024-11-28 01:34:41,008 - Scan finished at 2024-11-28 01:34:41.008243
+2024-11-28 01:34:41,008 - Response: b'DDE Cmd 805\r\n'
+2024-11-28 01:34:41,008 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 01:34:41,009 - Scan started at 2024-11-28 01:34:41.009245
+2024-11-28 01:34:41,009 - Response: 1

@@ -13,7 +13,8 @@ class SXMSpectroControl(SXMScanControl):
 
     def __init__(self, debug_mode=False):
         super().__init__(debug_mode)
-        self.FbOn = None  # 回饋狀態
+        self.FbOn = self.get_feedback_state()  # 回饋狀態
+        self.zoffset = None  # Z軸偏移量
 
     # ========== 回饋控制功能 ========== #
     def feedback_on(self):
@@ -26,8 +27,10 @@ class SXMSpectroControl(SXMScanControl):
             是否成功開啟
         """
         success = self.SetFeedPara('Enable', 0)
+        success = self.SetFeedPara('Enable', 0)
         if success:
             self.FbOn = 0
+            print("Feedback on")
         return success
 
     def feedback_off(self):
@@ -40,8 +43,10 @@ class SXMSpectroControl(SXMScanControl):
             是否成功關閉
         """
         success = self.SetFeedPara('Enable', 1)
+        success = self.SetFeedPara('Enable', 1)
         if success:
             self.FbOn = 1
+            print("Feedback off")
         return success
 
     def get_feedback_state(self):
@@ -54,7 +59,26 @@ class SXMSpectroControl(SXMScanControl):
             True表示回饋正常，False表示異常
         """
         current_state = self.GetFeedbackPara('Enable')
-        return self.FbOn == current_state
+        self.FbOn = current_state
+        print("current state type:", type(current_state))
+        print("current state:", current_state)
+        return self.FbOn
+    
+    def set_zoffset(self, offset):
+        """
+        設定Z軸偏移量
+
+        Parameters
+        ----------
+        offset : float
+            Z軸偏移量（nm）
+
+        Returns
+        -------
+        bool
+            設定是否成功
+        """
+        return self.SetFeedPara('ZOffset', offset)
 
     def set_feedback_mode(self, mode):
         """
@@ -73,33 +97,52 @@ class SXMSpectroControl(SXMScanControl):
         return self.SetFeedPara('Mode', mode)
 
     # ========== 光譜測量功能 ========== #
-    def move_tip_for_spectro(self, x, y):
+    def move_tip_x_spectpos(self, x: float) -> bool:
         """
-        移動探針到指定位置進行光譜測量
+        移動探針至指定的X位置
 
         Parameters
         ----------
-        x, y : float
-            目標位置（nm）
+        x : float
+            X位置（nm）
 
         Returns
         -------
         bool
             移動是否成功
         """
+        return self._send_command(f"SpectPara(1, {x});")[0]
+    
+    def move_tip_y_spectpos(self, y: float) -> bool:
+        """
+        移動探針至指定的Y位置
+
+        Parameters
+        ----------
+        y : float
+            Y位置（nm）
+
+        Returns
+        -------
+        bool
+            移動是否成功
+        """
+        return self._send_command(f"SpectPara(2, {y});")[0]
+
+    def move_tip_for_spectro(self, x: float, y: float) -> bool:
         try:
-            # 設定光譜測量位置
-            command1 = f"SpectPara(1, {x});"
-            command2 = f"SpectPara(2, {y});"
 
-            success = (self._send_command(command1)[0] and
-                       self._send_command(command2)[0])
+            success = self.move_tip_x_spectpos(x) and self.move_tip_y_spectpos(y)
+            success = self.move_tip_x_spectpos(x) and self.move_tip_y_spectpos(y)
 
+            if not success:
+                if self.debug_mode:
+                    print(f"Move tip for spectroscopy failed: ({x}, {y})")
             return success
-
+            
         except Exception as e:
             if self.debug_mode:
-                print(f"Move tip error: {str(e)}")
+                print(f"移動探針錯誤: {str(e)}")
             return False
 
     def setup_spectroscopy(self, mode, params=None):
@@ -157,17 +200,50 @@ class SXMSpectroControl(SXMScanControl):
             return False
 
     def spectroscopy_start(self):
+        """執行光譜測量"""
+        try:
+            # 發送開始測量命令
+            success, _ = self._send_command("SpectStart;")
+            if not success:
+                return False
+                
+            # # 等待測量開始
+            # time.sleep(0.5)
+            
+            # # 等待測量完成
+            # # 此處可能需要實作一個等待機制
+            # # 暫時使用固定等待時間
+            # time.sleep(1.0)
+            
+            return True
+            
+        except Exception as e:
+            if self.debug_mode:
+                print(f"光譜測量錯誤: {str(e)}")
+            return False
+    
+    def simple_spectroscopy(self, x, y):
         """
-        開始光譜測量
-
-        Returns
-        -------
-        bool
-            啟動是否成功
+        在指定的位置執行STS量測
         """
-        return self._send_command("SpectStart;")[0]
+        try:
+            # 移動到測量位置
+            if not self.move_tip_for_spectro(x, y):
+                return False
+            # 開始測量
+            if not self.spectroscopy_start():
+                return False
+            
+            return True
+        
+        except Exception as e:
+            if self.debug_mode:
+                print(f"Simple spectroscopy error: {str(e)}")
+            # 確保回饋被重新開啟
+            self.feedback_on()
+            return False
 
-    def perform_spectroscopy(self, x, y, wait_time=1.0, params=None):
+    def perform_spectroscopy(self, x, y, wait_time=0.0, params=None):
         """
         在指定位置執行完整的光譜測量
 

@@ -3,262 +3,531 @@
 import time
 import math
 from .SXMPySpectro import SXMSpectroControl
+from utils.SXMPyCalc import CITSCalculator, LocalCITSCalculator, LocalCITSParams
+from typing import List
+
 
 class SXMCITSControl(SXMSpectroControl):
     """
     CITS（電流成像隧道掃描）控制類別
     繼承光譜測量控制以獲得掃描、位置和光譜測量功能
     """
-    
+
     def __init__(self, debug_mode=False):
         super().__init__(debug_mode)
-        self.default_sts_params = {
-            'start_bias': -2.0,  # 起始偏壓 (V)
-            'end_bias': 2.0,     # 結束偏壓 (V)
-            'points': 200,       # 測量點數
-            'delay': 100         # 每點延遲時間 (ms)
-        }
 
-    def calculate_cits_parameters(self, num_points_x, num_points_y, scan_direction=1):
+    def standard_cits(self, num_points_x: int, num_points_y: int, scan_direction: int = 1) -> bool:
         """
-        計算CITS的基本參數
-        
+        執行標準 CITS 量測
+
         Parameters
         ----------
         num_points_x : int
-            X方向的測量點數
+            X方向量測點數
         num_points_y : int
-            Y方向的測量點數
+            Y方向量測點數
         scan_direction : int
-            掃描方向: 1表示向上掃描, -1表示向下掃描
-            
-        Returns
-        -------
-        dict
-            CITS參數，包含起始點、間距等
-        """
-        try:
-            # 獲取當前掃描參數
-            scan_range = self.GetScanPara('Range')
-            scan_angle = self.GetScanPara('Angle')
-            pixels = self.GetScanPara('Pixel')
-            center_x, center_y = self.get_position()
+            掃描方向 (1: 由下到上, -1: 由上到下)
 
-            if self.debug_mode:
-                print(f"Scan center: ({center_x:.3f}, {center_y:.3f})")
-                print(f"Scan angle: {scan_angle}°")
-
-            # 計算實際範圍（考慮安全邊距）
-            safe_margin = 0.02  # 2% 的安全邊距
-            effective_range = scan_range * (1 - safe_margin)
-            half_range = effective_range / 2
-
-            # 計算起始點（相對於中心點）
-            if scan_direction == 1:  # 向上掃描
-                rel_x = -half_range  # 從左邊開始
-                rel_y = -half_range  # 從下面開始
-            else:  # 向下掃描
-                rel_x = -half_range  # 從左邊開始
-                rel_y = half_range   # 從上面開始
-
-            # 將起始點旋轉到實際角度
-            start_x, start_y = self.rotate_coordinates(
-                rel_x, rel_y,
-                scan_angle,
-                center_x, center_y
-            )
-
-            # 計算步長
-            dx = effective_range / (num_points_x - 1)
-            dy = effective_range / (num_points_y - 1)
-            if scan_direction == -1:
-                dy = -dy
-
-            # 計算旋轉後的步長
-            dx_rot, dy_temp = self.rotate_coordinates(dx, 0, scan_angle, 0, 0)
-            temp_x, dy_rot = self.rotate_coordinates(0, dy, scan_angle, 0, 0)
-
-            return {
-                'start_x': start_x,
-                'start_y': start_y,
-                'dx': dx_rot,
-                'dy': dy_rot,
-                'center_x': center_x,
-                'center_y': center_y,
-                'lines_per_sts': pixels // (num_points_y + 1),
-                'scan_angle': scan_angle,
-                'total_lines': pixels,
-                'effective_range': effective_range,
-                'scan_direction': scan_direction
-            }
-
-        except Exception as e:
-            if self.debug_mode:
-                print(f"Error calculating CITS parameters: {str(e)}")
-            return None
-
-    def standard_cits(self, num_points_x, num_points_y, scan_direction=1, sts_params=None):
-        """
-        執行標準CITS測量
-        
-        Parameters
-        ----------
-        num_points_x : int
-            X方向測量點數
-        num_points_y : int
-            Y方向測量點數
-        scan_direction : int
-            掃描方向：1向上，-1向下
-        sts_params : dict, optional
-            STS測量參數，如果未提供則使用默認值
-            
         Returns
         -------
         bool
-            測量是否成功完成
+            量測是否成功完成
         """
         try:
-            if sts_params is None:
-                sts_params = self.default_sts_params
+            # 獲取掃描參數
+            center_x = self.GetScanPara('X')
+            center_y = self.GetScanPara('Y')
+            scan_range = self.GetScanPara('Range')
+            scan_angle = self.GetScanPara('Angle')
+            # total_lines = self.GetScanPara('Pixel')
+            (total_lines, line_spacing) = self.calculate_scan_lines()
+            aspect_ratio = self.get_aspect_ratio()
 
-            # 檢查當前掃描狀態
-            current_scanning = self.is_scanning()
-            if not current_scanning:
-                if self.debug_mode:
-                    print("Starting new scan")
-                self.scan_on()
-                time.sleep(0.5)
+            if any(v is None for v in [center_x, center_y, scan_range, scan_angle, total_lines]):
+                raise ValueError("無法獲取掃描參數")
 
-            # 計算CITS參數
-            params = self.calculate_cits_parameters(
-                num_points_x, num_points_y, scan_direction
+            # 計算CITS座標和掃描線分配
+            coordinates, _, _, scanlines = CITSCalculator.calculate_cits_coordinates(
+                center_x, center_y, scan_range, scan_angle,
+                num_points_x, num_points_y, total_lines, scan_direction, aspect_ratio
             )
-            if not params:
-                raise ValueError("Failed to calculate CITS parameters")
+
+            # check coordinates
+            print(f"coordinates: {coordinates}")
 
             if self.debug_mode:
-                print("\nStarting standard CITS measurement:")
-                print(f"Center position: ({params['center_x']:.3f}, {params['center_y']:.3f})")
-                print(f"Starting position: ({params['start_x']:.3f}, {params['start_y']:.3f})")
-                print(f"Step sizes: dx={params['dx']:.3f}, dy={params['dy']:.3f}")
-                print(f"Points: {num_points_x}x{num_points_y}")
-                print(f"Lines per STS: {params['lines_per_sts']}")
+                print(f"開始CITS量測:")
+                print(f"掃描線分配: {scanlines}")
+                print(f"總掃描線數: {sum(scanlines)}")
 
-            # 執行CITS測量
-            current_line = 0
-            completed_points = 0
-            total_points = num_points_x * num_points_y
-
-            for y_idx in range(num_points_y):
-                # 計算當前行位置
-                current_y = params['start_y'] + y_idx * params['dy']
-
-                # 掃描到適當的行
-                lines_to_scan = params['lines_per_sts']
-                if self.debug_mode:
-                    print(f"\nScanning {lines_to_scan} lines before STS line {y_idx + 1}/{num_points_y}")
-
-                if not self.scan_lines(lines_to_scan):
-                    raise RuntimeError("Failed to scan lines")
-
-                current_line += lines_to_scan
-                if self.debug_mode:
-                    print(f"Current scan line: {current_line}/{params['total_lines']}")
-
-                # 執行當前行的STS測量
-                if self.debug_mode:
-                    print(f"Performing STS measurements on line {y_idx + 1}")
-
-                for x_idx in range(num_points_x):
-                    current_x = params['start_x'] + x_idx * params['dx']
-                    
-                    completed_points += 1
-                    progress = (completed_points / total_points) * 100
-                    
+            # 執行量測循環
+            for i, (sts_line, scan_count) in enumerate(zip(coordinates, scanlines[:-1])):
+                # 執行掃描
+                if scan_count > 0:
                     if self.debug_mode:
-                        print(f"STS point {completed_points}/{total_points} "
-                              f"({progress:.1f}%) at ({current_x:.3f}, {current_y:.3f})")
-                    
-                    success = self.perform_spectroscopy(
-                        current_x, 
-                        current_y, 
-                        wait_time=0.5,
-                        params=sts_params
-                    )
-                    
-                    if not success and self.debug_mode:
-                        print(f"Warning: STS measurement failed at point {completed_points}")
+                        print(f"\n=== 掃描第 {i+1} 段 {scan_count} 條線 ===")
 
-                # 檢查是否接近圖像結束
-                remaining_lines = params['total_lines'] - current_line
-                if remaining_lines < params['lines_per_sts']:
-                    if self.debug_mode:
-                        print("Approaching end of scan, stopping CITS")
-                    break
+                    # 使用新的scan_lines_for_sts函數
+                    if not self.scan_lines_for_sts(scan_count):
+                        raise RuntimeError(f"掃描第 {i+1} 段失敗")
+
+                # 執行STS線電性
+                if self.debug_mode:
+                    print(f"\n>>> 執行第 {i+1}/{num_points_y} 條 STS 線")
+
+                for j, (x, y) in enumerate(sts_line):
+                    try:
+                        if self.debug_mode:
+                            print(
+                                f"  STS點 ({j+1}/{len(sts_line)}): ({x:.3f}, {y:.3f})")
+
+                        if not self.simple_spectroscopy(x, y):
+                            raise RuntimeError(f"STS測量失敗: ({x}, {y})")
+
+                        # 等待STS測量完成
+                        time.sleep(1.0)  # 暫時使用固定等待時間
+
+                    except Exception as e:
+                        print(f"STS點測量失敗 ({x}, {y}): {str(e)}")
+                        continue
+
+                if self.debug_mode:
+                    print(f"<<< 完成第 {i+1}/{num_points_y} 條 STS 線")
+
+            # 執行最後一段掃描（如果有的話）
+            if scanlines[-1] > 0:
+                if self.debug_mode:
+                    print(f"\n=== 執行最後 {scanlines[-1]} 條掃描線 ===")
+                if not self.scan_lines_for_sts(scanlines[-1]):
+                    print("警告: 最後一段掃描失敗")
 
             if self.debug_mode:
-                print("\nCITS measurement completed")
-                print(f"Total points measured: {completed_points}/{total_points}")
-
+                print("\nCITS量測完成")
             return True
 
         except Exception as e:
             if self.debug_mode:
-                print(f"Error during CITS: {str(e)}")
+                print(f"\nCITS量測錯誤: {str(e)}")
             return False
-            
-        finally:
-            # 確保掃描繼續
-            if not current_scanning:
-                self.scan_off()
 
-    def define_cits_area(self, start_x, start_y, width, height):
+        finally:
+            # 確保回到正確狀態
+            self.feedback_on()
+            if self.debug_mode:
+                print("feedback on")
+
+    def standard_local_cits(self, local_areas: List[LocalCITSParams], scan_direction: int = 1) -> bool:
         """
-        定義CITS測量區域
-        
+        執行局部區域 CITS 量測
+
+        此函數將在指定的局部區域內執行 CITS 量測，整合了掃描和 STS 量測功能。
+        執行流程為：掃描線 -> STS 量測點 -> 掃描線 -> STS 量測點，依此循環直到完成所有區域。
+
         Parameters
         ----------
-        start_x, start_y : float
-            起始座標（nm）
-        width, height : float
-            區域寬度和高度（nm）
-            
+        local_areas : List[LocalCITSParams]
+            要執行 CITS 的局部區域參數列表，每個區域包含：
+            - 起始位置 (start_x, start_y)
+            - 步進大小 (dx, dy)
+            - 點數 (nx, ny)
+            - 起始點方向 (startpoint_direction)
+        scan_direction : int, optional
+            掃描方向，1 表示由下到上，-1 表示由上到下
+
         Returns
         -------
-        dict
-            測量區域定義
+        bool
+            量測是否成功完成
         """
         try:
-            angle = self.GetScanPara('Angle')
+            # 獲取掃描參數
             center_x = self.GetScanPara('X')
             center_y = self.GetScanPara('Y')
 
-            # 計算四個角點
-            corners = [
-                (start_x, start_y),                    # 左下
-                (start_x + width, start_y),            # 右下
-                (start_x + width, start_y + height),   # 右上
-                (start_x, start_y + height)            # 左上
-            ]
+            # scan_range here is the slow axis range
+            (_, scan_range) = self.calculate_actual_scan_dimensions()
+            # scan_range = self.GetScanPara('Range')
+            scan_angle = self.GetScanPara('Angle')
+            # total_lines = self.GetScanPara('Pixel')
+            (total_lines, line_spacing) = self.calculate_scan_lines()
 
-            # 轉換到實際座標
-            real_corners = []
-            for x, y in corners:
-                real_coords = self.get_real_coordinates(x, y)
-                if real_coords is None:
-                    raise ValueError("Invalid coordinates")
-                real_corners.append(real_coords)
+            if any(v is None for v in [center_x, center_y, scan_range, scan_angle, total_lines]):
+                raise ValueError("無法獲取掃描參數")
 
-            return {
-                'corners': real_corners,
-                'start_x': real_corners[0][0],
-                'start_y': real_corners[0][1],
-                'width': width,
-                'height': height,
-                'angle': angle
-            }
+            if self.debug_mode:
+                print(f"\n開始局部 CITS 量測:")
+                print(f"中心位置: ({center_x}, {center_y}) nm")
+                print(f"掃描範圍: {scan_range} nm")
+                print(f"掃描角度: {scan_angle}°")
+
+            # 計算所有區域的座標點
+            coordinates, _, _, (slow_axis, fast_axis) = LocalCITSCalculator.combi_local_cits_coordinates(
+                center_x, center_y, scan_range, scan_angle,
+                total_lines, scan_direction, local_areas
+            )
+
+            # 計算掃描線分配和座標群組
+            scanline_distribution, coordinate_distribution = LocalCITSCalculator.calculate_local_scanline_distribution(
+                coordinates, center_x, center_y, scan_angle,
+                scan_range, scan_direction, total_lines
+            )
+
+            if self.debug_mode:
+                print(f"掃描線分配: {scanline_distribution}")
+                print(f"座標群組數: {len(coordinate_distribution)}")
+                print(
+                    f"總量測點數: {sum(len(coords) for coords in coordinate_distribution)}")
+
+            # 執行量測循環
+            for i, (coords_group, scan_count) in enumerate(zip(coordinate_distribution, scanline_distribution[:-1])):
+                # 執行掃描線
+                if scan_count > 0:
+                    if self.debug_mode:
+                        print(f"\n=== 掃描第 {i+1} 段 {scan_count} 條線 ===")
+
+                    if not self.scan_lines_for_sts(scan_count):
+                        raise RuntimeError(f"掃描第 {i+1} 段失敗")
+
+                # 執行該群組的 STS 量測
+                if self.debug_mode:
+                    print(
+                        f"\n>>> 執行第 {i+1}/{len(coordinate_distribution)} 群組的 STS 量測")
+
+                for j, (x, y) in enumerate(coords_group):
+                    try:
+                        if self.debug_mode:
+                            print(
+                                f"  STS點 ({j+1}/{len(coords_group)}): ({x:.3f}, {y:.3f})")
+
+                        # 執行單點 STS 量測
+                        if not self.simple_spectroscopy(x, y):
+                            print(f"警告: 位置 ({x}, {y}) 的 STS 量測失敗")
+                            continue
+
+                        # 等待 STS 完成
+                        time.sleep(1.0)
+
+                    except Exception as e:
+                        print(f"STS點量測失敗 ({x}, {y}): {str(e)}")
+                        continue
+
+                if self.debug_mode:
+                    print(f"<<< 完成第 {i+1}/{len(coordinate_distribution)} 群組")
+
+            # 執行最後一段掃描
+            if scanline_distribution[-1] > 0:
+                if self.debug_mode:
+                    print(f"\n=== 執行最後 {scanline_distribution[-1]} 條掃描線 ===")
+                if not self.scan_lines_for_sts(scanline_distribution[-1]):
+                    print("警告: 最後一段掃描失敗")
+
+            if self.debug_mode:
+                print("\n局部 CITS 量測完成")
+            return True
 
         except Exception as e:
             if self.debug_mode:
-                print(f"Error defining CITS area: {str(e)}")
-            return None
+                print(f"\n局部 CITS 量測錯誤: {str(e)}")
+            return False
+
+        finally:
+            # 確保回到安全狀態
+            try:
+                self.feedback_on()
+                if self.debug_mode:
+                    print("系統回到安全狀態")
+            except Exception as e:
+                print(f"回復安全狀態時發生錯誤: {str(e)}")
+
+    # Auto-move CITS, the combination of auto-move and CITS
+    def auto_move_ssts_CITS(self, movement_script: str, distance: float,
+                            num_points_x: int, num_points_y: int,
+                            initial_direction: int = 1,
+                            wait_time: float = 1.0,
+                            repeat_count: int = 1) -> bool:
+        """
+        執行自動移動和 CITS 量測序列，在每個移動位置進行 CITS 量測
+
+        Parameters
+        ----------
+        movement_script : str
+            移動指令序列，如 "RULLDDRR"
+            R: 右, L: 左, U: 上, D: 下
+        distance : float
+            每次移動的距離（nm）
+        num_points_x : int
+            CITS X 方向的點數（1-512）
+        num_points_y : int
+            CITS Y 方向的點數（1-512）
+        initial_direction : int, optional
+            起始CITS掃描方向（1: 由下到上, -1: 由上到下）
+        wait_time : float, optional
+            每次移動後的等待時間（秒）
+        repeat_count : int, optional
+            每個位置的CITS重複次數
+
+        Returns
+        -------
+        bool
+            序列是否成功完成
+        """
+        try:
+            # 驗證 CITS 參數
+            if not (1 <= num_points_x <= 512 and 1 <= num_points_y <= 512):
+                raise ValueError("CITS 點數必須在 1 到 512 之間")
+
+            if initial_direction not in (1, -1):
+                raise ValueError("掃描方向必須是 1 (向上) 或 -1 (向下)")
+
+            if repeat_count < 1:
+                raise ValueError("重複次數必須大於 0")
+
+            # 獲取當前掃描參數
+            center_x = self.GetScanPara('X')
+            center_y = self.GetScanPara('Y')
+            angle = self.GetScanPara('Angle')
+
+            if any(v is None for v in [center_x, center_y, angle]):
+                raise ValueError("無法獲取掃描參數")
+
+            if self.debug_mode:
+                print(f"\nStarting auto move CITS sequence:")
+                print(f"Initial position: ({center_x}, {center_y})")
+                print(f"Scan angle: {angle}°")
+                print(f"CITS points: {num_points_x}x{num_points_y}")
+                print(f"Repeat count: {repeat_count}")
+
+            # 獲取移動序列的座標列表
+            try:
+                positions = self.auto_move(
+                    movement_script=movement_script,
+                    distance=distance,
+                    center_x=center_x,
+                    center_y=center_y,
+                    angle=angle
+                )
+
+                # 追蹤當前掃描方向
+                current_direction = initial_direction
+
+                # 在每個位置執行 CITS（包含初始位置）
+                for i, (x, y) in enumerate(positions):
+                    # 除了初始位置外，需要先移動
+                    if i > 0:
+                        if self.debug_mode:
+                            print(
+                                f"\nMoving to position {i}/{len(positions)-1}")
+
+                        # 移動到新位置
+                        if not self.set_position(x, y):
+                            print(
+                                f"Warning: Failed to move to position ({x}, {y})")
+                            continue
+
+                        # 等待系統穩定
+                        time.sleep(wait_time)
+
+                    position_type = "initial position" if i == 0 else f"position {i}"
+
+                    # 在當前位置重複執行CITS
+                    for repeat in range(repeat_count):
+                        if self.debug_mode:
+                            print(f"Starting CITS at {position_type}, "
+                                  f"repeat {repeat + 1}/{repeat_count}, "
+                                  f"direction: {'up' if current_direction == 1 else 'down'}")
+
+                        # 執行 CITS 量測
+                        if not self.standard_cits(
+                            num_points_x=num_points_x,
+                            num_points_y=num_points_y,
+                            scan_direction=current_direction
+                        ):
+                            print(f"Warning: CITS failed at {position_type}, "
+                                  f"repeat {repeat + 1}")
+                            continue
+
+                        # 等待CITS完成
+                        while self.is_scanning():
+                            time.sleep(1)
+
+                        # 反轉掃描方向
+                        current_direction *= -1
+
+                        # 如果不是最後一次重複，則等待系統穩定
+                        if repeat < repeat_count - 1:
+                            time.sleep(wait_time)
+
+            except Exception as e:
+                if self.debug_mode:
+                    print(f"CITS sequence error: {str(e)}")
+                return False
+
+            if self.debug_mode:
+                print("\nAuto move CITS sequence completed successfully")
+            return True
+
+        except Exception as e:
+            if self.debug_mode:
+                print(f"Auto move CITS error: {str(e)}")
+            return False
+
+    def auto_move_local_ssts_CITS(self, movement_script: str, distance: float,
+                                  local_areas_params: List[dict],
+                                  initial_direction: int = 1,
+                                  wait_time: float = 1.0,
+                                  repeat_count: int = 1) -> bool:
+        """
+        執行自動移動和 Local CITS 量測序列，在每個移動位置的多個相對偏移區域進行 Local CITS 量測
+
+        Parameters
+        ----------
+        movement_script : str
+            移動指令序列，如 "RULLDDRR"
+            R: 右, L: 左, U: 上, D: 下
+        distance : float
+            每次移動的距離（nm）
+        local_areas_params : List[dict]
+            小區參數列表，每個字典包含：
+            {
+                'x_dev': float,  # 相對於掃描中心的X偏移（nm）
+                'y_dev': float,  # 相對於掃描中心的Y偏移（nm）
+                'nx': int,      # X方向點數
+                'ny': int,      # Y方向點數
+                'dx': float,    # X方向步進（nm）
+                'dy': float,    # Y方向步進（nm）
+                'startpoint_direction': int  # 起始點方向（1: 向上, -1: 向下）
+            }
+        initial_direction : int, optional
+            CITS掃描方向（1: 由下到上, -1: 由上到下）
+        wait_time : float, optional
+            每次移動後的等待時間（秒）
+        repeat_count : int, optional
+            每個位置的CITS重複次數
+
+        Returns
+        -------
+        bool
+            序列是否成功完成
+        """
+        try:
+            # 參數驗證
+            if not local_areas_params:
+                raise ValueError("必須提供至少一個小區參數")
+
+            # 驗證每個小區的參數
+            for i, params in enumerate(local_areas_params):
+                if not all(key in params for key in ['x_dev', 'y_dev', 'nx', 'ny', 'dx', 'dy', 'startpoint_direction']):
+                    raise ValueError(f"小區 {i} 缺少必要參數")
+
+                if not (1 <= params['nx'] <= 512 and 1 <= params['ny'] <= 512):
+                    raise ValueError(f"小區 {i} 的點數必須在 1 到 512 之間")
+
+                if params['startpoint_direction'] not in (1, -1):
+                    raise ValueError(f"小區 {i} 的起始點方向必須是 1 (向上) 或 -1 (向下)")
+
+            if initial_direction not in (1, -1):
+                raise ValueError("掃描方向必須是 1 (向上) 或 -1 (向下)")
+
+            if repeat_count < 1:
+                raise ValueError("重複次數必須大於 0")
+
+            # 獲取當前掃描參數
+            center_x = self.GetScanPara('X')
+            center_y = self.GetScanPara('Y')
+            angle = self.GetScanPara('Angle')
+
+            if any(v is None for v in [center_x, center_y, angle]):
+                raise ValueError("無法獲取掃描參數")
+
+            if self.debug_mode:
+                print(f"\nStarting auto move Local CITS sequence:")
+                print(f"Initial center: ({center_x}, {center_y})")
+                print(f"Number of local areas: {len(local_areas_params)}")
+                print(f"Scan angle: {angle}°")
+                print(f"Repeat count: {repeat_count}")
+
+            # 獲取移動序列的座標列表
+            positions = self.auto_move(
+                movement_script=movement_script,
+                distance=distance,
+                center_x=center_x,
+                center_y=center_y,
+                angle=angle
+            )
+
+            # 追蹤當前掃描方向
+            current_direction = initial_direction
+
+            # 在每個位置執行 Local CITS
+            for i, (center_x, center_y) in enumerate(positions):
+                # 除了初始位置外，需要先移動中心點
+                if i > 0:
+                    if self.debug_mode:
+                        print(
+                            f"\nMoving to center {i}/{len(positions)-1}: ({center_x}, {center_y})")
+
+                    # 移動到新的中心位置
+                    if not self.set_position(center_x, center_y):
+                        print(
+                            f"Warning: Failed to move to center ({center_x}, {center_y})")
+                        continue
+
+                    # 等待系統穩定
+                    time.sleep(wait_time)
+
+                position_type = "initial position" if i == 0 else f"position {i}"
+
+                # 在當前位置重複執行 Local CITS
+                for repeat in range(repeat_count):
+                    if self.debug_mode:
+                        print(f"\nStarting Local CITS sequence at {position_type}, "
+                              f"repeat {repeat + 1}/{repeat_count}, "
+                              f"direction: {'up' if current_direction == 1 else 'down'}")
+
+                    # 為當前位置創建所有小區
+                    local_areas = []
+                    for area_params in local_areas_params:
+                        # 計算這個小區的實際起始點
+                        start_x = center_x + area_params['x_dev']
+                        start_y = center_y + area_params['y_dev']
+
+                        local_areas.append(LocalCITSParams(
+                            start_x=start_x,
+                            start_y=start_y,
+                            dx=area_params['dx'],
+                            dy=area_params['dy'],
+                            nx=area_params['nx'],
+                            ny=area_params['ny'],
+                            scan_direction=current_direction,
+                            startpoint_direction=area_params['startpoint_direction']
+                        ))
+
+                    # 執行所有小區的 Local CITS 量測
+                    if not self.standard_local_cits(
+                        local_areas=local_areas,
+                        scan_direction=current_direction
+                    ):
+                        print(f"Warning: Local CITS failed at {position_type}, "
+                              f"repeat {repeat + 1}")
+                        continue
+
+                    # 等待CITS完成
+                    while self.is_scanning():
+                        time.sleep(1)
+
+                    # 反轉掃描方向
+                    current_direction *= -1
+
+                    # 如果不是最後一次重複，則等待系統穩定
+                    if repeat < repeat_count - 1:
+                        time.sleep(wait_time)
+
+            if self.debug_mode:
+                print("\nAuto move Local CITS sequence completed successfully")
+            return True
+
+        except Exception as e:
+            if self.debug_mode:
+                print(f"Auto move Local CITS error: {str(e)}")
+            return False

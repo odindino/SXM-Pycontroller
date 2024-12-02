@@ -1,0 +1,35 @@
+2024-11-28 15:13:04,570 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 15:13:05,642 - Response: b'f499\r\n'
+2024-11-28 15:13:05,642 - Scanning: forward line 499
+2024-11-28 15:13:07,562 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-11-28 15:13:07,563 - Scan finished at 2024-11-28 15:13:07.563353
+2024-11-28 15:13:07,563 - Response: b'DDE Cmd 1216\r\n'
+2024-11-28 15:13:07,563 - Scan completed
+2024-11-28 15:13:08,064 - 掃描完成
+2024-11-28 15:13:08,064 - 
+>>> 執行第 1/11 條 STS 線
+2024-11-28 15:13:08,064 -   STS點 (1/11): (1912.972, 5265.572)
+2024-11-28 15:13:08,064 - Sending command: SpectPara(1, 1912.971934891535);
+2024-11-28 15:13:08,065 - Response: b'DDE Cmd 1217\r\n0\r\n'
+2024-11-28 15:13:08,065 - Sending command: SpectPara(2, 5265.571934891535);
+2024-11-28 15:13:08,067 - Response: b'DDE Cmd 1219\r\n'
+2024-11-28 15:13:08,067 - Sending command: SpectStart;
+2024-11-28 15:13:10,758 - Response: b'DDE Cmd 1220\r\n'
+2024-11-28 15:13:11,758 -   STS點 (2/11): (1921.598, 5270.552)
+2024-11-28 15:13:11,758 - Sending command: SpectPara(1, 1921.597547913228);
+2024-11-28 15:13:11,761 - Response: b'DDE Cmd 1221\r\n'
+2024-11-28 15:13:11,761 - Sending command: SpectPara(2, 5270.551934891535);
+2024-11-28 15:13:11,768 - Response: b'DDE Cmd 1222\r\n'
+2024-11-28 15:13:11,768 - Sending command: SpectStart;
+2024-11-28 15:13:14,396 - Response: b'DDE Cmd 1223\r\n'
+2024-11-28 15:13:14,999 - Sending command: FeedPara('Enable', 0);
+2024-11-28 15:13:15,001 - Response: b'DDE Cmd 1224\r\n'
+2024-11-28 15:13:15,001 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-11-28 15:13:15,003 - Response: b'DDE Cmd 1225\r\n0\r\n'
+2024-11-28 15:13:15,003 - Feedback on
