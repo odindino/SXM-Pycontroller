@@ -537,14 +537,15 @@ class SXMScanControl(SXMEventHandler):
                     positions.append((x, y))
 
                 except Exception as e:
-                    self.logger.error(
-                        f"Error calculating position {i+1}: {str(e)}")
+                    if self.debug_mode:
+                        print(f"Error calculating position {i+1}: {str(e)}")
                     raise
 
             return positions
 
         except Exception as e:
-            self.logger.error(f"Position generation error: {str(e)}")
+            if self.debug_mode:
+                print(f"Position generation error: {str(e)}")
             raise
 
     # combine auto_move and perform_scan_sequence
@@ -619,7 +620,8 @@ class SXMScanControl(SXMEventHandler):
                         continue
 
             except Exception as e:
-                self.logger.error(f"Movement sequence error: {str(e)}")
+                if self.debug_mode:
+                    print(f"Movement sequence error: {str(e)}")
                 return False
 
             if self.debug_mode:
@@ -627,7 +629,8 @@ class SXMScanControl(SXMEventHandler):
             return True
 
         except Exception as e:
-            self.logger.error(f"Auto move scan error: {str(e)}")
+            if self.debug_mode:
+                print(f"Auto move scan error: {str(e)}")
             return False
 
     def calculate_movement(self, direction, distance):

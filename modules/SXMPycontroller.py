@@ -429,6 +429,318 @@ class SXMController(SXMCITSControl):
             except Exception as e:
                 print(f"回復安全狀態時發生錯誤: {str(e)}")
 
+    def auto_move_msts_CITS(self, movement_script: str, distance: float,
+                            num_points_x: int, num_points_y: int,
+                            script_name: str,
+                            initial_direction: int = 1,
+                            wait_time: float = 1.0,
+                            repeat_count: int = 1) -> bool:
+        """
+        執行自動移動和 Multi-STS CITS 量測序列
+        在每個移動位置進行多組偏壓的 CITS 量測
+
+        Parameters
+        ----------
+        movement_script : str
+            移動指令序列，如 "RULLDDRR"
+            R: 右, L: 左, U: 上, D: 下
+        distance : float
+            每次移動的距離（nm）
+        num_points_x : int
+            CITS X 方向的點數（1-512）
+        num_points_y : int
+            CITS Y 方向的點數（1-512）
+        script_name : str
+            Multi-STS 腳本名稱，定義了要執行的 Vds 和 Vg 組合
+        initial_direction : int, optional
+            起始CITS掃描方向（1: 由下到上, -1: 由上到下）
+        wait_time : float, optional
+            每次移動後的等待時間（秒）
+        repeat_count : int, optional
+            每個位置的CITS重複次數
+
+        Returns
+        -------
+        bool
+            序列是否成功完成
+        """
+        try:
+            # 驗證 CITS 參數
+            if not (1 <= num_points_x <= 512 and 1 <= num_points_y <= 512):
+                raise ValueError("CITS 點數必須在 1 到 512 之間")
+
+            if initial_direction not in (1, -1):
+                raise ValueError("掃描方向必須是 1 (向上) 或 -1 (向下)")
+
+            if repeat_count < 1:
+                raise ValueError("重複次數必須大於 0")
+
+            # 驗證 Multi-STS 腳本
+            script = self.get_script(script_name)
+            if not script:
+                raise ValueError(f"找不到腳本: {script_name}")
+
+            # 獲取當前掃描參數
+            center_x = self.GetScanPara('X')
+            center_y = self.GetScanPara('Y')
+            angle = self.GetScanPara('Angle')
+
+            if any(v is None for v in [center_x, center_y, angle]):
+                raise ValueError("無法獲取掃描參數")
+
+            if self.debug_mode:
+                print(f"\nStarting auto move Multi-STS CITS sequence:")
+                print(f"Initial position: ({center_x}, {center_y})")
+                print(f"Scan angle: {angle}°")
+                print(f"CITS points: {num_points_x}x{num_points_y}")
+                print(f"Script name: {script_name}")
+                print(f"Repeat count: {repeat_count}")
+
+            # 獲取移動序列的座標列表
+            try:
+                positions = self.auto_move(
+                    movement_script=movement_script,
+                    distance=distance,
+                    center_x=center_x,
+                    center_y=center_y,
+                    angle=angle
+                )
+
+                # 追蹤當前掃描方向
+                current_direction = initial_direction
+
+                # 在每個位置執行 CITS（包含初始位置）
+                for i, (x, y) in enumerate(positions):
+                    # 除了初始位置外，需要先移動
+                    if i > 0:
+                        if self.debug_mode:
+                            print(
+                                f"\nMoving to position {i}/{len(positions)-1}")
+
+                        # 移動到新位置
+                        if not self.set_position(x, y):
+                            print(
+                                f"Warning: Failed to move to position ({x}, {y})")
+                            continue
+
+                        # 等待系統穩定
+                        time.sleep(wait_time)
+
+                    position_type = "initial position" if i == 0 else f"position {i}"
+
+                    # 在當前位置重複執行CITS
+                    for repeat in range(repeat_count):
+                        if self.debug_mode:
+                            print(f"Starting Multi-STS CITS at {position_type}, "
+                                  f"repeat {repeat + 1}/{repeat_count}, "
+                                  f"direction: {'up' if current_direction == 1 else 'down'}")
+
+                        # 執行 Multi-STS CITS 量測
+                        if not self.standard_msts_cits(
+                            num_points_x=num_points_x,
+                            num_points_y=num_points_y,
+                            script_name=script_name,
+                            scan_direction=current_direction
+                        ):
+                            print(f"Warning: Multi-STS CITS failed at {position_type}, "
+                                  f"repeat {repeat + 1}")
+                            continue
+
+                        # 等待CITS完成
+                        while self.is_scanning():
+                            time.sleep(1)
+
+                        # 反轉掃描方向
+                        current_direction *= -1
+
+                        # 如果不是最後一次重複，則等待系統穩定
+                        if repeat < repeat_count - 1:
+                            time.sleep(wait_time)
+
+            except Exception as e:
+                if self.debug_mode:
+                    print(f"Multi-STS CITS sequence error: {str(e)}")
+                return False
+
+            if self.debug_mode:
+                print("\nAuto move Multi-STS CITS sequence completed successfully")
+            return True
+
+        except Exception as e:
+            if self.debug_mode:
+                print(f"Auto move Multi-STS CITS error: {str(e)}")
+            return False
+
+    def auto_move_local_msts_CITS(self, movement_script: str, distance: float,
+                                  local_areas_params: List[dict], script_name: str,
+                                  initial_direction: int = 1,
+                                  wait_time: float = 1.0,
+                                  repeat_count: int = 1) -> bool:
+        """
+        執行自動移動和 Local Multi-STS CITS 量測序列
+        在每個移動位置的多個相對偏移區域進行多組偏壓的 CITS 量測
+
+        Parameters
+        ----------
+        movement_script : str
+            移動指令序列，如 "RULLDDRR"
+            R: 右, L: 左, U: 上, D: 下
+        distance : float
+            每次移動的距離（nm）
+        local_areas_params : List[dict]
+            小區參數列表，每個字典包含：
+            {
+                'x_dev': float,  # 相對於掃描中心的X偏移（nm）
+                'y_dev': float,  # 相對於掃描中心的Y偏移（nm）
+                'nx': int,      # X方向點數
+                'ny': int,      # Y方向點數
+                'dx': float,    # X方向步進（nm）
+                'dy': float,    # Y方向步進（nm）
+                'startpoint_direction': int  # 起始點方向（1: 向上, -1: 向下）
+            }
+        script_name : str
+            Multi-STS 腳本名稱，定義了要執行的 Vds 和 Vg 組合
+        initial_direction : int, optional
+            CITS掃描方向（1: 由下到上, -1: 由上到下）
+        wait_time : float, optional
+            每次移動後的等待時間（秒）
+        repeat_count : int, optional
+            每個位置的CITS重複次數
+
+        Returns
+        -------
+        bool
+            序列是否成功完成
+        """
+        try:
+            # 參數驗證
+            if not local_areas_params:
+                raise ValueError("必須提供至少一個小區參數")
+
+            # 驗證 Multi-STS 腳本
+            script = self.get_script(script_name)
+            if not script:
+                raise ValueError(f"找不到腳本: {script_name}")
+
+            # 驗證每個小區的參數
+            for i, params in enumerate(local_areas_params):
+                if not all(key in params for key in ['x_dev', 'y_dev', 'nx', 'ny', 'dx', 'dy', 'startpoint_direction']):
+                    raise ValueError(f"小區 {i} 缺少必要參數")
+
+                if not (1 <= params['nx'] <= 512 and 1 <= params['ny'] <= 512):
+                    raise ValueError(f"小區 {i} 的點數必須在 1 到 512 之間")
+
+                if params['startpoint_direction'] not in (1, -1):
+                    raise ValueError(f"小區 {i} 的起始點方向必須是 1 (向上) 或 -1 (向下)")
+
+            if initial_direction not in (1, -1):
+                raise ValueError("掃描方向必須是 1 (向上) 或 -1 (向下)")
+
+            if repeat_count < 1:
+                raise ValueError("重複次數必須大於 0")
+
+            # 獲取當前掃描參數
+            center_x = self.GetScanPara('X')
+            center_y = self.GetScanPara('Y')
+            angle = self.GetScanPara('Angle')
+
+            if any(v is None for v in [center_x, center_y, angle]):
+                raise ValueError("無法獲取掃描參數")
+
+            if self.debug_mode:
+                print(f"\nStarting auto move Local Multi-STS CITS sequence:")
+                print(f"Initial center: ({center_x}, {center_y})")
+                print(f"Number of local areas: {len(local_areas_params)}")
+                print(f"Script name: {script_name}")
+                print(f"Scan angle: {angle}°")
+                print(f"Repeat count: {repeat_count}")
+
+            # 獲取移動序列的座標列表
+            positions = self.auto_move(
+                movement_script=movement_script,
+                distance=distance,
+                center_x=center_x,
+                center_y=center_y,
+                angle=angle
+            )
+
+            # 追蹤當前掃描方向
+            current_direction = initial_direction
+
+            # 在每個位置執行 Local Multi-STS CITS
+            for i, (center_x, center_y) in enumerate(positions):
+                # 除了初始位置外，需要先移動中心點
+                if i > 0:
+                    if self.debug_mode:
+                        print(
+                            f"\nMoving to center {i}/{len(positions)-1}: ({center_x}, {center_y})")
+
+                    # 移動到新的中心位置
+                    if not self.set_position(center_x, center_y):
+                        print(
+                            f"Warning: Failed to move to center ({center_x}, {center_y})")
+                        continue
+
+                    # 等待系統穩定
+                    time.sleep(wait_time)
+
+                position_type = "initial position" if i == 0 else f"position {i}"
+
+                # 在當前位置重複執行 Local Multi-STS CITS
+                for repeat in range(repeat_count):
+                    if self.debug_mode:
+                        print(f"\nStarting Local Multi-STS CITS sequence at {position_type}, "
+                              f"repeat {repeat + 1}/{repeat_count}, "
+                              f"direction: {'up' if current_direction == 1 else 'down'}")
+
+                    # 為當前位置創建所有小區
+                    local_areas = []
+                    for area_params in local_areas_params:
+                        # 計算這個小區的實際起始點
+                        start_x = center_x + area_params['x_dev']
+                        start_y = center_y + area_params['y_dev']
+
+                        local_areas.append(LocalCITSParams(
+                            start_x=start_x,
+                            start_y=start_y,
+                            dx=area_params['dx'],
+                            dy=area_params['dy'],
+                            nx=area_params['nx'],
+                            ny=area_params['ny'],
+                            scan_direction=current_direction,
+                            startpoint_direction=area_params['startpoint_direction']
+                        ))
+
+                    # 執行所有小區的 Local Multi-STS CITS 量測
+                    if not self.standard_local_msts_cits(
+                        local_areas=local_areas,
+                        script_name=script_name,
+                        scan_direction=current_direction
+                    ):
+                        print(f"Warning: Local Multi-STS CITS failed at {position_type}, "
+                              f"repeat {repeat + 1}")
+                        continue
+
+                    # 等待CITS完成
+                    while self.is_scanning():
+                        time.sleep(0.1)
+
+                    # 反轉掃描方向
+                    current_direction *= -1
+
+                    # 如果不是最後一次重複，則等待系統穩定
+                    if repeat < repeat_count - 1:
+                        time.sleep(wait_time)
+
+            if self.debug_mode:
+                print("\nAuto move Local Multi-STS CITS sequence completed successfully")
+            return True
+
+        except Exception as e:
+            if self.debug_mode:
+                print(f"Auto move Local Multi-STS CITS error: {str(e)}")
+            return False
+
     # ========== STSxSMU functions END ========== #
 
     # ========== STSxSMU script functions ========== #
