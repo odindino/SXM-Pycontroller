@@ -13,6 +13,7 @@
                 <a href="#" class="nav-link active" data-target="smu-config">SMU Config</a>
                 <a href="#" class="nav-link" data-target="sts-measurement">STS Measurement</a>
                 <a href="#" class="nav-link" data-target="cits-measurement">CITS Measurement</a>
+                <a href="#" class="nav-link" data-target="auto-move-measurement">auto-move-measurement</a>
             </div>
         </nav>
 
@@ -232,6 +233,311 @@
                 </section>
             </div>
         </section>
+    </div>
+
+    <!-- 新增auto-move-measurement區段 -->
+    <div id="auto-move-measurement" class="section content-section auto-move-section">
+        <div class="content-grid">
+            <!-- Movement Script Panel -->
+            <div class="section control-panel">
+                <h3>Movement Script Control</h3>
+                <div class="script-control-content">
+                    <div class="input-group">
+                        <input type="text" id="moveScriptName" 
+                               placeholder="Script Name" 
+                               class="full-width">
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="text" id="movementScript" 
+                               placeholder="e.g. RULLDDRR" 
+                               pattern="[RULD]+" 
+                               class="full-width">
+                        <div class="hint-text">R: Right, U: Up, L: Left, D: Down</div>
+                    </div>
+                    
+                    <div class="input-grid">
+                        <div class="input-group">
+                            <label>Distance (nm):</label>
+                            <input type="number" id="moveDistance" 
+                                   min="0" step="0.1" value="100">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Wait Time (s):</label>
+                            <input type="number" id="waitTime" 
+                                   min="0" step="0.1" value="1.0">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Repeat Count:</label>
+                            <input type="number" id="repeatCount" 
+                                   min="1" step="1" value="1">
+                        </div>
+                    </div>
+                    
+                    <div class="script-actions">
+                        <button id="saveAutoMoveScript" class="primary-btn">
+                            Save Script
+                        </button>
+                        <select id="autoMoveScriptSelect">
+                            <option value="">Select Script...</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- STS Settings Panel -->
+            <!-- 右側SMU Voltage Settings面板 -->
+            <div class="section control-panel">
+                <h3>SMU Voltage Settings for Auto-Move mSTS</h3>
+                <div class="voltage-settings-content">
+                    <!-- 電壓設定表格 -->
+                    <table class="voltage-settings-table">
+                        <thead>
+                            <tr>
+                                <th>Vds (V)</th>
+                                <th>Vg (V)</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="autoMoveStsRows">
+                            <tr class="sts-row">
+                                <td>
+                                    <input type="number" class="vds-input" value="0" step="0.1">
+                                </td>
+                                <td>
+                                    <input type="number" class="vg-input" value="0" step="0.1">
+                                </td>
+                                <td>
+                                    <button class="remove-row" title="Remove">×</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- 添加設定按鈕 -->
+                    <button id="addAutoMoveStsRow" class="add-setting-btn">
+                        Add Setting
+                    </button>
+
+                    <!-- 腳本控制區域 -->
+                    <div class="script-control-section">
+                        <input type="text" id="autoMoveStsScriptName" 
+                            placeholder="Script Name" class="script-name-input">
+                        <div class="script-control-buttons">
+                            <button id="saveAutoMoveStsScript" class="primary-btn">
+                                Save Script
+                            </button>
+                            <select id="autoMoveStsScriptSelect" class="script-select">
+                                <option value="">Select Script...</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview Section -->
+            <div class="preview-section control-panel">
+                <h3>Auto-Move Area Preview</h3>
+                
+                <div class="preview-controls">
+                    <button id="getSxmStatus" class="primary-btn">
+                        Get SXM Status
+                    </button>
+                    <button id="startAutoMoveScan" class="success-btn">
+                        Start Auto-Move Scan
+                    </button>
+                    <button id="previewAutoMoveAreas" class="secondary-btn">
+                        Preview Auto-Move Areas
+                    </button>
+                </div>
+            
+                <div class="preview-info">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Scan Center:</label>
+                            <span id="previewCenter">(-,-)</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Range:</label>
+                            <span id="previewRange">- nm</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Angle:</label>
+                            <span id="previewAngle">-°</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Status:</label>
+                            <span id="previewStatus">Ready</span>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="preview-canvas-container">
+                    <canvas id="previewCanvas"></canvas>
+                </div>
+            </div>
+
+            <div class="cits-section control-panel">
+                <h3>CITS Control for Auto-Move</h3>
+                <div class="cits-control-content">
+                    <!-- Points Input Group -->
+                    <div class="points-input-group">
+                        <label>CITS Points:</label>
+                        <div class="points-grid">
+                            <div class="input-field">
+                                <label>X Points:</label>
+                                <input type="number" id="autoMoveCitsPointsX" 
+                                       value="32" min="1" max="512" step="1">
+                            </div>
+                            <div class="input-field">
+                                <label>Y Points:</label>
+                                <input type="number" id="autoMoveCitsPointsY" 
+                                       value="32" min="1" max="512" step="1">
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Scan Direction -->
+                    <div class="direction-control">
+                        <label>Scan Direction:</label>
+                        <div class="direction-options">
+                            <select id="autoMoveCitsDirection">
+                                <option value="1">Scan Up</option>
+                                <option value="-1">Scan Down</option>
+                            </select>
+                        </div>
+                    </div>
+            
+                    <!-- Control Buttons -->
+                    <div class="cits-buttons">
+                        <button id="startAutoMoveSstsCits" class="primary-btn">
+                            Start Auto-Move SSTS CITS
+                        </button>
+                        <button id="startAutoMoveMstsCits" class="secondary-btn">
+                            Start Auto-Move mSTS CITS
+                        </button>
+                    </div>
+                </div>
+            
+                <!-- Status Display -->
+                <div class="cits-status">
+                    <span id="autoMoveCitsStatus">Ready for measurement</span>
+                </div>
+            </div>
+
+            <div class="local-cits-section control-panel">
+                <h3>Local CITS Control for Auto-Move</h3>
+            
+                <!-- Global Direction Control -->
+                <div class="global-direction">
+                    <label>Global Direction:</label>
+                    <select id="autoMoveLocalCitsGlobalDirection">
+                        <option value="1">Up</option>
+                        <option value="-1">Down</option>
+                    </select>
+                </div>
+            
+                <!-- Local Areas Container -->
+                <div id="autoMoveLocalAreasContainer">
+                    <div class="local-area-container">
+                        <div class="area-header">
+                            <span>Area Settings</span>
+                            <button class="remove-area danger-btn">Remove Area</button>
+                        </div>
+            
+                        <div class="coordinate-settings">
+                            <div class="input-field">
+                                <label>X Deviation (nm):</label>
+                                <input type="number" class="x-dev" value="0" step="0.1">
+                            </div>
+                            <div class="input-field">
+                                <label>Y Deviation (nm):</label>
+                                <input type="number" class="y-dev" value="0" step="0.1">
+                            </div>
+                            <div class="input-field">
+                                <label>Start Point Direction:</label>
+                                <select class="startpoint-direction">
+                                    <option value="1">Up</option>
+                                    <option value="-1">Down</option>
+                                </select>
+                            </div>
+                        </div>
+            
+                        <div class="grid-settings">
+                            <div class="input-field">
+                                <label>Step Size X (nm):</label>
+                                <input type="number" class="dx" value="20" step="0.1">
+                            </div>
+                            <div class="input-field">
+                                <label>Step Size Y (nm):</label>
+                                <input type="number" class="dy" value="20" step="0.1">
+                            </div>
+                            <div class="input-field">
+                                <label>X Points:</label>
+                                <input type="number" class="nx" value="5" min="1" max="512">
+                            </div>
+                            <div class="input-field">
+                                <label>Y Points:</label>
+                                <input type="number" class="ny" value="3" min="1" max="512">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <button id="addAutoMoveLocalArea" class="success-btn">
+                    Add Local Area
+                </button>
+            
+                <!-- Preview Panel -->
+                <div class="local-preview-panel">
+                    <div class="preview-header">
+                        <h4>Local CITS Preview</h4>
+                        <div class="preview-controls">
+                            <button id="getLocalSxmStatus" class="primary-btn">
+                                Get SXM Status
+                            </button>
+                            <button id="previewLocalCits" class="secondary-btn">
+                                Preview
+                            </button>
+                        </div>
+                    </div>
+            
+                    <div class="preview-canvas-container">
+                        <canvas id="localPreviewCanvas"></canvas>
+                    </div>
+            
+                    <div class="local-preview-info">
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <label>Status:</label>
+                                <span id="localCitsStatus">Idle</span>
+                            </div>
+                            <div class="info-item">
+                                <label>Progress:</label>
+                                <span id="localCitsProgress">0%</span>
+                            </div>
+                            <div class="info-item">
+                                <label>Last CITS:</label>
+                                <span id="localCitsLastTime">Never</span>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="local-cits-buttons">
+                        <button id="startAutoMoveLocalSstsCits" class="primary-btn">
+                            Start Auto-Move Local SSTS CITS
+                        </button>
+                        <button id="startAutoMoveLocalMstsCits" class="secondary-btn">
+                            Start Auto-Move Local mSTS CITS
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
     </div>
 
     <script src="./scripts/SXMPycontroller-script.js"></script>

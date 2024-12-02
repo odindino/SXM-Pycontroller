@@ -13,6 +13,8 @@ import webview
 from typing import Dict, Any, Optional
 from dataclasses import dataclass
 from enum import Enum
+from pathlib import Path
+import json
 
 from utils.KB2902BSMU import KeysightB2902B, Channel, OutputMode
 from utils.SXMPyCalc import LocalCITSParams
@@ -747,30 +749,52 @@ class SMUControlAPI:
 
     def get_sxm_status(self) -> dict:
         """
-        獲取 SXM 的當前狀態
+        獲取 SXM 的當前狀態，包含掃描範圍資訊
 
         Returns
         -------
         dict
-            包含掃描中心、範圍、角度等資訊的字典
+            包含掃描中心、範圍、角度和實際掃描尺寸的狀態資訊
         """
         try:
             if not self.ensure_controller():
-                raise Exception("STM 控制器未初始化")
+                raise Exception("STM控制器未初始化")
+
+            # 獲取基本掃描參數
+            center_x = self.stm.GetScanPara('X')
+            center_y = self.stm.GetScanPara('Y')
+            range_value = self.stm.GetScanPara('Range')
+            angle = self.stm.GetScanPara('Angle')
+            total_lines = self.stm.GetScanPara('Pixel')
+
+            # 獲取比例參數
+            pixel_ratio = self.stm.get_pixel_ratio()
+            aspect_ratio = self.stm.get_aspect_ratio()
+
+            # 計算實際掃描範圍
+            fast_axis_range, slow_axis_range = self.stm.calculate_actual_scan_dimensions()
+
+            # 計算掃描線數和間距
+            total_lines, line_spacing = self.stm.calculate_scan_lines()
 
             status = {
-                'center_x': self.stm.GetScanPara('X'),
-                'center_y': self.stm.GetScanPara('Y'),
-                'range': self.stm.GetScanPara('Range'),
-                'angle': self.stm.GetScanPara('Angle'),
-                'total_lines': self.stm.GetScanPara('Pixel'),
+                'center_x': center_x,
+                'center_y': center_y,
+                'range': range_value,
+                'angle': angle,
+                'fast_axis_range': fast_axis_range,
+                'slow_axis_range': slow_axis_range,
+                'total_lines': total_lines,
+                'line_spacing': line_spacing,
+                'pixel_ratio': pixel_ratio,
+                'aspect_ratio': aspect_ratio,
                 'timestamp': time.strftime("%Y-%m-%d %H:%M:%S")
             }
 
             return status
 
         except Exception as e:
-            raise Exception(f"獲取 SXM 狀態失敗: {str(e)}")
+            raise Exception(f"獲取SXM狀態失敗: {str(e)}")
     # ========== Local CITS functions END ========== #
 
     # ========== Auto move measurement functions ========== #
@@ -1016,6 +1040,110 @@ class SMUControlAPI:
         except Exception as e:
             print(f"自動移動Local Multi-STS CITS錯誤: {str(e)}")
             return False
+
+    def save_auto_move_script(self, script_data: dict) -> bool:
+        """
+        儲存自動移動腳本
+
+        Parameters
+        ----------
+        script_data : dict
+            腳本資料，包含：
+            - name: 腳本名稱
+            - script: 移動指令（例如：'RULLDDRR'）
+            - distance: 移動距離（nm）
+            - waitTime: 等待時間（秒）
+            - repeatCount: 重複次數
+
+        Returns
+        -------
+        bool
+            儲存是否成功
+        """
+        try:
+            # 確保 script_data 包含所有必要欄位
+            required_fields = ['name', 'script',
+                               'distance', 'waitTime', 'repeatCount']
+            if not all(field in script_data for field in required_fields):
+                raise ValueError("缺少必要的腳本資料欄位")
+
+            # 驗證移動指令格式
+            if not all(c in 'RULD' for c in script_data['script']):
+                raise ValueError("移動指令只能包含 R, U, L, D")
+
+            # 儲存腳本到檔案系統
+            scripts_dir = Path.home() / ".stm_controller" / "auto_move_scripts"
+            scripts_dir.mkdir(parents=True, exist_ok=True)
+
+            script_file = scripts_dir / f"{script_data['name']}.json"
+            with open(script_file, 'w') as f:
+                json.dump({
+                    'name': script_data['name'],
+                    'script': script_data['script'],
+                    'distance': float(script_data['distance']),
+                    'waitTime': float(script_data['waitTime']),
+                    'repeatCount': int(script_data['repeatCount']),
+                    'created_time': time.strftime("%Y-%m-%d %H:%M:%S")
+                }, f, indent=2)
+
+            return True
+
+        except Exception as e:
+            print(f"儲存自動移動腳本失敗: {str(e)}")
+            raise Exception(f"無法儲存腳本: {str(e)}")
+
+    def get_auto_move_scripts(self) -> dict:
+        """
+        獲取所有已儲存的自動移動腳本
+
+        Returns
+        -------
+        dict
+            腳本名稱和內容的映射
+        """
+        try:
+            scripts_dir = Path.home() / ".stm_controller" / "auto_move_scripts"
+            if not scripts_dir.exists():
+                return {}
+
+            scripts = {}
+            for script_file in scripts_dir.glob("*.json"):
+                with open(script_file) as f:
+                    script_data = json.load(f)
+                    scripts[script_data['name']] = script_data
+
+            return scripts
+
+        except Exception as e:
+            print(f"讀取自動移動腳本失敗: {str(e)}")
+            return {}
+
+    def get_auto_move_script(self, script_name: str) -> dict:
+        """
+        獲取指定的自動移動腳本
+
+        Parameters
+        ----------
+        script_name : str
+            腳本名稱
+
+        Returns
+        -------
+        dict
+            腳本資料
+        """
+        try:
+            scripts_dir = Path.home() / ".stm_controller" / "auto_move_scripts"
+            script_file = scripts_dir / f"{script_name}.json"
+
+            if not script_file.exists():
+                raise ValueError(f"找不到腳本: {script_name}")
+
+            with open(script_file) as f:
+                return json.load(f)
+
+        except Exception as e:
+            raise Exception(f"無法讀取腳本: {str(e)}")
     # ========== Auto move measurement functions END ========== #
 
     # ========== CITS functions END ========== #
