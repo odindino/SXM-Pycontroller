@@ -748,58 +748,11 @@ class SMUControlAPI:
             raise Exception(error_message)
 
     def get_sxm_status(self) -> dict:
-        """
-        獲取 SXM 的當前狀態，包含掃描範圍資訊
-
-        Returns
-        -------
-        dict
-            包含掃描中心、範圍、角度和實際掃描尺寸的狀態資訊
-        """
+        """獲取STM當前狀態"""
         try:
             if not self.ensure_controller():
                 raise Exception("STM控制器未初始化")
-
-            # 如果送出指令時正在掃圖，先停止掃圖，再獲取參數。如果沒有在掃圖，直接獲取參數
-
-            self.stm.scan_off()
-
-            # 獲取基本掃描參數
-            center_x = self.stm.GetScanPara('X')
-            center_y = self.stm.GetScanPara('Y')
-            range_value = self.stm.GetScanPara('Range')
-            angle = self.stm.GetScanPara('Angle')
-            total_lines = self.stm.GetScanPara('Pixel')
-
-            # 獲取比例參數
-            pixel_ratio = self.stm.get_pixel_ratio()
-            aspect_ratio = self.stm.get_aspect_ratio()
-
-            # 計算實際掃描範圍
-            fast_axis_range, slow_axis_range = self.stm.calculate_actual_scan_dimensions()
-
-            # 計算掃描線數和間距
-            total_lines, line_spacing = self.stm.calculate_scan_lines()
-
-            status = {
-                'center_x': center_x,
-                'center_y': center_y,
-                'range': range_value,
-                'angle': angle,
-                'fast_axis_range': fast_axis_range,
-                'slow_axis_range': slow_axis_range,
-                'total_lines': total_lines,
-                'line_spacing': line_spacing,
-                'pixel_ratio': pixel_ratio,
-                'aspect_ratio': aspect_ratio,
-                'timestamp': time.strftime("%Y-%m-%d %H:%M:%S")
-            }
-
-            # 恢復掃描
-            self.stm.scan_on()
-
-            return status
-
+            return self.stm.get_sxm_status()
         except Exception as e:
             raise Exception(f"獲取SXM狀態失敗: {str(e)}")
     # ========== Local CITS functions END ========== #

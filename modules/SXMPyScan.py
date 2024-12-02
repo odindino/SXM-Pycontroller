@@ -783,3 +783,55 @@ class SXMScanControl(SXMEventHandler):
             if self.debug_mode:
                 print(f"Error calculating scan lines: {str(e)}")
             return (None, None)
+        
+    def get_sxm_status(self) -> dict:
+        """
+        獲取STM當前的掃描參數和狀態
+        
+        Returns
+        -------
+        dict
+            包含所有掃描相關參數的字典，包括：
+            - center_x, center_y: 掃描中心座標 (nm)
+            - range: 設定的掃描範圍 (nm)
+            - angle: 掃描角度 (度)
+            - fast_axis_range: 快軸實際掃描範圍 (nm)
+            - slow_axis_range: 慢軸實際掃描範圍 (nm)
+            - total_lines: 總掃描線數
+            - line_spacing: 掃描線間距 (nm)
+            - pixel_ratio: 像素密度比例
+            - aspect_ratio: 影像長寬比例
+        """
+        try:
+            # 基本掃描參數
+            center_x = self.GetScanPara('X')
+            center_y = self.GetScanPara('Y')
+            range_value = self.GetScanPara('Range')
+            angle = self.GetScanPara('Angle')
+            
+            # 計算實際掃描範圍
+            fast_axis_range, slow_axis_range = self.calculate_actual_scan_dimensions()
+            
+            # 計算掃描線參數
+            total_lines, line_spacing = self.calculate_scan_lines()
+            
+            # 獲取比例參數
+            pixel_ratio = self.get_pixel_ratio()
+            aspect_ratio = self.get_aspect_ratio()
+            
+            return {
+                'center_x': center_x,
+                'center_y': center_y,
+                'range': range_value,
+                'angle': angle,
+                'fast_axis_range': fast_axis_range,
+                'slow_axis_range': slow_axis_range,
+                'total_lines': total_lines,
+                'line_spacing': line_spacing,
+                'pixel_ratio': pixel_ratio,
+                'aspect_ratio': aspect_ratio,
+                'timestamp': time.strftime("%Y-%m-%d %H:%M:%S")
+            }
+            
+        except Exception as e:
+            raise ValueError(f"獲取掃描狀態失敗: {str(e)}")    

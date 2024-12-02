@@ -50,3 +50,4 @@ Writeln(a);
 a := GetScanPara('AspectRatio');
 Writeln(a);
 2024-12-02 16:04:12,685 - Response: b'f401\r\n'
+2024-12-02 16:07:26,967 - 視窗已關閉，正在清理資源...
