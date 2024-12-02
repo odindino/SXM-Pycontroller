@@ -239,3 +239,45 @@ class SXMCITSControl(SXMSpectroControl):
                     print("系統回到安全狀態")
             except Exception as e:
                 print(f"回復安全狀態時發生錯誤: {str(e)}")
+
+    # Auto-move CITS, the combination of auto-move and CITS
+    def auto_move_ssts_CITS(self, movement_script, distance, num_points_x, num_points_y, scan_direction=1):
+        """
+        執行自動移動和 CITS 量測
+
+        此函數將執行自動移動和 CITS 量測的組合，先執行自動移動到指定位置，然後執行 CITS 量測。
+
+        Parameters
+        ----------
+        movement_script : List[Tuple[str, float]]
+            移動指令列表，每個元素為一個 Tuple，包含：
+            - 移動軸 ('X', 'Y', 'Z')
+            - 移動距離 (nm)
+        distance : float
+            移動距離 (nm)
+        num_points_x : int
+            X方向量測點數
+        num_points_y : int
+            Y方向量測點數
+        scan_direction : int, optional
+            掃描方向，1 表示由下到上，-1 表示由上到下
+
+        Returns
+        -------
+        bool
+            量測是否成功完成
+        """
+        try:
+            # 執行移動
+            if not self.auto_move(movement_script, distance):
+                raise RuntimeError("自動移動失敗")
+
+            # 執行 CITS 量測
+            if not self.standard_cits(num_points_x, num_points_y, scan_direction):
+                raise RuntimeError("CITS 量測失敗")
+
+            return True
+
+        except Exception as e:
+            print(f"自動移動和 CITS 量測錯誤: {str(e)}")
+            return False
