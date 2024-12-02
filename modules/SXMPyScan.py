@@ -783,11 +783,11 @@ class SXMScanControl(SXMEventHandler):
             if self.debug_mode:
                 print(f"Error calculating scan lines: {str(e)}")
             return (None, None)
-        
+
     def get_sxm_status(self) -> dict:
         """
         獲取STM當前的掃描參數和狀態
-        
+
         Returns
         -------
         dict
@@ -808,17 +808,17 @@ class SXMScanControl(SXMEventHandler):
             center_y = self.GetScanPara('Y')
             range_value = self.GetScanPara('Range')
             angle = self.GetScanPara('Angle')
-            
+
             # 計算實際掃描範圍
             fast_axis_range, slow_axis_range = self.calculate_actual_scan_dimensions()
-            
+
             # 計算掃描線參數
             total_lines, line_spacing = self.calculate_scan_lines()
-            
+
             # 獲取比例參數
             pixel_ratio = self.get_pixel_ratio()
             aspect_ratio = self.get_aspect_ratio()
-            
+
             return {
                 'center_x': center_x,
                 'center_y': center_y,
@@ -832,6 +832,6 @@ class SXMScanControl(SXMEventHandler):
                 'aspect_ratio': aspect_ratio,
                 'timestamp': time.strftime("%Y-%m-%d %H:%M:%S")
             }
-            
+
         except Exception as e:
-            raise ValueError(f"獲取掃描狀態失敗: {str(e)}")    
+            raise ValueError(f"獲取掃描狀態失敗: {str(e)}")
