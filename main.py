@@ -1,17 +1,15 @@
 """
 STM-SMU Controller Main Program
-啟動GUI並管理系統生命週期
+Launches the WebView GUI and initializes backend services.
 
 Author: Zi-Liang Yang
 Version: 1.0.0
-Date: 2024-11-26
+Date: 2024-11-25
 """
 
 import os
-import sys
 import signal
 import webview
-import logging
 from pathlib import Path
 from api import SMUControlAPI
 import sys
@@ -60,11 +58,12 @@ def main():
         # 啟動GUI
         webview.start(debug=True)
 
-
-def main():
-    """程式進入點"""
-    app = ApplicationManager()
-    app.run()
+    except KeyboardInterrupt:
+        print("\n接收到中斷信號，正在關閉程式...")
+        sys.exit(0)
+    except Exception as e:
+        print(f"程式錯誤: {str(e)}")
+        sys.exit(1)
 
 
 if __name__ == '__main__':
