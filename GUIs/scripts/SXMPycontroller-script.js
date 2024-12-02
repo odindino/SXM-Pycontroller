@@ -1478,7 +1478,7 @@ class AutoMovePreviewControl {
             const scriptName = document.getElementById('autoMoveScriptSelect').value;
             if (!scriptName) throw new Error('請選擇移動腳本');
 
-            await pywebview.api.start_auto_move_scan(scriptName);
+            await pywebview.api.auto_move_scan_area(scriptName);
             
         } catch (error) {
             alert('啟動掃描失敗: ' + error.message);
@@ -1507,7 +1507,7 @@ class AutoMoveCitsControl {
             const pointsY = parseInt(document.getElementById('autoMoveCitsPointsY').value);
             const direction = parseInt(document.getElementById('autoMoveCitsDirection').value);
 
-            await pywebview.api.start_auto_move_ssts_cits(pointsX, pointsY, direction);
+            await pywebview.api.auto_move_ssts_cits(pointsX, pointsY, direction);
             
         } catch (error) {
             alert('啟動SSTS CITS失敗: ' + error.message);
@@ -1523,7 +1523,7 @@ class AutoMoveCitsControl {
 
             if (!scriptName) throw new Error('請選擇Multi-STS腳本');
 
-            await pywebview.api.start_auto_move_msts_cits(
+            await pywebview.api.auto_move_msts_cits(
                 pointsX, pointsY, scriptName, direction);
             
         } catch (error) {
@@ -1691,7 +1691,7 @@ class AutoMoveLocalCitsControl {
             
             this.updateStatus('Starting Auto-Move Local SSTS CITS...');
             
-            const success = await pywebview.api.start_auto_move_local_ssts_cits(
+            const success = await pywebview.api.auto_move_local_ssts_cits(
                 areas, direction
             );
             
@@ -1720,7 +1720,7 @@ class AutoMoveLocalCitsControl {
             
             this.updateStatus('Starting Auto-Move Local Multi-STS CITS...');
             
-            const success = await pywebview.api.start_auto_move_local_msts_cits(
+            const success = await pywebview.api.auto_move_local_msts_cits(
                 areas, scriptName, direction
             );
             
