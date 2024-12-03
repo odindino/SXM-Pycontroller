@@ -41,11 +41,24 @@ const AutoMoveMeasurementModule = {
         startLocalMstsBtn: document.getElementById('amStartLocalMstsCits'),
         
         // Preview & Status
-        previewCanvas: document.getElementById('amMovePreview'),
-        localCitsPreview: document.getElementById('amLocalCitsPreview'),
-        statusDisplay: document.getElementById('amLocalCitsStatus'),
-        progressDisplay: document.getElementById('amLocalCitsProgress'),
-        lastTimeDisplay: document.getElementById('amLocalCitsLastTime')
+
+        // Local CITS Preview elements
+        getLocalCitsStatusBtn: document.getElementById('getLocalCitsStatusBtn'),
+        previewLocalCitsBtn: document.getElementById('previewLocalCitsBtn'),
+        localPreviewCanvas: document.getElementById('amLocalCitsPreview'),
+        localPreviewCenter: document.getElementById('localPreviewCenter'),
+        localPreviewRange: document.getElementById('localPreviewRange'),
+        localPreviewAngle: document.getElementById('localPreviewAngle'),
+        localPreviewTotalPoints: document.getElementById('localPreviewTotalPoints'),
+        localCitsStatus: document.getElementById('amLocalCitsStatus'),
+        localCitsProgress: document.getElementById('amLocalCitsProgress'),
+        localCitsLastTime: document.getElementById('amLocalCitsLastTime'),
+
+        // previewCanvas: document.getElementById('amMovePreview'),
+        // localCitsPreview: document.getElementById('amLocalCitsPreview'),
+        // statusDisplay: document.getElementById('amLocalCitsStatus'),
+        // progressDisplay: document.getElementById('amLocalCitsProgress'),
+        // lastTimeDisplay: document.getElementById('amLocalCitsLastTime')
     },
 
     state: {
@@ -131,6 +144,19 @@ const AutoMoveMeasurementModule = {
         // Input Validation
         this.elements.pointsX.addEventListener('change', () => this.validatePoints(this.elements.pointsX));
         this.elements.pointsY.addEventListener('change', () => this.validatePoints(this.elements.pointsY));
+    
+        // Local CITS Preview 按鈕事件
+        if (this.elements.getLocalCitsStatusBtn) {
+            this.elements.getLocalCitsStatusBtn.addEventListener('click', () => this.updateLocalCitsStatus());
+        } else {
+            console.error('Get Local CITS Status button not found');
+        }
+
+        if (this.elements.previewLocalCitsBtn) {
+            this.elements.previewLocalCitsBtn.addEventListener('click', () => this.previewLocalCits());
+        } else {
+            console.error('Preview Local CITS button not found');
+        }
     },
 
     async refreshMovementScripts() {
@@ -1008,29 +1034,65 @@ const AutoMoveMeasurementModule = {
         return true;
     },
 
-    validateLocalArea(area, index) {
-        if (isNaN(area.x_dev) || isNaN(area.y_dev)) {
-            this.updateStatus(`Invalid position in area ${index + 1}`);
-            return false;
+    validateLocalArea(area) {
+        const validationRules = {
+            start_x: { min: -10000, max: 10000 },
+            start_y: { min: -10000, max: 10000 },
+            dx: { min: 0.1, max: 1000 },
+            dy: { min: 0.1, max: 1000 },
+            nx: { min: 1, max: 512 },
+            ny: { min: 1, max: 512 }
+        };
+    
+        for (const [key, rule] of Object.entries(validationRules)) {
+            const value = area[key];
+            if (value < rule.min || value > rule.max) {
+                throw new Error(
+                    `Invalid ${key}: ${value}. Must be between ${rule.min} and ${rule.max}`
+                );
+            }
         }
-        
-        if (isNaN(area.dx) || area.dx <= 0 || isNaN(area.dy) || area.dy <= 0) {
-            this.updateStatus(`Invalid step size in area ${index + 1}`);
-            return false;
+    
+        if (![1, -1].includes(area.startpoint_direction)) {
+            throw new Error('Invalid startpoint direction. Must be 1 or -1');
         }
-        
-        if (isNaN(area.nx) || area.nx < 1 || area.nx > 512 ||
-            isNaN(area.ny) || area.ny < 1 || area.ny > 512) {
-            this.updateStatus(`Invalid points in area ${index + 1}`);
-            return false;
-        }
-        
-        if (area.startpoint_direction !== 1 && area.startpoint_direction !== -1) {
-            this.updateStatus(`Invalid start point direction in area ${index + 1}`);
-            return false;
-        }
-        
+    
         return true;
+    },
+
+    collectLocalAreasData() {
+        const localAreas = [];
+        const containers = this.elements.localAreasContainer.querySelectorAll('.local-area-container');
+        
+        containers.forEach(container => {
+            try {
+                const localArea = {
+                    start_x: parseFloat(container.querySelector('.x-dev').value),
+                    start_y: parseFloat(container.querySelector('.y-dev').value),
+                    dx: parseFloat(container.querySelector('.dx').value),
+                    dy: parseFloat(container.querySelector('.dy').value),
+                    nx: parseInt(container.querySelector('.nx').value),
+                    ny: parseInt(container.querySelector('.ny').value),
+                    startpoint_direction: parseInt(container.querySelector('.start-direction').value)
+                };
+    
+                if (this.validateLocalArea(localArea)) {
+                    localAreas.push(localArea);
+                }
+            } catch (error) {
+                this.updateStatus(
+                    `Invalid local area configuration: ${error.message}`
+                );
+                console.error('Local area validation error:', error);
+            }
+        });
+    
+        if (localAreas.length === 0) {
+            this.updateStatus('No valid local areas found');
+            return [];
+        }
+    
+        return localAreas;
     },
 
     updateStatus(message) {
@@ -1074,6 +1136,40 @@ const AutoMoveMeasurementModule = {
             option.textContent = name;
             stsSelect.appendChild(option);
         });
+    },
+
+    async updateLocalCitsStatus() {
+        try {
+            const status = await pywebview.api.get_sxm_status();
+            
+            // 更新預覽資訊
+            this.elements.localPreviewCenter.textContent = 
+                `(${status.center_x.toFixed(2)}, ${status.center_y.toFixed(2)})`;
+            this.elements.localPreviewRange.textContent = 
+                status.range.toFixed(2);
+            this.elements.localPreviewAngle.textContent = 
+                status.angle.toFixed(2);
+                
+            // 計算並更新總點數
+            const totalPoints = this.calculateTotalLocalCitsPoints();
+            this.elements.localPreviewTotalPoints.textContent = totalPoints;
+            
+            this.updateStatus('Local CITS status updated successfully');
+        } catch (error) {
+            this.updateStatus(`Failed to get Local CITS status: ${error.message}`);
+            console.error('Local CITS status error:', error);
+        }
+    },
+
+    calculateTotalLocalCitsPoints() {
+        let total = 0;
+        const containers = this.elements.localAreasContainer.querySelectorAll('.local-area-container');
+        containers.forEach(container => {
+            const nx = parseInt(container.querySelector('.nx').value) || 0;
+            const ny = parseInt(container.querySelector('.ny').value) || 0;
+            total += nx * ny;
+        });
+        return total;
     },
 
     async previewLocalCits() {
