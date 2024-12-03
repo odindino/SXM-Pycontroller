@@ -6,6 +6,7 @@ const AutoMoveMeasurementModule = {
         scriptName: document.getElementById('amScriptName'),
         scriptSelect: document.getElementById('amScriptSelect'),
         saveScriptBtn: document.getElementById('amSaveScript'),
+        updateMovementScriptsBtn: document.getElementById('amUpdateMovementScriptBtn'), // 新增的 Update Movement Scripts 按鈕
         movementScript: document.getElementById('amMovementScript'),  // 修正: 之前是'movementScript'
         moveDistance: document.getElementById('amDistance'),         // 修正: 之前是'moveDistance'
         waitTime: document.getElementById('amWaitTime'),            // 修正: 之前是'waitTime'
@@ -15,6 +16,7 @@ const AutoMoveMeasurementModule = {
         stsScriptName: document.getElementById('amStsScriptName'),
         stsScriptSelect: document.getElementById('amStsScriptSelect'),
         saveStsScriptBtn: document.getElementById('amSaveScriptSts'),  // 修正: 之前是'amSaveStsScript'
+        updateStsScriptsBtn: document.getElementById('amUpdateStsScriptBtn'), // 新增的 Update STS Scripts 按鈕
         stsSettingsRows: document.getElementById('amStsSettingsRows'),
         addStsRowBtn: document.getElementById('amAddStsRow'),
         
@@ -41,6 +43,10 @@ const AutoMoveMeasurementModule = {
     },
 
     state: {
+        movementScripts: new Map(),
+        stsScripts: new Map(),
+        currentMovementScript: null,
+        currentStsScript: null,
         isRunning: false,
         currentScript: null,
         currentStsScript: null,
@@ -64,19 +70,24 @@ const AutoMoveMeasurementModule = {
         // }
 
         this.setupEventListeners();
+        this.refreshMovementScripts();
+        this.refreshStsScripts();
         // this.initializeCanvases();
-        this.createInitialArea();
-        this.loadScripts();
+        // this.createInitialArea();
+        // this.loadScripts();
     },
 
     setupEventListeners() {
         // Movement Script Controls
         this.elements.saveScriptBtn.addEventListener('click', () => this.saveMovementScript());
+        this.elements.updateMovementScriptsBtn.addEventListener('click', () => this.refreshMovementScripts()); // 綁定更新 Movement Script 的事件
         this.elements.scriptSelect.addEventListener('change', (e) => this.loadMovementScript(e.target.value));
         
         // STS Controls
         this.elements.saveStsScriptBtn.addEventListener('click', () => this.saveStsScript());
+        this.elements.updateStsScriptsBtn.addEventListener('click', () => this.refreshStsScripts()); // 綁定更新 STS Script 的事件
         this.elements.addStsRowBtn.addEventListener('click', () => this.addStsRow());
+        this.elements.stsScriptSelect.addEventListener('change', (e) => this.loadStsScript(e.target.value));
         
         // CITS Controls
         this.elements.startAutoMoveSstsBtn.addEventListener('click', () => this.startAutoMoveSstsCits());
@@ -92,19 +103,188 @@ const AutoMoveMeasurementModule = {
         this.elements.pointsY.addEventListener('change', () => this.validatePoints(this.elements.pointsY));
     },
 
-    initializeCanvases() {
-        // 初始化移動預覽畫布
-        const movePreview = this.elements.previewCanvas;
-        movePreview.width = movePreview.offsetWidth;
-        movePreview.height = movePreview.offsetHeight;
-        this.state.previewContext = movePreview.getContext('2d');
-        
-        // 初始化Local CITS預覽畫布
-        const localPreview = this.elements.localCitsPreview;
-        localPreview.width = localPreview.offsetWidth;
-        localPreview.height = localPreview.offsetHeight;
-        this.state.localPreviewContext = localPreview.getContext('2d');
+    async refreshMovementScripts() {
+        try {
+            const scripts = await pywebview.api.get_auto_move_scripts();
+            console.log('Movement Scripts from API:', scripts);
+            this.state.movementScripts.clear();
+            this.elements.scriptSelect.innerHTML = '<option value="">Select Script...</option>';
+
+            for (const [name, data] of Object.entries(scripts)) {
+                this.state.movementScripts.set(name, data);
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = name;
+                this.elements.scriptSelect.appendChild(option);
+            }
+
+            this.updateStatus('Movement scripts updated successfully');
+        } catch (error) {
+            console.error('Failed to update movement scripts:', error);
+            this.updateStatus('Failed to update movement scripts');
+        }
     },
+
+    async refreshStsScripts() {
+        try {
+            const scripts = await pywebview.api.get_sts_scripts();
+            console.log('STS Scripts from API:', scripts);
+            this.state.stsScripts.clear();
+            this.elements.stsScriptSelect.innerHTML = '<option value="">Select STS Script...</option>';
+
+            for (const [name, data] of Object.entries(scripts)) {
+                this.state.stsScripts.set(name, data);
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = name;
+                this.elements.stsScriptSelect.appendChild(option);
+            }
+
+            this.updateStatus('STS scripts updated successfully');
+        } catch (error) {
+            console.error('Failed to update STS scripts:', error);
+            this.updateStatus('Failed to update STS scripts');
+        }
+    },
+
+    loadMovementScript(scriptName) {
+        if (!scriptName) return;
+
+        const script = this.state.movementScripts.get(scriptName);
+        if (!script) {
+            console.warn(`Script not found: ${scriptName}`);
+            return;
+        }
+
+        // 將腳本數據加載到 UI
+        this.elements.scriptName.value = script.name;
+        this.elements.movementScript.value = script.script;
+        this.elements.moveDistance.value = script.distance;
+        this.elements.waitTime.value = script.waitTime;
+        this.elements.repeatCount.value = script.repeatCount;
+        
+        this.updateStatus(`Loaded movement script: ${scriptName}`);
+    },
+
+    loadStsScript(scriptName) {
+        if (!scriptName) return;
+    
+        const script = this.state.stsScripts.get(scriptName);
+        if (!script) {
+            console.warn(`Script not found: ${scriptName}`);
+            return;
+        }
+    
+        // 確認 stsSettingsRows 存在
+        if (!this.elements.stsSettingsRows) {
+            console.error('Error: stsSettingsRows element not found');
+            return;
+        }
+    
+        // 清除現有的設定行
+        this.elements.stsSettingsRows.innerHTML = '';
+    
+        // 確保 vds_list 和 vg_list 長度相同
+        const length = Math.min(script.vds_list.length, script.vg_list.length);
+        for (let i = 0; i < length; i++) {
+            this.addStsRow(script.vds_list[i], script.vg_list[i]);
+        }
+    
+        // 更新腳本名稱
+        this.elements.stsScriptName.value = scriptName;
+        this.updateStatus(`Loaded STS script: ${scriptName}`);
+    },
+
+    async saveMovementScript() {
+        const scriptData = {
+            name: this.elements.scriptName.value.trim(),
+            script: this.elements.movementScript.value.trim(),
+            distance: parseFloat(this.elements.moveDistance.value),
+            waitTime: parseFloat(this.elements.waitTime.value),
+            repeatCount: parseInt(this.elements.repeatCount.value, 10),
+        };
+
+        if (!this.validateMovementScript(scriptData)) {
+            return;
+        }
+
+        try {
+            await pywebview.api.save_auto_move_script(scriptData);
+            this.updateStatus('Movement script saved successfully');
+            this.refreshMovementScripts();
+        } catch (error) {
+            console.error('Failed to save movement script:', error);
+            this.updateStatus(`Failed to save movement script: ${error.message}`);
+        }
+    },
+
+    async saveStsScript() {
+        const name = this.elements.stsScriptName.value.trim();
+        if (!name) {
+            this.updateStatus('Please provide a script name to save');
+            return;
+        }
+
+        const vdsList = [];
+        const vgList = [];
+        this.elements.stsSettingsRows.querySelectorAll('.sts-row').forEach((row) => {
+            const vds = parseFloat(row.querySelector('.vds-input').value);
+            const vg = parseFloat(row.querySelector('.vg-input').value);
+            vdsList.push(vds);
+            vgList.push(vg);
+        });
+
+        try {
+            await pywebview.api.save_sts_script(name, vdsList, vgList);
+            this.updateStatus(`STS script "${name}" saved successfully`);
+            this.refreshStsScripts();
+        } catch (error) {
+            console.error('Failed to save STS script:', error);
+            this.updateStatus(`Failed to save STS script: ${error.message}`);
+        }
+    },
+
+    addStsRow(vds = 0, vg = 0) {
+        if (!this.elements.stsSettingsRows) {
+            console.error('Error: stsSettingsRows element not found');
+            return;
+        }
+    
+        const row = document.createElement('div');
+        row.className = 'sts-row';
+        row.innerHTML = `
+            <input type="number" class="vds-input" value="${vds}" step="0.1">
+            <input type="number" class="vg-input" value="${vg}" step="0.1">
+            <button class="remove-row" title="Remove">×</button>
+        `;
+    
+        // 綁定移除行按鈕事件
+        row.querySelector('.remove-row').addEventListener('click', () => row.remove());
+    
+        // 將新建的行添加到 stsSettingsRows 中
+        this.elements.stsSettingsRows.appendChild(row);
+    },
+
+    updateStatus(message) {
+        if (this.elements.statusDisplay) {
+            this.elements.statusDisplay.textContent = message;
+        }
+        console.log(`[Auto-Move Status] ${message}`);
+    },
+
+    // initializeCanvases() {
+    //     // 初始化移動預覽畫布
+    //     const movePreview = this.elements.previewCanvas;
+    //     movePreview.width = movePreview.offsetWidth;
+    //     movePreview.height = movePreview.offsetHeight;
+    //     this.state.previewContext = movePreview.getContext('2d');
+        
+    //     // 初始化Local CITS預覽畫布
+    //     const localPreview = this.elements.localCitsPreview;
+    //     localPreview.width = localPreview.offsetWidth;
+    //     localPreview.height = localPreview.offsetHeight;
+    //     this.state.localPreviewContext = localPreview.getContext('2d');
+    // },
 
     createInitialArea() {
         this.elements.localAreasContainer.innerHTML = '';
@@ -251,6 +431,23 @@ const AutoMoveMeasurementModule = {
         
         return true;
     },
+
+    // addStsRow(vds = 0, vg = 0) {
+    //     const row = document.createElement('div');
+    //     row.className = 'sts-row';
+    //     row.innerHTML = `
+    //         <input type="number" class="vds-input" value="${vds}" step="0.1">
+    //         <input type="number" class="vg-input" value="${vg}" step="0.1">
+    //         <button class="remove-row" title="Remove">×</button>
+    //     `;
+
+    //     // 移除行按鈕
+    //     row.querySelector('.remove-row').addEventListener('click', () => {
+    //         row.remove();
+    //     });
+
+    //     this.elements.settingsRows.appendChild(row);
+    // },
 
     // Auto-Move CITS Functions
     async startAutoMoveSstsCits() {
