@@ -1,99 +1,178 @@
-/* STS Measurement Panel Styles */
+/* STS Measurement Layout */
 .sts-measurement-section {
     background: var(--panel-bg);
-    padding: 20px;
+    padding: 24px;
     border-radius: 8px;
     box-shadow: var(--shadow);
 }
 
-/* STS Configuration Panel */
+.sts-measurement-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 24px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* STS Config Panel
 .sts-config-panel {
+    background: #f8f9fa;
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    padding: 15px;
-    margin: 15px 0;
-    background-color: #f8f9fa;
+    padding: 20px;
+    margin-bottom: 24px;
+} */
+
+/* 設定整體容器寬度限制 */
+.sts-config-panel {
+    max-width: 100%;
+    margin-bottom: 24px;
+    padding: 24px;
 }
 
-/* STS Settings Table */
+.sts-config-panel h3 {
+    color: var(--primary-color);
+    margin-bottom: 16px;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+/* Voltage Settings Table */
+/* .sts-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 40px;
+    gap: 15px;
+    padding: 12px 8px;
+    font-weight: 600;
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 16px;
+} */
+/* 修正表頭樣式 */
 .sts-header {
     display: grid;
-    grid-template-columns: 1fr 1fr 40px;
-    gap: 10px;
-    padding: 10px;
-    font-weight: bold;
-    border-bottom: 2px solid var(--border-color);
-    margin-bottom: 10px;
-}
-
-.sts-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 40px;
-    gap: 10px;
-    margin-bottom: 8px;
+    grid-template-columns: 1fr 1fr 40px;  /* 確保與row一致的欄位分配 */
+    gap: 15px;
+    padding: 8px 12px;
+    margin: 0;  /* 移除可能的外邊距 */
     align-items: center;
 }
 
-.sts-row input {
+/* .sts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 40px;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 12px;
     padding: 8px;
+    background: white;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.sts-row input {
+    width: 100%;
+    padding: 8px 12px;
     border: 1px solid var(--border-color);
     border-radius: 4px;
-    width: 100%;
+    font-size: 14px;
 }
 
-.sts-row input:focus {
-    border-color: var(--secondary-color);
-    outline: none;
-    box-shadow: 0 0 0 3px var(--button-focus-ring);
+.remove-row {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    background-color: var(--danger-color);
+    color: white;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+} */
+
+
+/* 修正輸入列樣式 */
+.sts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 40px;  /* 固定寬度的刪除按鈕欄位 */
+    gap: 15px;
+    align-items: center;
+    padding: 8px 12px;
+    margin: 8px 0;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
 }
 
-/* Script Control Panel */
+/* 輸入框樣式 */
+.sts-row input {
+    width: 100%;          /* 確保輸入框填滿其格子 */
+    min-width: 0;         /* 防止輸入框溢出 */
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-sizing: border-box;  /* 確保padding不會增加寬度 */
+}
+
+/* 刪除按鈕樣式 */
+.remove-row {
+    width: 30px;          /* 固定寬度 */
+    height: 30px;         /* 固定高度 */
+    padding: 0;           /* 移除內邊距 */
+    min-width: 30px;      /* 防止按鈕被擠壓 */
+    background-color: var(--danger-color);
+    color: white;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+/* Script Controls */
 .script-control-panel {
     display: grid;
     grid-template-columns: 2fr 1fr 2fr;
     gap: 15px;
-    margin: 20px 0;
+    margin: 24px 0;
     align-items: center;
 }
 
 .script-control-panel input,
 .script-control-panel select {
+    width: 100%;
     padding: 8px 12px;
     border: 1px solid var(--border-color);
     border-radius: 4px;
-    width: 100%;
+    font-size: 14px;
 }
 
 /* Control Buttons */
 .sts-control-buttons {
     display: flex;
-    gap: 10px;
-    margin-top: 15px;
+    gap: 12px;
+    margin-top: 24px;
     justify-content: flex-end;
+}
+
+.sts-control-buttons button {
+    min-width: 150px;
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+}
+
+.secondary-btn {
+    background-color: var(--secondary-color);
 }
 
 /* Status Display */
 .status-display {
     background: #f8f9fa;
-    padding: 15px;
-    border-radius: 4px;
-    margin-top: 15px;
+    padding: 16px;
+    border-radius: 6px;
+    margin-top: 24px;
     font-family: monospace;
-}
-
-/* Remove Row Button */
-.remove-row {
-    background-color: var(--danger-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
 }
 
 /* Responsive Design */
@@ -101,12 +180,12 @@
     .script-control-panel {
         grid-template-columns: 1fr;
     }
-
+    
     .sts-control-buttons {
         flex-direction: column;
     }
-
-    .sts-row {
-        grid-template-columns: 1fr 1fr 30px;
+    
+    .sts-control-buttons button {
+        width: 100%;
     }
 }

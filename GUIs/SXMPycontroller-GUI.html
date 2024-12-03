@@ -26,7 +26,7 @@
                 <h2>Connection Settings</h2>
                 <div class="input-group">
                     <label>VISA Address:</label>
-                    <input type="text" id="visaAddress">
+                    <input type="text" id="visaAddress", value="TCPIP0::172.30.32.98::inst0::INSTR">
                     <button id="connectBtn">Connect</button>
                     <button id="disconnectBtn" disabled>Disconnect</button>
                     <span id="connectionStatus" class="status-indicator status-disconnected"></span>
@@ -142,14 +142,14 @@
 
                 <div class="script-control-panel">
                     <input type="text" id="scriptName" placeholder="Script Name">
-                    <button id="saveScript" class="primary-btn">Save Script</button>
+                    <button id="saveScript" class="secondary-btn">Save Script</button>
                     <select id="scriptSelect">
                         <option value="">Select Script...</option>
                     </select>
                 </div>
 
                 <div class="sts-control-buttons">
-                    <button id="startSingleSts" class="primary-btn">Start Single STS</button>
+                    <button id="startSingleSts" class="secondary-btn">Start Single STS</button>
                     <button id="startMultiSts" class="secondary-btn">Start Multi-STS</button>
                 </div>
 
@@ -183,7 +183,7 @@
                     </div>
 
                     <div class="control-buttons">
-                        <button id="startSingleCits" class="primary-btn">Start Single-STS CITS</button>
+                        <button id="startSingleCits" class="secondary-btn">Start Single-STS CITS</button>
                         <button id="startMstsCits" class="secondary-btn">Start Multi-STS CITS</button>
                     </div>
                 </div>
@@ -210,7 +210,7 @@
                     <div class="panel-header">
                         <h3>Preview</h3>
                         <button id="getSxmStatus" class="secondary-btn">Get SXM Status</button>
-                        <button id="previewLocalCits" class="primary-btn">Preview Local CITS</button>
+                        <button id="previewLocalCits" class="secondary-btn">Preview Local CITS</button>
                     </div>
 
                     <div class="preview-info">
