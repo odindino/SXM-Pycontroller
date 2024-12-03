@@ -1,0 +1,187 @@
+/* CITS Measurement Layout */
+.cits-measurement-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+/* Control Panels */
+.cits-control-panel,
+.local-cits-panel {
+    background: var(--panel-bg);
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.cits-control-panel h2,
+.local-cits-panel h2 {
+    color: var(--primary-color);
+    margin-bottom: 24px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Input Groups */
+.input-group {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.input-group label {
+    min-width: 120px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.input-group.compact {
+    max-width: 400px;
+}
+
+/* Points Input Container */
+.points-input-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    align-items: center;
+}
+
+.points-input-container input {
+    width: 100%;
+}
+
+/* Local Area Container */
+.local-area-container {
+    background: #f8f9fa;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.parameters-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.input-field label {
+    font-size: 0.9em;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.input-with-unit {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.unit {
+    color: #666;
+    font-size: 0.9em;
+    min-width: 30px;
+}
+
+/* Preview Panel */
+.preview-panel {
+    grid-column: span 2;
+    background: var(--panel-bg);
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    margin-top: 24px;
+}
+
+.preview-panel h3 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.preview-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin: 20px 0;
+    font-family: monospace;
+}
+
+/* Button Styles */
+.control-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    justify-content: flex-end;
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.secondary-btn {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.remove-area {
+    background-color: var(--danger-color);
+    color: white;
+    margin-top: 12px;
+}
+
+.add-local-area {
+    background-color: var(--secondary-color);
+    color: white;
+    width: 100%;
+    margin-top: 24px;
+}
+
+/* Status Display */
+.status-display {
+    background: #f8f9fa;
+    padding: 16px;
+    border-radius: 6px;
+    margin-top: 24px;
+    font-family: monospace;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+    .cits-measurement-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .preview-panel {
+        grid-column: 1;
+    }
+    
+    .parameters-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .control-buttons {
+        flex-direction: column;
+    }
+    
+    .control-buttons button {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .parameters-row {
+        grid-template-columns: 1fr;
+    }
+}
