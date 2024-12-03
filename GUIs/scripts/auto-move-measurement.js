@@ -717,85 +717,198 @@ const AutoMoveMeasurementModule = {
         }
     },
 
-    // async startAutoMoveLocalSstsCits() {
-    //     if (this.state.isRunning) return;
+    async startAutoMoveLocalSstsCits() {
+        if (this.state.isRunning) return;
         
-    //     try {
-    //         const params = this.collectLocalCitsParams();
-    //         if (!this.validateLocalCitsParams(params)) {
-    //             return;
-    //         }
+        try {
+            // 驗證基本參數
+            if (!this.elements.movementScript.value || !this.elements.moveDistance.value) {
+                this.updateStatus('Please fill in all required fields');
+                return;
+            }
+    
+            // 收集局部區域參數
+            const localAreas = [];
+            const areaContainers = this.elements.localAreasContainer.querySelectorAll('.local-area-container');
             
-    //         this.state.isRunning = true;
-    //         this.elements.startLocalSstsBtn.disabled = true;
-    //         this.updateStatus('Starting Auto-Move Local SSTS CITS...');
-            
-    //         const success = await pywebview.api.auto_move_local_ssts_cits(
-    //             params.movementScript,
-    //             params.distance,
-    //             params.localAreas,
-    //             params.initialDirection,
-    //             params.waitTime,
-    //             params.repeatCount
-    //         );
-            
-    //         if (success) {
-    //             this.updateStatus('Auto-Move Local SSTS CITS completed successfully');
-    //         } else {
-    //             throw new Error('Local SSTS CITS measurement failed');
-    //         }
-            
-    //     } catch (error) {
-    //         this.updateStatus(`Error: ${error.message}`);
-    //         console.error('Local SSTS CITS error:', error);
-    //     } finally {
-    //         this.state.isRunning = false;
-    //         this.elements.startLocalSstsBtn.disabled = false;
-    //     }
-    // },
-
-    // async startAutoMoveLocalMstsCits() {
-    //     if (this.state.isRunning) return;
+            if (areaContainers.length === 0) {
+                this.updateStatus('Please add at least one local area');
+                return;
+            }
+    
+            // 處理每個局部區域的參數
+            for (const container of areaContainers) {
+                const areaParams = {
+                    x_dev: parseFloat(container.querySelector('.x-dev').value),
+                    y_dev: parseFloat(container.querySelector('.y-dev').value),
+                    dx: parseFloat(container.querySelector('.dx').value),
+                    dy: parseFloat(container.querySelector('.dy').value),
+                    nx: parseInt(container.querySelector('.nx').value),
+                    ny: parseInt(container.querySelector('.ny').value),
+                    startpoint_direction: parseInt(container.querySelector('.start-direction').value)
+                };
+    
+                // 驗證單個區域參數
+                if (isNaN(areaParams.x_dev) || isNaN(areaParams.y_dev) ||
+                    isNaN(areaParams.dx) || isNaN(areaParams.dy) ||
+                    isNaN(areaParams.nx) || isNaN(areaParams.ny) ||
+                    ![1, -1].includes(areaParams.startpoint_direction)) {
+                    this.updateStatus('Invalid parameters in one of the local areas');
+                    return;
+                }
+    
+                // 驗證點數範圍
+                if (areaParams.nx < 1 || areaParams.nx > 512 ||
+                    areaParams.ny < 1 || areaParams.ny > 512) {
+                    this.updateStatus('Points must be between 1 and 512 in all areas');
+                    return;
+                }
+    
+                localAreas.push(areaParams);
+            }
+    
+            // 收集其他參數
+            const params = {
+                movement_script: this.elements.movementScript.value.trim(),
+                distance: parseFloat(this.elements.moveDistance.value),
+                initial_direction: parseInt(this.elements.globalDirection.value),
+                wait_time: parseFloat(this.elements.waitTime.value),
+                repeat_count: parseInt(this.elements.repeatCount.value)
+            };
+    
+            // 驗證移動指令
+            if (!/^[RULD]+$/.test(params.movement_script)) {
+                this.updateStatus('Invalid movement script format');
+                return;
+            }
+    
+            // 更新UI狀態
+            this.state.isRunning = true;
+            this.elements.startLocalSstsBtn.disabled = true;
+            this.updateStatus('Starting Auto-Move Local SSTS CITS...');
+    
+            // 執行測量
+            const success = await pywebview.api.auto_move_local_ssts_cits(
+                params.movement_script,
+                params.distance,
+                localAreas,
+                params.initial_direction,
+                params.wait_time,
+                params.repeat_count
+            );
+    
+            if (success) {
+                this.updateStatus('Auto-Move Local SSTS CITS completed successfully');
+            } else {
+                throw new Error('Local SSTS CITS measurement failed');
+            }
+    
+        } catch (error) {
+            this.updateStatus(`Error: ${error.message}`);
+            console.error('Auto-Move Local SSTS CITS error:', error);
+        } finally {
+            this.state.isRunning = false;
+            this.elements.startLocalSstsBtn.disabled = false;
+        }
+    },
+    
+    async startAutoMoveLocalMstsCits() {
+        if (this.state.isRunning) return;
         
-    //     try {
-    //         const params = this.collectLocalCitsParams();
-    //         if (!this.validateLocalCitsParams(params)) {
-    //             return;
-    //         }
+        try {
+            // 驗證基本參數和STS腳本選擇
+            if (!this.elements.movementScript.value || !this.elements.moveDistance.value || 
+                !this.elements.stsScriptSelect.value) {
+                this.updateStatus('Please fill in all required fields and select an STS script');
+                return;
+            }
+    
+            // 收集局部區域參數
+            const localAreas = [];
+            const areaContainers = this.elements.localAreasContainer.querySelectorAll('.local-area-container');
             
-    //         if (!this.elements.stsScriptSelect.value) {
-    //             this.updateStatus('Please select an STS script');
-    //             return;
-    //         }
-            
-    //         this.state.isRunning = true;
-    //         this.elements.startLocalMstsBtn.disabled = true;
-    //         this.updateStatus('Starting Auto-Move Local MSTS CITS...');
-            
-    //         const success = await pywebview.api.auto_move_local_msts_cits(
-    //             params.movementScript,
-    //             params.distance,
-    //             params.localAreas,
-    //             this.elements.stsScriptSelect.value,
-    //             params.initialDirection,
-    //             params.waitTime,
-    //             params.repeatCount
-    //         );
-            
-    //         if (success) {
-    //             this.updateStatus('Auto-Move Local MSTS CITS completed successfully');
-    //         } else {
-    //             throw new Error('Local MSTS CITS measurement failed');
-    //         }
-            
-    //     } catch (error) {
-    //         this.updateStatus(`Error: ${error.message}`);
-    //         console.error('Local MSTS CITS error:', error);
-    //     } finally {
-    //         this.state.isRunning = false;
-    //         this.elements.startLocalMstsBtn.disabled = false;
-    //     }
-    // },
+            if (areaContainers.length === 0) {
+                this.updateStatus('Please add at least one local area');
+                return;
+            }
+    
+            // 處理每個局部區域的參數
+            for (const container of areaContainers) {
+                const areaParams = {
+                    x_dev: parseFloat(container.querySelector('.x-dev').value),
+                    y_dev: parseFloat(container.querySelector('.y-dev').value),
+                    dx: parseFloat(container.querySelector('.dx').value),
+                    dy: parseFloat(container.querySelector('.dy').value),
+                    nx: parseInt(container.querySelector('.nx').value),
+                    ny: parseInt(container.querySelector('.ny').value),
+                    startpoint_direction: parseInt(container.querySelector('.start-direction').value)
+                };
+    
+                // 驗證單個區域參數
+                if (isNaN(areaParams.x_dev) || isNaN(areaParams.y_dev) ||
+                    isNaN(areaParams.dx) || isNaN(areaParams.dy) ||
+                    isNaN(areaParams.nx) || isNaN(areaParams.ny) ||
+                    ![1, -1].includes(areaParams.startpoint_direction)) {
+                    this.updateStatus('Invalid parameters in one of the local areas');
+                    return;
+                }
+    
+                // 驗證點數範圍
+                if (areaParams.nx < 1 || areaParams.nx > 512 ||
+                    areaParams.ny < 1 || areaParams.ny > 512) {
+                    this.updateStatus('Points must be between 1 and 512 in all areas');
+                    return;
+                }
+    
+                localAreas.push(areaParams);
+            }
+    
+            // 收集其他參數
+            const params = {
+                movement_script: this.elements.movementScript.value.trim(),
+                distance: parseFloat(this.elements.moveDistance.value),
+                script_name: this.elements.stsScriptSelect.value,
+                initial_direction: parseInt(this.elements.globalDirection.value),
+                wait_time: parseFloat(this.elements.waitTime.value),
+                repeat_count: parseInt(this.elements.repeatCount.value)
+            };
+    
+            // 驗證移動指令
+            if (!/^[RULD]+$/.test(params.movement_script)) {
+                this.updateStatus('Invalid movement script format');
+                return;
+            }
+    
+            // 更新UI狀態
+            this.state.isRunning = true;
+            this.elements.startLocalMstsBtn.disabled = true;
+            this.updateStatus('Starting Auto-Move Local MSTS CITS...');
+    
+            // 執行測量
+            const success = await pywebview.api.auto_move_local_msts_cits(
+                params.movement_script,
+                params.distance,
+                localAreas,
+                params.script_name,
+                params.initial_direction,
+                params.wait_time,
+                params.repeat_count
+            );
+    
+            if (success) {
+                this.updateStatus('Auto-Move Local MSTS CITS completed successfully');
+            } else {
+                throw new Error('Local MSTS CITS measurement failed');
+            }
+    
+        } catch (error) {
+            this.updateStatus(`Error: ${error.message}`);
+            console.error('Auto-Move Local MSTS CITS error:', error);
+        } finally {
+            this.state.isRunning = false;
+            this.elements.startLocalMstsBtn.disabled = false;
+        }
+    },
 
     // Helper Functions
     collectCitsParams() {
