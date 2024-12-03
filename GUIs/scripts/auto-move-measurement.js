@@ -604,68 +604,63 @@ const AutoMoveMeasurementModule = {
     // },
 
     // Auto-Move CITS Functions
-    async startAutoMoveSstsCits() {
+    async startAutoMoveLocalSstsCits() {
         if (this.state.isRunning) return;
         
         try {
-            // 驗證必要參數
-            if (!this.elements.movementScript.value || !this.elements.moveDistance.value || 
-                !this.elements.pointsX.value || !this.elements.pointsY.value) {
+            // 檢查基本參數
+            if (!this.elements.movementScript.value || 
+                !this.elements.moveDistance.value) {
                 this.updateStatus('Please fill in all required fields');
                 return;
             }
-    
-            // 取得並驗證參數
+            
+            // 收集局部區域參數
+            const localAreas = this.collectLocalAreasData();
+            if (localAreas.length === 0) {
+                this.updateStatus('Please add at least one local area');
+                return;
+            }
+            
+            // 收集其他參數
             const params = {
                 movement_script: this.elements.movementScript.value.trim(),
                 distance: parseFloat(this.elements.moveDistance.value),
-                num_points_x: parseInt(this.elements.pointsX.value),
-                num_points_y: parseInt(this.elements.pointsY.value),
-                initial_direction: parseInt(this.elements.scanDirection.value),
+                initial_direction: parseInt(this.elements.globalDirection.value),
                 wait_time: parseFloat(this.elements.waitTime.value),
                 repeat_count: parseInt(this.elements.repeatCount.value)
             };
-    
-            // 參數驗證
+            
+            // 驗證移動指令
             if (!/^[RULD]+$/.test(params.movement_script)) {
                 this.updateStatus('Invalid movement script format');
                 return;
             }
-            if (!params.distance || params.distance <= 0) {
-                this.updateStatus('Invalid distance value');
-                return;  
-            }
-            if (params.num_points_x < 1 || params.num_points_x > 512 ||
-                params.num_points_y < 1 || params.num_points_y > 512) {
-                this.updateStatus('Points must be between 1 and 512');
-                return;
-            }
-    
+            
             // 更新UI狀態
             this.state.isRunning = true;
             this.elements.startAutoMoveSstsBtn.disabled = true;
-            this.updateStatus('Starting Auto-Move SSTS CITS...');
-    
-            // 呼叫API執行測量
-            const success = await pywebview.api.auto_move_ssts_cits(
+            this.updateStatus('Starting Auto-Move Local SSTS CITS...');
+            
+            // 執行測量
+            const success = await pywebview.api.auto_move_local_ssts_cits(
                 params.movement_script,
-                params.distance, 
-                params.num_points_x,
-                params.num_points_y,
+                params.distance,
+                localAreas,
                 params.initial_direction,
                 params.wait_time,
                 params.repeat_count
             );
-    
+            
             if (success) {
-                this.updateStatus('Auto-Move SSTS CITS completed successfully');
+                this.updateStatus('Auto-Move Local SSTS CITS completed successfully');
             } else {
-                throw new Error('CITS measurement failed');
+                throw new Error('Local SSTS CITS measurement failed');
             }
-    
+            
         } catch (error) {
             this.updateStatus(`Error: ${error.message}`);
-            console.error('Auto-Move SSTS CITS error:', error);
+            console.error('Auto-Move Local SSTS CITS error:', error);
         } finally {
             this.state.isRunning = false;
             this.elements.startAutoMoveSstsBtn.disabled = false;
@@ -1064,35 +1059,53 @@ const AutoMoveMeasurementModule = {
         const localAreas = [];
         const containers = this.elements.localAreasContainer.querySelectorAll('.local-area-container');
         
-        containers.forEach(container => {
-            try {
-                const localArea = {
-                    start_x: parseFloat(container.querySelector('.x-dev').value),
-                    start_y: parseFloat(container.querySelector('.y-dev').value),
-                    dx: parseFloat(container.querySelector('.dx').value),
-                    dy: parseFloat(container.querySelector('.dy').value),
-                    nx: parseInt(container.querySelector('.nx').value),
-                    ny: parseInt(container.querySelector('.ny').value),
-                    startpoint_direction: parseInt(container.querySelector('.start-direction').value)
-                };
-    
-                if (this.validateLocalArea(localArea)) {
-                    localAreas.push(localArea);
-                }
-            } catch (error) {
-                this.updateStatus(
-                    `Invalid local area configuration: ${error.message}`
-                );
-                console.error('Local area validation error:', error);
-            }
-        });
-    
-        if (localAreas.length === 0) {
-            this.updateStatus('No valid local areas found');
+        if (!containers || containers.length === 0) {
+            this.updateStatus('No local areas defined');
             return [];
         }
-    
-        return localAreas;
+        
+        try {
+            containers.forEach(container => {
+                // 確保所有必要的輸入元素存在
+                const xDevInput = container.querySelector('.x-dev');
+                const yDevInput = container.querySelector('.y-dev');
+                const dxInput = container.querySelector('.dx');
+                const dyInput = container.querySelector('.dy');
+                const nxInput = container.querySelector('.nx');
+                const nyInput = container.querySelector('.ny');
+                const directionSelect = container.querySelector('.start-direction');
+                
+                if (!xDevInput || !yDevInput || !dxInput || !dyInput || 
+                    !nxInput || !nyInput || !directionSelect) {
+                    throw new Error('Missing required input elements');
+                }
+                
+                const localArea = {
+                    x_dev: parseFloat(xDevInput.value),
+                    y_dev: parseFloat(yDevInput.value),
+                    dx: parseFloat(dxInput.value),
+                    dy: parseFloat(dyInput.value),
+                    nx: parseInt(nxInput.value),
+                    ny: parseInt(nyInput.value),
+                    startpoint_direction: parseInt(directionSelect.value)
+                };
+                
+                // 驗證數值
+                if (Object.values(localArea).some(value => 
+                    value === null || isNaN(value))) {
+                    throw new Error('Invalid input values');
+                }
+                
+                localAreas.push(localArea);
+            });
+            
+            return localAreas;
+            
+        } catch (error) {
+            this.updateStatus(`Local area validation error: ${error.message}`);
+            console.error('Local area validation error:', error);
+            return [];
+        }
     },
 
     updateStatus(message) {
@@ -1174,51 +1187,36 @@ const AutoMoveMeasurementModule = {
 
     async previewLocalCits() {
         try {
+            // 先獲取 SXM 狀態以取得掃描參數
+            const sxmStatus = await pywebview.api.get_sxm_status();
+            
             // 收集所有區域的參數
             const localAreas = this.collectLocalAreasData();
             if (!localAreas.length) {
                 this.updateStatus('No local areas defined');
                 return;
             }
-    
-            // 取得 SXM 狀態
-            const sxmStatus = await pywebview.api.get_sxm_status();
             
-            // 準備預覽參數
+            // 準備完整的預覽參數
             const params = {
                 scan_center_x: sxmStatus.center_x,
                 scan_center_y: sxmStatus.center_y,
-                scan_range: sxmStatus.scan_range,
+                scan_range: sxmStatus.range,
                 scan_angle: sxmStatus.angle,
                 total_lines: sxmStatus.total_lines,
                 scan_direction: parseInt(this.elements.globalDirection.value),
-                aspect_ratio: sxmStatus.aspect_ratio,
+                aspect_ratio: sxmStatus.aspect_ratio || 1.0,
                 local_areas: localAreas
             };
-    
-            // 生成預覽圖
+            
+            // 生成預覽
             const plotData = await pywebview.api.preview_local_cits(params);
-    
-            // 設定配置選項
-            const config = {
-                responsive: true,
-                displayModeBar: true,
-                displaylogo: false,
-                modeBarButtonsToRemove: ['lasso2d', 'select2d']
-            };
-    
-            // 將圖表放入預覽區域
-            Plotly.newPlot(
-                this.elements.localPreviewCanvas,
-                plotData.data,
-                plotData.layout,
-                config
-            );
-    
-            // 更新預覽資訊
-            this.updateLocalPreviewInfo(sxmStatus);
+            
+            // 更新預覽圖
+            Plotly.newPlot(this.elements.localPreviewCanvas, plotData.data, plotData.layout);
+            
             this.updateStatus('Local CITS preview generated successfully');
-    
+            
         } catch (error) {
             this.updateStatus(`Local CITS preview error: ${error.message}`);
             console.error('Local CITS preview error:', error);
