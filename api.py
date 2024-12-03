@@ -1167,6 +1167,46 @@ class SMUControlAPI:
             raise Exception(f"無法讀取腳本: {str(e)}")
     # ========== Auto move measurement functions END ========== #
 
+    # ========== Preview functions ========== #
+    def preview_auto_move(self, params: dict) -> dict:
+        """
+        生成自動移動預覽圖資料
+        
+        Parameters
+        ----------
+        params : dict
+            預覽參數，包含：
+            - movement_script: str
+            - distance: float
+            - center_x: float
+            - center_y: float
+            - angle: float
+        
+        Returns
+        -------
+        dict
+            Plotly 圖表資料，包含 data 和 layout
+        """
+        try:
+            from utils.SXMPyPlot import AutoMovePreviewer
+            
+            # 建立預覽器實例
+            previewer = AutoMovePreviewer(
+                movement_script=params['movement_script'],
+                distance=params['distance'],
+                center_x=params['center_x'],
+                center_y=params['center_y'],
+                angle=params['angle'],
+                debug_mode=True
+            )
+            
+            # 產生圖表資料
+            return previewer.get_plot_data()
+            
+        except Exception as e:
+            print(f"Auto move preview error: {str(e)}")
+            raise Exception(f"Failed to generate preview: {str(e)}")
+
     # ========== CITS functions END ========== #
 
     def cleanup(self):

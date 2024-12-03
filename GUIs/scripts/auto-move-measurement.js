@@ -19,6 +19,11 @@ const AutoMoveMeasurementModule = {
         updateStsScriptsBtn: document.getElementById('amUpdateStsScriptBtn'), // 新增的 Update STS Scripts 按鈕
         stsSettingsRows: document.getElementById('amStsSettingsRows'),
         addStsRowBtn: document.getElementById('amAddStsRow'),
+
+        // Preview & Status
+        getSxmStatusBtn: document.getElementById('amGetSxmStatus'),
+        previewAutoMoveBtn: document.getElementById('amPreviewAutoMove'),
+        
         
         // CITS Controls
         pointsX: document.getElementById('amCitsPointsX'),
@@ -89,6 +94,9 @@ const AutoMoveMeasurementModule = {
         this.elements.addStsRowBtn.addEventListener('click', () => this.addStsRow());
         this.elements.stsScriptSelect.addEventListener('change', (e) => this.loadStsScript(e.target.value));
         
+        this.elements.getSxmStatusBtn.addEventListener('click', () => this.updateSxmStatus());
+        this.elements.previewAutoMoveBtn.addEventListener('click', () => this.previewAutoMove());
+       
         // CITS Controls
         this.elements.startAutoMoveSstsBtn.addEventListener('click', () => this.startAutoMoveSstsCits());
         this.elements.startAutoMoveMstsBtn.addEventListener('click', () => this.startAutoMoveMstsCits());
@@ -285,6 +293,75 @@ const AutoMoveMeasurementModule = {
     //     localPreview.height = localPreview.offsetHeight;
     //     this.state.localPreviewContext = localPreview.getContext('2d');
     // },
+
+    async previewAutoMove() {
+        try {
+            // 確認已選擇腳本
+            const scriptSelect = this.elements.scriptSelect;
+            if (!scriptSelect.value) {
+                this.updateStatus('Please select a movement script');
+                return;
+            }
+    
+            // 從狀態中取得已載入的腳本
+            const selectedScript = this.state.movementScripts.get(scriptSelect.value);
+            if (!selectedScript) {
+                this.updateStatus('Selected script not found');
+                return;
+            }
+    
+            // 準備參數
+            const params = {
+                movement_script: selectedScript.script,  // 直接使用腳本中的移動指令
+                distance: selectedScript.distance,       // 使用腳本中定義的距離
+                center_x: null,  // 將從 SXM Status 取得
+                center_y: null,  // 將從 SXM Status 取得
+                angle: null      // 將從 SXM Status 取得
+            };
+    
+            // 檢查必要參數
+            if (!params.movement_script || !params.distance) {
+                this.updateStatus('Invalid script parameters');
+                return;
+            }
+    
+            // 取得 SXM 狀態
+            const sxmStatus = await pywebview.api.get_sxm_status();
+            
+            // 更新參數
+            params.center_x = sxmStatus.center_x;
+            params.center_y = sxmStatus.center_y;
+            params.angle = sxmStatus.angle;
+    
+            // 生成預覽圖
+            const plotData = await pywebview.api.preview_auto_move(params);
+            
+            // 將圖表放入預覽區域
+            Plotly.newPlot(this.elements.previewCanvas, plotData.data, plotData.layout);
+    
+            this.updateStatus('Preview generated successfully');
+    
+        } catch (error) {
+            this.updateStatus(`Preview error: ${error.message}`);
+            console.error('Auto move preview error:', error);
+        }
+    },
+
+    // 新增 updateSxmStatus 方法
+    async updateSxmStatus() {
+        try {
+            const status = await pywebview.api.get_sxm_status();
+            const centerX = status.center_x.toFixed(2);
+            const centerY = status.center_y.toFixed(2);
+            const angle = status.angle.toFixed(2);
+            const range = status.range.toFixed(2);
+            
+            this.updateStatus(`Scan center: (${centerX}, ${centerY}) nm, `+
+                            `Range: ${range} nm, Angle: ${angle}°`);
+        } catch (error) {
+            this.updateStatus(`Failed to get SXM status: ${error.message}`);
+        }
+    },
 
     createInitialArea() {
         this.elements.localAreasContainer.innerHTML = '';
@@ -589,85 +666,85 @@ const AutoMoveMeasurementModule = {
         }
     },
 
-    async startAutoMoveLocalSstsCits() {
-        if (this.state.isRunning) return;
+    // async startAutoMoveLocalSstsCits() {
+    //     if (this.state.isRunning) return;
         
-        try {
-            const params = this.collectLocalCitsParams();
-            if (!this.validateLocalCitsParams(params)) {
-                return;
-            }
+    //     try {
+    //         const params = this.collectLocalCitsParams();
+    //         if (!this.validateLocalCitsParams(params)) {
+    //             return;
+    //         }
             
-            this.state.isRunning = true;
-            this.elements.startLocalSstsBtn.disabled = true;
-            this.updateStatus('Starting Auto-Move Local SSTS CITS...');
+    //         this.state.isRunning = true;
+    //         this.elements.startLocalSstsBtn.disabled = true;
+    //         this.updateStatus('Starting Auto-Move Local SSTS CITS...');
             
-            const success = await pywebview.api.auto_move_local_ssts_cits(
-                params.movementScript,
-                params.distance,
-                params.localAreas,
-                params.initialDirection,
-                params.waitTime,
-                params.repeatCount
-            );
+    //         const success = await pywebview.api.auto_move_local_ssts_cits(
+    //             params.movementScript,
+    //             params.distance,
+    //             params.localAreas,
+    //             params.initialDirection,
+    //             params.waitTime,
+    //             params.repeatCount
+    //         );
             
-            if (success) {
-                this.updateStatus('Auto-Move Local SSTS CITS completed successfully');
-            } else {
-                throw new Error('Local SSTS CITS measurement failed');
-            }
+    //         if (success) {
+    //             this.updateStatus('Auto-Move Local SSTS CITS completed successfully');
+    //         } else {
+    //             throw new Error('Local SSTS CITS measurement failed');
+    //         }
             
-        } catch (error) {
-            this.updateStatus(`Error: ${error.message}`);
-            console.error('Local SSTS CITS error:', error);
-        } finally {
-            this.state.isRunning = false;
-            this.elements.startLocalSstsBtn.disabled = false;
-        }
-    },
+    //     } catch (error) {
+    //         this.updateStatus(`Error: ${error.message}`);
+    //         console.error('Local SSTS CITS error:', error);
+    //     } finally {
+    //         this.state.isRunning = false;
+    //         this.elements.startLocalSstsBtn.disabled = false;
+    //     }
+    // },
 
-    async startAutoMoveLocalMstsCits() {
-        if (this.state.isRunning) return;
+    // async startAutoMoveLocalMstsCits() {
+    //     if (this.state.isRunning) return;
         
-        try {
-            const params = this.collectLocalCitsParams();
-            if (!this.validateLocalCitsParams(params)) {
-                return;
-            }
+    //     try {
+    //         const params = this.collectLocalCitsParams();
+    //         if (!this.validateLocalCitsParams(params)) {
+    //             return;
+    //         }
             
-            if (!this.elements.stsScriptSelect.value) {
-                this.updateStatus('Please select an STS script');
-                return;
-            }
+    //         if (!this.elements.stsScriptSelect.value) {
+    //             this.updateStatus('Please select an STS script');
+    //             return;
+    //         }
             
-            this.state.isRunning = true;
-            this.elements.startLocalMstsBtn.disabled = true;
-            this.updateStatus('Starting Auto-Move Local MSTS CITS...');
+    //         this.state.isRunning = true;
+    //         this.elements.startLocalMstsBtn.disabled = true;
+    //         this.updateStatus('Starting Auto-Move Local MSTS CITS...');
             
-            const success = await pywebview.api.auto_move_local_msts_cits(
-                params.movementScript,
-                params.distance,
-                params.localAreas,
-                this.elements.stsScriptSelect.value,
-                params.initialDirection,
-                params.waitTime,
-                params.repeatCount
-            );
+    //         const success = await pywebview.api.auto_move_local_msts_cits(
+    //             params.movementScript,
+    //             params.distance,
+    //             params.localAreas,
+    //             this.elements.stsScriptSelect.value,
+    //             params.initialDirection,
+    //             params.waitTime,
+    //             params.repeatCount
+    //         );
             
-            if (success) {
-                this.updateStatus('Auto-Move Local MSTS CITS completed successfully');
-            } else {
-                throw new Error('Local MSTS CITS measurement failed');
-            }
+    //         if (success) {
+    //             this.updateStatus('Auto-Move Local MSTS CITS completed successfully');
+    //         } else {
+    //             throw new Error('Local MSTS CITS measurement failed');
+    //         }
             
-        } catch (error) {
-            this.updateStatus(`Error: ${error.message}`);
-            console.error('Local MSTS CITS error:', error);
-        } finally {
-            this.state.isRunning = false;
-            this.elements.startLocalMstsBtn.disabled = false;
-        }
-    },
+    //     } catch (error) {
+    //         this.updateStatus(`Error: ${error.message}`);
+    //         console.error('Local MSTS CITS error:', error);
+    //     } finally {
+    //         this.state.isRunning = false;
+    //         this.elements.startLocalMstsBtn.disabled = false;
+    //     }
+    // },
 
     // Helper Functions
     collectCitsParams() {
