@@ -55,6 +55,7 @@ class SXMController(SXMCITSControl):
     def initialize_smu_controller(self, smu_instance):
         """初始化SMU控制器"""
         self.smu = smu_instance
+        print("SMU controller initialized")
 
     # ========== STSxSMU functions ========== #
     def perform_multi_sts(self, script: STSScript) -> bool:
