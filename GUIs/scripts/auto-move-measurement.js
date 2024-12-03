@@ -454,34 +454,64 @@ const AutoMoveMeasurementModule = {
         if (this.state.isRunning) return;
         
         try {
-            const params = this.collectCitsParams();
-            if (!this.validateCitsParams(params)) {
+            // 驗證必要參數
+            if (!this.elements.movementScript.value || !this.elements.moveDistance.value || 
+                !this.elements.pointsX.value || !this.elements.pointsY.value) {
+                this.updateStatus('Please fill in all required fields');
                 return;
             }
-            
+    
+            // 取得並驗證參數
+            const params = {
+                movement_script: this.elements.movementScript.value.trim(),
+                distance: parseFloat(this.elements.moveDistance.value),
+                num_points_x: parseInt(this.elements.pointsX.value),
+                num_points_y: parseInt(this.elements.pointsY.value),
+                initial_direction: parseInt(this.elements.scanDirection.value),
+                wait_time: parseFloat(this.elements.waitTime.value),
+                repeat_count: parseInt(this.elements.repeatCount.value)
+            };
+    
+            // 參數驗證
+            if (!/^[RULD]+$/.test(params.movement_script)) {
+                this.updateStatus('Invalid movement script format');
+                return;
+            }
+            if (!params.distance || params.distance <= 0) {
+                this.updateStatus('Invalid distance value');
+                return;  
+            }
+            if (params.num_points_x < 1 || params.num_points_x > 512 ||
+                params.num_points_y < 1 || params.num_points_y > 512) {
+                this.updateStatus('Points must be between 1 and 512');
+                return;
+            }
+    
+            // 更新UI狀態
             this.state.isRunning = true;
             this.elements.startAutoMoveSstsBtn.disabled = true;
             this.updateStatus('Starting Auto-Move SSTS CITS...');
-            
+    
+            // 呼叫API執行測量
             const success = await pywebview.api.auto_move_ssts_cits(
-                params.movementScript,
-                params.distance,
-                params.pointsX,
-                params.pointsY,
-                params.scanDirection,
-                params.waitTime,
-                params.repeatCount
+                params.movement_script,
+                params.distance, 
+                params.num_points_x,
+                params.num_points_y,
+                params.initial_direction,
+                params.wait_time,
+                params.repeat_count
             );
-            
+    
             if (success) {
                 this.updateStatus('Auto-Move SSTS CITS completed successfully');
             } else {
                 throw new Error('CITS measurement failed');
             }
-            
+    
         } catch (error) {
             this.updateStatus(`Error: ${error.message}`);
-            console.error('CITS error:', error);
+            console.error('Auto-Move SSTS CITS error:', error);
         } finally {
             this.state.isRunning = false;
             this.elements.startAutoMoveSstsBtn.disabled = false;
@@ -492,40 +522,67 @@ const AutoMoveMeasurementModule = {
         if (this.state.isRunning) return;
         
         try {
-            const params = this.collectCitsParams();
-            if (!this.validateCitsParams(params)) {
+            // 驗證必要參數,包含STS腳本
+            if (!this.elements.movementScript.value || !this.elements.moveDistance.value || 
+                !this.elements.pointsX.value || !this.elements.pointsY.value ||
+                !this.elements.stsScriptSelect.value) {
+                this.updateStatus('Please fill in all required fields and select an STS script');
                 return;
             }
-            
-            if (!this.elements.stsScriptSelect.value) {
-                this.updateStatus('Please select an STS script');
+    
+            // 取得並驗證參數
+            const params = {
+                movement_script: this.elements.movementScript.value.trim(),
+                distance: parseFloat(this.elements.moveDistance.value),
+                num_points_x: parseInt(this.elements.pointsX.value),
+                num_points_y: parseInt(this.elements.pointsY.value),
+                script_name: this.elements.stsScriptSelect.value,
+                initial_direction: parseInt(this.elements.scanDirection.value),
+                wait_time: parseFloat(this.elements.waitTime.value),
+                repeat_count: parseInt(this.elements.repeatCount.value)
+            };
+    
+            // 參數驗證
+            if (!/^[RULD]+$/.test(params.movement_script)) {
+                this.updateStatus('Invalid movement script format');
                 return;
             }
-            
+            if (!params.distance || params.distance <= 0) {
+                this.updateStatus('Invalid distance value');
+                return;
+            }
+            if (params.num_points_x < 1 || params.num_points_x > 512 ||
+                params.num_points_y < 1 || params.num_points_y > 512) {
+                this.updateStatus('Points must be between 1 and 512');
+                return;
+            }
+    
+            // 更新UI狀態
             this.state.isRunning = true;
             this.elements.startAutoMoveMstsBtn.disabled = true;
             this.updateStatus('Starting Auto-Move MSTS CITS...');
-            
+    
+            // 呼叫API執行測量
             const success = await pywebview.api.auto_move_msts_cits(
-                params.movementScript,
+                params.movement_script,
                 params.distance,
-                params.pointsX,
-                params.pointsY,
-                this.elements.stsScriptSelect.value,
-                params.scanDirection,
-                params.waitTime,
-                params.repeatCount
+                params.num_points_x,
+                params.num_points_y,
+                params.script_name,
+                params.initial_direction,
+                params.wait_time,
+                params.repeat_count
             );
-            
+    
             if (success) {
                 this.updateStatus('Auto-Move MSTS CITS completed successfully');
             } else {
                 throw new Error('MSTS CITS measurement failed');
             }
-            
+    
         } catch (error) {
             this.updateStatus(`Error: ${error.message}`);
-            console.error('MSTS CITS error:', error);
+            console.error('Auto-Move MSTS CITS error:', error);
         } finally {
             this.state.isRunning = false;
             this.elements.startAutoMoveMstsBtn.disabled = false;
