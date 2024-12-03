@@ -146,6 +146,32 @@
     font-size: 14px;
 }
 
+.refresh-btn {
+    background-color: var(--success-color);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.refresh-btn:hover {
+    opacity: 0.9;
+}
+
+.refresh-btn:active {
+    transform: scale(0.98);
+}
+
+/* 調整控制面板的grid布局 */
+.script-control-panel {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+}
+
 /* Control Buttons */
 .sts-control-buttons {
     display: flex;

@@ -58,8 +58,10 @@ const CITSMeasurementModule = {
             <div class="input-group">
                 <label>Start Position:</label>
                 <div class="input-with-unit">
+                    <label> X: </label>
                     <input type="number" class="x-start" value="200" step="0.1">
                     <span class="unit">nm</span>
+                    <label> Y: </label>
                     <input type="number" class="y-start" value="200" step="0.1">
                     <span class="unit">nm</span>
                 </div>

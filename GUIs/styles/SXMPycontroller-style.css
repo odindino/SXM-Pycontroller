@@ -1,6 +1,7 @@
 @import 'smu-config.css';
 @import 'sts-measurement.css';
 @import 'cits-measurement.css';
+@import 'auto-move-measurement.css';
 
 /* Base Styles and Variables */
 :root {
@@ -42,13 +43,22 @@ body {
 }
 
 /* Content Sections */
-.content-section {
-    display: none;
-}
 
-.content-section.active {
+/* .content-section.active {
     display: block;
     animation: fadeIn 0.3s ease-in-out;
+}
+.content-section {
+    display: none;
+} */
+
+
+.main-container .content-section {
+    display: none !important;
+}
+
+.main-container .content-section.active {
+    display: block !important;
 }
 
 @keyframes fadeIn {

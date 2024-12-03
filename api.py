@@ -46,6 +46,25 @@ class SMUControlAPI:
         self._cleanup_handler = None
         self._cleanup_event = threading.Event()
 
+
+        # 腳本相關設定
+        # 取得主程式所在的目錄
+        self.base_dir = Path(__file__).parent
+        
+        # 設定腳本存放目錄
+        self.scripts_dir = self.base_dir / "SXMPycontroller_scripts"
+        # self.sts_scripts_file = self.scripts_dir / "sts_scripts.json"
+        self.move_scripts_dir = self.scripts_dir / "move_scripts"
+        
+        # 確保目錄存在
+        self.scripts_dir.mkdir(exist_ok=True)
+        self.move_scripts_dir.mkdir(exist_ok=True)
+
+        # # 確保 STS 腳本檔案存在
+        # if not self.sts_scripts_file.exists():
+        #     with open(self.sts_scripts_file, 'w') as f:
+        #         f.write('{}')
+
     # ========== SMU General functions ========== #
     def connect_smu(self, address: str) -> bool:
         """
@@ -420,31 +439,71 @@ class SMUControlAPI:
             raise Exception(f"執行Multi-STS失敗: {str(e)}")
 
     def save_sts_script(self, name: str, vds_list: list[float], vg_list: list[float]) -> bool:
-        """儲存STS腳本"""
+        """
+        儲存 STS 腳本
+        
+        Parameters
+        ----------
+        name : str
+            腳本名稱
+        vds_list : list[float]
+            Vds 電壓列表
+        vg_list : list[float]
+            Vg 電壓列表
+        
+        Returns
+        -------
+        bool
+            儲存是否成功
+        """
         try:
-            if not self.ensure_controller():
-                raise Exception("STM控制器未初始化")
+            base_dir = Path(__file__).parent
+            sts_dir = base_dir / "SXMPycontroller_scripts" / "sts_scripts"
+            sts_dir.mkdir(parents=True, exist_ok=True)
 
-            from modules.SXMSTSController import STSScript
-            script = STSScript(name, vds_list, vg_list)
-            return self.stm.save_script(script)
+            script_data = {
+                'name': name,
+                'vds_list': vds_list,
+                'vg_list': vg_list,
+                'created_time': time.strftime("%Y-%m-%d %H:%M:%S")
+            }
+
+            script_file = sts_dir / f"{name}.json"
+            with open(script_file, 'w', encoding='utf-8') as f:
+                json.dump(script_data, f, indent=2, ensure_ascii=False)
+
+            return True
 
         except Exception as e:
-            raise Exception(f"儲存腳本失敗: {str(e)}")
+            print(f"儲存 STS 腳本失敗: {str(e)}")
+            raise Exception(f"無法儲存腳本: {str(e)}")
 
     def get_sts_scripts(self) -> dict:
-        """取得所有腳本資訊"""
+        """
+        獲取所有 STS 腳本
+        
+        Returns
+        -------
+        dict
+            腳本名稱和內容的映射
+        """
         try:
-            if not self.stm:
-                raise Exception("STS Controller未初始化")
+            base_dir = Path(__file__).parent
+            sts_dir = base_dir / "SXMPycontroller_scripts" / "sts_scripts"
+            if not sts_dir.exists():
+                return {}
 
-            scripts = self.stm.get_all_scripts()
-            return {
-                name: script.to_dict()
-                for name, script in scripts.items()
-            }
+            scripts = {}
+            for script_file in sts_dir.glob("*.json"):
+                with open(script_file, encoding='utf-8') as f:
+                    script_data = json.load(f)
+                    scripts[script_data['name']] = script_data
+
+            return scripts
+
         except Exception as e:
-            raise Exception(f"取得腳本列表失敗: {str(e)}")
+            print(f"讀取 STS 腳本失敗: {str(e)}")
+            return {}
     # ========== STS functions END ========== #
 
     # ========== CITS functions ========== #
@@ -1004,7 +1063,7 @@ class SMUControlAPI:
     def save_auto_move_script(self, script_data: dict) -> bool:
         """
         儲存自動移動腳本
-
+        
         Parameters
         ----------
         script_data : dict
@@ -1014,29 +1073,30 @@ class SMUControlAPI:
             - distance: 移動距離（nm）
             - waitTime: 等待時間（秒）
             - repeatCount: 重複次數
-
+        
         Returns
         -------
         bool
             儲存是否成功
         """
         try:
-            # 確保 script_data 包含所有必要欄位
-            required_fields = ['name', 'script',
-                               'distance', 'waitTime', 'repeatCount']
+            # 驗證必要欄位
+            required_fields = ['name', 'script', 'distance', 'waitTime', 'repeatCount']
             if not all(field in script_data for field in required_fields):
                 raise ValueError("缺少必要的腳本資料欄位")
-
+            
             # 驗證移動指令格式
             if not all(c in 'RULD' for c in script_data['script']):
                 raise ValueError("移動指令只能包含 R, U, L, D")
 
-            # 儲存腳本到檔案系統
-            scripts_dir = Path.home() / ".stm_controller" / "auto_move_scripts"
+            # 設定腳本存放路徑
+            base_dir = Path(__file__).parent
+            scripts_dir = base_dir / "SXMPycontroller_scripts" / "move_scripts"
             scripts_dir.mkdir(parents=True, exist_ok=True)
 
+            # 儲存腳本
             script_file = scripts_dir / f"{script_data['name']}.json"
-            with open(script_file, 'w') as f:
+            with open(script_file, 'w', encoding='utf-8') as f:
                 json.dump({
                     'name': script_data['name'],
                     'script': script_data['script'],
@@ -1044,7 +1104,7 @@ class SMUControlAPI:
                     'waitTime': float(script_data['waitTime']),
                     'repeatCount': int(script_data['repeatCount']),
                     'created_time': time.strftime("%Y-%m-%d %H:%M:%S")
-                }, f, indent=2)
+                }, f, indent=2, ensure_ascii=False)
 
             return True
 
@@ -1055,20 +1115,21 @@ class SMUControlAPI:
     def get_auto_move_scripts(self) -> dict:
         """
         獲取所有已儲存的自動移動腳本
-
+        
         Returns
         -------
         dict
             腳本名稱和內容的映射
         """
         try:
-            scripts_dir = Path.home() / ".stm_controller" / "auto_move_scripts"
+            base_dir = Path(__file__).parent
+            scripts_dir = base_dir / "SXMPycontroller_scripts" / "move_scripts"
             if not scripts_dir.exists():
                 return {}
 
             scripts = {}
             for script_file in scripts_dir.glob("*.json"):
-                with open(script_file) as f:
+                with open(script_file, encoding='utf-8') as f:
                     script_data = json.load(f)
                     scripts[script_data['name']] = script_data
 
@@ -1081,25 +1142,25 @@ class SMUControlAPI:
     def get_auto_move_script(self, script_name: str) -> dict:
         """
         獲取指定的自動移動腳本
-
+        
         Parameters
         ----------
         script_name : str
             腳本名稱
-
+        
         Returns
         -------
         dict
             腳本資料
         """
         try:
-            scripts_dir = Path.home() / ".stm_controller" / "auto_move_scripts"
-            script_file = scripts_dir / f"{script_name}.json"
+            base_dir = Path(__file__).parent
+            script_file = base_dir / "SXMPycontroller_scripts" / "move_scripts" / f"{script_name}.json"
 
             if not script_file.exists():
                 raise ValueError(f"找不到腳本: {script_name}")
 
-            with open(script_file) as f:
+            with open(script_file, encoding='utf-8') as f:
                 return json.load(f)
 
         except Exception as e:

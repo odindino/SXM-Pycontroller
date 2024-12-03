@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="styles/smu-config.css">
     <link rel="stylesheet" href="styles/sts-measurement.css">
     <link rel="stylesheet" href="styles/cits-measurement.css">
+    <link rel="stylesheet" href="styles/auto-move-measurement.css">
 </head>
 <body>
     <div class="main-container">
@@ -17,6 +18,7 @@
             <a href="#" class="nav-link active" data-target="smu-config">SMU Config</a>
             <a href="#" class="nav-link" data-target="sts-measurement">STS Measurement</a>
             <a href="#" class="nav-link" data-target="cits-measurement">CITS Measurement</a>
+            <a href="#" class="nav-link" data-target="auto-move-measurement">auto-move Measurement</a>
         </nav>
 
         <!-- SMU Config Section -->
@@ -116,10 +118,10 @@
         <!-- STS Measurement Section -->
         <section id="sts-measurement" class="content-section">
             <div class="sts-measurement-section">
-                <h2>STM Control</h2>
+                <h2>STS Control</h2>
                 
                 <div id="stsConfigPanel" class="sts-config-panel">
-                    <h3>STS Voltage Settings</h3>
+                    <h3>SMU Voltage Settings</h3>
                     
                     <div id="stsSettingsTable">
                         <div class="sts-header">
@@ -141,11 +143,15 @@
                 </div>
 
                 <div class="script-control-panel">
-                    <input type="text" id="scriptName" placeholder="Script Name">
+                    <input type="text" id="smuscriptName" placeholder="Script Name">
                     <button id="saveScript" class="secondary-btn">Save Script</button>
-                    <select id="scriptSelect">
+                    <select id="smuscriptSelect">
                         <option value="">Select Script...</option>
                     </select>
+                    <!-- 新增更新按鈕 -->
+                    <button id="updateScriptBtn" class="refresh-btn">
+                        Update Scripts
+                    </button>
                 </div>
 
                 <div class="sts-control-buttons">
@@ -228,6 +234,233 @@
                 </div>
             </div>
         </section>
+
+         <!-- Auto Move Measurement Section -->
+        <section id="auto-move-measurement" class="content-section">
+            <!-- Top Control Panels -->
+            <div class="am-top-controls">
+                <!-- Movement Script Panel -->
+                <div class="am-script-panel panel">
+                    <h3>Movement Script Settings</h3>
+                    <div class="input-group">
+                        <label>Script Name:</label>
+                        <input type="text" id="amScriptName" class="script-input" placeholder="Enter script name">
+                    </div>
+                    
+                    <div class="script-control-group">
+                        <select id="amScriptSelect" class="script-select">
+                            <option value="">Select Script...</option>
+                        </select>
+                        <button id="amSaveScript" class="primary-btn">Save Script</button>
+                    </div>
+        
+                    <div class="am-parameters">
+                        <div class="input-group">
+                            <label>Movement Script:</label>
+                            <input type="text" id="amMovementScript" placeholder="e.g., RULLDDRR">
+                            <span class="hint">R: Right, U: Up, L: Left, D: Down</span>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Distance (nm):</label>
+                            <input type="number" id="amDistance" step="0.1" value="100">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Wait Time (s):</label>
+                            <input type="number" id="amWaitTime" step="0.1" value="1.0">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Repeat Count:</label>
+                            <input type="number" id="amRepeatCount" min="1" value="1">
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- STS Settings Panel -->
+                <div class="am-sts-panel panel">
+                    <h3>STS Voltage Settings</h3>
+                    <div class="input-group">
+                        <label>Script Name:</label>
+                        <input type="text" id="amStsScriptName" placeholder="Enter script name">
+                    </div>
+
+                    <div class="script-control-group">
+                        <select id="amStsScriptSelect" class="script-select">
+                            <option value="">Select Script...</option>
+                        </select>
+                        <button id="amSaveScriptSts" class="primary-btn">Save STS Script</button>
+                    </div>
+                    
+                    <div id="amStsSettingsTable">
+                        <div class="sts-header">
+                            <span>Vds (V)</span>
+                            <span>Vg (V)</span>
+                            <span></span>
+                        </div>
+                        <div id="amStsSettingsRows">
+                            <div class="sts-row">
+                                <input type="number" class="vds-input" step="0.1">
+                                <input type="number" class="vg-input" step="0.1">
+                                <button class="remove-row">×</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="amAddStsRow" class="secondary-btn">Add Setting</button>
+                </div>
+            </div>
+        
+            <!-- Preview Panel -->
+            <div class="am-preview-panel panel">
+                <h3>Auto Move Preview</h3>
+                <div id="amMovePreview" class="preview-canvas">
+                    <!-- Canvas will be added here -->
+                </div>
+            </div>
+        
+            <!-- CITS Control Panel -->
+            <div class="am-cits-control panel">
+                <h3>CITS Control</h3>
+
+                <div class="input-group compact">
+                    <label>CITS Points:</label>
+                    <div class="points-input-container">
+                        <div class="point-input-group">
+                            <label>X-Points:</label>
+                            <input type="number" id="amCitsPointsX" min="1" max="512">
+                        </div>
+                        <div class="point-input-group">
+                            <label>Y-Points:</label>
+                            <input type="number" id="amCitsPointsY" min="1" max="512">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label>Scan Direction:</label>
+                    <select id="amCitsScanDirection">
+                        <option value="1">Scan Up</option>
+                        <option value="-1">Scan Down</option>
+                    </select>
+                </div>
+                
+                <div class="cits-control-buttons">
+                    <button id="amStartSstsCits" class="primary-btn">Start Auto-Move SSTS CITS</button>
+                    <button id="amStartMstsCits" class="secondary-btn">Start Auto-Move MSTS CITS</button>
+                </div>
+            </div>
+        
+            <!-- Local CITS Control -->
+            <div class="am-local-cits-panel panel">
+                <h3>Local CITS Control</h3>
+                <div class="input-group">
+                    <label for="amGlobalDirection">Global Direction:</label>
+                    <select id="amGlobalDirection">
+                        <option value="1">Up</option>
+                        <option value="-1">Down</option>
+                    </select>
+                </div>
+                
+                <div id="amLocalAreasContainer">
+                    <div class="local-area-container">
+                        <div class="input-group position-group">
+                            <label>Start Position:</label>
+                            <div class="position-inputs">
+                                <div class="coordinate-input">
+                                    <label>x_dev:</label>
+                                    <div class="input-with-unit">
+                                        <input type="number" class="x-start" value="200" step="0.1">
+                                        <span class="unit">nm</span>
+                                    </div>
+                                </div>
+                                <div class="coordinate-input">
+                                    <label>y_dev:</label>
+                                    <div class="input-with-unit">
+                                        <input type="number" class="y-start" value="200" step="0.1">
+                                        <span class="unit">nm</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Start Point Direction:</label>
+                            <select class="start-direction">
+                                <option value="1">Up</option>
+                                <option value="-1">Down</option>
+                            </select>
+                        </div>
+    
+                        <div class="parameters-row">
+                            <div class="input-field">
+                                <label>Step Size X (ΔX)</label>
+                                <div class="input-with-unit">
+                                    <input type="number" class="dx" value="20" step="0.1">
+                                    <span class="unit">nm</span>
+                                </div>
+                            </div>
+                            
+                            <div class="input-field">
+                                <label>Step Size Y (ΔY)</label>
+                                <div class="input-with-unit">
+                                    <input type="number" class="dy" value="20" step="0.1">
+                                    <span class="unit">nm</span>
+                                </div>
+                            </div>
+                            
+                            <div class="input-field">
+                                <label>Points X (Nx)</label>
+                                <input type="number" class="nx" value="5" min="1" max="512">
+                            </div>
+                            
+                            <div class="input-field">
+                                <label>Points Y (Ny)</label>
+                                <input type="number" class="ny" value="3" min="1" max="512">
+                            </div>
+                        </div>
+                        
+                        <button class="remove-area danger-btn">Remove Area</button>
+                    </div>
+                </div>
+                
+                <button id="amAddLocalArea" class="add-local-area">Add Local Area</button>
+            </div>
+        
+            <!-- Preview and Status Panel -->
+            <div class="am-status-panel panel">
+                <div class="panel-header">
+                    <h3>Preview</h3>
+                    <div class="preview-buttons">
+                        <button id="amGetStatus" class="secondary-btn">Get SXM Status</button>
+                        <button id="amPreviewLocalCits" class="primary-btn">Preview Local CITS</button>
+                    </div>
+                </div>
+                
+                <div class="preview-info">
+                    <div>Scan Center: <span id="amPreviewCenter">-</span></div>
+                    <div>Scan Range: <span id="amPreviewRange">-</span> nm</div>
+                    <div>Scan Angle: <span id="amPreviewAngle">-</span>°</div>
+                    <div>Total Points: <span id="amPreviewTotalPoints">-</span></div>
+                </div>
+                
+                <div id="amLocalCitsPreview" class="preview-canvas">
+                    <!-- Canvas will be added here -->
+                </div>
+                
+                <div class="status-display">
+                    <div>Status: <span id="amLocalCitsStatus">Idle</span></div>
+                    <div>Progress: <span id="amLocalCitsProgress">0%</span></div>
+                    <div>Last CITS: <span id="amLocalCitsLastTime">Never</span></div>
+                </div>
+                
+                <div class="local-cits-buttons">
+                    <button id="amStartLocalSstsCits" class="primary-btn">Start Auto-Move Local SSTS CITS</button>
+                    <button id="amStartLocalMstsCits" class="secondary-btn">Start Auto-Move Local MSTS CITS</button>
+                </div>
+            </div>
+        </section>    
+    
     </div>
 
     <script type="module" src="scripts/SXMPycontroller-script.js"></script>

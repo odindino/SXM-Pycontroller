@@ -3,6 +3,7 @@ import NavigatorModule from './navigator.js';
 import SMUConfigModule from './smu-config.js';
 import STSMeasurementModule from './sts-measurement.js';
 import CITSMeasurementModule from './cits-measurement.js';
+import AutoMoveMeasurementModule from './auto-move-measurement.js';
 
 // 全域錯誤處理
 window.onerror = function(message, source, lineno, colno, error) {
@@ -21,6 +22,7 @@ function initializeApplication() {
         SMUConfigModule.init();
         STSMeasurementModule.init();
         CITSMeasurementModule.init();
+        AutoMoveMeasurementModule.init();
         
         console.log('Application initialized successfully');
     } catch (error) {
@@ -37,5 +39,6 @@ window.modules = {
     navigator: NavigatorModule,
     smuConfig: SMUConfigModule,
     stsMeasurement: STSMeasurementModule,
-    citsMeasurement: CITSMeasurementModule
+    citsMeasurement: CITSMeasurementModule,
+    autoMove: AutoMoveMeasurementModule
 };

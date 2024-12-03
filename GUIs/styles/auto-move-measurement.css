@@ -1,0 +1,300 @@
+/* Auto Move Measurement Layout */
+#auto-move-measurement {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Top Control Panels Layout */
+.am-top-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 20px;
+}
+
+/* Common Panel Styles */
+.panel {
+    background: var(--panel-bg);
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.panel h3 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+/* Movement Script Panel */
+.am-script-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.script-control-group {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.am-parameters {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.hint {
+    font-size: 0.85em;
+    color: #666;
+    margin-top: 4px;
+}
+
+/* STS Settings Panel */
+.am-sts-panel {
+    background: var(--panel-bg);
+}
+
+#amStsSettingsTable {
+    margin-bottom: 16px;
+}
+
+.sts-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 40px;
+    gap: 12px;
+    padding: 8px 12px;
+    font-weight: 500;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.sts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 40px;
+    gap: 12px;
+    padding: 8px 12px;
+    align-items: center;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    margin: 8px 0;
+}
+
+/* Preview Panels */
+.preview-canvas {
+    width: 100%;
+    height: 300px;
+    background: #f8f9fa;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    margin: 16px 0;
+}
+
+/* CITS Control */
+.am-cits-control {
+    margin-top: 24px;
+}
+
+.points-input-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* Local CITS Panel */
+.am-local-cits-panel {
+    margin-top: 24px;
+}
+
+.local-area-container {
+    background: #f8f9fa;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.parameters-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 12px 0;
+}
+
+/* Status Panel */
+.am-status-panel {
+    margin-top: 24px;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.preview-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.preview-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin: 20px 0;
+    font-family: monospace;
+}
+
+.status-display {
+    background: #f8f9fa;
+    padding: 16px;
+    border-radius: 6px;
+    margin: 20px 0;
+    font-family: monospace;
+}
+
+/* Input Groups */
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.input-group label {
+    min-width: 120px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.input-group.compact {
+    max-width: 400px;
+}
+
+.position-group {
+    margin-bottom: 16px;
+}
+
+.position-inputs {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.coordinate-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.coordinate-input label {
+    min-width: 50px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.input-with-unit {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.input-with-unit input {
+    width: 100px;
+}
+
+.unit {
+    color: var(--text-color);
+    font-size: 0.9em;
+}
+
+/* Button Styles */
+.primary-btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.secondary-btn {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.add-local-area {
+    background-color: var(--secondary-color);
+    color: white;
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    margin-top: 16px;
+    cursor: pointer;
+}
+
+.remove-row {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+    .am-top-controls {
+        grid-template-columns: 1fr;
+    }
+    
+    .parameters-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .parameters-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .preview-buttons,
+    .local-cits-buttons {
+        flex-direction: column;
+    }
+    
+    .preview-buttons button,
+    .local-cits-buttons button {
+        width: 100%;
+    }
+    
+    .input-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .input-group label {
+        min-width: auto;
+        margin-bottom: 4px;
+    }
+}

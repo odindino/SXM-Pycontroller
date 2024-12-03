@@ -3,6 +3,7 @@ import math
 from . import SXMRemote
 from .SXMPyEvent import SXMEventHandler
 from utils.logger import get_logger, track_function
+from utils.SXMPyCalc import AutoMoveCalculator
 
 
 class SXMScanControl(SXMEventHandler):
@@ -488,7 +489,7 @@ class SXMScanControl(SXMEventHandler):
             return False
 
     def auto_move(self, movement_script: str, distance: float, center_x: float,
-                  center_y: float, angle: float) -> list:
+                  center_y: float, angle: float, debug_mode) -> list:
         """
         生成自動移動序列的座標列表
 
@@ -512,40 +513,13 @@ class SXMScanControl(SXMEventHandler):
             移動位置的座標列表，格式為 [(x1, y1), (x2, y2), ...]
         """
         try:
-            positions = [(center_x, center_y)]  # 包含起始位置
-            x, y = center_x, center_y
-
-            if self.debug_mode:
-                print(f"\nGenerating movement positions:")
-                print(f"Start position: ({x}, {y})")
-                print(f"Movement script: {movement_script}")
-                print(f"Distance: {distance} nm")
-
-            # 計算每個移動點的座標
-            for i, direction in enumerate(movement_script):
-                try:
-                    # 計算移動向量
-                    dx, dy = self.calculate_movement(direction, distance)
-                    new_x = x + dx
-                    new_y = y + dy
-
-                    if self.debug_mode:
-                        print(f"Position {i+1}: ({new_x}, {new_y})")
-
-                    # 更新位置並加入列表
-                    x, y = new_x, new_y
-                    positions.append((x, y))
-
-                except Exception as e:
-                    if self.debug_mode:
-                        print(f"Error calculating position {i+1}: {str(e)}")
-                    raise
-
-            return positions
-
+            return AutoMoveCalculator.auto_move(movement_script, 
+                                                distance, center_x, center_y, 
+                                                angle, debug_mode)
+        
         except Exception as e:
             if self.debug_mode:
-                print(f"Position generation error: {str(e)}")
+                print(f"Auto move error: {str(e)}")
             raise
 
     # combine auto_move and perform_scan_sequence
@@ -593,7 +567,8 @@ class SXMScanControl(SXMEventHandler):
                     distance=distance,
                     center_x=center_x,
                     center_y=center_y,
-                    angle=angle
+                    angle=angle,
+                    debug_mode=self.debug_mode
                 )
 
                 # 在每個位置執行掃描（包含初始位置）
@@ -633,42 +608,6 @@ class SXMScanControl(SXMEventHandler):
                 print(f"Auto move scan error: {str(e)}")
             return False
 
-    def calculate_movement(self, direction, distance):
-        """
-        根據掃描角度計算實際的移動向量
-
-        Parameters
-        ----------
-        direction : str
-            移動方向 ('R', 'L', 'U', 'D')
-        distance : float
-            移動距離
-
-        Returns
-        -------
-        tuple (float, float)
-            (dx, dy) 需要移動的x和y分量
-        """
-        angle_rad = math.radians(self.current_angle)
-        cos_angle = math.cos(angle_rad)
-        sin_angle = math.sin(angle_rad)
-
-        if direction == 'R':
-            dx = distance * cos_angle
-            dy = distance * sin_angle
-        elif direction == 'L':
-            dx = -distance * cos_angle
-            dy = -distance * sin_angle
-        elif direction == 'U':
-            dx = -distance * sin_angle
-            dy = distance * cos_angle
-        elif direction == 'D':
-            dx = distance * sin_angle
-            dy = -distance * cos_angle
-        else:
-            raise ValueError(f"Unknown direction: {direction}")
-
-        return dx, dy
 
     # ========== Scan Ratio and Aspect Ratio ========== #
 

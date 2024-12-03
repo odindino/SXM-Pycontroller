@@ -503,7 +503,8 @@ class SXMController(SXMCITSControl):
                     distance=distance,
                     center_x=center_x,
                     center_y=center_y,
-                    angle=angle
+                    angle=angle,
+                    debug_mode=self.debug_mode
                 )
 
                 # 追蹤當前掃描方向
@@ -661,7 +662,8 @@ class SXMController(SXMCITSControl):
                 distance=distance,
                 center_x=center_x,
                 center_y=center_y,
-                angle=angle
+                angle=angle,
+                debug_mode=self.debug_mode
             )
 
             # 追蹤當前掃描方向

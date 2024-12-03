@@ -27,9 +27,113 @@ class LocalCITSParams:
     # 1 for upward distribution, -1 for downward distribution
     startpoint_direction: int = 1
 
+class AutoMoveCalculator:
+
+    @staticmethod
+    def auto_move(movement_script: str, distance: float, center_x: float,
+                  center_y: float, angle: float, debug_mode: bool = False) -> list:
+        """
+        生成自動移動序列的座標列表
+
+        Parameters
+        ----------
+        movement_script : str
+            移動指令序列，如 "RULLDDRR"
+            R: 右, L: 左, U: 上, D: 下
+        distance : float
+            每次移動的距離（nm）
+        center_x : float
+            起始中心 X 座標
+        center_y : float
+            起始中心 Y 座標
+        angle : float
+            目前的掃描角度
+
+        Returns
+        -------
+        list
+            移動位置的座標列表，格式為 [(x1, y1), (x2, y2), ...]
+        """
+        try:
+            positions = [(center_x, center_y)]  # 包含起始位置
+            x, y = center_x, center_y
+
+            if debug_mode:
+                print(f"\nGenerating movement positions:")
+                print(f"Start position: ({x}, {y})")
+                print(f"Movement script: {movement_script}")
+                print(f"Distance: {distance} nm")
+
+            # 計算每個移動點的座標
+            for i, direction in enumerate(movement_script):
+                try:
+                    # 計算移動向量
+                    dx, dy = SXMCalculator.calculate_movement(direction, distance, angle)
+                    new_x = x + dx
+                    new_y = y + dy
+
+                    if debug_mode:
+                        print(f"Position {i+1}: ({new_x}, {new_y})")
+
+                    # 更新位置並加入列表
+                    x, y = new_x, new_y
+                    positions.append((x, y))
+
+                except Exception as e:
+                    if debug_mode:
+                        print(f"Error calculating position {i+1}: {str(e)}")
+                    raise
+
+            return positions
+
+        except Exception as e:
+            if debug_mode:
+                print(f"Position generation error: {str(e)}")
+            raise
+
 
 class SXMCalculator:
     """計算工具類別"""
+
+    @staticmethod
+    def calculate_movement(direction, distance, angle):
+        """
+        根據掃描角度計算實際的移動向量
+
+        Parameters
+        ----------
+        direction : str
+            移動方向 ('R', 'L', 'U', 'D')
+        distance : float
+            移動距離
+        angle : float
+            當前的角度（度）
+
+        Returns
+        -------
+        tuple (float, float)
+            (dx, dy) 需要移動的x和y分量
+        """
+        angle_rad = math.radians(angle)
+        cos_angle = math.cos(angle_rad)
+        sin_angle = math.sin(angle_rad)
+
+        if direction == 'R':
+            dx = distance * cos_angle
+            dy = distance * sin_angle
+        elif direction == 'L':
+            dx = -distance * cos_angle
+            dy = -distance * sin_angle
+        elif direction == 'U':
+            dx = -distance * sin_angle
+            dy = distance * cos_angle
+        elif direction == 'D':
+            dx = distance * sin_angle
+            dy = -distance * cos_angle
+        else:
+            raise ValueError(f"Unknown direction: {direction}")
+
+        return dx, dy
 
     @staticmethod
     def rotate_coordinates(x, y, angle_deg, center_x=0, center_y=0):
@@ -186,7 +290,7 @@ class CITSCalculator:
         Parameters
         ----------
         total_lines : int
-            總掃描線數
+            總掃描線數(慢軸方向)
         num_points : int
             CITS的Y方向點數
         safe_margin : float
@@ -404,7 +508,7 @@ class LocalCITSCalculator:
         center_x: float,
         center_y: float,
         angle: float,
-        scan_range: float,
+        slow_axis_range: float,
         scan_direction: int = 1,
         total_lines: int = 500
     ) -> Tuple[List[int], List[np.ndarray]]:
@@ -451,14 +555,18 @@ class LocalCITSCalculator:
 
             # Scale projections to match scan line numbers
             # Map from [-scan_range/2, scan_range/2] to [0, total_lines]
+            # scan range here should be slow axis range
             scaled_projections = (
-                projections + scan_range/2) * (total_lines/scan_range)
+                projections + slow_axis_range/2) * (total_lines/slow_axis_range)
             scan_positions = np.floor(scaled_projections).astype(int)
 
             # Sort coordinates by their scan line positions
             sorted_indices = np.argsort(scan_positions)
+            print("sorted_indices: ", sorted_indices)
             sorted_positions = scan_positions[sorted_indices]
+            print("sorted_positions: ", sorted_positions)
             sorted_coords = coordinates[sorted_indices]
+            print("sorted_coords: ", sorted_coords)
 
             # Initialize results
             scanline_distribution = []

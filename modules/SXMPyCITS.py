@@ -146,31 +146,31 @@ class SXMCITSControl(SXMSpectroControl):
             center_y = self.GetScanPara('Y')
 
             # scan_range here is the slow axis range
-            (_, scan_range) = self.calculate_actual_scan_dimensions()
+            (_, slow_axis_range) = self.calculate_actual_scan_dimensions()
             # scan_range = self.GetScanPara('Range')
             scan_angle = self.GetScanPara('Angle')
             # total_lines = self.GetScanPara('Pixel')
             (total_lines, line_spacing) = self.calculate_scan_lines()
 
-            if any(v is None for v in [center_x, center_y, scan_range, scan_angle, total_lines]):
+            if any(v is None for v in [center_x, center_y, slow_axis_range, scan_angle, total_lines]):
                 raise ValueError("無法獲取掃描參數")
 
             if self.debug_mode:
                 print(f"\n開始局部 CITS 量測:")
                 print(f"中心位置: ({center_x}, {center_y}) nm")
-                print(f"掃描範圍: {scan_range} nm")
+                print(f"掃描慢軸範圍: {slow_axis_range} nm")
                 print(f"掃描角度: {scan_angle}°")
 
             # 計算所有區域的座標點
             coordinates, _, _, (slow_axis, fast_axis) = LocalCITSCalculator.combi_local_cits_coordinates(
-                center_x, center_y, scan_range, scan_angle,
+                center_x, center_y, slow_axis_range, scan_angle,
                 total_lines, scan_direction, local_areas
             )
 
             # 計算掃描線分配和座標群組
             scanline_distribution, coordinate_distribution = LocalCITSCalculator.calculate_local_scanline_distribution(
                 coordinates, center_x, center_y, scan_angle,
-                scan_range, scan_direction, total_lines
+                slow_axis_range, scan_direction, total_lines
             )
 
             if self.debug_mode:
@@ -305,7 +305,8 @@ class SXMCITSControl(SXMSpectroControl):
                     distance=distance,
                     center_x=center_x,
                     center_y=center_y,
-                    angle=angle
+                    angle=angle,
+                    debug_mode=self.debug_mode
                 )
 
                 # 追蹤當前掃描方向
@@ -453,7 +454,8 @@ class SXMCITSControl(SXMSpectroControl):
                 distance=distance,
                 center_x=center_x,
                 center_y=center_y,
-                angle=angle
+                angle=angle,
+                debug_mode=self.debug_mode
             )
 
             # 追蹤當前掃描方向
