@@ -112,38 +112,65 @@ button:disabled {
     background-color: var(--danger-color) !important;
 }
 
-/* Output Button States - 加強優先權 */
-/* .channel-panel .output-btn,
-.control-buttons .output-btn {
-    min-width: 120px;
-    background-color: var(--danger-color) !important;
-}
+/* smu-config.css 中的按鈕樣式 */
 
-.channel-panel .output-btn.output-on,
-.control-buttons .output-btn.output-on {
-    background-color: var(--success-color) !important;
-} */
-
-/* Function Button Styles */
-/* .channel-panel button.Set,
-button[class*="Set"] {
-    background-color: var(--secondary-color);
-}
-
-.channel-panel button.Read,
-button[class*="Read"] {
-    background-color: var(--secondary-color);
-}
-
-.channel-panel button.output-btn {
+/* SMU Output 按鈕樣式 */
+#ch1OutputBtn,
+#ch2OutputBtn {
     min-width: 120px;
     background-color: var(--danger-color);
     color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.channel-panel button.output-btn.output-on {
+/* 當按鈕為 ON 狀態時的樣式 */
+#ch1OutputBtn.output-on,
+#ch2OutputBtn.output-on {
     background-color: var(--success-color);
-} */
+}
+
+/* SMU 控制按鈕容器 */
+.smu-control-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* Read Values 按鈕樣式 */
+#ch1ReadBtn,
+#ch2ReadBtn {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* 懸停效果 */
+#ch1OutputBtn:hover,
+#ch2OutputBtn:hover,
+#ch1ReadBtn:hover,
+#ch2ReadBtn:hover {
+    opacity: 0.9;
+}
+
+/* 禁用狀態 */
+#ch1OutputBtn:disabled,
+#ch2OutputBtn:disabled,
+#ch1ReadBtn:disabled,
+#ch2ReadBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 
 /* 其他按鈕樣式 */
 .channel-panel button.Set,
@@ -189,7 +216,7 @@ button[class*="Read"] {
 }
 
 /* Control Buttons */
-.control-buttons {
+.smu-control-buttons {
     display: flex;
     gap: 10px;
     margin-top: 15px;
@@ -211,11 +238,11 @@ button[class*="Read"] {
         margin-bottom: 4px;
     }
     
-    .control-buttons {
+    .smu-control-buttons {
         flex-direction: column;
     }
     
-    .control-buttons button {
+    .smu-control-buttons button {
         width: 100%;
     }
 }
