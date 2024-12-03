@@ -21,8 +21,9 @@ const AutoMoveMeasurementModule = {
         addStsRowBtn: document.getElementById('amAddStsRow'),
 
         // Preview & Status
-        getSxmStatusBtn: document.getElementById('amGetSxmStatus'),
-        previewAutoMoveBtn: document.getElementById('amPreviewAutoMove'),
+        previewCanvas: document.getElementById('amMovePreview'),
+        getSxmStatusBtn: document.getElementById('getSxmStatusBtn'),
+        previewAutoMoveBtn: document.getElementById('previewAutoMoveBtn'),
         
         
         // CITS Controls
@@ -73,6 +74,14 @@ const AutoMoveMeasurementModule = {
         //         initialRemoveBtn.addEventListener('click', () => this.removeArea(areaContainer.id));
         //     }
         // }
+        console.log('Initializing Auto Move Measurement Module...');
+
+        // 檢查 Plotly 是否已載入
+        if (typeof Plotly === 'undefined') {
+            console.error('Plotly library not loaded');
+            this.updateStatus('Plotly library not loaded');
+            return;
+        }
 
         this.setupEventListeners();
         this.refreshMovementScripts();
@@ -94,8 +103,21 @@ const AutoMoveMeasurementModule = {
         this.elements.addStsRowBtn.addEventListener('click', () => this.addStsRow());
         this.elements.stsScriptSelect.addEventListener('change', (e) => this.loadStsScript(e.target.value));
         
-        this.elements.getSxmStatusBtn.addEventListener('click', () => this.updateSxmStatus());
-        this.elements.previewAutoMoveBtn.addEventListener('click', () => this.previewAutoMove());
+        // Preview 按鈕事件
+        if (this.elements.getSxmStatusBtn) {
+            this.elements.getSxmStatusBtn.addEventListener('click', () => this.updateSxmStatus());
+        } else {
+            console.error('Get SXM Status button not found');
+        }
+
+        if (this.elements.previewAutoMoveBtn) {
+            this.elements.previewAutoMoveBtn.addEventListener('click', () => this.previewAutoMove());
+        } else {
+            console.error('Preview Auto Move button not found');
+        }
+
+        // this.elements.getSxmStatusBtn.addEventListener('click', () => this.updateSxmStatus());
+        // this.elements.previewAutoMoveBtn.addEventListener('click', () => this.previewAutoMove());
        
         // CITS Controls
         this.elements.startAutoMoveSstsBtn.addEventListener('click', () => this.startAutoMoveSstsCits());
@@ -296,8 +318,16 @@ const AutoMoveMeasurementModule = {
 
     async previewAutoMove() {
         try {
+            console.log('Starting preview generation...');
+            
             // 確認已選擇腳本
             const scriptSelect = this.elements.scriptSelect;
+            if (!scriptSelect) {
+                console.error('Script select element not found');
+                this.updateStatus('Script select element not found');
+                return;
+            }
+    
             if (!scriptSelect.value) {
                 this.updateStatus('Please select a movement script');
                 return;
@@ -305,6 +335,8 @@ const AutoMoveMeasurementModule = {
     
             // 從狀態中取得已載入的腳本
             const selectedScript = this.state.movementScripts.get(scriptSelect.value);
+            console.log('Selected script:', selectedScript);
+            
             if (!selectedScript) {
                 this.updateStatus('Selected script not found');
                 return;
@@ -312,38 +344,57 @@ const AutoMoveMeasurementModule = {
     
             // 準備參數
             const params = {
-                movement_script: selectedScript.script,  // 直接使用腳本中的移動指令
-                distance: selectedScript.distance,       // 使用腳本中定義的距離
-                center_x: null,  // 將從 SXM Status 取得
-                center_y: null,  // 將從 SXM Status 取得
-                angle: null      // 將從 SXM Status 取得
+                movement_script: selectedScript.script,
+                distance: selectedScript.distance,
+                center_x: null,
+                center_y: null,
+                angle: null
             };
     
-            // 檢查必要參數
-            if (!params.movement_script || !params.distance) {
-                this.updateStatus('Invalid script parameters');
-                return;
-            }
-    
+            console.log('Fetching SXM status...');
             // 取得 SXM 狀態
             const sxmStatus = await pywebview.api.get_sxm_status();
+            console.log('SXM status:', sxmStatus);
             
             // 更新參數
             params.center_x = sxmStatus.center_x;
             params.center_y = sxmStatus.center_y;
             params.angle = sxmStatus.angle;
-    
+            
+            console.log('Generating preview with params:', params);
+
+            
             // 生成預覽圖
             const plotData = await pywebview.api.preview_auto_move(params);
             
+            // 確保 preview canvas 存在
+            if (!this.elements.previewCanvas) {
+                console.error('Preview canvas element not found');
+                this.updateStatus('Preview canvas not found');
+                return;
+            }
+            
+            // 設定配置選項
+            const config = {
+                responsive: true,
+                displayModeBar: true,
+                displaylogo: false,
+                modeBarButtonsToRemove: ['lasso2d', 'select2d']
+            };
             // 將圖表放入預覽區域
-            Plotly.newPlot(this.elements.previewCanvas, plotData.data, plotData.layout);
-    
+            console.log('Plotting data:', plotData);
+            Plotly.newPlot(this.elements.previewCanvas, plotData.data, plotData.layout, config);
+            
+            // 監聽視窗大小變化
+            window.addEventListener('resize', () => {
+                Plotly.Plots.resize(this.elements.previewCanvas);
+            });
+            
             this.updateStatus('Preview generated successfully');
     
         } catch (error) {
+            console.error('Preview error:', error);
             this.updateStatus(`Preview error: ${error.message}`);
-            console.error('Auto move preview error:', error);
         }
     },
 

@@ -1,5 +1,5 @@
 import plotly.graph_objects as go
-from SXMPyCalc import LocalCITSCalculator, LocalCITSParams, AutoMoveCalculator
+from utils.SXMPyCalc import LocalCITSCalculator, LocalCITSParams, AutoMoveCalculator
 import numpy as np
 import matplotlib.cm as cm
 from typing import Tuple
@@ -240,6 +240,91 @@ class AutoMovePreviewer:
             debug_mode=self.debug_mode
         )
         return positions
+    
+    def get_serializable_plot_data(self) -> dict:
+        """
+        獲取可序列化的圖表資料
+        
+        Returns
+        -------
+        dict
+            包含 traces 和 layout 的字典，格式化為可序列化的格式
+        """
+        try:
+            positions = self.calculate_positions()
+            x_coords, y_coords = zip(*positions)
+            
+            # 計算合適的座標軸範圍
+            x_min, x_max = min(x_coords), max(x_coords)
+            y_min, y_max = min(y_coords), max(y_coords)
+            
+            # 加入邊距
+            margin = max(abs(x_max - x_min), abs(y_max - y_min)) * 0.1
+            
+            # 建立路徑追蹤的資料
+            path_trace = {
+                'type': 'scatter',
+                'x': list(x_coords),
+                'y': list(y_coords),
+                'mode': 'lines+markers',
+                'line': {'color': 'blue', 'width': 2},
+                'marker': {'size': 8, 'color': 'red'},
+                'name': 'Movement Path'
+            }
+            
+            # 建立起點和終點的資料
+            endpoints_trace = {
+                'type': 'scatter',
+                'x': [x_coords[0], x_coords[-1]],
+                'y': [y_coords[0], y_coords[-1]],
+                'mode': 'markers+text',
+                'marker': {
+                    'size': 12,
+                    'color': ['green', 'red']
+                },
+                'text': ['Start', 'End'],
+                'textposition': 'top center',
+                'name': 'Start/End Points'
+            }
+            
+            # 優化布局設定
+            layout = {
+                'title': {
+                    'text': 'Auto Movement Path Preview',
+                    'y': 0.95
+                },
+                'xaxis': {
+                    'title': 'X Position (nm)',
+                    'zeroline': True,
+                    'range': [x_min - margin, x_max + margin]
+                },
+                'yaxis': {
+                    'title': 'Y Position (nm)',
+                    'zeroline': True,
+                    'range': [y_min - margin, y_max + margin],
+                    'scaleanchor': 'x',
+                    'scaleratio': 1
+                },
+                'showlegend': True,
+                'template': 'plotly_white',
+                'margin': {
+                    'l': 60,
+                    'r': 30,
+                    't': 50,
+                    'b': 60
+                },
+                'autosize': True,  # 啟用自動大小調整
+                'height': 450,     # 設定合適的高度
+            }
+            
+            return {
+                'data': [path_trace, endpoints_trace],
+                'layout': layout
+            }
+            
+        except Exception as e:
+            print(f"Error generating serializable plot data: {str(e)}")
+            raise
 
     def plot_movements(self):
         """

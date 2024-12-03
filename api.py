@@ -1185,7 +1185,7 @@ class SMUControlAPI:
         Returns
         -------
         dict
-            Plotly 圖表資料，包含 data 和 layout
+            可序列化的圖表資料
         """
         try:
             from utils.SXMPyPlot import AutoMovePreviewer
@@ -1200,8 +1200,9 @@ class SMUControlAPI:
                 debug_mode=True
             )
             
-            # 產生圖表資料
-            return previewer.get_plot_data()
+            # 獲取可序列化的數據
+            plot_data = previewer.get_serializable_plot_data()
+            return plot_data
             
         except Exception as e:
             print(f"Auto move preview error: {str(e)}")
