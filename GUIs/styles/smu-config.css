@@ -129,9 +129,14 @@ button:disabled {
 }
 
 /* 當按鈕為 ON 狀態時的樣式 */
-#ch1OutputBtn.output-on,
-#ch2OutputBtn.output-on {
+#ch1OutputBtn.success,
+#ch2OutputBtn.success {
     background-color: var(--success-color);
+}
+
+#ch1OutputBtn.warning,
+#ch2OutputBtn.warning {
+    background-color: var(--danger-color);
 }
 
 /* SMU 控制按鈕容器 */
