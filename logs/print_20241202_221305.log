@@ -1,0 +1,326 @@
+2024-12-02 22:13:05,746 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-02 22:13:07,091 - Response: b'f3\r\n'
+2024-12-02 22:13:07,091 - Scanning: forward line 3
+2024-12-02 22:13:09,423 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-02 22:13:09,766 - Response: b'f4\r\n'
+2024-12-02 22:13:09,767 - Scanning: forward line 4
+2024-12-02 22:13:12,106 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-02 22:13:12,107 - Scan finished at 2024-12-02 22:13:12.107017
+2024-12-02 22:13:12,108 - Response: b'DDE Cmd 7916\r\n'
+2024-12-02 22:13:12,108 - Scan completed
+2024-12-02 22:13:12,608 - 掃描完成
+2024-12-02 22:13:12,608 - 
+>>> 執行第 1/21 條 Multi-STS 線
+2024-12-02 22:13:12,608 -   Multi-STS點 (1/11): (3050.200, 599.600)
+2024-12-02 22:13:12,608 - Sending command: SpectPara(1, 3050.2);
+2024-12-02 22:13:12,609 - Response: b'DDE Cmd 7917\r\n0\r\n'
+2024-12-02 22:13:12,609 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,616 - Response: b'DDE Cmd 7919\r\n'
+2024-12-02 22:13:12,617 - Sending command: SpectPara(1, 3050.2);
+2024-12-02 22:13:12,622 - Response: b'DDE Cmd 7920\r\n'
+2024-12-02 22:13:12,623 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,629 - Response: b'DDE Cmd 7921\r\n'
+2024-12-02 22:13:12,629 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-02 22:13:12,631 - Response: b'DDE Cmd 7922\r\n0\r\n'
+2024-12-02 22:13:12,631 - current state type:
+2024-12-02 22:13:12,631 - <class 'float'>
+2024-12-02 22:13:12,631 - current state:
+2024-12-02 22:13:12,631 - 0.0
+2024-12-02 22:13:12,632 - Warning: Failed to read channel 1 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,632 - Warning: Failed to read channel 2 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,632 - Multi-STS measurement error: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,632 - Error restoring original states: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,632 - 警告: 位置 (3050.2, 599.6) 的 Multi-STS 量測失敗
+2024-12-02 22:13:12,632 -   Multi-STS點 (2/11): (3060.160, 599.600)
+2024-12-02 22:13:12,632 - Sending command: SpectPara(1, 3060.16);
+2024-12-02 22:13:12,638 - Response: b'DDE Cmd 7923\r\n'
+2024-12-02 22:13:12,638 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,643 - Response: b'DDE Cmd 7924\r\n'
+2024-12-02 22:13:12,643 - Sending command: SpectPara(1, 3060.16);
+2024-12-02 22:13:12,649 - Response: b'DDE Cmd 7925\r\n'
+2024-12-02 22:13:12,649 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,655 - Response: b'DDE Cmd 7926\r\n'
+2024-12-02 22:13:12,655 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-02 22:13:12,657 - Response: b'DDE Cmd 7927\r\n0\r\n'
+2024-12-02 22:13:12,657 - current state type:
+2024-12-02 22:13:12,658 - <class 'float'>
+2024-12-02 22:13:12,658 - current state:
+2024-12-02 22:13:12,658 - 0.0
+2024-12-02 22:13:12,658 - Warning: Failed to read channel 1 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,658 - Warning: Failed to read channel 2 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,658 - Multi-STS measurement error: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,658 - Error restoring original states: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,658 - 警告: 位置 (3060.16, 599.6) 的 Multi-STS 量測失敗
+2024-12-02 22:13:12,658 -   Multi-STS點 (3/11): (3070.120, 599.600)
+2024-12-02 22:13:12,658 - Sending command: SpectPara(1, 3070.12);
+2024-12-02 22:13:12,664 - Response: b'DDE Cmd 7928\r\n'
+2024-12-02 22:13:12,664 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,670 - Response: b'DDE Cmd 7929\r\n'
+2024-12-02 22:13:12,670 - Sending command: SpectPara(1, 3070.12);
+2024-12-02 22:13:12,677 - Response: b'DDE Cmd 7930\r\n'
+2024-12-02 22:13:12,677 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,682 - Response: b'DDE Cmd 7931\r\n'
+2024-12-02 22:13:12,683 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-02 22:13:12,686 - Response: b'DDE Cmd 7932\r\n0\r\n'
+2024-12-02 22:13:12,686 - current state type:
+2024-12-02 22:13:12,686 - <class 'float'>
+2024-12-02 22:13:12,686 - current state:
+2024-12-02 22:13:12,686 - 0.0
+2024-12-02 22:13:12,686 - Warning: Failed to read channel 1 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,686 - Warning: Failed to read channel 2 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,686 - Multi-STS measurement error: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,686 - Error restoring original states: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,686 - 警告: 位置 (3070.12, 599.6) 的 Multi-STS 量測失敗
+2024-12-02 22:13:12,686 -   Multi-STS點 (4/11): (3080.080, 599.600)
+2024-12-02 22:13:12,686 - Sending command: SpectPara(1, 3080.08);
+2024-12-02 22:13:12,692 - Response: b'DDE Cmd 7933\r\n'
+2024-12-02 22:13:12,692 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,698 - Response: b'DDE Cmd 7934\r\n'
+2024-12-02 22:13:12,698 - Sending command: SpectPara(1, 3080.08);
+2024-12-02 22:13:12,706 - Response: b'DDE Cmd 7935\r\n'
+2024-12-02 22:13:12,706 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,712 - Response: b'DDE Cmd 7936\r\n'
+2024-12-02 22:13:12,712 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-02 22:13:12,719 - Response: b'DDE Cmd 7937\r\n0\r\n'
+2024-12-02 22:13:12,719 - current state type:
+2024-12-02 22:13:12,719 - <class 'float'>
+2024-12-02 22:13:12,720 - current state:
+2024-12-02 22:13:12,720 - 0.0
+2024-12-02 22:13:12,720 - Warning: Failed to read channel 1 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,720 - Warning: Failed to read channel 2 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,720 - Multi-STS measurement error: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,720 - Error restoring original states: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,720 - 警告: 位置 (3080.08, 599.6) 的 Multi-STS 量測失敗
+2024-12-02 22:13:12,720 -   Multi-STS點 (5/11): (3090.040, 599.600)
+2024-12-02 22:13:12,720 - Sending command: SpectPara(1, 3090.04);
+2024-12-02 22:13:12,728 - Response: b'DDE Cmd 7938\r\n'
+2024-12-02 22:13:12,728 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,734 - Response: b'DDE Cmd 7939\r\n'
+2024-12-02 22:13:12,734 - Sending command: SpectPara(1, 3090.04);
+2024-12-02 22:13:12,740 - Response: b'DDE Cmd 7940\r\n'
+2024-12-02 22:13:12,740 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,746 - Response: b'DDE Cmd 7941\r\n'
+2024-12-02 22:13:12,746 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-02 22:13:12,748 - Response: b'DDE Cmd 7942\r\n0\r\n'
+2024-12-02 22:13:12,748 - current state type:
+2024-12-02 22:13:12,748 - <class 'float'>
+2024-12-02 22:13:12,748 - current state:
+2024-12-02 22:13:12,749 - 0.0
+2024-12-02 22:13:12,749 - Warning: Failed to read channel 1 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,749 - Warning: Failed to read channel 2 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,749 - Multi-STS measurement error: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,749 - Error restoring original states: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,749 - 警告: 位置 (3090.04, 599.6) 的 Multi-STS 量測失敗
+2024-12-02 22:13:12,749 -   Multi-STS點 (6/11): (3100.000, 599.600)
+2024-12-02 22:13:12,749 - Sending command: SpectPara(1, 3100.0);
+2024-12-02 22:13:12,755 - Response: b'DDE Cmd 7943\r\n'
+2024-12-02 22:13:12,756 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,761 - Response: b'DDE Cmd 7944\r\n'
+2024-12-02 22:13:12,761 - Sending command: SpectPara(1, 3100.0);
+2024-12-02 22:13:12,767 - Response: b'DDE Cmd 7945\r\n'
+2024-12-02 22:13:12,768 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,773 - Response: b'DDE Cmd 7946\r\n'
+2024-12-02 22:13:12,773 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-02 22:13:12,775 - Response: b'DDE Cmd 7947\r\n0\r\n'
+2024-12-02 22:13:12,775 - current state type:
+2024-12-02 22:13:12,776 - <class 'float'>
+2024-12-02 22:13:12,776 - current state:
+2024-12-02 22:13:12,776 - 0.0
+2024-12-02 22:13:12,776 - Warning: Failed to read channel 1 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,776 - Warning: Failed to read channel 2 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,776 - Multi-STS measurement error: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,776 - Error restoring original states: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,776 - 警告: 位置 (3100.0, 599.6) 的 Multi-STS 量測失敗
+2024-12-02 22:13:12,776 -   Multi-STS點 (7/11): (3109.960, 599.600)
+2024-12-02 22:13:12,776 - Sending command: SpectPara(1, 3109.96);
+2024-12-02 22:13:12,781 - Response: b'DDE Cmd 7948\r\n'
+2024-12-02 22:13:12,781 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,786 - Response: b'DDE Cmd 7949\r\n'
+2024-12-02 22:13:12,786 - Sending command: SpectPara(1, 3109.96);
+2024-12-02 22:13:12,792 - Response: b'DDE Cmd 7950\r\n'
+2024-12-02 22:13:12,792 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,799 - Response: b'DDE Cmd 7951\r\n'
+2024-12-02 22:13:12,799 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-02 22:13:12,802 - Response: b'DDE Cmd 7952\r\n0\r\n'
+2024-12-02 22:13:12,802 - current state type:
+2024-12-02 22:13:12,802 - <class 'float'>
+2024-12-02 22:13:12,802 - current state:
+2024-12-02 22:13:12,802 - 0.0
+2024-12-02 22:13:12,802 - Warning: Failed to read channel 1 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,802 - Warning: Failed to read channel 2 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,802 - Multi-STS measurement error: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,802 - Error restoring original states: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,802 - 警告: 位置 (3109.96, 599.6) 的 Multi-STS 量測失敗
+2024-12-02 22:13:12,802 -   Multi-STS點 (8/11): (3119.920, 599.600)
+2024-12-02 22:13:12,803 - Sending command: SpectPara(1, 3119.92);
+2024-12-02 22:13:12,809 - Response: b'DDE Cmd 7953\r\n'
+2024-12-02 22:13:12,809 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,813 - Response: b'DDE Cmd 7954\r\n'
+2024-12-02 22:13:12,813 - Sending command: SpectPara(1, 3119.92);
+2024-12-02 22:13:12,818 - Response: b'DDE Cmd 7955\r\n'
+2024-12-02 22:13:12,819 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,823 - Response: b'DDE Cmd 7956\r\n'
+2024-12-02 22:13:12,823 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-02 22:13:12,826 - Response: b'DDE Cmd 7957\r\n0\r\n'
+2024-12-02 22:13:12,826 - current state type:
+2024-12-02 22:13:12,826 - <class 'float'>
+2024-12-02 22:13:12,826 - current state:
+2024-12-02 22:13:12,826 - 0.0
+2024-12-02 22:13:12,826 - Warning: Failed to read channel 1 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,826 - Warning: Failed to read channel 2 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,826 - Multi-STS measurement error: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,826 - Error restoring original states: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,826 - 警告: 位置 (3119.92, 599.6) 的 Multi-STS 量測失敗
+2024-12-02 22:13:12,827 -   Multi-STS點 (9/11): (3129.880, 599.600)
+2024-12-02 22:13:12,827 - Sending command: SpectPara(1, 3129.88);
+2024-12-02 22:13:12,835 - Response: b'DDE Cmd 7958\r\n'
+2024-12-02 22:13:12,835 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,846 - Response: b'DDE Cmd 7959\r\n'
+2024-12-02 22:13:12,847 - Sending command: SpectPara(1, 3129.88);
+2024-12-02 22:13:12,850 - Response: b'DDE Cmd 7960\r\n'
+2024-12-02 22:13:12,850 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,857 - Response: b'DDE Cmd 7961\r\n'
+2024-12-02 22:13:12,857 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-02 22:13:12,859 - Response: b'DDE Cmd 7962\r\n0\r\n'
+2024-12-02 22:13:12,860 - current state type:
+2024-12-02 22:13:12,860 - <class 'float'>
+2024-12-02 22:13:12,860 - current state:
+2024-12-02 22:13:12,860 - 0.0
+2024-12-02 22:13:12,860 - Warning: Failed to read channel 1 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,860 - Warning: Failed to read channel 2 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,860 - Multi-STS measurement error: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,860 - Error restoring original states: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,860 - 警告: 位置 (3129.88, 599.6) 的 Multi-STS 量測失敗
+2024-12-02 22:13:12,860 -   Multi-STS點 (10/11): (3139.840, 599.600)
+2024-12-02 22:13:12,860 - Sending command: SpectPara(1, 3139.84);
+2024-12-02 22:13:12,866 - Response: b'DDE Cmd 7963\r\n'
+2024-12-02 22:13:12,867 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,872 - Response: b'DDE Cmd 7964\r\n'
+2024-12-02 22:13:12,873 - Sending command: SpectPara(1, 3139.84);
+2024-12-02 22:13:12,879 - Response: b'DDE Cmd 7965\r\n'
+2024-12-02 22:13:12,879 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,886 - Response: b'DDE Cmd 7966\r\n'
+2024-12-02 22:13:12,886 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-02 22:13:12,888 - Response: b'DDE Cmd 7967\r\n0\r\n'
+2024-12-02 22:13:12,888 - current state type:
+2024-12-02 22:13:12,888 - <class 'float'>
+2024-12-02 22:13:12,888 - current state:
+2024-12-02 22:13:12,888 - 0.0
+2024-12-02 22:13:12,889 - Warning: Failed to read channel 1 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,889 - Warning: Failed to read channel 2 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,889 - Multi-STS measurement error: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,889 - Error restoring original states: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,889 - 警告: 位置 (3139.84, 599.6) 的 Multi-STS 量測失敗
+2024-12-02 22:13:12,889 -   Multi-STS點 (11/11): (3149.800, 599.600)
+2024-12-02 22:13:12,889 - Sending command: SpectPara(1, 3149.8);
+2024-12-02 22:13:12,896 - Response: b'DDE Cmd 7968\r\n'
+2024-12-02 22:13:12,897 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,902 - Response: b'DDE Cmd 7969\r\n'
+2024-12-02 22:13:12,903 - Sending command: SpectPara(1, 3149.8);
+2024-12-02 22:13:12,908 - Response: b'DDE Cmd 7970\r\n'
+2024-12-02 22:13:12,908 - Sending command: SpectPara(2, 599.6);
+2024-12-02 22:13:12,913 - Response: b'DDE Cmd 7971\r\n'
+2024-12-02 22:13:12,914 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-02 22:13:12,916 - Response: b'DDE Cmd 7972\r\n0\r\n'
+2024-12-02 22:13:12,916 - current state type:
+2024-12-02 22:13:12,916 - <class 'float'>
+2024-12-02 22:13:12,916 - current state:
+2024-12-02 22:13:12,916 - 0.0
+2024-12-02 22:13:12,916 - Warning: Failed to read channel 1 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,916 - Warning: Failed to read channel 2 state: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,916 - Multi-STS measurement error: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,916 - Error restoring original states: 'SXMController' object has no attribute 'smu'
+2024-12-02 22:13:12,917 - 警告: 位置 (3149.8, 599.6) 的 Multi-STS 量測失敗
+2024-12-02 22:13:12,917 - 
+=== 掃描第 2 段 50 條線 ===
+2024-12-02 22:13:12,917 - 開始掃描 50 條線
+2024-12-02 22:13:12,917 - Sending command: ScanLine(50);
+2024-12-02 22:13:12,923 - Scan started at 2024-12-02 22:13:12.923266
+2024-12-02 22:13:12,923 - Response: 1
+2024-12-02 22:13:12,923 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-02 22:13:14,100 - Response: b'f5\r\n'
+2024-12-02 22:13:14,100 - Scanning: forward line 5
+2024-12-02 22:13:16,430 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-02 22:13:16,766 - Response: b'f6\r\n'
+2024-12-02 22:13:16,766 - Scanning: forward line 6
+2024-12-02 22:13:19,104 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-02 22:13:19,450 - Response: b'f7\r\n'
+2024-12-02 22:13:19,451 - Scanning: forward line 7
+2024-12-02 22:13:21,792 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-02 22:13:22,138 - Response: b'f8\r\n'
+2024-12-02 22:13:22,138 - Scanning: forward line 8
+2024-12-02 22:13:24,479 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-02 22:13:24,815 - Response: b'f9\r\n'
+2024-12-02 22:13:24,815 - Scanning: forward line 9
+2024-12-02 22:13:27,145 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-02 22:13:27,481 - Response: b'f10\r\n'
+2024-12-02 22:13:27,481 - Scanning: forward line 10
+2024-12-02 22:13:29,815 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-02 22:13:30,159 - Response: b'f11\r\n'
+2024-12-02 22:13:30,159 - Scanning: forward line 11
+2024-12-02 22:13:32,499 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-02 22:13:32,841 - Response: b'f12\r\n'
+2024-12-02 22:13:32,842 - Scanning: forward line 12
+2024-12-02 22:13:35,172 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-02 22:13:35,507 - Response: b'f13\r\n'
+2024-12-02 22:13:35,507 - Scanning: forward line 13
+2024-12-02 22:13:37,839 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-02 22:13:38,176 - Response: b'f14\r\n'
+2024-12-02 22:13:38,176 - Scanning: forward line 14
+2024-12-02 22:13:39,505 - 
+Monitoring interrupted by user
+2024-12-02 22:13:39,505 - 掃描等待超時
+2024-12-02 22:13:39,505 - 警告: 掃描第 2 段失敗
+2024-12-02 22:13:39,505 - 
+=== 掃描第 3 段 50 條線 ===
+2024-12-02 22:13:39,505 - 開始掃描 50 條線
+2024-12-02 22:13:39,505 - Sending command: ScanLine(50);
+2024-12-02 22:13:40,842 - Sending command: FeedPara('Enable', 0);

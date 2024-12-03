@@ -1,0 +1,6 @@
+2024-12-02 16:16:37,235 - Sending command: ScanPara('Scan', 1);
+2024-12-02 16:16:38,521 - Response: b'f666\r\n'
+2024-12-02 16:16:38,521 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-02 16:16:39,860 - Response: b'b666\r\n'

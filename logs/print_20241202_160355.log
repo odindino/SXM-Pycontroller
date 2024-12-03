@@ -1,0 +1,53 @@
+2024-12-02 16:03:55,225 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-02 16:03:56,559 - Response: b'f395\r\n'
+2024-12-02 16:03:56,559 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2024-12-02 16:03:57,892 - Response: b'b395\r\n'
+2024-12-02 16:03:57,892 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2024-12-02 16:03:59,238 - Response: b'f396\r\n'
+2024-12-02 16:03:59,238 - Sending command: a := 0.0;
+a := GetScanPara('Range');
+Writeln(a);
+2024-12-02 16:04:00,581 - Response: b'b396\r\n'
+2024-12-02 16:04:00,581 - Sending command: a := 0.0;
+a := GetScanPara('Angle');
+Writeln(a);
+2024-12-02 16:04:01,929 - Response: b'f397\r\n'
+2024-12-02 16:04:01,929 - Sending command: a := 0.0;
+a := GetScanPara('Pixel');
+Writeln(a);
+2024-12-02 16:04:03,270 - Response: b'b397\r\n'
+2024-12-02 16:04:03,270 - Sending command: a := 0.0;
+a := GetScanPara('PixelRatio');
+Writeln(a);
+2024-12-02 16:04:04,618 - Response: b'f398\r\n'
+2024-12-02 16:04:04,618 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-02 16:04:05,959 - Response: b'b398\r\n'
+2024-12-02 16:04:05,960 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-02 16:04:07,307 - Response: b'f399\r\n'
+2024-12-02 16:04:07,307 - Sending command: a := 0.0;
+a := GetScanPara('Range');
+Writeln(a);
+2024-12-02 16:04:08,646 - Response: b'b399\r\n'
+2024-12-02 16:04:08,647 - Sending command: a := 0.0;
+a := GetScanPara('Pixel');
+Writeln(a);
+2024-12-02 16:04:09,995 - Response: b'f400\r\n'
+2024-12-02 16:04:09,995 - Sending command: a := 0.0;
+a := GetScanPara('PixelRatio');
+Writeln(a);
+2024-12-02 16:04:11,337 - Response: b'b400\r\n'
+2024-12-02 16:04:11,337 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-02 16:04:12,685 - Response: b'f401\r\n'
+2024-12-02 16:07:26,967 - 視窗已關閉，正在清理資源...

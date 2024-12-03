@@ -1,0 +1,7 @@
+2024-12-02 16:26:27,476 - Sending command: ScanPara('Scan', 1);
+2024-12-02 16:26:27,478 - Response: b'DDE Cmd 7827\r\n'
+2024-12-02 16:26:27,478 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-02 16:26:27,481 - Response: b'DDE Cmd 7828\r\n1\r\n'
+2024-12-02 16:26:27,481 - Scan on successfully

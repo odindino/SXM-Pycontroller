@@ -1106,3 +1106,666 @@ class LocalCITSControl {
 document.addEventListener('DOMContentLoaded', () => {
     window.localCitsControl = new LocalCITSControl();
 });
+
+// 新增全局狀態對象
+const sxmState = {
+    center_x: null,
+    center_y: null,
+    range: null,
+    angle: null,
+    total_lines: null,
+    last_update: null
+};
+
+// 更新狀態函數
+function updateSxmState(newState) {
+    Object.assign(sxmState, newState);
+    updatePreviewDisplay();
+}
+
+// 更新預覽顯示
+function updatePreviewDisplay() {
+    document.getElementById('previewCenter').textContent = 
+        `(${sxmState.center_x?.toFixed(2) || '-'}, ${sxmState.center_y?.toFixed(2) || '-'})`;
+    document.getElementById('previewRange').textContent = 
+        `${sxmState.range?.toFixed(2) || '-'}`;
+    document.getElementById('previewAngle').textContent = 
+        `${sxmState.angle?.toFixed(2) || '-'}`;
+    
+    // 如果有 canvas，也更新預覽圖
+    if (sxmState.range && sxmState.angle) {
+        updatePreviewCanvas();
+    }
+}
+
+// 獲取 SXM 狀態
+async function getSxmStatus() {
+    try {
+        const button = document.getElementById('getSxmStatus');
+        button.disabled = true;
+        button.textContent = 'Getting Status...';
+        
+        const status = await pywebview.api.get_sxm_status();
+        updateSxmState(status);
+        
+        // 顯示成功消息
+        const statusElement = document.getElementById('localCitsStatus');
+        statusElement.textContent = `Status updated at ${status.timestamp}`;
+        
+    } catch (error) {
+        console.error('Failed to get SXM status:', error);
+        const statusElement = document.getElementById('localCitsStatus');
+        statusElement.textContent = `Error: ${error.message}`;
+    } finally {
+        const button = document.getElementById('getSxmStatus');
+        button.disabled = false;
+        button.textContent = 'Get SXM Status';
+    }
+}
+
+// 更新預覽畫布
+function updatePreviewCanvas() {
+    const canvas = document.getElementById('previewCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    // 清空畫布
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // 計算縮放和旋轉
+    const scale = Math.min(
+        canvas.width / sxmState.range,
+        canvas.height / sxmState.range
+    ) * 0.8; // 留出邊距
+    
+    // 保存當前狀態
+    ctx.save();
+    
+    // 移動到畫布中心
+    ctx.translate(canvas.width/2, canvas.height/2);
+    
+    // 旋轉（角度轉弧度）
+    ctx.rotate(sxmState.angle * Math.PI / 180);
+    
+    // 繪製掃描區域
+    ctx.strokeStyle = '#2c3e50';
+    ctx.lineWidth = 2;
+    const size = sxmState.range * scale;
+    ctx.strokeRect(-size/2, -size/2, size, size);
+    
+    // 繪製中心點
+    ctx.fillStyle = '#e74c3c';
+    ctx.beginPath();
+    ctx.arc(0, 0, 3, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // 恢復狀態
+    ctx.restore();
+}
+
+// 綁定事件監聽器
+document.getElementById('getSxmStatus').addEventListener('click', getSxmStatus);
+
+/**
+ * Auto-Move Measurement Control
+ * 整合了移動腳本控制、Multi-STS設定、CITS控制和Local CITS功能
+ */
+class AutoMoveControl {
+    constructor() {
+        // 初始化所有子控制器
+        this.movementControl = new MovementScriptControl();
+        this.smuVoltageControl = new AutoMoveSmuVoltageControl();
+        this.previewControl = new AutoMovePreviewControl();
+        this.citsControl = new AutoMoveCitsControl();
+        this.localCitsControl = new AutoMoveLocalCitsControl();
+    }
+}
+
+/**
+ * 移動腳本控制器
+ * 處理移動腳本的保存、載入和執行
+ */
+class MovementScriptControl {
+    constructor() {
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        const saveBtn = document.getElementById('saveAutoMoveScript');
+        const scriptSelect = document.getElementById('autoMoveScriptSelect');
+        
+        if (saveBtn) {
+            saveBtn.addEventListener('click', () => this.saveScript());
+        }
+        if (scriptSelect) {
+            scriptSelect.addEventListener('change', (e) => this.loadScript(e.target.value));
+        }
+
+        // 載入現有腳本
+        this.loadScriptList();
+    }
+
+    async saveScript() {
+        try {
+            const name = document.getElementById('moveScriptName').value.trim();
+            const script = document.getElementById('movementScript').value.trim();
+            const distance = parseFloat(document.getElementById('moveDistance').value);
+            const waitTime = parseFloat(document.getElementById('waitTime').value);
+            const repeatCount = parseInt(document.getElementById('repeatCount').value);
+
+            if (!name || !script) {
+                throw new Error('請輸入腳本名稱和移動指令');
+            }
+
+            await pywebview.api.save_auto_move_script({
+                name,
+                script,
+                distance,
+                waitTime,
+                repeatCount
+            });
+
+            await this.loadScriptList();
+            alert('腳本儲存成功');
+
+        } catch (error) {
+            alert('儲存腳本失敗: ' + error.message);
+        }
+    }
+
+    async loadScriptList() {
+        try {
+            const scripts = await pywebview.api.get_auto_move_scripts();
+            const select = document.getElementById('autoMoveScriptSelect');
+            
+            select.innerHTML = '<option value="">Select Script...</option>';
+            
+            Object.entries(scripts).forEach(([name, script]) => {
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = name;
+                select.appendChild(option);
+            });
+        } catch (error) {
+            console.error('載入腳本列表失敗:', error);
+        }
+    }
+
+    async loadScript(scriptName) {
+        if (!scriptName) return;
+
+        try {
+            const script = await pywebview.api.get_auto_move_script(scriptName);
+            
+            document.getElementById('moveScriptName').value = script.name;
+            document.getElementById('movementScript').value = script.script;
+            document.getElementById('moveDistance').value = script.distance;
+            document.getElementById('waitTime').value = script.waitTime;
+            document.getElementById('repeatCount').value = script.repeatCount;
+
+        } catch (error) {
+            alert('載入腳本失敗: ' + error.message);
+        }
+    }
+}
+
+/**
+ * Auto-Move SMU電壓設定控制器
+ */
+class AutoMoveSmuVoltageControl {
+    constructor() {
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        document.getElementById('addAutoMoveStsRow')?.addEventListener('click', 
+            () => this.addSettingRow());
+
+        document.getElementById('autoMoveStsRows')?.addEventListener('click', (e) => {
+            if (e.target.classList.contains('remove-row')) {
+                this.removeSettingRow(e.target.closest('tr'));
+            }
+        });
+
+        document.getElementById('saveAutoMoveStsScript')?.addEventListener('click',
+            () => this.saveScript());
+
+        document.getElementById('autoMoveStsScriptSelect')?.addEventListener('change',
+            (e) => this.loadScript(e.target.value));
+    }
+
+    addSettingRow() {
+        const tbody = document.getElementById('autoMoveStsRows');
+        const row = document.createElement('tr');
+        row.className = 'sts-row';
+        row.innerHTML = `
+            <td><input type="number" class="vds-input" value="0" step="0.1"></td>
+            <td><input type="number" class="vg-input" value="0" step="0.1"></td>
+            <td><button class="remove-row">×</button></td>
+        `;
+        tbody.appendChild(row);
+    }
+
+    removeSettingRow(row) {
+        const rows = document.querySelectorAll('#autoMoveStsRows .sts-row');
+        if (rows.length > 1) {
+            row.remove();
+        }
+    }
+
+    collectSettings() {
+        const rows = document.querySelectorAll('#autoMoveStsRows .sts-row');
+        const vds_list = [];
+        const vg_list = [];
+
+        rows.forEach(row => {
+            vds_list.push(parseFloat(row.querySelector('.vds-input').value));
+            vg_list.push(parseFloat(row.querySelector('.vg-input').value));
+        });
+
+        return { vds_list, vg_list };
+    }
+
+    async saveScript() {
+        try {
+            const name = document.getElementById('autoMoveStsScriptName').value.trim();
+            if (!name) throw new Error('請輸入腳本名稱');
+
+            const settings = this.collectSettings();
+            await pywebview.api.save_sts_script(name, settings.vds_list, settings.vg_list);
+            
+            await this.loadScriptList();
+            alert('腳本儲存成功');
+
+        } catch (error) {
+            alert('儲存腳本失敗: ' + error.message);
+        }
+    }
+
+    async loadScriptList() {
+        try {
+            const scripts = await pywebview.api.get_sts_scripts();
+            const select = document.getElementById('autoMoveStsScriptSelect');
+            
+            select.innerHTML = '<option value="">Select Script...</option>';
+            
+            Object.entries(scripts).forEach(([name, script]) => {
+                const option = document.createElement('option');
+                option.value = name;
+                option.textContent = name;
+                select.appendChild(option);
+            });
+
+        } catch (error) {
+            console.error('載入腳本列表失敗:', error);
+        }
+    }
+}
+
+/**
+ * Auto-Move預覽控制器
+ */
+class AutoMovePreviewControl {
+    constructor() {
+        this.canvas = document.getElementById('previewCanvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.setupCanvas();
+        this.bindEvents();
+    }
+
+    setupCanvas() {
+        this.resizeCanvas();
+        window.addEventListener('resize', () => this.resizeCanvas());
+    }
+
+    resizeCanvas() {
+        if (!this.canvas) return;
+
+        const container = this.canvas.parentElement;
+        const dpr = window.devicePixelRatio || 1;
+        
+        this.canvas.width = container.offsetWidth * dpr;
+        this.canvas.height = container.offsetHeight * dpr;
+        
+        this.ctx.scale(dpr, dpr);
+        this.canvas.style.width = `${container.offsetWidth}px`;
+        this.canvas.style.height = `${container.offsetHeight}px`;
+    }
+
+    bindEvents() {
+        document.getElementById('getSxmStatus')?.addEventListener('click',
+            () => this.updateSxmStatus());
+        document.getElementById('previewAutoMoveAreas')?.addEventListener('click',
+            () => this.drawPreview());
+        document.getElementById('startAutoMoveScan')?.addEventListener('click',
+            () => this.startScan());
+    }
+
+    async updateSxmStatus() {
+        try {
+            const status = await pywebview.api.get_sxm_status();
+            this.updateStatusDisplay(status);
+            return status;
+        } catch (error) {
+            console.error('獲取SXM狀態失敗:', error);
+            return null;
+        }
+    }
+
+    updateStatusDisplay(status) {
+        if (!status) return;
+
+        document.getElementById('previewCenter').textContent = 
+            `(${status.center_x?.toFixed(2) || '-'}, ${status.center_y?.toFixed(2) || '-'})`;
+        document.getElementById('previewRange').textContent = 
+            `${status.range?.toFixed(2) || '-'} nm`;
+        document.getElementById('previewAngle').textContent = 
+            `${status.angle?.toFixed(2) || '-'}°`;
+    }
+
+    drawPreview() {
+        // 清除畫布
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        const status = this.updateSxmStatus();
+        if (!status) return;
+
+        // 繪製掃描範圍和移動路徑
+        // 實際繪製邏輯將在後續實作...
+    }
+
+    async startScan() {
+        try {
+            const scriptName = document.getElementById('autoMoveScriptSelect').value;
+            if (!scriptName) throw new Error('請選擇移動腳本');
+
+            await pywebview.api.auto_move_scan_area(scriptName);
+            
+        } catch (error) {
+            alert('啟動掃描失敗: ' + error.message);
+        }
+    }
+}
+
+/**
+ * Auto-Move CITS控制器
+ */
+class AutoMoveCitsControl {
+    constructor() {
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        document.getElementById('startAutoMoveSstsCits')?.addEventListener('click',
+            () => this.startSstsCits());
+        document.getElementById('startAutoMoveMstsCits')?.addEventListener('click',
+            () => this.startMstsCits());
+    }
+
+    async startSstsCits() {
+        try {
+            const pointsX = parseInt(document.getElementById('autoMoveCitsPointsX').value);
+            const pointsY = parseInt(document.getElementById('autoMoveCitsPointsY').value);
+            const direction = parseInt(document.getElementById('autoMoveCitsDirection').value);
+
+            await pywebview.api.auto_move_ssts_cits(pointsX, pointsY, direction);
+            
+        } catch (error) {
+            alert('啟動SSTS CITS失敗: ' + error.message);
+        }
+    }
+
+    async startMstsCits() {
+        try {
+            const pointsX = parseInt(document.getElementById('autoMoveCitsPointsX').value);
+            const pointsY = parseInt(document.getElementById('autoMoveCitsPointsY').value);
+            const direction = parseInt(document.getElementById('autoMoveCitsDirection').value);
+            const scriptName = document.getElementById('autoMoveStsScriptSelect').value;
+
+            if (!scriptName) throw new Error('請選擇Multi-STS腳本');
+
+            await pywebview.api.auto_move_msts_cits(
+                pointsX, pointsY, scriptName, direction);
+            
+        } catch (error) {
+            alert('啟動Multi-STS CITS失敗: ' + error.message);
+        }
+    }
+}
+
+/**
+ * Auto-Move Local CITS控制器
+ */
+class AutoMoveLocalCitsControl {
+    constructor() {
+        this.canvas = document.getElementById('localPreviewCanvas');
+        this.ctx = this.canvas?.getContext('2d');
+        this.setupCanvas();
+        this.bindEvents();
+    }
+
+    setupCanvas() {
+        if (!this.canvas) return;
+        this.resizeCanvas();
+        window.addEventListener('resize', () => this.resizeCanvas());
+    }
+
+    resizeCanvas() {
+        if (!this.canvas) return;
+
+        const container = this.canvas.parentElement;
+        const dpr = window.devicePixelRatio || 1;
+        
+        this.canvas.width = container.offsetWidth * dpr;
+        this.canvas.height = container.offsetHeight * dpr;
+        
+        this.ctx.scale(dpr, dpr);
+        this.canvas.style.width = `${container.offsetWidth}px`;
+        this.canvas.style.height = `${container.offsetHeight}px`;
+    }
+
+    bindEvents() {
+        document.getElementById('addAutoMoveLocalArea')?.addEventListener('click',
+            () => this.addLocalArea());
+
+        document.getElementById('autoMoveLocalAreasContainer')?.addEventListener('click', (e) => {
+            if (e.target.classList.contains('remove-area')) {
+                this.removeLocalArea(e.target.closest('.local-area-container'));
+            }
+        });
+
+        document.getElementById('previewLocalCits')?.addEventListener('click',
+            () => this.previewLocalCits());
+
+        document.getElementById('startAutoMoveLocalSstsCits')?.addEventListener('click',
+            () => this.startLocalSstsCits());
+
+        document.getElementById('startAutoMoveLocalMstsCits')?.addEventListener('click',
+            () => this.startLocalMstsCits());
+    }
+
+    addLocalArea() {
+        const container = document.getElementById('autoMoveLocalAreasContainer');
+        const areaTemplate = this.createLocalAreaTemplate();
+        container.appendChild(areaTemplate);
+    }
+
+    removeLocalArea(areaElement) {
+        const areas = document.querySelectorAll('.local-area-container');
+        if (areas.length > 1) {
+            areaElement.remove();
+        }
+    }
+
+    createLocalAreaTemplate() {
+        const div = document.createElement('div');
+        div.className = 'local-area-container';
+        div.innerHTML = `
+            <div class="area-header">
+                <span>Area Settings</span>
+                <button class="remove-area danger-btn">Remove Area</button>
+            </div>
+    
+            <div class="coordinate-settings">
+                <div class="input-field">
+                    <label>X Deviation (nm):</label>
+                    <input type="number" class="x-dev" value="0" step="0.1">
+                </div>
+                <div class="input-field">
+                    <label>Y Deviation (nm):</label>
+                    <input type="number" class="y-dev" value="0" step="0.1">
+                </div>
+                <div class="input-field">
+                    <label>Start Point Direction:</label>
+                    <select class="startpoint-direction">
+                        <option value="1">Up</option>
+                        <option value="-1">Down</option>
+                    </select>
+                </div>
+            </div>
+    
+            <div class="grid-settings">
+                <div class="input-field">
+                    <label>Step Size X (nm):</label>
+                    <input type="number" class="dx" value="20" step="0.1">
+                </div>
+                <div class="input-field">
+                    <label>Step Size Y (nm):</label>
+                    <input type="number" class="dy" value="20" step="0.1">
+                </div>
+                <div class="input-field">
+                    <label>X Points:</label>
+                    <input type="number" class="nx" value="5" min="1" max="512">
+                </div>
+                <div class="input-field">
+                    <label>Y Points:</label>
+                    <input type="number" class="ny" value="3" min="1" max="512">
+                </div>
+            </div>
+        `;
+        return div;
+    }
+
+    collectLocalAreas() {
+        const areas = [];
+        document.querySelectorAll('.local-area-container').forEach(container => {
+            areas.push({
+                x_dev: parseFloat(container.querySelector('.x-dev').value),
+                y_dev: parseFloat(container.querySelector('.y-dev').value),
+                nx: parseInt(container.querySelector('.nx').value),
+                ny: parseInt(container.querySelector('.ny').value),
+                dx: parseFloat(container.querySelector('.dx').value),
+                dy: parseFloat(container.querySelector('.dy').value),
+                startpoint_direction: parseInt(container.querySelector('.startpoint-direction').value)
+            });
+        });
+        return areas;
+    }
+
+    async previewLocalCits() {
+        try {
+            const areas = this.collectLocalAreas();
+            const status = await pywebview.api.get_sxm_status();
+            
+            // 更新預覽...
+            this.drawLocalPreview(status, areas);
+            
+        } catch (error) {
+            console.error('預覽Local CITS失敗:', error);
+        }
+    }
+
+    drawLocalPreview(status, areas) {
+        if (!this.ctx) return;
+        
+        // 清除畫布
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        // 繪製預覽圖
+        // 實際繪製邏輯將在後續實作...
+    }
+
+    async startLocalSstsCits() {
+        try {
+            const areas = this.collectLocalAreas();
+            const direction = parseInt(document.getElementById('autoMoveLocalCitsGlobalDirection').value);
+            
+            this.updateStatus('Starting Auto-Move Local SSTS CITS...');
+            
+            const success = await pywebview.api.auto_move_local_ssts_cits(
+                areas, direction
+            );
+            
+            if (success) {
+                this.updateStatus('Auto-Move Local SSTS CITS completed successfully');
+                this.updateLastTime();
+            } else {
+                throw new Error('測量執行失敗');
+            }
+            
+        } catch (error) {
+            this.updateStatus(`Error: ${error.message}`);
+            console.error('Local SSTS CITS失敗:', error);
+        }
+    }
+
+    async startLocalMstsCits() {
+        try {
+            const areas = this.collectLocalAreas();
+            const direction = parseInt(document.getElementById('autoMoveLocalCitsGlobalDirection').value);
+            const scriptName = document.getElementById('autoMoveStsScriptSelect').value;
+            
+            if (!scriptName) {
+                throw new Error('請選擇Multi-STS腳本');
+            }
+            
+            this.updateStatus('Starting Auto-Move Local Multi-STS CITS...');
+            
+            const success = await pywebview.api.auto_move_local_msts_cits(
+                areas, scriptName, direction
+            );
+            
+            if (success) {
+                this.updateStatus('Auto-Move Local Multi-STS CITS completed successfully');
+                this.updateLastTime();
+            } else {
+                throw new Error('測量執行失敗');
+            }
+            
+        } catch (error) {
+            this.updateStatus(`Error: ${error.message}`);
+            console.error('Local Multi-STS CITS失敗:', error);
+        }
+    }
+
+    updateStatus(message) {
+        const statusElement = document.getElementById('localCitsStatus');
+        if (statusElement) {
+            statusElement.textContent = message;
+        }
+    }
+
+    updateProgress(percent) {
+        const progressElement = document.getElementById('localCitsProgress');
+        if (progressElement) {
+            progressElement.textContent = `${Math.round(percent)}%`;
+        }
+    }
+
+    updateLastTime() {
+        const timeElement = document.getElementById('localCitsLastTime');
+        if (timeElement) {
+            timeElement.textContent = new Date().toLocaleTimeString();
+        }
+    }
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        console.log('Initializing Auto-Move Control...');
+        window.autoMoveControl = new AutoMoveControl();
+        console.log('Auto-Move Control initialized successfully');
+    } catch (error) {
+        console.error('Failed to initialize Auto-Move Control:', error);
+    }
+});
