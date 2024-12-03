@@ -286,17 +286,72 @@ class AutoMovePreviewer:
         # 顯示圖形
         fig.show()
 
-# 測試 AutoMovePreviewer 的範例使用方法
-if __name__ == "__main__":
-    # 使用範例參數建立 AutoMovePreviewer 實例
-    movement_script = "UUUUUUUUU"  # 移動腳本
-    distance = 200  # 每次移動距離（單位：nm）
-    center_x = 2100  # 起始位置 X
-    center_y = 500  # 起始位置 Y
-    angle = 0  # 移動的角度（度）
+    def get_plot_data(self) -> dict:
+        """
+        獲取 Plotly 圖表資料
+        
+        Returns
+        -------
+        dict
+            包含 data 和 layout 的字典
+        """
+        try:
+            # 計算移動軌跡座標
+            positions = self.calculate_positions()
+            
+            # 取得 x, y 座標列表
+            x_coords, y_coords = zip(*positions)
+            
+            # 建立路徑追蹤線
+            trace_path = go.Scatter(
+                x=x_coords,
+                y=y_coords,
+                mode='lines+markers',
+                line=dict(color='blue', width=2),
+                marker=dict(size=8, color='red'),
+                name='Movement Path'
+            )
+            
+            # 標記起點和終點
+            trace_endpoints = go.Scatter(
+                x=[x_coords[0], x_coords[-1]],
+                y=[y_coords[0], y_coords[-1]],
+                mode='markers+text',
+                marker=dict(size=12, color=['green', 'red']),
+                text=['Start', 'End'],
+                textposition='top center',
+                name='Start/End Points'
+            )
+            
+            # 設定布局
+            layout = go.Layout(
+                title='Auto Movement Path Preview',
+                xaxis_title='X Position (nm)',
+                yaxis_title='Y Position (nm)',
+                showlegend=True,
+                template="plotly_white"
+            )
+            
+            return {
+                'data': [trace_path, trace_endpoints],
+                'layout': layout
+            }
+            
+        except Exception as e:
+            print(f"Error generating plot data: {str(e)}")
+            raise
 
-    previewer = AutoMovePreviewer(movement_script, distance, center_x, center_y, angle, debug_mode=True)
-    previewer.plot_movements()
+# # 測試 AutoMovePreviewer 的範例使用方法
+# if __name__ == "__main__":
+#     # 使用範例參數建立 AutoMovePreviewer 實例
+#     movement_script = "UUUUUUUUU"  # 移動腳本
+#     distance = 200  # 每次移動距離（單位：nm）
+#     center_x = 2100  # 起始位置 X
+#     center_y = 500  # 起始位置 Y
+#     angle = 0  # 移動的角度（度）
+
+#     previewer = AutoMovePreviewer(movement_script, distance, center_x, center_y, angle, debug_mode=True)
+#     previewer.plot_movements()
 
 
 
