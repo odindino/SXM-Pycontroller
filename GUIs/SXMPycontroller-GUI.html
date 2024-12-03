@@ -434,30 +434,29 @@
             </div>
         
             <!-- Preview and Status Panel -->
-            <div class="am-status-panel panel">
-                <div class="panel-header">
-                    <h3>Preview</h3>
-                    <div class="preview-buttons">
-                        <button id="amGetStatus" class="secondary-btn">Get SXM Status</button>
-                        <button id="amPreviewLocalCits" class="primary-btn">Preview Local CITS</button>
+                <div class="am-status-panel panel">
+                    <div class="panel-header">
+                        <h3>Local CITS Preview</h3>
+                        <div class="preview-buttons">
+                            <button id="getLocalCitsStatusBtn" class="primary-btn">Get SXM Status</button>
+                            <button id="previewLocalCitsBtn" class="secondary-btn">Preview Local CITS</button>
+                        </div>
                     </div>
-                </div>
                 
-                <div class="preview-info">
-                    <div>Scan Center: <span id="amPreviewCenter">-</span></div>
-                    <div>Scan Range: <span id="amPreviewRange">-</span> nm</div>
-                    <div>Scan Angle: <span id="amPreviewAngle">-</span>°</div>
-                    <div>Total Points: <span id="amPreviewTotalPoints">-</span></div>
-                </div>
+                    <div class="preview-info">
+                        <div>Scan Center: <span id="localPreviewCenter">-</span></div>
+                        <div>Scan Range: <span id="localPreviewRange">-</span> nm</div>
+                        <div>Scan Angle: <span id="localPreviewAngle">-</span>°</div>
+                        <div>Total Points: <span id="localPreviewTotalPoints">-</span></div>
+                    </div>
                 
-                <div id="amLocalCitsPreview" class="preview-canvas">
-                    <!-- Canvas will be added here -->
-                </div>
+                    <div id="amLocalCitsPreview" class="preview-canvas"></div>
                 
-                <div class="status-display">
-                    <div>Status: <span id="amLocalCitsStatus">Idle</span></div>
-                    <div>Progress: <span id="amLocalCitsProgress">0%</span></div>
-                    <div>Last CITS: <span id="amLocalCitsLastTime">Never</span></div>
+                    <div class="status-display">
+                        <div>Status: <span id="amLocalCitsStatus">Idle</span></div>
+                        <div>Progress: <span id="amLocalCitsProgress">0%</span></div>
+                        <div>Last CITS: <span id="amLocalCitsLastTime">Never</span></div>
+                    </div>
                 </div>
                 
                 <div class="local-cits-buttons">

@@ -1207,6 +1207,21 @@ class SMUControlAPI:
         except Exception as e:
             print(f"Auto move preview error: {str(e)}")
             raise Exception(f"Failed to generate preview: {str(e)}")
+        
+    def preview_local_cits(self, params: dict) -> dict:
+        """
+        生成 Local CITS 預覽圖資料
+        """
+        try:
+            from utils.SXMPyPlot import LocalCITSPreviewer
+            
+            previewer = LocalCITSPreviewer()
+            plot_data = previewer.get_serializable_plot_data(params)
+            return plot_data
+            
+        except Exception as e:
+            print(f"Local CITS preview error: {str(e)}")
+            raise Exception(f"Failed to generate Local CITS preview: {str(e)}")
 
     # ========== CITS functions END ========== #
 

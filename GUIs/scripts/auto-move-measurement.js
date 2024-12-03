@@ -1076,13 +1076,78 @@ const AutoMoveMeasurementModule = {
         });
     },
 
-    updatePreview() {
-        // 在畫布上繪製預覽
-        const ctx = this.state.previewContext;
-        ctx.clearRect(0, 0, this.elements.previewCanvas.width, this.elements.previewCanvas.height);
-        
-        // 繪製移動路徑和測量點位的預覽...
-        // (根據實際需求實作預覽繪製邏輯)
+    async previewLocalCits() {
+        try {
+            // 收集所有區域的參數
+            const localAreas = this.collectLocalAreasData();
+            if (!localAreas.length) {
+                this.updateStatus('No local areas defined');
+                return;
+            }
+    
+            // 取得 SXM 狀態
+            const sxmStatus = await pywebview.api.get_sxm_status();
+            
+            // 準備預覽參數
+            const params = {
+                scan_center_x: sxmStatus.center_x,
+                scan_center_y: sxmStatus.center_y,
+                scan_range: sxmStatus.scan_range,
+                scan_angle: sxmStatus.angle,
+                total_lines: sxmStatus.total_lines,
+                scan_direction: parseInt(this.elements.globalDirection.value),
+                aspect_ratio: sxmStatus.aspect_ratio,
+                local_areas: localAreas
+            };
+    
+            // 生成預覽圖
+            const plotData = await pywebview.api.preview_local_cits(params);
+    
+            // 設定配置選項
+            const config = {
+                responsive: true,
+                displayModeBar: true,
+                displaylogo: false,
+                modeBarButtonsToRemove: ['lasso2d', 'select2d']
+            };
+    
+            // 將圖表放入預覽區域
+            Plotly.newPlot(
+                this.elements.localPreviewCanvas,
+                plotData.data,
+                plotData.layout,
+                config
+            );
+    
+            // 更新預覽資訊
+            this.updateLocalPreviewInfo(sxmStatus);
+            this.updateStatus('Local CITS preview generated successfully');
+    
+        } catch (error) {
+            this.updateStatus(`Local CITS preview error: ${error.message}`);
+            console.error('Local CITS preview error:', error);
+        }
+    },
+    
+    updateLocalPreviewInfo(status) {
+        document.getElementById('localPreviewCenter').textContent = 
+            `(${status.center_x.toFixed(2)}, ${status.center_y.toFixed(2)})`;
+        document.getElementById('localPreviewRange').textContent = 
+            status.range.toFixed(2);
+        document.getElementById('localPreviewAngle').textContent = 
+            status.angle.toFixed(2);
+        document.getElementById('localPreviewTotalPoints').textContent = 
+            this.calculateTotalPoints();
+    },
+    
+    calculateTotalPoints() {
+        let total = 0;
+        document.querySelectorAll('.local-area-container').forEach(container => {
+            const nx = parseInt(container.querySelector('.nx').value);
+            const ny = parseInt(container.querySelector('.ny').value);
+            total += nx * ny;
+        });
+        return total;
     }
 };
 

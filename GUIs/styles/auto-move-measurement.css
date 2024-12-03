@@ -286,6 +286,34 @@
     cursor: pointer;
 }
 
+.am-status-panel {
+    margin-top: 24px;
+    padding: 24px;
+    background: var(--panel-bg);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.preview-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin: 20px 0;
+    font-family: monospace;
+}
+
+.preview-info span {
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
 /* Responsive Design */
 @media screen and (max-width: 1200px) {
     .am-top-controls {

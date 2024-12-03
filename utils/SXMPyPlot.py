@@ -9,6 +9,172 @@ class LocalCITSPreviewer:
     Local CITS Plotting Utility using Plotly for Interactive Visualizations.
     """
 
+    def get_serializable_plot_data(self, params: dict) -> dict:
+        """
+        獲取可序列化的 Local CITS 預覽圖表資料
+        
+        Parameters
+        ----------
+        params : dict
+            圖表繪製所需的參數，包含：
+            - scan_center_x, scan_center_y: 掃描中心座標
+            - scan_range: 掃描範圍
+            - scan_angle: 掃描角度
+            - total_lines: 總掃描線數
+            - scan_direction: 掃描方向
+            - aspect_ratio: 長寬比
+            - local_areas: 局部區域參數列表
+        
+        Returns
+        -------
+        dict
+            包含 data 和 layout 的可序列化字典
+        """
+        try:
+            # 計算座標和掃描線分布
+            coordinates, _, _, (slow_axis, fast_axis) = LocalCITSCalculator.combi_local_cits_coordinates(
+                params['scan_center_x'],
+                params['scan_center_y'],
+                params['scan_range'],
+                params['scan_angle'],
+                params['total_lines'],
+                params['scan_direction'],
+                params['local_areas']
+            )
+
+            scanline_info = LocalCITSCalculator.calculate_local_scanline_distribution(
+                coordinates,
+                params['scan_center_x'],
+                params['scan_center_y'],
+                params['scan_angle'],
+                params['scan_range'],
+                params['scan_direction'],
+                params['total_lines']
+            )
+
+            data = []
+            
+            # 添加掃描區域
+            half_slow_range = params['scan_range'] / 2
+            half_fast_range = half_slow_range * params['aspect_ratio']
+            angle_rad = np.radians(params['scan_angle'])
+            corners = np.array([
+                [-half_fast_range, -half_slow_range],
+                [half_fast_range, -half_slow_range],
+                [half_fast_range, half_slow_range],
+                [-half_fast_range, half_slow_range],
+                [-half_fast_range, -half_slow_range]
+            ])
+            rotation_matrix = np.array([
+                [np.cos(angle_rad), -np.sin(angle_rad)],
+                [np.sin(angle_rad), np.cos(angle_rad)]
+            ])
+            rotated_corners = np.dot(corners, rotation_matrix.T) + \
+                            np.array([params['scan_center_x'], params['scan_center_y']])
+            
+            # 添加掃描區域邊界
+            data.append({
+                'type': 'scatter',
+                'x': rotated_corners[:, 0].tolist(),
+                'y': rotated_corners[:, 1].tolist(),
+                'mode': 'lines',
+                'line': {'dash': 'dash', 'color': 'black'},
+                'name': 'Scan Area'
+            })
+
+            # 添加掃描線
+            scanline_distribution, _ = scanline_info
+            total_lines = sum(scanline_distribution)
+            line_spacing = (2 * half_slow_range) / total_lines
+            current_y = -half_slow_range if params['scan_direction'] == 1 else half_slow_range
+            colors = cm.jet(np.linspace(0, 1, total_lines))
+            
+            current_y_offset = current_y
+            for idx, step_count in enumerate(scanline_distribution):
+                current_y_offset += (step_count * line_spacing) * params['scan_direction']
+                
+                start_x = -half_fast_range
+                end_x = half_fast_range
+                
+                # 計算旋轉後的座標
+                start_rotated_x = start_x * np.cos(angle_rad) - current_y_offset * np.sin(angle_rad) + params['scan_center_x']
+                start_rotated_y = start_x * np.sin(angle_rad) + current_y_offset * np.cos(angle_rad) + params['scan_center_y']
+                end_rotated_x = end_x * np.cos(angle_rad) - current_y_offset * np.sin(angle_rad) + params['scan_center_x']
+                end_rotated_y = end_x * np.sin(angle_rad) + current_y_offset * np.cos(angle_rad) + params['scan_center_y']
+                
+                data.append({
+                    'type': 'scatter',
+                    'x': [start_rotated_x, end_rotated_x],
+                    'y': [start_rotated_y, end_rotated_y],
+                    'mode': 'lines',
+                    'line': {
+                        'color': f'rgba({colors[idx][0]*255}, {colors[idx][1]*255}, {colors[idx][2]*255}, 0.8)',
+                        'width': 1
+                    },
+                    'name': f'Scan Line {step_count}'
+                })
+
+            # 添加量測點
+            data.append({
+                'type': 'scatter',
+                'x': coordinates[:, 0].tolist(),
+                'y': coordinates[:, 1].tolist(),
+                'mode': 'markers',
+                'marker': {
+                    'size': 4,
+                    'color': list(range(len(coordinates))),
+                    'colorscale': 'Viridis'
+                },
+                'name': 'Measurement Points'
+            })
+
+            # 添加起點和終點標記
+            data.append({
+                'type': 'scatter',
+                'x': [coordinates[0, 0], coordinates[-1, 0]],
+                'y': [coordinates[0, 1], coordinates[-1, 1]],
+                'mode': 'markers+text',
+                'marker': {
+                    'size': 10,
+                    'color': ['black', 'red']
+                },
+                'text': ['First Point', 'Last Point'],
+                'textposition': 'top center',
+                'name': 'Start/End Points'
+            })
+
+            # 建立布局
+            layout = {
+                'title': 'Local CITS Measurement Points and Scanning Sequence',
+                'xaxis': {
+                    'title': 'X Position (nm)',
+                    'scaleanchor': 'y',
+                    'scaleratio': 1,
+                    'range': [
+                        params['scan_center_x'] - params['scan_range'],
+                        params['scan_center_x'] + params['scan_range']
+                    ]
+                },
+                'yaxis': {
+                    'title': 'Y Position (nm)',
+                    'range': [
+                        params['scan_center_y'] - params['scan_range'],
+                        params['scan_center_y'] + params['scan_range']
+                    ]
+                },
+                'showlegend': True,
+                'template': 'plotly_white',
+                'height': 600,
+                'margin': {'l': 60, 'r': 30, 't': 50, 'b': 60}
+            }
+
+            return {'data': data, 'layout': layout}
+            
+        except Exception as e:
+            print(f"Error generating Local CITS plot data: {str(e)}")
+            raise
+    
+
     @staticmethod
     def visualize_cits_points(params: dict) -> go.Figure:
         """
