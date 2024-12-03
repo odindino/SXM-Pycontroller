@@ -160,10 +160,12 @@
 
 .primary-btn {
     background-color: var(--primary-color);
+    color: white;
 }
 
 .secondary-btn {
     background-color: var(--secondary-color);
+    color: white;
 }
 
 /* Status Display */
