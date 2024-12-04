@@ -1265,11 +1265,24 @@ const AutoMoveMeasurementModule = {
                 responsive: true,
                 displayModeBar: true,
                 displaylogo: false,
-                modeBarButtonsToRemove: ['lasso2d', 'select2d']
+                modeBarButtonsToRemove: ['lasso2d', 'select2d'],
+                hovermode: 'closest',
+                hoverlabel: {
+                    bgcolor: "#FFF",
+                    font: { size: 14 },
+                    bordercolor: "#888"
+                }
+            };
+
+            // 擴充layout設定
+            const layout = {
+                ...plotData.layout,
+                // 確保hover標籤完整顯示
+                margin: { l: 60, r: 30, t: 50, b: 60, pad: 4 }
             };
             
             // 更新預覽圖
-            Plotly.newPlot(this.elements.localPreviewCanvas, plotData.data, plotData.layout, config);
+            Plotly.newPlot(this.elements.localPreviewCanvas, plotData.data, layout, config);
             
             this.updateStatus('Local CITS preview generated successfully');
             

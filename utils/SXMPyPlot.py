@@ -87,7 +87,7 @@ class LocalCITSPreviewer:
             total_lines = sum(scanline_distribution)
             line_spacing = (2 * half_slow_range) / total_lines
             current_y = -half_slow_range if params['scan_direction'] == 1 else half_slow_range
-            colors = cm.jet(np.linspace(0, 1, total_lines))
+            colors = cm.viridis(np.linspace(0, 1, total_lines))
             
             current_y_offset = current_y
             for idx, step_count in enumerate(scanline_distribution):
@@ -111,11 +111,38 @@ class LocalCITSPreviewer:
                         'color': f'rgba({colors[idx][0]*255}, {colors[idx][1]*255}, {colors[idx][2]*255}, 0.8)',
                         'width': 1
                     },
-                    'name': f'Scan Line {step_count}'
+                    'name': f'Scan Line {step_count}',
+                    'text': f'Scan Line {step_count}',
+                    'hoverinfo': 'text'
                 })
 
             # 添加量測點
-            data.append({
+            # data.append({
+            #     'type': 'scatter',
+            #     'x': coordinates[:, 0].tolist(),
+            #     'y': coordinates[:, 1].tolist(),
+            #     'mode': 'markers',
+            #     'marker': {
+            #         'size': 4,
+            #         'color': list(range(len(coordinates))),
+            #         'colorscale': 'Viridis'
+            #     },
+            #     'text': [f'Point {i}<br>X: {x:.2f} nm<br>Y: {y:.2f} nm' 
+            #         for i, (x, y) in enumerate(coordinates)],
+            #     'hoverinfo': 'text',
+            #     'name': 'Measurement Points'
+            # })
+
+            # 添加量測點
+            hover_texts = []
+            for i, (x, y) in enumerate(coordinates):
+                hover_texts.append(
+                    f'Point {i+1}<br>'
+                    f'X: {x:.2f} nm<br>'
+                    f'Y: {y:.2f} nm'
+                )
+
+            measurement_points_trace = {
                 'type': 'scatter',
                 'x': coordinates[:, 0].tolist(),
                 'y': coordinates[:, 1].tolist(),
@@ -123,10 +150,20 @@ class LocalCITSPreviewer:
                 'marker': {
                     'size': 4,
                     'color': list(range(len(coordinates))),
-                    'colorscale': 'Viridis'
+                    'colorscale': 'Viridis',
+                },
+                # 為每個點添加 hover 文字
+                'text': [f'Point {i+1}<br>X: {x:.2f} nm<br>Y: {y:.2f} nm' 
+                        for i, (x, y) in enumerate(coordinates)],
+                'hoverinfo': 'text',  # 只顯示自定義的文字
+                'hoverlabel': {
+                    'bgcolor': 'white',
+                    'bordercolor': '#888',
+                    'font': {'size': 12}
                 },
                 'name': 'Measurement Points'
-            })
+            }
+            data.append(measurement_points_trace)
 
             # 添加起點和終點標記
             data.append({
@@ -140,6 +177,11 @@ class LocalCITSPreviewer:
                 },
                 'text': ['First Point', 'Last Point'],
                 'textposition': 'top center',
+                'hovertext': [
+                    f'Start Point<br>X: {coordinates[0, 0]:.2f} nm<br>Y: {coordinates[0, 1]:.2f} nm',
+                    f'End Point<br>X: {coordinates[-1, 0]:.2f} nm<br>Y: {coordinates[-1, 1]:.2f} nm'
+                ],
+                'hoverinfo': 'text',
                 'name': 'Start/End Points'
             })
 
@@ -314,11 +356,23 @@ class LocalCITSPreviewer:
     @staticmethod
     def _add_measurement_points(fig, coordinates: np.ndarray):
         """Add measurement points to the figure."""
+
+        # 建立hover文字
+        hover_texts = []
+        for i, (x, y) in enumerate(coordinates):
+            hover_texts.append(
+                f'Point {i+1}<br>'
+                f'X: {x:.2f} nm<br>'
+                f'Y: {y:.2f} nm'
+            )
+
         fig.add_trace(go.Scatter(
             x=coordinates[:, 0],
             y=coordinates[:, 1],
             mode='markers',
             marker=dict(size=4, color=np.arange(len(coordinates)), colorscale='Viridis'),
+            text=hover_texts,
+            hoverinfo='text',
             name='Measurement Points'
         ))
 
@@ -330,6 +384,11 @@ class LocalCITSPreviewer:
             marker=dict(size=10, color=['black', 'red']),
             text=['First Point', 'Last Point'],
             textposition='top center',
+            hovertext=[
+                f'Start Point<br>X: {coordinates[0, 0]:.2f} nm<br>Y: {coordinates[0, 1]:.2f} nm',
+                f'End Point<br>X: {coordinates[-1, 0]:.2f} nm<br>Y: {coordinates[-1, 1]:.2f} nm'
+            ],
+            hoverinfo='text',
             name='Start/End Points'
         ))
 
@@ -434,7 +493,15 @@ class AutoMovePreviewer:
                 'y': list(y_coords),
                 'mode': 'lines+markers',
                 'line': {'color': 'blue', 'width': 2},
-                'marker': {'size': 8, 'color': 'red'},
+                'marker': {
+                    'size': 8,
+                    'color': list(range(len(positions))),  # 使用點的序號作為顏色
+                    'colorscale': 'Viridis'
+                    
+                },
+                'text': [f'Point {i}<br>X: {x:.2f} nm<br>Y: {y:.2f} nm' 
+                        for i, (x, y) in enumerate(positions)],
+                'hoverinfo': 'text',
                 'name': 'Movement Path'
             }
             
@@ -448,7 +515,9 @@ class AutoMovePreviewer:
                     'size': 12,
                     'color': ['green', 'red']
                 },
-                'text': ['Start', 'End'],
+                'text': [f'Start <span>X: {x_coords[0]:.2f} nm<span>Y: {y_coords[0]:.2f} nm',
+                        f'End <span>X: {x_coords[-1]:.2f} nm<span>Y: {y_coords[-1]:.2f} nm'],
+                'hoverinfo': 'text',
                 'textposition': 'top center',
                 'name': 'Start/End Points'
             }
@@ -479,8 +548,14 @@ class AutoMovePreviewer:
                     't': 50,
                     'b': 60
                 },
-                'autosize': True,  # 啟用自動大小調整
-                'height': 450,     # 設定合適的高度
+                'autosize': True,
+                'height': 450,
+                'hovermode': 'closest',
+                'hoverlabel': {
+                    'bgcolor': 'white',
+                    'font': {'size': 12},
+                    'bordercolor': '#888'
+                }
             }
             
             return {
