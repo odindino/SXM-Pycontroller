@@ -58,14 +58,20 @@ class SXMController(SXMCITSControl):
         print("SMU controller initialized")
 
     # ========== STSxSMU functions ========== #
+    @track_function
     def perform_multi_sts(self, script: STSScript) -> bool:
         """
         執行多組STS量測
 
+        改良的工作流程:
+        1. 先設定第一組SMU偏壓並執行STS，確認探針位置並獲得第一組數據
+        2. 關閉回饋後執行剩餘的SMU偏壓組合
+        3. 最後恢復系統狀態
+
         Parameters
         ----------
         script : STSScript
-            要執行的STS腳本
+            要執行的STS腳本，包含多組Vds和Vg組合
 
         Returns
         -------
@@ -76,7 +82,9 @@ class SXMController(SXMCITSControl):
             # 驗證輸入
             if len(script.vds_list) != len(script.vg_list):
                 raise ValueError("Vds和Vg列表長度必須相同")
-
+            if not script.vds_list:
+                raise ValueError("腳本必須至少包含一組偏壓設定")
+                
             # 記錄初始狀態
             original_states = {
                 'feedback': self.get_feedback_state(),
@@ -89,18 +97,15 @@ class SXMController(SXMCITSControl):
             # 檢查並記錄SMU狀態
             for ch in [1, 2]:
                 try:
-                    # 讀取當前output狀態
                     response = self.smu.smu.query(f":OUTP{ch}?")
                     original_states[f'ch{ch}_output'] = bool(int(response))
-
-                    # 如果output on，讀取當前電壓
+                    
                     if original_states[f'ch{ch}_output']:
                         voltage = float(self.smu.smu.query(f":SOUR{ch}:VOLT?"))
                         original_states[f'ch{ch}_voltage'] = voltage
-
+                        
                 except Exception as e:
-                    print(
-                        f"Warning: Failed to read channel {ch} state: {str(e)}")
+                    print(f"Warning: Failed to read channel {ch} state: {str(e)}")
 
             # 確保兩個通道都開啟
             for ch in [1, 2]:
@@ -108,40 +113,55 @@ class SXMController(SXMCITSControl):
                     self.smu.enable_output(Channel(ch))
                     time.sleep(0.001)  # 等待output穩定
 
-             # 執行一次基本STS以確認探針位置
-            self.spectroscopy_start()
-            # time.sleep(0.5)  # 等待系統穩定
-
-            # 關閉回饋
+            # 設定第一組SMU偏壓
+            first_vds = script.vds_list[0]
+            first_vg = script.vg_list[0]
+            
+            self.smu.configure_source(
+                channel=Channel(1),
+                mode=OutputMode.VOLTAGE,
+                level=first_vds,
+                compliance=0.1
+            )
+            
+            self.smu.configure_source(
+                channel=Channel(2),
+                mode=OutputMode.VOLTAGE,
+                level=first_vg,
+                compliance=0.1
+            )
+            
+            time.sleep(0.001)  # 等待電壓穩定
+            
+            # 執行第一次STS (此時feedback仍開啟)
+            if not self.spectroscopy_start():
+                raise RuntimeError("First STS measurement failed")
+            
+            # 關閉回饋並設定Z偏移
             self.set_zoffset(0.0)
             self.feedback_off()
-            # time.sleep(0.5)  # 等待系統穩定
-
-            # 執行每組STS
-            for vds, vg in zip(script.vds_list, script.vg_list):
-                # 設定SMU電壓
+            
+            # 執行剩餘的STS量測
+            for vds, vg in zip(script.vds_list[1:], script.vg_list[1:]):
                 self.smu.configure_source(
                     channel=Channel(1),
                     mode=OutputMode.VOLTAGE,
                     level=vds,
-                    compliance=0.1  # 設定適當的compliance值
+                    compliance=0.1
                 )
-
+                
                 self.smu.configure_source(
                     channel=Channel(2),
                     mode=OutputMode.VOLTAGE,
                     level=vg,
-                    compliance=0.1  # 設定適當的compliance值
+                    compliance=0.1
                 )
-
-                # 等待電壓穩定
+                
                 time.sleep(0.001)
-
-                # 執行STS
-                self.spectroscopy_start()
-
-                # 等待STS完成
-                # time.sleep(2.0)  # 根據實際STS參數調整等待時間
+                
+                if not self.spectroscopy_start():
+                    print(f"Warning: STS failed at Vds={vds}V, Vg={vg}V")
+                    continue
 
             return True
 
@@ -151,7 +171,6 @@ class SXMController(SXMCITSControl):
 
         finally:
             try:
-
                 # 恢復原始電壓
                 for ch in [1, 2]:
                     if original_states[f'ch{ch}_output']:
@@ -175,6 +194,7 @@ class SXMController(SXMCITSControl):
             except Exception as e:
                 print(f"Error restoring original states: {str(e)}")
 
+    @track_function
     def standard_msts_cits(self, num_points_x: int, num_points_y: int,
                            script_name: str = None, scan_direction: int = 1) -> bool:
         """
@@ -302,6 +322,7 @@ class SXMController(SXMCITSControl):
             except Exception as e:
                 print(f"回復安全狀態時發生錯誤: {str(e)}")
 
+    @track_function
     def standard_local_msts_cits(self, local_areas: List[LocalCITSParams],
                                  script_name: str = None,
                                  scan_direction: int = 1) -> bool:
@@ -430,6 +451,7 @@ class SXMController(SXMCITSControl):
             except Exception as e:
                 print(f"回復安全狀態時發生錯誤: {str(e)}")
 
+    @track_function
     def auto_move_msts_CITS(self, movement_script: str, distance: float,
                             num_points_x: int, num_points_y: int,
                             script_name: str,
@@ -573,6 +595,7 @@ class SXMController(SXMCITSControl):
                 print(f"Auto move Multi-STS CITS error: {str(e)}")
             return False
 
+    @track_function
     def auto_move_local_msts_CITS(self, movement_script: str, distance: float,
                                   local_areas_params: List[dict], script_name: str,
                                   initial_direction: int = 1,

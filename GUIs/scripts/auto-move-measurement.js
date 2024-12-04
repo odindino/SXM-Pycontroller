@@ -97,8 +97,8 @@ const AutoMoveMeasurementModule = {
         }
 
         this.setupEventListeners();
-        this.refreshMovementScripts();
-        this.refreshStsScripts();
+        // this.refreshMovementScripts();
+        // this.refreshStsScripts();
         // this.initializeCanvases();
         // this.createInitialArea();
         // this.loadScripts();
@@ -440,10 +440,10 @@ const AutoMoveMeasurementModule = {
         }
     },
 
-    createInitialArea() {
-        this.elements.localAreasContainer.innerHTML = '';
-        this.addLocalArea();
-    },
+    // createInitialArea() {
+    //     this.elements.localAreasContainer.innerHTML = '';
+    //     // this.addLocalArea();
+    // },
 
     addLocalArea() {
         const areaId = `am-area-${++this.state.areaCounter}`;
