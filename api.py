@@ -987,7 +987,7 @@ class SMUControlAPI:
             執行是否成功
         """
         try:
-            if not self.stm:
+            if not self.ensure_controller():
                 raise Exception("STM控制器未初始化")
 
             return self.stm.auto_move_local_ssts_CITS(
@@ -1043,7 +1043,7 @@ class SMUControlAPI:
             執行是否成功
         """
         try:
-            if not self.stm:
+            if not self.ensure_controller():
                 raise Exception("STM控制器未初始化")
 
             return self.stm.auto_move_local_msts_CITS(

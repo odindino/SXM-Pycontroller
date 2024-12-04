@@ -1,0 +1,839 @@
+2024-12-04 06:54:37,545 - Sending command: ScanPara('X', -3597.8);
+2024-12-04 06:54:37,559 - Response: b'DDE Cmd 2644\r\n'
+2024-12-04 06:54:37,559 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2024-12-04 06:54:37,569 - Response: b'DDE Cmd 2645\r\n-3597.8\r\n'
+2024-12-04 06:54:37,569 - Sending command: ScanPara('Y', 2400.0);
+2024-12-04 06:54:37,583 - Response: b'DDE Cmd 2646\r\n'
+2024-12-04 06:54:37,583 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2024-12-04 06:54:37,618 - Response: b'DDE Cmd 2647\r\n2400\r\n'
+2024-12-04 06:54:47,619 - 
+Starting Local CITS sequence at position 1, repeat 1/1, direction: up
+2024-12-04 06:54:47,619 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2024-12-04 06:54:47,623 - Response: b'DDE Cmd 2648\r\n-3597.8\r\n'
+2024-12-04 06:54:47,624 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2024-12-04 06:54:47,629 - Response: b'DDE Cmd 2649\r\n2400\r\n'
+2024-12-04 06:54:47,629 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-04 06:54:47,642 - Response: b'DDE Cmd 2650\r\n0.5\r\n'
+2024-12-04 06:54:47,642 - Sending command: a := 0.0;
+a := GetScanPara('Angle');
+Writeln(a);
+2024-12-04 06:54:47,667 - Response: b'DDE Cmd 2651\r\n0\r\n'
+2024-12-04 06:54:47,668 - Sending command: a := 0.0;
+a := GetScanPara('Pixel');
+Writeln(a);
+2024-12-04 06:54:47,693 - Response: b'DDE Cmd 2652\r\n500\r\n'
+2024-12-04 06:54:47,693 - Sending command: a := 0.0;
+a := GetScanPara('PixelRatio');
+Writeln(a);
+2024-12-04 06:54:47,707 - Response: b'DDE Cmd 2653\r\nError 34 (unknown function) at line 3.    Program stopped!\r\n'
+2024-12-04 06:54:47,707 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-04 06:54:47,719 - Response: b'DDE Cmd 2654\r\n0.5\r\n'
+2024-12-04 06:54:47,719 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-04 06:54:47,733 - Response: b'DDE Cmd 2655\r\n0.5\r\n'
+2024-12-04 06:54:47,733 - 
+開始局部 CITS 量測:
+2024-12-04 06:54:47,733 - 中心位置: (-3597.8, 2400.0) nm
+2024-12-04 06:54:47,733 - 掃描慢軸範圍: 40.0 nm
+2024-12-04 06:54:47,733 - 掃描角度: 0.0°
+2024-12-04 06:54:47,734 - sorted_indices:
+2024-12-04 06:54:47,734 - [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14]
+2024-12-04 06:54:47,734 - sorted_positions:
+2024-12-04 06:54:47,734 - [ 750  750  750  750  750 1000 1000 1000 1000 1000 1250 1250 1250 1250
+ 1250]
+2024-12-04 06:54:47,734 - sorted_coords:
+2024-12-04 06:54:47,734 - [[-3587.8  2410. ]
+ [-3577.8  2410. ]
+ [-3567.8  2410. ]
+ [-3557.8  2410. ]
+ [-3547.8  2410. ]
+ [-3587.8  2420. ]
+ [-3577.8  2420. ]
+ [-3567.8  2420. ]
+ [-3557.8  2420. ]
+ [-3547.8  2420. ]
+ [-3587.8  2430. ]
+ [-3577.8  2430. ]
+ [-3567.8  2430. ]
+ [-3557.8  2430. ]
+ [-3547.8  2430. ]]
+2024-12-04 06:54:47,734 - Error in calculate_local_scanline_distribution: Distribution length mismatch: Coordinates=3, Scanlines=3, Expected Scanlines=4
+2024-12-04 06:54:47,734 - 
+局部 CITS 量測錯誤: Distribution length mismatch: Coordinates=3, Scanlines=3, Expected Scanlines=4
+2024-12-04 06:54:47,735 - Sending command: FeedPara('Enable', 0);
+2024-12-04 06:54:47,747 - Response: b'DDE Cmd 2656\r\n'
+2024-12-04 06:54:47,747 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 06:54:47,763 - Response: b'DDE Cmd 2657\r\n0\r\n'
+2024-12-04 06:54:47,763 - Sending command: FeedPara('Enable', 0);
+2024-12-04 06:54:47,776 - Response: b'DDE Cmd 2658\r\n'
+2024-12-04 06:54:47,776 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 06:54:47,811 - Response: b'DDE Cmd 2659\r\n0\r\n'
+2024-12-04 06:54:47,811 - Feedback on
+2024-12-04 06:54:47,811 - 系統回到安全狀態
+2024-12-04 06:54:47,811 - Warning: Local CITS failed at position 1, repeat 1
+2024-12-04 06:54:47,811 - 
+Auto move Local CITS sequence completed successfully
+2024-12-04 06:55:07,948 - Ensuring STM controller...
+2024-12-04 06:55:07,948 - Connection lost, recreating controller...
+2024-12-04 06:55:07,948 - Ensuring STM controller...
+2024-12-04 06:55:07,948 - Creating new STM controller...
+2024-12-04 06:55:08,968 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 06:55:09,002 - Response: b'DDE Cmd 2660\r\n0\r\n'
+2024-12-04 06:55:09,002 - current state type:
+2024-12-04 06:55:09,002 - <class 'float'>
+2024-12-04 06:55:09,002 - current state:
+2024-12-04 06:55:09,002 - 0.0
+2024-12-04 06:55:09,003 - STM controller created
+2024-12-04 06:55:09,003 - SMU controller initialized
+2024-12-04 06:55:09,017 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2024-12-04 06:55:09,051 - Response: b'DDE Cmd 2662\r\n-3597.8\r\n'
+2024-12-04 06:55:09,051 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2024-12-04 06:55:09,076 - Response: b'DDE Cmd 2663\r\n2400\r\n'
+2024-12-04 06:55:09,076 - Sending command: a := 0.0;
+a := GetScanPara('Angle');
+Writeln(a);
+2024-12-04 06:55:09,080 - Response: b'DDE Cmd 2664\r\n0\r\n'
+2024-12-04 06:55:09,080 - 
+Starting auto move Local CITS sequence:
+2024-12-04 06:55:09,080 - Initial center: (-3597.8, 2400.0)
+2024-12-04 06:55:09,080 - Number of local areas: 1
+2024-12-04 06:55:09,080 - Scan angle: 0.0°
+2024-12-04 06:55:09,081 - Repeat count: 1
+2024-12-04 06:55:09,081 - 
+Generating movement positions:
+2024-12-04 06:55:09,081 - Start position: (-3597.8, 2400.0)
+2024-12-04 06:55:09,081 - Movement script: U
+2024-12-04 06:55:09,081 - Distance: 200 nm
+2024-12-04 06:55:09,081 - Position 1: (-3597.8, 2600.0)
+2024-12-04 06:55:09,081 - 
+Starting Local CITS sequence at initial position, repeat 1/1, direction: up
+2024-12-04 06:55:09,081 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2024-12-04 06:55:09,115 - Response: b'DDE Cmd 2665\r\n-3597.8\r\n'
+2024-12-04 06:55:09,116 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2024-12-04 06:55:09,150 - Response: b'DDE Cmd 2666\r\n2400\r\n'
+2024-12-04 06:55:09,150 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-04 06:55:09,174 - Response: b'DDE Cmd 2667\r\n0.5\r\n'
+2024-12-04 06:55:09,174 - Sending command: a := 0.0;
+a := GetScanPara('Range');
+Writeln(a);
+2024-12-04 06:55:09,189 - Response: b'DDE Cmd 2668\r\n20\r\n'
+2024-12-04 06:55:09,189 - Sending command: a := 0.0;
+a := GetScanPara('Angle');
+Writeln(a);
+2024-12-04 06:55:09,224 - Response: b'DDE Cmd 2669\r\n0\r\n'
+2024-12-04 06:55:09,224 - Sending command: a := 0.0;
+a := GetScanPara('Pixel');
+Writeln(a);
+2024-12-04 06:55:09,240 - Response: b'DDE Cmd 2670\r\n500\r\n'
+2024-12-04 06:55:09,240 - Sending command: a := 0.0;
+a := GetScanPara('PixelRatio');
+Writeln(a);
+2024-12-04 06:55:09,264 - Response: b'DDE Cmd 2671\r\nError 34 (unknown function) at line 3.    Program stopped!\r\n'
+2024-12-04 06:55:09,264 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-04 06:55:09,286 - Response: b'DDE Cmd 2672\r\n0.5\r\n'
+2024-12-04 06:55:09,286 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-04 06:55:09,300 - Response: b'DDE Cmd 2673\r\n0.5\r\n'
+2024-12-04 06:55:09,300 - 
+開始局部 CITS 量測:
+2024-12-04 06:55:09,300 - 中心位置: (-3597.8, 2400.0) nm
+2024-12-04 06:55:09,300 - 掃描慢軸範圍: 40.0 nm
+2024-12-04 06:55:09,300 - 掃描角度: 0.0°
+2024-12-04 06:55:09,301 - sorted_indices:
+2024-12-04 06:55:09,301 - [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14]
+2024-12-04 06:55:09,301 - sorted_positions:
+2024-12-04 06:55:09,301 - [ 750  750  750  750  750 1000 1000 1000 1000 1000 1250 1250 1250 1250
+ 1250]
+2024-12-04 06:55:09,301 - sorted_coords:
+2024-12-04 06:55:09,301 - [[-3587.8  2410. ]
+ [-3577.8  2410. ]
+ [-3567.8  2410. ]
+ [-3557.8  2410. ]
+ [-3547.8  2410. ]
+ [-3587.8  2420. ]
+ [-3577.8  2420. ]
+ [-3567.8  2420. ]
+ [-3557.8  2420. ]
+ [-3547.8  2420. ]
+ [-3587.8  2430. ]
+ [-3577.8  2430. ]
+ [-3567.8  2430. ]
+ [-3557.8  2430. ]
+ [-3547.8  2430. ]]
+2024-12-04 06:55:09,301 - Error in calculate_local_scanline_distribution: Distribution length mismatch: Coordinates=3, Scanlines=3, Expected Scanlines=4
+2024-12-04 06:55:09,302 - 
+局部 CITS 量測錯誤: Distribution length mismatch: Coordinates=3, Scanlines=3, Expected Scanlines=4
+2024-12-04 06:55:09,302 - Sending command: FeedPara('Enable', 0);
+2024-12-04 06:55:09,328 - Response: b'DDE Cmd 2674\r\n'
+2024-12-04 06:55:09,328 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 06:55:09,363 - Response: b'DDE Cmd 2675\r\n0\r\n'
+2024-12-04 06:55:09,363 - Sending command: FeedPara('Enable', 0);
+2024-12-04 06:55:09,386 - Response: b'DDE Cmd 2676\r\n'
+2024-12-04 06:55:09,386 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 06:55:09,411 - Response: b'DDE Cmd 2677\r\n0\r\n'
+2024-12-04 06:55:09,411 - Feedback on
+2024-12-04 06:55:09,411 - 系統回到安全狀態
+2024-12-04 06:55:09,411 - Warning: Local CITS failed at initial position, repeat 1
+2024-12-04 06:55:09,411 - 
+Moving to center 1/1: (-3597.8, 2600.0)
+2024-12-04 06:55:09,411 - Sending command: ScanPara('X', -3597.8);
+2024-12-04 06:55:09,425 - Response: b'DDE Cmd 2678\r\n'
+2024-12-04 06:55:09,425 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2024-12-04 06:55:09,441 - Response: b'DDE Cmd 2679\r\n-3597.8\r\n'
+2024-12-04 06:55:09,441 - Sending command: ScanPara('Y', 2600.0);
+2024-12-04 06:55:09,454 - Response: b'DDE Cmd 2680\r\n'
+2024-12-04 06:55:09,455 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2024-12-04 06:55:09,488 - Response: b'DDE Cmd 2681\r\n2600\r\n'
+2024-12-04 06:55:19,489 - 
+Starting Local CITS sequence at position 1, repeat 1/1, direction: up
+2024-12-04 06:55:19,489 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2024-12-04 06:55:19,530 - Response: b'DDE Cmd 2682\r\n-3597.8\r\n'
+2024-12-04 06:55:19,530 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2024-12-04 06:55:19,534 - Response: b'DDE Cmd 2683\r\n2600\r\n'
+2024-12-04 06:55:19,534 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-04 06:55:19,557 - Response: b'DDE Cmd 2684\r\n0.5\r\n'
+2024-12-04 06:55:19,557 - Sending command: a := 0.0;
+a := GetScanPara('Angle');
+Writeln(a);
+2024-12-04 06:55:19,592 - Response: b'DDE Cmd 2685\r\n0\r\n'
+2024-12-04 06:55:19,593 - Sending command: a := 0.0;
+a := GetScanPara('Pixel');
+Writeln(a);
+2024-12-04 06:55:19,596 - Response: b'DDE Cmd 2686\r\n500\r\n'
+2024-12-04 06:55:19,596 - Sending command: a := 0.0;
+a := GetScanPara('PixelRatio');
+Writeln(a);
+2024-12-04 06:55:19,619 - Response: b'DDE Cmd 2687\r\nError 34 (unknown function) at line 3.    Program stopped!\r\n'
+2024-12-04 06:55:19,619 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-04 06:55:19,643 - Response: b'DDE Cmd 2688\r\n0.5\r\n'
+2024-12-04 06:55:19,643 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-04 06:55:19,647 - Response: b'DDE Cmd 2689\r\n0.5\r\n'
+2024-12-04 06:55:19,647 - 
+開始局部 CITS 量測:
+2024-12-04 06:55:19,647 - 中心位置: (-3597.8, 2600.0) nm
+2024-12-04 06:55:19,647 - 掃描慢軸範圍: 40.0 nm
+2024-12-04 06:55:19,647 - 掃描角度: 0.0°
+2024-12-04 06:55:19,648 - sorted_indices:
+2024-12-04 06:55:19,648 - [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14]
+2024-12-04 06:55:19,648 - sorted_positions:
+2024-12-04 06:55:19,648 - [ 750  750  750  750  750 1000 1000 1000 1000 1000 1250 1250 1250 1250
+ 1250]
+2024-12-04 06:55:19,648 - sorted_coords:
+2024-12-04 06:55:19,649 - [[-3587.8  2610. ]
+ [-3577.8  2610. ]
+ [-3567.8  2610. ]
+ [-3557.8  2610. ]
+ [-3547.8  2610. ]
+ [-3587.8  2620. ]
+ [-3577.8  2620. ]
+ [-3567.8  2620. ]
+ [-3557.8  2620. ]
+ [-3547.8  2620. ]
+ [-3587.8  2630. ]
+ [-3577.8  2630. ]
+ [-3567.8  2630. ]
+ [-3557.8  2630. ]
+ [-3547.8  2630. ]]
+2024-12-04 06:55:19,649 - Error in calculate_local_scanline_distribution: Distribution length mismatch: Coordinates=3, Scanlines=3, Expected Scanlines=4
+2024-12-04 06:55:19,649 - 
+局部 CITS 量測錯誤: Distribution length mismatch: Coordinates=3, Scanlines=3, Expected Scanlines=4
+2024-12-04 06:55:19,649 - Sending command: FeedPara('Enable', 0);
+2024-12-04 06:55:19,682 - Response: b'DDE Cmd 2690\r\n'
+2024-12-04 06:55:19,682 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 06:55:19,706 - Response: b'DDE Cmd 2691\r\n0\r\n'
+2024-12-04 06:55:19,706 - Sending command: FeedPara('Enable', 0);
+2024-12-04 06:55:19,708 - Response: b'DDE Cmd 2692\r\n'
+2024-12-04 06:55:19,709 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 06:55:19,744 - Response: b'DDE Cmd 2693\r\n0\r\n'
+2024-12-04 06:55:19,744 - Feedback on
+2024-12-04 06:55:19,744 - 系統回到安全狀態
+2024-12-04 06:55:19,744 - Warning: Local CITS failed at position 1, repeat 1
+2024-12-04 06:55:19,744 - 
+Auto move Local CITS sequence completed successfully
+2024-12-04 06:58:24,086 - Ensuring STM controller...
+2024-12-04 06:58:24,087 - Connection lost, recreating controller...
+2024-12-04 06:58:24,087 - Ensuring STM controller...
+2024-12-04 06:58:24,087 - Creating new STM controller...
+2024-12-04 06:58:25,024 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 06:58:25,068 - Response: b'DDE Cmd 2694\r\n0\r\n'
+2024-12-04 06:58:25,068 - current state type:
+2024-12-04 06:58:25,068 - <class 'float'>
+2024-12-04 06:58:25,068 - current state:
+2024-12-04 06:58:25,068 - 0.0
+2024-12-04 06:58:25,069 - STM controller created
+2024-12-04 06:58:25,069 - SMU controller initialized
+2024-12-04 06:58:25,091 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2024-12-04 06:58:25,116 - Response: b'DDE Cmd 2696\r\n-3597.8\r\n'
+2024-12-04 06:58:25,117 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2024-12-04 06:58:25,123 - Response: b'DDE Cmd 2697\r\n2600\r\n'
+2024-12-04 06:58:25,123 - Sending command: a := 0.0;
+a := GetScanPara('Angle');
+Writeln(a);
+2024-12-04 06:58:25,158 - Response: b'DDE Cmd 2698\r\n0\r\n'
+2024-12-04 06:58:25,158 - 
+Starting auto move Local CITS sequence:
+2024-12-04 06:58:25,158 - Initial center: (-3597.8, 2600.0)
+2024-12-04 06:58:25,158 - Number of local areas: 1
+2024-12-04 06:58:25,159 - Scan angle: 0.0°
+2024-12-04 06:58:25,159 - Repeat count: 1
+2024-12-04 06:58:25,159 - 
+Generating movement positions:
+2024-12-04 06:58:25,159 - Start position: (-3597.8, 2600.0)
+2024-12-04 06:58:25,159 - Movement script: U
+2024-12-04 06:58:25,159 - Distance: 200 nm
+2024-12-04 06:58:25,159 - Position 1: (-3597.8, 2800.0)
+2024-12-04 06:58:25,159 - 
+Starting Local CITS sequence at initial position, repeat 1/1, direction: up
+2024-12-04 06:58:25,159 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2024-12-04 06:58:25,194 - Response: b'DDE Cmd 2699\r\n-3597.8\r\n'
+2024-12-04 06:58:25,194 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2024-12-04 06:58:25,219 - Response: b'DDE Cmd 2700\r\n2600\r\n'
+2024-12-04 06:58:25,220 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-04 06:58:25,232 - Response: b'DDE Cmd 2701\r\n0.5\r\n'
+2024-12-04 06:58:25,232 - Sending command: a := 0.0;
+a := GetScanPara('Range');
+Writeln(a);
+2024-12-04 06:58:25,248 - Response: b'DDE Cmd 2702\r\n20\r\n'
+2024-12-04 06:58:25,248 - Sending command: a := 0.0;
+a := GetScanPara('Angle');
+Writeln(a);
+2024-12-04 06:58:25,283 - Response: b'DDE Cmd 2703\r\n0\r\n'
+2024-12-04 06:58:25,283 - Sending command: a := 0.0;
+a := GetScanPara('Pixel');
+Writeln(a);
+2024-12-04 06:58:25,317 - Response: b'DDE Cmd 2704\r\n500\r\n'
+2024-12-04 06:58:25,317 - Sending command: a := 0.0;
+a := GetScanPara('PixelRatio');
+Writeln(a);
+2024-12-04 06:58:25,330 - Response: b'DDE Cmd 2705\r\nError 34 (unknown function) at line 3.    Program stopped!\r\n'
+2024-12-04 06:58:25,330 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-04 06:58:25,343 - Response: b'DDE Cmd 2706\r\n0.5\r\n'
+2024-12-04 06:58:25,343 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-04 06:58:25,348 - Response: b'DDE Cmd 2707\r\n0.5\r\n'
+2024-12-04 06:58:25,348 - 
+開始局部 CITS 量測:
+2024-12-04 06:58:25,348 - 中心位置: (-3597.8, 2600.0) nm
+2024-12-04 06:58:25,348 - 掃描慢軸範圍: 40.0 nm
+2024-12-04 06:58:25,348 - 掃描角度: 0.0°
+2024-12-04 06:58:25,349 - sorted_indices:
+2024-12-04 06:58:25,349 - [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14]
+2024-12-04 06:58:25,349 - sorted_positions:
+2024-12-04 06:58:25,349 - [525 525 525 525 525 600 600 600 600 600 675 675 675 675 675]
+2024-12-04 06:58:25,349 - sorted_coords:
+2024-12-04 06:58:25,350 - [[-3596.8  2601. ]
+ [-3593.8  2601. ]
+ [-3590.8  2601. ]
+ [-3587.8  2601. ]
+ [-3584.8  2601. ]
+ [-3596.8  2604. ]
+ [-3593.8  2604. ]
+ [-3590.8  2604. ]
+ [-3587.8  2604. ]
+ [-3584.8  2604. ]
+ [-3596.8  2607. ]
+ [-3593.8  2607. ]
+ [-3590.8  2607. ]
+ [-3587.8  2607. ]
+ [-3584.8  2607. ]]
+2024-12-04 06:58:25,350 - 
+Validation Results:
+2024-12-04 06:58:25,350 - Total coordinates: Original=15, Distributed=15
+2024-12-04 06:58:25,350 - Distribution segments: Coordinates=3, Scanlines=4
+2024-12-04 06:58:25,350 - Total scanlines: Calculated=1000, Expected=1000
+2024-12-04 06:58:25,350 - 掃描線分配: [525, 75, 75, 325]
+2024-12-04 06:58:25,350 - 座標群組數: 3
+2024-12-04 06:58:25,350 - 總量測點數: 15
+2024-12-04 06:58:25,350 - 
+=== 掃描第 1 段 525 條線 ===
+2024-12-04 06:58:25,350 - 開始掃描 525 條線
+2024-12-04 06:58:25,350 - Sending command: ScanLine(525);
+2024-12-04 06:58:25,372 - Scan started at 2024-12-04 06:58:25.372107
+2024-12-04 06:58:25,372 - Response: 1
+2024-12-04 06:58:25,372 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:58:32,587 - Response: b'f999\r\n'
+2024-12-04 06:58:32,587 - Scanning: forward line 999
+2024-12-04 06:58:34,284 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:58:34,286 - Response: b'f1000\r\n'
+2024-12-04 06:58:34,286 - Scanning: forward line 1000
+2024-12-04 06:58:35,669 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:58:35,669 - File saved: 20241125_Bi-MoS2-100SiO2_NH4OH_6-1_117
+2024-12-04 06:58:35,669 - Scan finished at 2024-12-04 06:58:35.669541
+2024-12-04 06:58:35,676 - Response: b'DDE Cmd 2710\r\n'
+2024-12-04 06:58:35,676 - Scan completed
+2024-12-04 06:58:36,177 - 掃描完成
+2024-12-04 06:58:36,177 - 
+>>> 執行第 1/3 群組的 STS 量測
+2024-12-04 06:58:36,177 -   STS點 (1/5): (-3596.800, 2601.000)
+2024-12-04 06:58:36,177 - Sending command: SpectPara(1, -3596.8);
+2024-12-04 06:58:36,186 - Response: b'DDE Cmd 2711\r\n0\r\n'
+2024-12-04 06:58:36,186 - Sending command: SpectPara(2, 2601.0);
+2024-12-04 06:58:36,199 - Response: b'DDE Cmd 2713\r\n'
+2024-12-04 06:58:36,199 - Sending command: SpectPara(1, -3596.8);
+2024-12-04 06:58:36,205 - Response: b'DDE Cmd 2714\r\n'
+2024-12-04 06:58:36,205 - Sending command: SpectPara(2, 2601.0);
+2024-12-04 06:58:36,209 - Response: b'DDE Cmd 2715\r\n'
+2024-12-04 06:58:36,209 - Sending command: SpectStart;
+2024-12-04 06:58:39,321 - Response: b'DDE Cmd 2716\r\n'
+2024-12-04 06:58:40,322 -   STS點 (2/5): (-3593.800, 2601.000)
+2024-12-04 06:58:40,322 - Sending command: SpectPara(1, -3593.8);
+2024-12-04 06:58:40,334 - Response: b'DDE Cmd 2717\r\n'
+2024-12-04 06:58:40,335 - Sending command: SpectPara(2, 2601.0);
+2024-12-04 06:58:40,358 - Response: b'DDE Cmd 2718\r\n'
+2024-12-04 06:58:40,358 - Sending command: SpectPara(1, -3593.8);
+2024-12-04 06:58:40,361 - Response: b'DDE Cmd 2719\r\n'
+2024-12-04 06:58:40,361 - Sending command: SpectPara(2, 2601.0);
+2024-12-04 06:58:40,369 - Response: b'DDE Cmd 2720\r\n'
+2024-12-04 06:58:40,369 - Sending command: SpectStart;
+2024-12-04 06:58:43,004 - Response: b'DDE Cmd 2721\r\n'
+2024-12-04 06:58:44,005 -   STS點 (3/5): (-3590.800, 2601.000)
+2024-12-04 06:58:44,005 - Sending command: SpectPara(1, -3590.8);
+2024-12-04 06:58:44,018 - Response: b'DDE Cmd 2722\r\n'
+2024-12-04 06:58:44,018 - Sending command: SpectPara(2, 2601.0);
+2024-12-04 06:58:44,042 - Response: b'DDE Cmd 2723\r\n'
+2024-12-04 06:58:44,042 - Sending command: SpectPara(1, -3590.8);
+2024-12-04 06:58:44,066 - Response: b'DDE Cmd 2724\r\n'
+2024-12-04 06:58:44,066 - Sending command: SpectPara(2, 2601.0);
+2024-12-04 06:58:44,089 - Response: b'DDE Cmd 2725\r\n'
+2024-12-04 06:58:44,089 - Sending command: SpectStart;
+2024-12-04 06:58:46,711 - Response: b'DDE Cmd 2726\r\n'
+2024-12-04 06:58:47,712 -   STS點 (4/5): (-3587.800, 2601.000)
+2024-12-04 06:58:47,712 - Sending command: SpectPara(1, -3587.8);
+2024-12-04 06:58:47,727 - Response: b'DDE Cmd 2727\r\n'
+2024-12-04 06:58:47,727 - Sending command: SpectPara(2, 2601.0);
+2024-12-04 06:58:47,751 - Response: b'DDE Cmd 2728\r\n'
+2024-12-04 06:58:47,751 - Sending command: SpectPara(1, -3587.8);
+2024-12-04 06:58:47,774 - Response: b'DDE Cmd 2729\r\n'
+2024-12-04 06:58:47,774 - Sending command: SpectPara(2, 2601.0);
+2024-12-04 06:58:47,787 - Response: b'DDE Cmd 2730\r\n'
+2024-12-04 06:58:47,787 - Sending command: SpectStart;
+2024-12-04 06:58:50,421 - Response: b'DDE Cmd 2731\r\n'
+2024-12-04 06:58:51,422 -   STS點 (5/5): (-3584.800, 2601.000)
+2024-12-04 06:58:51,422 - Sending command: SpectPara(1, -3584.8);
+2024-12-04 06:58:51,446 - Response: b'DDE Cmd 2732\r\n'
+2024-12-04 06:58:51,446 - Sending command: SpectPara(2, 2601.0);
+2024-12-04 06:58:51,469 - Response: b'DDE Cmd 2733\r\n'
+2024-12-04 06:58:51,469 - Sending command: SpectPara(1, -3584.8);
+2024-12-04 06:58:51,492 - Response: b'DDE Cmd 2734\r\n'
+2024-12-04 06:58:51,492 - Sending command: SpectPara(2, 2601.0);
+2024-12-04 06:58:51,515 - Response: b'DDE Cmd 2735\r\n'
+2024-12-04 06:58:51,515 - Sending command: SpectStart;
+2024-12-04 06:58:54,147 - Response: b'DDE Cmd 2736\r\n'
+2024-12-04 06:58:55,148 - <<< 完成第 1/3 群組
+2024-12-04 06:58:55,148 - 
+=== 掃描第 2 段 75 條線 ===
+2024-12-04 06:58:55,148 - 開始掃描 75 條線
+2024-12-04 06:58:55,149 - Sending command: ScanLine(75);
+2024-12-04 06:58:55,175 - Scan started at 2024-12-04 06:58:55.175344
+2024-12-04 06:58:55,175 - Response: 1
+2024-12-04 06:58:55,175 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:58:56,446 - Response: b'f1000\r\n'
+2024-12-04 06:58:56,446 - Scanning: forward line 1000
+2024-12-04 06:58:58,133 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:58:58,136 - Response: b'f999\r\n'
+2024-12-04 06:58:58,136 - Scanning: forward line 999
+2024-12-04 06:58:59,516 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:58:59,522 - Response: b'f998\r\n'
+2024-12-04 06:58:59,522 - Scanning: forward line 998
+2024-12-04 06:59:00,902 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:00,905 - Response: b'f997\r\n'
+2024-12-04 06:59:00,905 - Scanning: forward line 997
+2024-12-04 06:59:02,285 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:02,286 - Response: b'f996\r\n'
+2024-12-04 06:59:02,286 - Scanning: forward line 996
+2024-12-04 06:59:03,677 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:03,687 - Response: b'f995\r\n'
+2024-12-04 06:59:03,687 - Scanning: forward line 995
+2024-12-04 06:59:05,072 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:05,083 - Response: b'f994\r\n'
+2024-12-04 06:59:05,083 - Scanning: forward line 994
+2024-12-04 06:59:06,443 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:06,446 - Response: b'f993\r\n'
+2024-12-04 06:59:06,446 - Scanning: forward line 993
+2024-12-04 06:59:07,818 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:07,823 - Response: b'f992\r\n'
+2024-12-04 06:59:07,823 - Scanning: forward line 992
+2024-12-04 06:59:09,200 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:09,211 - Response: b'f991\r\n'
+2024-12-04 06:59:09,212 - Scanning: forward line 991
+2024-12-04 06:59:10,584 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:10,596 - Response: b'f990\r\n'
+2024-12-04 06:59:10,596 - Scanning: forward line 990
+2024-12-04 06:59:11,967 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:11,968 - Response: b'f989\r\n'
+2024-12-04 06:59:11,968 - Scanning: forward line 989
+2024-12-04 06:59:13,356 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:13,366 - Response: b'f988\r\n'
+2024-12-04 06:59:13,367 - Scanning: forward line 988
+2024-12-04 06:59:14,746 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:14,748 - Response: b'f987\r\n'
+2024-12-04 06:59:14,749 - Scanning: forward line 987
+2024-12-04 06:59:16,133 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:16,142 - Response: b'f986\r\n'
+2024-12-04 06:59:16,142 - Scanning: forward line 986
+2024-12-04 06:59:17,515 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:17,523 - Response: b'f985\r\n'
+2024-12-04 06:59:17,523 - Scanning: forward line 985
+2024-12-04 06:59:18,902 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:18,904 - Response: b'f984\r\n'
+2024-12-04 06:59:18,904 - Scanning: forward line 984
+2024-12-04 06:59:20,281 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:20,283 - Response: b'f983\r\n'
+2024-12-04 06:59:20,283 - Scanning: forward line 983
+2024-12-04 06:59:21,665 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:21,676 - Response: b'f982\r\n'
+2024-12-04 06:59:21,676 - Scanning: forward line 982
+2024-12-04 06:59:23,052 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:23,054 - Response: b'f981\r\n'
+2024-12-04 06:59:23,054 - Scanning: forward line 981
+2024-12-04 06:59:24,423 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:24,428 - Response: b'f980\r\n'
+2024-12-04 06:59:24,428 - Scanning: forward line 980
+2024-12-04 06:59:25,803 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:25,806 - Response: b'f979\r\n'
+2024-12-04 06:59:25,806 - Scanning: forward line 979
+2024-12-04 06:59:27,177 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:27,180 - Response: b'f978\r\n'
+2024-12-04 06:59:27,180 - Scanning: forward line 978
+2024-12-04 06:59:28,559 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:28,567 - Response: b'f977\r\n'
+2024-12-04 06:59:28,567 - Scanning: forward line 977
+2024-12-04 06:59:29,950 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:29,961 - Response: b'f976\r\n'
+2024-12-04 06:59:29,961 - Scanning: forward line 976
+2024-12-04 06:59:31,332 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:31,339 - Response: b'f975\r\n'
+2024-12-04 06:59:31,339 - Scanning: forward line 975
+2024-12-04 06:59:32,717 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:32,720 - Response: b'f974\r\n'
+2024-12-04 06:59:32,720 - Scanning: forward line 974
+2024-12-04 06:59:34,105 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:34,113 - Response: b'f973\r\n'
+2024-12-04 06:59:34,114 - Scanning: forward line 973
+2024-12-04 06:59:35,499 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:35,508 - Response: b'f972\r\n'
+2024-12-04 06:59:35,508 - Scanning: forward line 972
+2024-12-04 06:59:36,893 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:36,894 - Response: b'f971\r\n'
+2024-12-04 06:59:36,894 - Scanning: forward line 971
+2024-12-04 06:59:38,284 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:38,287 - Response: b'f970\r\n'
+2024-12-04 06:59:38,287 - Scanning: forward line 970
+2024-12-04 06:59:39,670 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:39,682 - Response: b'f969\r\n'
+2024-12-04 06:59:39,682 - Scanning: forward line 969
+2024-12-04 06:59:41,056 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:41,066 - Response: b'f968\r\n'
+2024-12-04 06:59:41,066 - Scanning: forward line 968
+2024-12-04 06:59:42,439 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:42,444 - Response: b'f967\r\n'
+2024-12-04 06:59:42,444 - Scanning: forward line 967
+2024-12-04 06:59:43,816 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 06:59:43,817 - Scan finished at 2024-12-04 06:59:43.816547
+2024-12-04 06:59:43,827 - Response: 0
+2024-12-04 06:59:43,828 - Scan completed
+2024-12-04 06:59:44,328 - 掃描完成
+2024-12-04 06:59:44,328 - 
+>>> 執行第 2/3 群組的 STS 量測
+2024-12-04 06:59:44,328 -   STS點 (1/5): (-3596.800, 2604.000)
+2024-12-04 06:59:44,328 - Sending command: SpectPara(1, -3596.8);
+2024-12-04 06:59:55,561 - Scan started at 2024-12-04 06:59:55.561511
+2024-12-04 06:59:55,561 - Response: 1
+2024-12-04 06:59:55,561 - Sending command: SpectPara(2, 2604.0);
+2024-12-04 06:59:56,808 - Response: b'f990\r\n'
+2024-12-04 06:59:56,808 - Sending command: SpectPara(1, -3596.8);
+2024-12-04 06:59:57,506 - Response: b'b990\r\n'
+2024-12-04 06:59:57,506 - Sending command: SpectPara(2, 2604.0);
+2024-12-04 06:59:58,205 - Response: b'f991\r\n'
+2024-12-04 06:59:58,205 - Sending command: SpectStart;
+2024-12-04 06:59:58,896 - Response: b'b991\r\n'
+2024-12-04 06:59:59,897 -   STS點 (2/5): (-3593.800, 2604.000)
+2024-12-04 06:59:59,897 - Sending command: SpectPara(1, -3593.8);
+2024-12-04 06:59:59,901 - Response: b'f992\r\n'
+2024-12-04 06:59:59,901 - Sending command: SpectPara(2, 2604.0);
+2024-12-04 07:00:00,288 - Response: b'b992\r\n'
+2024-12-04 07:00:00,288 - Sending command: SpectPara(1, -3593.8);
+2024-12-04 07:00:00,980 - Response: b'f993\r\n'
+2024-12-04 07:00:00,980 - Sending command: SpectPara(2, 2604.0);
+2024-12-04 07:00:01,677 - Response: b'b993\r\n'
+2024-12-04 07:00:01,677 - Sending command: SpectStart;
+2024-12-04 07:00:02,363 - Response: b'f994\r\n'
+2024-12-04 07:00:03,364 -   STS點 (3/5): (-3590.800, 2604.000)
+2024-12-04 07:00:03,364 - Sending command: SpectPara(1, -3590.8);
+2024-12-04 07:00:03,372 - Response: b'b994\r\n'
+2024-12-04 07:00:03,372 - Sending command: SpectPara(2, 2604.0);
+2024-12-04 07:00:03,747 - Response: b'f995\r\n'
+2024-12-04 07:00:03,747 - Sending command: SpectPara(1, -3590.8);
+2024-12-04 07:00:04,436 - Response: b'b995\r\n'
+2024-12-04 07:00:04,436 - Sending command: SpectPara(2, 2604.0);
+2024-12-04 07:00:05,125 - Response: b'f996\r\n'
+2024-12-04 07:00:05,125 - Sending command: SpectStart;
+2024-12-04 07:00:05,811 - Response: b'b996\r\n'
+2024-12-04 07:00:06,811 -   STS點 (4/5): (-3587.800, 2604.000)
+2024-12-04 07:00:06,811 - Sending command: SpectPara(1, -3587.8);
+2024-12-04 07:00:06,814 - Response: b'f997\r\n'
+2024-12-04 07:00:06,814 - Sending command: SpectPara(2, 2604.0);
+2024-12-04 07:00:07,196 - Response: b'b997\r\n'
+2024-12-04 07:00:07,196 - Sending command: SpectPara(1, -3587.8);
+2024-12-04 07:00:07,892 - Response: b'f998\r\n'
+2024-12-04 07:00:07,892 - Sending command: SpectPara(2, 2604.0);
+2024-12-04 07:00:08,588 - Response: b'b998\r\n'
+2024-12-04 07:00:08,588 - Sending command: SpectStart;
+2024-12-04 07:00:09,281 - Response: b'f999\r\n'
+2024-12-04 07:00:10,282 -   STS點 (5/5): (-3584.800, 2604.000)
+2024-12-04 07:00:10,282 - Sending command: SpectPara(1, -3584.8);
+2024-12-04 07:00:10,286 - Response: b'b999\r\n'
+2024-12-04 07:00:10,286 - Sending command: SpectPara(2, 2604.0);
+2024-12-04 07:00:10,668 - Response: b'f1000\r\n'
+2024-12-04 07:00:10,668 - Sending command: SpectPara(1, -3584.8);
+2024-12-04 07:00:11,356 - Response: b'b1000\r\n'
+2024-12-04 07:00:11,356 - Sending command: SpectPara(2, 2604.0);
+2024-12-04 07:00:11,824 - File saved: 20241125_Bi-MoS2-100SiO2_NH4OH_6-1_118
+2024-12-04 07:00:11,824 - Response: b'20241125_Bi-MoS2-100SiO2_NH4OH_6-1_118\r\n'
+2024-12-04 07:00:11,825 - Sending command: SpectStart;
+2024-12-04 07:00:11,838 - Response: b'd1001\r\n'
+2024-12-04 07:00:12,839 - <<< 完成第 2/3 群組
+2024-12-04 07:00:12,839 - 
+=== 掃描第 3 段 75 條線 ===
+2024-12-04 07:00:12,839 - 開始掃描 75 條線
+2024-12-04 07:00:12,839 - Sending command: ScanLine(75);
+2024-12-04 07:00:12,839 - Scan finished at 2024-12-04 07:00:12.839978
+2024-12-04 07:00:12,847 - Response: b'DDE Cmd 2797\r\n'
+2024-12-04 07:00:12,848 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 07:00:12,859 - Scan started at 2024-12-04 07:00:12.859980
+2024-12-04 07:00:12,859 - Response: 1
+2024-12-04 07:00:12,860 - Scan completed
+2024-12-04 07:00:13,361 - 掃描完成
+2024-12-04 07:00:13,361 - 
+>>> 執行第 3/3 群組的 STS 量測
+2024-12-04 07:00:13,361 -   STS點 (1/5): (-3596.800, 2607.000)
+2024-12-04 07:00:13,361 - Sending command: SpectPara(1, -3596.8);
+2024-12-04 07:00:13,465 - Response: b'f1000\r\n'
+2024-12-04 07:00:13,465 - Sending command: SpectPara(2, 2607.0);
+2024-12-04 07:00:14,152 - Response: b'b1000\r\n'
+2024-12-04 07:00:14,152 - Sending command: SpectPara(1, -3596.8);
+2024-12-04 07:00:14,839 - Response: b'f999\r\n'
+2024-12-04 07:00:14,839 - Sending command: SpectPara(2, 2607.0);
+2024-12-04 07:00:15,525 - Response: b'b999\r\n'
+2024-12-04 07:00:15,525 - Sending command: SpectStart;
+2024-12-04 07:00:16,223 - Response: b'f998\r\n'
+2024-12-04 07:00:17,224 -   STS點 (2/5): (-3593.800, 2607.000)
+2024-12-04 07:00:17,224 - Sending command: SpectPara(1, -3593.8);
+2024-12-04 07:00:17,235 - Response: b'b998\r\n'
+2024-12-04 07:00:17,235 - Sending command: SpectPara(2, 2607.0);
+2024-12-04 07:00:17,601 - Response: b'f997\r\n'
+2024-12-04 07:00:17,602 - Sending command: SpectPara(1, -3593.8);
+2024-12-04 07:00:18,283 - Response: b'b997\r\n'
+2024-12-04 07:00:18,283 - Sending command: SpectPara(2, 2607.0);
+2024-12-04 07:00:18,971 - Response: b'f996\r\n'
+2024-12-04 07:00:18,971 - Sending command: SpectStart;
+2024-12-04 07:00:19,657 - Response: b'b996\r\n'
+2024-12-04 07:00:20,658 -   STS點 (3/5): (-3590.800, 2607.000)
+2024-12-04 07:00:20,658 - Sending command: SpectPara(1, -3590.8);
+2024-12-04 07:00:20,669 - Response: b'f995\r\n'
+2024-12-04 07:00:20,669 - Sending command: SpectPara(2, 2607.0);
+2024-12-04 07:00:21,045 - Response: b'b995\r\n'
+2024-12-04 07:00:21,045 - Sending command: SpectPara(1, -3590.8);
+2024-12-04 07:00:21,735 - Response: b'f994\r\n'
+2024-12-04 07:00:21,735 - Sending command: SpectPara(2, 2607.0);
+2024-12-04 07:00:22,423 - Response: b'b994\r\n'
+2024-12-04 07:00:22,423 - Sending command: SpectStart;
+2024-12-04 07:00:23,114 - Response: b'f993\r\n'
+2024-12-04 07:00:24,115 -   STS點 (4/5): (-3587.800, 2607.000)
+2024-12-04 07:00:24,115 - Sending command: SpectPara(1, -3587.8);
+2024-12-04 07:00:24,126 - Response: b'b993\r\n'
+2024-12-04 07:00:24,126 - Sending command: SpectPara(2, 2607.0);
+2024-12-04 07:00:24,501 - Response: b'f992\r\n'
+2024-12-04 07:00:24,501 - Sending command: SpectPara(1, -3587.8);
+2024-12-04 07:00:25,189 - Response: b'b992\r\n'
+2024-12-04 07:00:25,189 - Sending command: SpectPara(2, 2607.0);
+2024-12-04 07:00:25,886 - Response: b'f991\r\n'
+2024-12-04 07:00:25,886 - Sending command: SpectStart;
+2024-12-04 07:00:26,580 - Response: b'b991\r\n'
+2024-12-04 07:00:27,580 -   STS點 (5/5): (-3584.800, 2607.000)
+2024-12-04 07:00:27,580 - Sending command: SpectPara(1, -3584.8);
+2024-12-04 07:00:27,583 - Response: b'f990\r\n'
+2024-12-04 07:00:27,584 - Sending command: SpectPara(2, 2607.0);
+2024-12-04 07:00:27,963 - Response: b'b990\r\n'
+2024-12-04 07:00:27,963 - Sending command: SpectPara(1, -3584.8);
+2024-12-04 07:00:28,660 - Response: b'f989\r\n'
+2024-12-04 07:00:28,660 - Sending command: SpectPara(2, 2607.0);
+2024-12-04 07:00:29,347 - Response: b'b989\r\n'
+2024-12-04 07:00:29,348 - Sending command: SpectStart;
+2024-12-04 07:00:30,040 - Response: b'f988\r\n'
+2024-12-04 07:00:31,041 - <<< 完成第 3/3 群組
+2024-12-04 07:00:31,041 - 
+=== 執行最後 325 條掃描線 ===
+2024-12-04 07:00:31,042 - 開始掃描 325 條線
+2024-12-04 07:00:31,042 - Sending command: ScanLine(325);
+2024-12-04 07:00:31,043 - Response: b'b988\r\n'
+2024-12-04 07:00:31,043 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 07:00:31,434 - Response: b'f987\r\n'
+2024-12-04 07:00:31,434 - Scanning: forward line 987
+2024-12-04 07:00:33,129 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 07:00:33,134 - Response: b'f986\r\n'
+2024-12-04 07:00:33,134 - Scanning: forward line 986
+2024-12-04 07:00:34,511 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 07:00:34,523 - Response: b'f985\r\n'
+2024-12-04 07:00:34,524 - Scanning: forward line 985
+2024-12-04 07:00:35,909 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 07:00:35,911 - Response: b'f984\r\n'
+2024-12-04 07:00:35,911 - Scanning: forward line 984
+2024-12-04 07:00:35,958 - 視窗已關閉，正在清理資源...
+2024-12-04 07:00:35,977 - 
+正在關閉程式...
