@@ -1214,6 +1214,11 @@ class SMUControlAPI:
         """
         try:
             from utils.SXMPyPlot import LocalCITSPreviewer
+
+            # 驗證座標轉換
+            for area in params['local_areas']:
+                if not all(key in area for key in ['start_x', 'start_y']):
+                    raise ValueError("每個局部區域必須包含實際的起始座標")
             
             previewer = LocalCITSPreviewer()
             plot_data = previewer.get_serializable_plot_data(params)
