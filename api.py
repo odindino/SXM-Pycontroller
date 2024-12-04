@@ -1202,6 +1202,26 @@ class SMUControlAPI:
             
             # 獲取可序列化的數據
             plot_data = previewer.get_serializable_plot_data()
+
+            # 設定自定義的配色方案
+            plot_data['data'][0]['marker'] = {
+                'size': 10,
+                'color': plot_data['data'][0]['customdata'],  # 使用點的序號作為顏色參考
+                'colorscale': 'Viridis',  # 使用 Viridis 配色方案
+                'showscale': True,
+                'colorbar': {
+                    'title': 'Point Index'
+                }
+            }
+            
+            # 設定互動提示
+            plot_data['data'][0]['hovertemplate'] = (
+                'Point %{customdata}<br>' +
+                'X: %{x:.2f} nm<br>' +
+                'Y: %{y:.2f} nm<br>' +
+                '<extra></extra>'
+            )
+
             return plot_data
             
         except Exception as e:

@@ -405,11 +405,28 @@ const AutoMoveMeasurementModule = {
                 responsive: true,
                 displayModeBar: true,
                 displaylogo: false,
-                modeBarButtonsToRemove: ['lasso2d', 'select2d']
+                modeBarButtonsToRemove: ['lasso2d', 'select2d'],
+                hovermode: 'closest'
             };
+
+            // 額外的版面配置設定
+            const layout = {
+                ...plotData.layout,
+                hoverlabel: {
+                    bgcolor: '#FFF',
+                    font: { size: 14 },
+                    bordercolor: '#888'
+                },
+                showlegend: true,
+                legend: {
+                    x: 1.05,
+                    y: 1
+                }
+            };
+
             // 將圖表放入預覽區域
             console.log('Plotting data:', plotData);
-            Plotly.newPlot(this.elements.previewCanvas, plotData.data, plotData.layout, config);
+            Plotly.newPlot(this.elements.previewCanvas, plotData.data, layout, config);
             
             // 監聽視窗大小變化
             window.addEventListener('resize', () => {
