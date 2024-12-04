@@ -1214,16 +1214,31 @@ class SMUControlAPI:
         """
         try:
             from utils.SXMPyPlot import LocalCITSPreviewer
-
-            # 驗證座標轉換
-            for area in params['local_areas']:
-                if not all(key in area for key in ['start_x', 'start_y']):
-                    raise ValueError("每個局部區域必須包含實際的起始座標")
+            from utils.SXMPyCalc import LocalCITSParams
             
+            # 將字典轉換為 LocalCITSParams 物件列表
+            local_areas = []
+            for area_dict in params['local_areas']:
+                area = LocalCITSParams(
+                    start_x=area_dict['start_x'],
+                    start_y=area_dict['start_y'],
+                    dx=area_dict['dx'],
+                    dy=area_dict['dy'],
+                    nx=area_dict['nx'],
+                    ny=area_dict['ny'],
+                    startpoint_direction=area_dict['startpoint_direction']
+                )
+                local_areas.append(area)
+                
+            # 更新參數字典，替換為正確的物件類型
+            params['local_areas'] = local_areas
+            
+            # 生成預覽
             previewer = LocalCITSPreviewer()
             plot_data = previewer.get_serializable_plot_data(params)
-            return plot_data
             
+            return plot_data
+                
         except Exception as e:
             print(f"Local CITS preview error: {str(e)}")
             raise Exception(f"Failed to generate Local CITS preview: {str(e)}")

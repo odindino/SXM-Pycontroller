@@ -1190,25 +1190,34 @@ const AutoMoveMeasurementModule = {
             // 先獲取 SXM 狀態以取得掃描參數
             const sxmStatus = await pywebview.api.get_sxm_status();
             
-            // 收集所有區域的參數，並轉換相對座標為絕對座標
+            // 收集所有區域的參數
             const localAreas = [];
             const containers = this.elements.localAreasContainer.querySelectorAll('.local-area-container');
             
             containers.forEach(container => {
-                // 獲取偏移量
                 const x_dev = parseFloat(container.querySelector('.x-dev').value);
                 const y_dev = parseFloat(container.querySelector('.y-dev').value);
+                const dx = parseFloat(container.querySelector('.dx').value);
+                const dy = parseFloat(container.querySelector('.dy').value);
+                const nx = parseInt(container.querySelector('.nx').value);
+                const ny = parseInt(container.querySelector('.ny').value);
+                const startpoint_direction = parseInt(container.querySelector('.start-direction').value);
                 
-                // 其他參數
+                // 確保所有參數都有效
+                if (isNaN(x_dev) || isNaN(y_dev) || isNaN(dx) || isNaN(dy) || 
+                    isNaN(nx) || isNaN(ny)) {
+                    throw new Error('Invalid input values');
+                }
+                
+                // 將相對座標轉換為絕對座標，同時保留原始參數
                 const area = {
-                    // 計算實際起始點座標：中心點 + 偏移量
                     start_x: sxmStatus.center_x + x_dev,
                     start_y: sxmStatus.center_y + y_dev,
-                    dx: parseFloat(container.querySelector('.dx').value),
-                    dy: parseFloat(container.querySelector('.dy').value),
-                    nx: parseInt(container.querySelector('.nx').value),
-                    ny: parseInt(container.querySelector('.ny').value),
-                    startpoint_direction: parseInt(container.querySelector('.start-direction').value)
+                    dx: dx,
+                    dy: dy,
+                    nx: nx,
+                    ny: ny,
+                    startpoint_direction: startpoint_direction
                 };
                 
                 localAreas.push(area);
@@ -1234,7 +1243,7 @@ const AutoMoveMeasurementModule = {
             // 生成預覽
             const plotData = await pywebview.api.preview_local_cits(params);
             
-            // 設定配置選項
+            // 設定繪圖配置
             const config = {
                 responsive: true,
                 displayModeBar: true,
@@ -1244,11 +1253,6 @@ const AutoMoveMeasurementModule = {
             
             // 更新預覽圖
             Plotly.newPlot(this.elements.localPreviewCanvas, plotData.data, plotData.layout, config);
-            
-            // 監聽視窗大小變化
-            window.addEventListener('resize', () => {
-                Plotly.Plots.resize(this.elements.localPreviewCanvas);
-            });
             
             this.updateStatus('Local CITS preview generated successfully');
             
