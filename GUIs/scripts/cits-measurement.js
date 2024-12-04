@@ -189,7 +189,7 @@ const CITSMeasurementModule = {
         if (this.state.isRunning) return;
         
         try {
-            const scriptSelect = document.getElementById('scriptSelect');
+            const scriptSelect = document.getElementById('smuscriptSelect');
             if (!scriptSelect.value) {
                 throw new Error('Please select a Multi-STS script');
             }

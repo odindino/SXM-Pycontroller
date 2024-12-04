@@ -13082,3 +13082,4 @@ Writeln(a);
 2024-12-04 08:47:17,652 - Response: b'DDE Cmd 5950\r\n0\r\n'
 2024-12-04 08:47:17,652 - 
 Auto move Local CITS sequence completed successfully
+2024-12-04 15:19:46,759 - 視窗已關閉，正在清理資源...
