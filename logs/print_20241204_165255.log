@@ -1,0 +1,2114 @@
+2024-12-04 16:52:55,004 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:52:56,282 - Response: b'f998\r\n'
+2024-12-04 16:52:56,282 - Scanning: forward line 998
+2024-12-04 16:52:58,622 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:52:58,964 - Response: b'f997\r\n'
+2024-12-04 16:52:58,964 - Scanning: forward line 997
+2024-12-04 16:53:01,296 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:53:01,297 - Scan finished at 2024-12-04 16:53:01.297196
+2024-12-04 16:53:01,302 - Response: b'DDE Cmd 10397\r\n'
+2024-12-04 16:53:01,302 - Scan completed
+2024-12-04 16:53:01,803 - 掃描完成
+2024-12-04 16:53:01,803 - 
+>>> 執行第 1/11 條 Multi-STS 線
+2024-12-04 16:53:01,803 -   Multi-STS點 (1/11): (-99.600, 4800.800)
+2024-12-04 16:53:01,803 - Sending command: SpectPara(1, -99.6);
+2024-12-04 16:53:01,811 - Response: b'DDE Cmd 10398\r\n0\r\n'
+2024-12-04 16:53:01,811 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:53:01,825 - Response: b'DDE Cmd 10400\r\n'
+2024-12-04 16:53:01,827 - Sending command: SpectPara(1, -99.6);
+2024-12-04 16:53:01,838 - Response: b'DDE Cmd 10401\r\n'
+2024-12-04 16:53:01,839 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:53:01,852 - Response: b'DDE Cmd 10402\r\n'
+2024-12-04 16:53:01,852 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:01,857 - Response: b'DDE Cmd 10403\r\n0\r\n'
+2024-12-04 16:53:01,857 - current state type:
+2024-12-04 16:53:01,857 - <class 'float'>
+2024-12-04 16:53:01,857 - current state:
+2024-12-04 16:53:01,857 - 0.0
+2024-12-04 16:53:01,926 - Sending command: SpectStart;
+2024-12-04 16:53:04,596 - Response: b'DDE Cmd 10404\r\n'
+2024-12-04 16:53:04,596 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 16:53:04,618 - Response: b'DDE Cmd 10405\r\n'
+2024-12-04 16:53:04,618 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:53:04,644 - Response: b'DDE Cmd 10406\r\n'
+2024-12-04 16:53:04,644 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:04,667 - Response: b'DDE Cmd 10407\r\n1\r\n'
+2024-12-04 16:53:04,667 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:53:04,669 - Response: b'DDE Cmd 10408\r\n'
+2024-12-04 16:53:04,669 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:04,693 - Response: b'DDE Cmd 10409\r\n1\r\n'
+2024-12-04 16:53:04,693 - Feedback off
+2024-12-04 16:53:04,746 - Sending command: SpectStart;
+2024-12-04 16:53:07,315 - Response: b'DDE Cmd 10410\r\n'
+2024-12-04 16:53:07,373 - Sending command: SpectStart;
+2024-12-04 16:53:09,925 - Response: b'DDE Cmd 10411\r\n'
+2024-12-04 16:53:09,939 - Sending command: SpectStart;
+2024-12-04 16:53:12,495 - Response: b'DDE Cmd 10412\r\n'
+2024-12-04 16:53:12,507 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:53:12,540 - Response: b'DDE Cmd 10413\r\n'
+2024-12-04 16:53:12,540 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:12,574 - Response: b'DDE Cmd 10414\r\n0\r\n'
+2024-12-04 16:53:12,574 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:53:12,577 - Response: b'DDE Cmd 10415\r\n'
+2024-12-04 16:53:12,577 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:12,581 - Response: b'DDE Cmd 10416\r\n0\r\n'
+2024-12-04 16:53:12,582 - Feedback on
+2024-12-04 16:53:12,582 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 16:53:12,605 - Response: b'DDE Cmd 10417\r\n'
+2024-12-04 16:53:12,605 - Feedback recover to 0
+2024-12-04 16:53:12,605 -   Multi-STS點 (2/11): (-79.680, 4800.800)
+2024-12-04 16:53:12,605 - Sending command: SpectPara(1, -79.67999999999999);
+2024-12-04 16:53:12,629 - Response: b'DDE Cmd 10418\r\n'
+2024-12-04 16:53:12,629 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:53:12,652 - Response: b'DDE Cmd 10419\r\n'
+2024-12-04 16:53:12,652 - Sending command: SpectPara(1, -79.67999999999999);
+2024-12-04 16:53:12,675 - Response: b'DDE Cmd 10420\r\n'
+2024-12-04 16:53:12,675 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:53:12,678 - Response: b'DDE Cmd 10421\r\n'
+2024-12-04 16:53:12,679 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:12,705 - Response: b'DDE Cmd 10422\r\n0\r\n'
+2024-12-04 16:53:12,705 - current state type:
+2024-12-04 16:53:12,705 - <class 'float'>
+2024-12-04 16:53:12,705 - current state:
+2024-12-04 16:53:12,705 - 0.0
+2024-12-04 16:53:12,769 - Sending command: SpectStart;
+2024-12-04 16:53:15,452 - Response: b'DDE Cmd 10423\r\n'
+2024-12-04 16:53:15,452 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 16:53:15,475 - Response: b'DDE Cmd 10424\r\n'
+2024-12-04 16:53:15,475 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:53:15,500 - Response: b'DDE Cmd 10425\r\n'
+2024-12-04 16:53:15,500 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:15,535 - Response: b'DDE Cmd 10426\r\n1\r\n'
+2024-12-04 16:53:15,535 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:53:15,538 - Response: b'DDE Cmd 10427\r\n'
+2024-12-04 16:53:15,538 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:15,542 - Response: b'DDE Cmd 10428\r\n1\r\n'
+2024-12-04 16:53:15,542 - Feedback off
+2024-12-04 16:53:15,556 - Sending command: SpectStart;
+2024-12-04 16:53:18,119 - Response: b'DDE Cmd 10429\r\n'
+2024-12-04 16:53:18,157 - Sending command: SpectStart;
+2024-12-04 16:53:20,711 - Response: b'DDE Cmd 10430\r\n'
+2024-12-04 16:53:20,751 - Sending command: SpectStart;
+2024-12-04 16:53:23,301 - Response: b'DDE Cmd 10431\r\n'
+2024-12-04 16:53:23,314 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:53:23,326 - Response: b'DDE Cmd 10432\r\n'
+2024-12-04 16:53:23,326 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:23,329 - Response: b'DDE Cmd 10433\r\n0\r\n'
+2024-12-04 16:53:23,329 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:53:23,341 - Response: b'DDE Cmd 10434\r\n'
+2024-12-04 16:53:23,341 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:23,375 - Response: b'DDE Cmd 10435\r\n0\r\n'
+2024-12-04 16:53:23,375 - Feedback on
+2024-12-04 16:53:23,375 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 16:53:23,397 - Response: b'DDE Cmd 10436\r\n'
+2024-12-04 16:53:23,397 - Feedback recover to 0
+2024-12-04 16:53:23,397 -   Multi-STS點 (3/11): (-59.760, 4800.800)
+2024-12-04 16:53:23,397 - Sending command: SpectPara(1, -59.76);
+2024-12-04 16:53:23,409 - Response: b'DDE Cmd 10437\r\n'
+2024-12-04 16:53:23,409 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:53:23,423 - Response: b'DDE Cmd 10438\r\n'
+2024-12-04 16:53:23,423 - Sending command: SpectPara(1, -59.76);
+2024-12-04 16:53:23,430 - Response: b'DDE Cmd 10439\r\n'
+2024-12-04 16:53:23,430 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:53:23,436 - Response: b'DDE Cmd 10440\r\n'
+2024-12-04 16:53:23,436 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:23,441 - Response: b'DDE Cmd 10441\r\n0\r\n'
+2024-12-04 16:53:23,443 - current state type:
+2024-12-04 16:53:23,443 - <class 'float'>
+2024-12-04 16:53:23,443 - current state:
+2024-12-04 16:53:23,443 - 0.0
+2024-12-04 16:53:23,461 - Sending command: SpectStart;
+2024-12-04 16:53:26,120 - Response: b'DDE Cmd 10442\r\n'
+2024-12-04 16:53:26,120 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 16:53:26,143 - Response: b'DDE Cmd 10443\r\n'
+2024-12-04 16:53:26,143 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:53:26,159 - Response: b'DDE Cmd 10444\r\n'
+2024-12-04 16:53:26,159 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:26,163 - Response: b'DDE Cmd 10445\r\n1\r\n'
+2024-12-04 16:53:26,163 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:53:26,185 - Response: b'DDE Cmd 10446\r\n'
+2024-12-04 16:53:26,185 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:26,219 - Response: b'DDE Cmd 10447\r\n1\r\n'
+2024-12-04 16:53:26,219 - Feedback off
+2024-12-04 16:53:26,233 - Sending command: SpectStart;
+2024-12-04 16:53:28,782 - Response: b'DDE Cmd 10448\r\n'
+2024-12-04 16:53:28,797 - Sending command: SpectStart;
+2024-12-04 16:53:31,355 - Response: b'DDE Cmd 10449\r\n'
+2024-12-04 16:53:31,393 - Sending command: SpectStart;
+2024-12-04 16:53:33,944 - Response: b'DDE Cmd 10450\r\n'
+2024-12-04 16:53:33,956 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:53:33,982 - Response: b'DDE Cmd 10451\r\n'
+2024-12-04 16:53:33,982 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:34,016 - Response: b'DDE Cmd 10452\r\n0\r\n'
+2024-12-04 16:53:34,016 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:53:34,039 - Response: b'DDE Cmd 10453\r\n'
+2024-12-04 16:53:34,040 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:34,065 - Response: b'DDE Cmd 10454\r\n0\r\n'
+2024-12-04 16:53:34,065 - Feedback on
+2024-12-04 16:53:34,065 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 16:53:34,068 - Response: b'DDE Cmd 10455\r\n'
+2024-12-04 16:53:34,069 - Feedback recover to 0
+2024-12-04 16:53:34,069 -   Multi-STS點 (4/11): (-39.840, 4800.800)
+2024-12-04 16:53:34,069 - Sending command: SpectPara(1, -39.84);
+2024-12-04 16:53:34,071 - Response: b'DDE Cmd 10456\r\n'
+2024-12-04 16:53:34,071 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:53:34,094 - Response: b'DDE Cmd 10457\r\n'
+2024-12-04 16:53:34,094 - Sending command: SpectPara(1, -39.84);
+2024-12-04 16:53:34,118 - Response: b'DDE Cmd 10458\r\n'
+2024-12-04 16:53:34,118 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:53:34,141 - Response: b'DDE Cmd 10459\r\n'
+2024-12-04 16:53:34,141 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:34,168 - Response: b'DDE Cmd 10460\r\n0\r\n'
+2024-12-04 16:53:34,168 - current state type:
+2024-12-04 16:53:34,168 - <class 'float'>
+2024-12-04 16:53:34,168 - current state:
+2024-12-04 16:53:34,168 - 0.0
+2024-12-04 16:53:34,185 - Sending command: SpectStart;
+2024-12-04 16:53:36,878 - Response: b'DDE Cmd 10461\r\n'
+2024-12-04 16:53:36,878 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 16:53:36,901 - Response: b'DDE Cmd 10462\r\n'
+2024-12-04 16:53:36,901 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:53:36,929 - Response: b'DDE Cmd 10463\r\n'
+2024-12-04 16:53:36,929 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:36,963 - Response: b'DDE Cmd 10464\r\n1\r\n'
+2024-12-04 16:53:36,963 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:53:36,986 - Response: b'DDE Cmd 10465\r\n'
+2024-12-04 16:53:36,986 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:37,021 - Response: b'DDE Cmd 10466\r\n1\r\n'
+2024-12-04 16:53:37,021 - Feedback off
+2024-12-04 16:53:37,035 - Sending command: SpectStart;
+2024-12-04 16:53:39,589 - Response: b'DDE Cmd 10467\r\n'
+2024-12-04 16:53:39,603 - Sending command: SpectStart;
+2024-12-04 16:53:42,164 - Response: b'DDE Cmd 10468\r\n'
+2024-12-04 16:53:42,178 - Sending command: SpectStart;
+2024-12-04 16:53:44,744 - Response: b'DDE Cmd 10469\r\n'
+2024-12-04 16:53:44,756 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:53:44,788 - Response: b'DDE Cmd 10470\r\n'
+2024-12-04 16:53:44,788 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:44,803 - Response: b'DDE Cmd 10471\r\n0\r\n'
+2024-12-04 16:53:44,803 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:53:44,806 - Response: b'DDE Cmd 10472\r\n'
+2024-12-04 16:53:44,806 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:44,829 - Response: b'DDE Cmd 10473\r\n0\r\n'
+2024-12-04 16:53:44,829 - Feedback on
+2024-12-04 16:53:44,829 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 16:53:44,852 - Response: b'DDE Cmd 10474\r\n'
+2024-12-04 16:53:44,852 - Feedback recover to 0
+2024-12-04 16:53:44,852 -   Multi-STS點 (5/11): (-19.920, 4800.800)
+2024-12-04 16:53:44,853 - Sending command: SpectPara(1, -19.92);
+2024-12-04 16:53:44,875 - Response: b'DDE Cmd 10475\r\n'
+2024-12-04 16:53:44,876 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:53:44,899 - Response: b'DDE Cmd 10476\r\n'
+2024-12-04 16:53:44,899 - Sending command: SpectPara(1, -19.92);
+2024-12-04 16:53:44,904 - Response: b'DDE Cmd 10477\r\n'
+2024-12-04 16:53:44,904 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:53:44,914 - Response: b'DDE Cmd 10478\r\n'
+2024-12-04 16:53:44,915 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:44,949 - Response: b'DDE Cmd 10479\r\n0\r\n'
+2024-12-04 16:53:44,949 - current state type:
+2024-12-04 16:53:44,949 - <class 'float'>
+2024-12-04 16:53:44,949 - current state:
+2024-12-04 16:53:44,949 - 0.0
+2024-12-04 16:53:44,965 - Sending command: SpectStart;
+2024-12-04 16:53:47,628 - Response: b'DDE Cmd 10480\r\n'
+2024-12-04 16:53:47,628 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 16:53:47,652 - Response: b'DDE Cmd 10481\r\n'
+2024-12-04 16:53:47,652 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:53:47,670 - Response: b'DDE Cmd 10482\r\n'
+2024-12-04 16:53:47,670 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:47,715 - Response: b'DDE Cmd 10483\r\n1\r\n'
+2024-12-04 16:53:47,715 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:53:47,739 - Response: b'DDE Cmd 10484\r\n'
+2024-12-04 16:53:47,740 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:47,765 - Response: b'DDE Cmd 10485\r\n1\r\n'
+2024-12-04 16:53:47,766 - Feedback off
+2024-12-04 16:53:47,779 - Sending command: SpectStart;
+2024-12-04 16:53:50,351 - Response: b'DDE Cmd 10486\r\n'
+2024-12-04 16:53:50,364 - Sending command: SpectStart;
+2024-12-04 16:53:52,938 - Response: b'DDE Cmd 10487\r\n'
+2024-12-04 16:53:52,952 - Sending command: SpectStart;
+2024-12-04 16:53:55,509 - Response: b'DDE Cmd 10488\r\n'
+2024-12-04 16:53:55,698 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:53:55,721 - Response: b'DDE Cmd 10489\r\n'
+2024-12-04 16:53:55,721 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:55,756 - Response: b'DDE Cmd 10490\r\n0\r\n'
+2024-12-04 16:53:55,756 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:53:55,780 - Response: b'DDE Cmd 10491\r\n'
+2024-12-04 16:53:55,780 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:55,785 - Response: b'DDE Cmd 10492\r\n0\r\n'
+2024-12-04 16:53:55,785 - Feedback on
+2024-12-04 16:53:55,785 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 16:53:55,788 - Response: b'DDE Cmd 10493\r\n'
+2024-12-04 16:53:55,788 - Feedback recover to 0
+2024-12-04 16:53:55,788 -   Multi-STS點 (6/11): (0.000, 4800.800)
+2024-12-04 16:53:55,788 - Sending command: SpectPara(1, 0.0);
+2024-12-04 16:53:55,800 - Response: b'DDE Cmd 10494\r\n'
+2024-12-04 16:53:55,800 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:53:55,824 - Response: b'DDE Cmd 10495\r\n'
+2024-12-04 16:53:55,824 - Sending command: SpectPara(1, 0.0);
+2024-12-04 16:53:55,846 - Response: b'DDE Cmd 10496\r\n'
+2024-12-04 16:53:55,846 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:53:55,870 - Response: b'DDE Cmd 10497\r\n'
+2024-12-04 16:53:55,870 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:55,896 - Response: b'DDE Cmd 10498\r\n0\r\n'
+2024-12-04 16:53:55,896 - current state type:
+2024-12-04 16:53:55,896 - <class 'float'>
+2024-12-04 16:53:55,896 - current state:
+2024-12-04 16:53:55,896 - 0.0
+2024-12-04 16:53:55,911 - Sending command: SpectStart;
+2024-12-04 16:53:58,579 - Response: b'DDE Cmd 10499\r\n'
+2024-12-04 16:53:58,579 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 16:53:58,601 - Response: b'DDE Cmd 10500\r\n'
+2024-12-04 16:53:58,601 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:53:58,625 - Response: b'DDE Cmd 10501\r\n'
+2024-12-04 16:53:58,626 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:58,632 - Response: b'DDE Cmd 10502\r\n1\r\n'
+2024-12-04 16:53:58,632 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:53:58,655 - Response: b'DDE Cmd 10503\r\n'
+2024-12-04 16:53:58,655 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:53:58,690 - Response: b'DDE Cmd 10504\r\n1\r\n'
+2024-12-04 16:53:58,690 - Feedback off
+2024-12-04 16:53:58,704 - Sending command: SpectStart;
+2024-12-04 16:54:01,256 - Response: b'DDE Cmd 10505\r\n'
+2024-12-04 16:54:01,270 - Sending command: SpectStart;
+2024-12-04 16:54:03,817 - Response: b'DDE Cmd 10506\r\n'
+2024-12-04 16:54:03,832 - Sending command: SpectStart;
+2024-12-04 16:54:06,394 - Response: b'DDE Cmd 10507\r\n'
+2024-12-04 16:54:06,407 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:54:06,438 - Response: b'DDE Cmd 10508\r\n'
+2024-12-04 16:54:06,438 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:06,443 - Response: b'DDE Cmd 10509\r\n0\r\n'
+2024-12-04 16:54:06,443 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:54:06,445 - Response: b'DDE Cmd 10510\r\n'
+2024-12-04 16:54:06,446 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:06,469 - Response: b'DDE Cmd 10511\r\n0\r\n'
+2024-12-04 16:54:06,469 - Feedback on
+2024-12-04 16:54:06,469 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 16:54:06,493 - Response: b'DDE Cmd 10512\r\n'
+2024-12-04 16:54:06,493 - Feedback recover to 0
+2024-12-04 16:54:06,493 -   Multi-STS點 (7/11): (19.920, 4800.800)
+2024-12-04 16:54:06,493 - Sending command: SpectPara(1, 19.919999999999987);
+2024-12-04 16:54:06,516 - Response: b'DDE Cmd 10513\r\n'
+2024-12-04 16:54:06,517 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:54:06,539 - Response: b'DDE Cmd 10514\r\n'
+2024-12-04 16:54:06,539 - Sending command: SpectPara(1, 19.919999999999987);
+2024-12-04 16:54:06,554 - Response: b'DDE Cmd 10515\r\n'
+2024-12-04 16:54:06,554 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:54:06,559 - Response: b'DDE Cmd 10516\r\n'
+2024-12-04 16:54:06,559 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:06,564 - Response: b'DDE Cmd 10517\r\n0\r\n'
+2024-12-04 16:54:06,565 - current state type:
+2024-12-04 16:54:06,565 - <class 'float'>
+2024-12-04 16:54:06,565 - current state:
+2024-12-04 16:54:06,565 - 0.0
+2024-12-04 16:54:06,583 - Sending command: SpectStart;
+2024-12-04 16:54:09,259 - Response: b'DDE Cmd 10518\r\n'
+2024-12-04 16:54:09,259 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 16:54:09,282 - Response: b'DDE Cmd 10519\r\n'
+2024-12-04 16:54:09,282 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:54:09,300 - Response: b'DDE Cmd 10520\r\n'
+2024-12-04 16:54:09,300 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:09,345 - Response: b'DDE Cmd 10521\r\n1\r\n'
+2024-12-04 16:54:09,345 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:54:09,368 - Response: b'DDE Cmd 10522\r\n'
+2024-12-04 16:54:09,368 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:09,401 - Response: b'DDE Cmd 10523\r\n1\r\n'
+2024-12-04 16:54:09,401 - Feedback off
+2024-12-04 16:54:09,416 - Sending command: SpectStart;
+2024-12-04 16:54:11,958 - Response: b'DDE Cmd 10524\r\n'
+2024-12-04 16:54:11,972 - Sending command: SpectStart;
+2024-12-04 16:54:14,525 - Response: b'DDE Cmd 10525\r\n'
+2024-12-04 16:54:14,539 - Sending command: SpectStart;
+2024-12-04 16:54:17,138 - Response: b'DDE Cmd 10526\r\n'
+2024-12-04 16:54:17,150 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:54:17,172 - Response: b'DDE Cmd 10527\r\n'
+2024-12-04 16:54:17,173 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:17,176 - Response: b'DDE Cmd 10528\r\n0\r\n'
+2024-12-04 16:54:17,176 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:54:17,199 - Response: b'DDE Cmd 10529\r\n'
+2024-12-04 16:54:17,199 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:17,233 - Response: b'DDE Cmd 10530\r\n0\r\n'
+2024-12-04 16:54:17,233 - Feedback on
+2024-12-04 16:54:17,233 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 16:54:17,256 - Response: b'DDE Cmd 10531\r\n'
+2024-12-04 16:54:17,256 - Feedback recover to 0
+2024-12-04 16:54:17,256 -   Multi-STS點 (8/11): (39.840, 4800.800)
+2024-12-04 16:54:17,256 - Sending command: SpectPara(1, 39.84);
+2024-12-04 16:54:17,270 - Response: b'DDE Cmd 10532\r\n'
+2024-12-04 16:54:17,270 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:54:17,284 - Response: b'DDE Cmd 10533\r\n'
+2024-12-04 16:54:17,284 - Sending command: SpectPara(1, 39.84);
+2024-12-04 16:54:17,287 - Response: b'DDE Cmd 10534\r\n'
+2024-12-04 16:54:17,287 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:54:17,292 - Response: b'DDE Cmd 10535\r\n'
+2024-12-04 16:54:17,292 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:17,325 - Response: b'DDE Cmd 10536\r\n0\r\n'
+2024-12-04 16:54:17,325 - current state type:
+2024-12-04 16:54:17,325 - <class 'float'>
+2024-12-04 16:54:17,325 - current state:
+2024-12-04 16:54:17,325 - 0.0
+2024-12-04 16:54:17,341 - Sending command: SpectStart;
+2024-12-04 16:54:20,023 - Response: b'DDE Cmd 10537\r\n'
+2024-12-04 16:54:20,023 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 16:54:20,027 - Response: b'DDE Cmd 10538\r\n'
+2024-12-04 16:54:20,027 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:54:20,042 - Response: b'DDE Cmd 10539\r\n'
+2024-12-04 16:54:20,042 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:20,076 - Response: b'DDE Cmd 10540\r\n1\r\n'
+2024-12-04 16:54:20,076 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:54:20,099 - Response: b'DDE Cmd 10541\r\n'
+2024-12-04 16:54:20,099 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:20,133 - Response: b'DDE Cmd 10542\r\n1\r\n'
+2024-12-04 16:54:20,133 - Feedback off
+2024-12-04 16:54:20,147 - Sending command: SpectStart;
+2024-12-04 16:54:22,705 - Response: b'DDE Cmd 10543\r\n'
+2024-12-04 16:54:22,744 - Sending command: SpectStart;
+2024-12-04 16:54:25,323 - Response: b'DDE Cmd 10544\r\n'
+2024-12-04 16:54:25,362 - Sending command: SpectStart;
+2024-12-04 16:54:27,935 - Response: b'DDE Cmd 10545\r\n'
+2024-12-04 16:54:27,947 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:54:27,978 - Response: b'DDE Cmd 10546\r\n'
+2024-12-04 16:54:27,978 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:28,012 - Response: b'DDE Cmd 10547\r\n0\r\n'
+2024-12-04 16:54:28,012 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:54:28,034 - Response: b'DDE Cmd 10548\r\n'
+2024-12-04 16:54:28,034 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:28,040 - Response: b'DDE Cmd 10549\r\n0\r\n'
+2024-12-04 16:54:28,040 - Feedback on
+2024-12-04 16:54:28,040 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 16:54:28,053 - Response: b'DDE Cmd 10550\r\n'
+2024-12-04 16:54:28,053 - Feedback recover to 0
+2024-12-04 16:54:28,053 -   Multi-STS點 (9/11): (59.760, 4800.800)
+2024-12-04 16:54:28,053 - Sending command: SpectPara(1, 59.75999999999999);
+2024-12-04 16:54:28,065 - Response: b'DDE Cmd 10551\r\n'
+2024-12-04 16:54:28,065 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:54:28,088 - Response: b'DDE Cmd 10552\r\n'
+2024-12-04 16:54:28,088 - Sending command: SpectPara(1, 59.75999999999999);
+2024-12-04 16:54:28,112 - Response: b'DDE Cmd 10553\r\n'
+2024-12-04 16:54:28,112 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:54:28,136 - Response: b'DDE Cmd 10554\r\n'
+2024-12-04 16:54:28,136 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:28,140 - Response: b'DDE Cmd 10555\r\n0\r\n'
+2024-12-04 16:54:28,140 - current state type:
+2024-12-04 16:54:28,140 - <class 'float'>
+2024-12-04 16:54:28,140 - current state:
+2024-12-04 16:54:28,140 - 0.0
+2024-12-04 16:54:28,155 - Sending command: SpectStart;
+2024-12-04 16:54:30,824 - Response: b'DDE Cmd 10556\r\n'
+2024-12-04 16:54:30,824 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 16:54:30,847 - Response: b'DDE Cmd 10557\r\n'
+2024-12-04 16:54:30,847 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:54:30,871 - Response: b'DDE Cmd 10558\r\n'
+2024-12-04 16:54:30,871 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:30,896 - Response: b'DDE Cmd 10559\r\n1\r\n'
+2024-12-04 16:54:30,896 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:54:30,898 - Response: b'DDE Cmd 10560\r\n'
+2024-12-04 16:54:30,898 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:30,901 - Response: b'DDE Cmd 10561\r\n1\r\n'
+2024-12-04 16:54:30,901 - Feedback off
+2024-12-04 16:54:30,915 - Sending command: SpectStart;
+2024-12-04 16:54:33,493 - Response: b'DDE Cmd 10562\r\n'
+2024-12-04 16:54:33,508 - Sending command: SpectStart;
+2024-12-04 16:54:36,049 - Response: b'DDE Cmd 10563\r\n'
+2024-12-04 16:54:36,089 - Sending command: SpectStart;
+2024-12-04 16:54:38,687 - Response: b'DDE Cmd 10564\r\n'
+2024-12-04 16:54:38,725 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:54:38,753 - Response: b'DDE Cmd 10565\r\n'
+2024-12-04 16:54:38,753 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:38,781 - Response: b'DDE Cmd 10566\r\n0\r\n'
+2024-12-04 16:54:38,781 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:54:38,784 - Response: b'DDE Cmd 10567\r\n'
+2024-12-04 16:54:38,784 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:38,787 - Response: b'DDE Cmd 10568\r\n0\r\n'
+2024-12-04 16:54:38,787 - Feedback on
+2024-12-04 16:54:38,787 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 16:54:38,809 - Response: b'DDE Cmd 10569\r\n'
+2024-12-04 16:54:38,809 - Feedback recover to 0
+2024-12-04 16:54:38,809 -   Multi-STS點 (10/11): (79.680, 4800.800)
+2024-12-04 16:54:38,809 - Sending command: SpectPara(1, 79.67999999999998);
+2024-12-04 16:54:38,831 - Response: b'DDE Cmd 10570\r\n'
+2024-12-04 16:54:38,831 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:54:38,855 - Response: b'DDE Cmd 10571\r\n'
+2024-12-04 16:54:38,855 - Sending command: SpectPara(1, 79.67999999999998);
+2024-12-04 16:54:38,877 - Response: b'DDE Cmd 10572\r\n'
+2024-12-04 16:54:38,877 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:54:38,882 - Response: b'DDE Cmd 10573\r\n'
+2024-12-04 16:54:38,883 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:38,889 - Response: b'DDE Cmd 10574\r\n0\r\n'
+2024-12-04 16:54:38,889 - current state type:
+2024-12-04 16:54:38,889 - <class 'float'>
+2024-12-04 16:54:38,889 - current state:
+2024-12-04 16:54:38,889 - 0.0
+2024-12-04 16:54:38,905 - Sending command: SpectStart;
+2024-12-04 16:54:41,584 - Response: b'DDE Cmd 10575\r\n'
+2024-12-04 16:54:41,584 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 16:54:41,607 - Response: b'DDE Cmd 10576\r\n'
+2024-12-04 16:54:41,607 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:54:41,634 - Response: b'DDE Cmd 10577\r\n'
+2024-12-04 16:54:41,634 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:41,668 - Response: b'DDE Cmd 10578\r\n1\r\n'
+2024-12-04 16:54:41,668 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:54:41,692 - Response: b'DDE Cmd 10579\r\n'
+2024-12-04 16:54:41,692 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:41,727 - Response: b'DDE Cmd 10580\r\n1\r\n'
+2024-12-04 16:54:41,727 - Feedback off
+2024-12-04 16:54:41,741 - Sending command: SpectStart;
+2024-12-04 16:54:44,309 - Response: b'DDE Cmd 10581\r\n'
+2024-12-04 16:54:44,323 - Sending command: SpectStart;
+2024-12-04 16:54:46,886 - Response: b'DDE Cmd 10582\r\n'
+2024-12-04 16:54:46,900 - Sending command: SpectStart;
+2024-12-04 16:54:49,456 - Response: b'DDE Cmd 10583\r\n'
+2024-12-04 16:54:49,469 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:54:49,500 - Response: b'DDE Cmd 10584\r\n'
+2024-12-04 16:54:49,500 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:49,504 - Response: b'DDE Cmd 10585\r\n0\r\n'
+2024-12-04 16:54:49,504 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:54:49,507 - Response: b'DDE Cmd 10586\r\n'
+2024-12-04 16:54:49,507 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:49,531 - Response: b'DDE Cmd 10587\r\n0\r\n'
+2024-12-04 16:54:49,531 - Feedback on
+2024-12-04 16:54:49,531 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 16:54:49,555 - Response: b'DDE Cmd 10588\r\n'
+2024-12-04 16:54:49,555 - Feedback recover to 0
+2024-12-04 16:54:49,555 -   Multi-STS點 (11/11): (99.600, 4800.800)
+2024-12-04 16:54:49,555 - Sending command: SpectPara(1, 99.6);
+2024-12-04 16:54:49,578 - Response: b'DDE Cmd 10589\r\n'
+2024-12-04 16:54:49,578 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:54:49,602 - Response: b'DDE Cmd 10590\r\n'
+2024-12-04 16:54:49,602 - Sending command: SpectPara(1, 99.6);
+2024-12-04 16:54:49,617 - Response: b'DDE Cmd 10591\r\n'
+2024-12-04 16:54:49,617 - Sending command: SpectPara(2, 4800.8);
+2024-12-04 16:54:49,621 - Response: b'DDE Cmd 10592\r\n'
+2024-12-04 16:54:49,621 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:49,626 - Response: b'DDE Cmd 10593\r\n0\r\n'
+2024-12-04 16:54:49,626 - current state type:
+2024-12-04 16:54:49,626 - <class 'float'>
+2024-12-04 16:54:49,627 - current state:
+2024-12-04 16:54:49,627 - 0.0
+2024-12-04 16:54:49,646 - Sending command: SpectStart;
+2024-12-04 16:54:52,304 - Response: b'DDE Cmd 10594\r\n'
+2024-12-04 16:54:52,304 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 16:54:52,327 - Response: b'DDE Cmd 10595\r\n'
+2024-12-04 16:54:52,327 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:54:52,351 - Response: b'DDE Cmd 10596\r\n'
+2024-12-04 16:54:52,351 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:52,355 - Response: b'DDE Cmd 10597\r\n1\r\n'
+2024-12-04 16:54:52,356 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:54:52,359 - Response: b'DDE Cmd 10598\r\n'
+2024-12-04 16:54:52,359 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:54:52,393 - Response: b'DDE Cmd 10599\r\n1\r\n'
+2024-12-04 16:54:52,393 - Feedback off
+2024-12-04 16:54:52,642 - Sending command: SpectStart;
+2024-12-04 16:54:55,220 - Response: b'DDE Cmd 10600\r\n'
+2024-12-04 16:54:55,261 - Sending command: SpectStart;
+2024-12-04 16:54:57,827 - Response: b'DDE Cmd 10601\r\n'
+2024-12-04 16:54:57,840 - Sending command: SpectStart;
+2024-12-04 16:55:00,415 - Response: b'DDE Cmd 10602\r\n'
+2024-12-04 16:55:00,526 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:55:00,560 - Response: b'DDE Cmd 10603\r\n'
+2024-12-04 16:55:00,560 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:55:00,594 - Response: b'DDE Cmd 10604\r\n0\r\n'
+2024-12-04 16:55:00,594 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:55:00,598 - Response: b'DDE Cmd 10605\r\n'
+2024-12-04 16:55:00,598 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:55:00,601 - Response: b'DDE Cmd 10606\r\n0\r\n'
+2024-12-04 16:55:00,602 - Feedback on
+2024-12-04 16:55:00,602 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 16:55:00,614 - Response: b'DDE Cmd 10607\r\n'
+2024-12-04 16:55:00,614 - Feedback recover to 0
+2024-12-04 16:55:00,614 - 
+=== 掃描第 2 段 100 條線 ===
+2024-12-04 16:55:00,614 - 開始掃描 100 條線
+2024-12-04 16:55:00,615 - Sending command: ScanLine(100);
+2024-12-04 16:55:00,637 - Scan started at 2024-12-04 16:55:00.637517
+2024-12-04 16:55:00,637 - Response: 1
+2024-12-04 16:55:00,637 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:02,956 - Response: b'f996\r\n'
+2024-12-04 16:55:02,956 - Scanning: forward line 996
+2024-12-04 16:55:05,294 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:05,639 - Response: b'f995\r\n'
+2024-12-04 16:55:05,639 - Scanning: forward line 995
+2024-12-04 16:55:07,977 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:08,323 - Response: b'f994\r\n'
+2024-12-04 16:55:08,323 - Scanning: forward line 994
+2024-12-04 16:55:10,663 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:11,018 - Response: b'f993\r\n'
+2024-12-04 16:55:11,018 - Scanning: forward line 993
+2024-12-04 16:55:13,365 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:13,715 - Response: b'f992\r\n'
+2024-12-04 16:55:13,715 - Scanning: forward line 992
+2024-12-04 16:55:16,059 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:16,412 - Response: b'f991\r\n'
+2024-12-04 16:55:16,412 - Scanning: forward line 991
+2024-12-04 16:55:18,757 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:19,109 - Response: b'f990\r\n'
+2024-12-04 16:55:19,109 - Scanning: forward line 990
+2024-12-04 16:55:21,450 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:21,804 - Response: b'f989\r\n'
+2024-12-04 16:55:21,804 - Scanning: forward line 989
+2024-12-04 16:55:24,140 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:24,493 - Response: b'f988\r\n'
+2024-12-04 16:55:24,493 - Scanning: forward line 988
+2024-12-04 16:55:26,840 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:27,185 - Response: b'f987\r\n'
+2024-12-04 16:55:27,185 - Scanning: forward line 987
+2024-12-04 16:55:29,535 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:29,882 - Response: b'f986\r\n'
+2024-12-04 16:55:29,882 - Scanning: forward line 986
+2024-12-04 16:55:32,223 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:32,573 - Response: b'f985\r\n'
+2024-12-04 16:55:32,573 - Scanning: forward line 985
+2024-12-04 16:55:34,913 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:35,269 - Response: b'f984\r\n'
+2024-12-04 16:55:35,269 - Scanning: forward line 984
+2024-12-04 16:55:37,609 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:37,967 - Response: b'f983\r\n'
+2024-12-04 16:55:37,967 - Scanning: forward line 983
+2024-12-04 16:55:40,317 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:40,664 - Response: b'f982\r\n'
+2024-12-04 16:55:40,664 - Scanning: forward line 982
+2024-12-04 16:55:43,007 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:43,360 - Response: b'f981\r\n'
+2024-12-04 16:55:43,360 - Scanning: forward line 981
+2024-12-04 16:55:45,704 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:46,058 - Response: b'f980\r\n'
+2024-12-04 16:55:46,058 - Scanning: forward line 980
+2024-12-04 16:55:48,404 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:48,754 - Response: b'f979\r\n'
+2024-12-04 16:55:48,754 - Scanning: forward line 979
+2024-12-04 16:55:51,101 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:51,449 - Response: b'f978\r\n'
+2024-12-04 16:55:51,449 - Scanning: forward line 978
+2024-12-04 16:55:53,793 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:54,148 - Response: b'f977\r\n'
+2024-12-04 16:55:54,148 - Scanning: forward line 977
+2024-12-04 16:55:56,488 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:56,836 - Response: b'f976\r\n'
+2024-12-04 16:55:56,836 - Scanning: forward line 976
+2024-12-04 16:55:59,178 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:55:59,524 - Response: b'f975\r\n'
+2024-12-04 16:55:59,524 - Scanning: forward line 975
+2024-12-04 16:56:01,869 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:02,213 - Response: b'f974\r\n'
+2024-12-04 16:56:02,214 - Scanning: forward line 974
+2024-12-04 16:56:04,566 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:04,916 - Response: b'f973\r\n'
+2024-12-04 16:56:04,916 - Scanning: forward line 973
+2024-12-04 16:56:07,259 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:07,611 - Response: b'f972\r\n'
+2024-12-04 16:56:07,611 - Scanning: forward line 972
+2024-12-04 16:56:09,954 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:10,301 - Response: b'f971\r\n'
+2024-12-04 16:56:10,301 - Scanning: forward line 971
+2024-12-04 16:56:12,638 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:12,986 - Response: b'f970\r\n'
+2024-12-04 16:56:12,986 - Scanning: forward line 970
+2024-12-04 16:56:15,327 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:15,674 - Response: b'f969\r\n'
+2024-12-04 16:56:15,674 - Scanning: forward line 969
+2024-12-04 16:56:18,016 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:18,360 - Response: b'f968\r\n'
+2024-12-04 16:56:18,360 - Scanning: forward line 968
+2024-12-04 16:56:20,709 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:21,052 - Response: b'f967\r\n'
+2024-12-04 16:56:21,052 - Scanning: forward line 967
+2024-12-04 16:56:23,397 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:23,751 - Response: b'f966\r\n'
+2024-12-04 16:56:23,751 - Scanning: forward line 966
+2024-12-04 16:56:26,096 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:26,446 - Response: b'f965\r\n'
+2024-12-04 16:56:26,446 - Scanning: forward line 965
+2024-12-04 16:56:28,786 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:29,138 - Response: b'f964\r\n'
+2024-12-04 16:56:29,138 - Scanning: forward line 964
+2024-12-04 16:56:31,483 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:31,831 - Response: b'f963\r\n'
+2024-12-04 16:56:31,831 - Scanning: forward line 963
+2024-12-04 16:56:34,178 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:34,521 - Response: b'f962\r\n'
+2024-12-04 16:56:34,521 - Scanning: forward line 962
+2024-12-04 16:56:36,862 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:37,215 - Response: b'f961\r\n'
+2024-12-04 16:56:37,215 - Scanning: forward line 961
+2024-12-04 16:56:39,552 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:39,888 - Response: b'f960\r\n'
+2024-12-04 16:56:39,888 - Scanning: forward line 960
+2024-12-04 16:56:42,220 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:42,567 - Response: b'f959\r\n'
+2024-12-04 16:56:42,567 - Scanning: forward line 959
+2024-12-04 16:56:44,906 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:45,249 - Response: b'f958\r\n'
+2024-12-04 16:56:45,249 - Scanning: forward line 958
+2024-12-04 16:56:47,597 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:47,948 - Response: b'f957\r\n'
+2024-12-04 16:56:47,948 - Scanning: forward line 957
+2024-12-04 16:56:50,295 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:50,647 - Response: b'f956\r\n'
+2024-12-04 16:56:50,647 - Scanning: forward line 956
+2024-12-04 16:56:52,994 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:53,336 - Response: b'f955\r\n'
+2024-12-04 16:56:53,336 - Scanning: forward line 955
+2024-12-04 16:56:55,667 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:56,006 - Response: b'f954\r\n'
+2024-12-04 16:56:56,007 - Scanning: forward line 954
+2024-12-04 16:56:58,351 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:56:58,696 - Response: b'f953\r\n'
+2024-12-04 16:56:58,696 - Scanning: forward line 953
+2024-12-04 16:57:01,036 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:01,383 - Response: b'f952\r\n'
+2024-12-04 16:57:01,383 - Scanning: forward line 952
+2024-12-04 16:57:03,725 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:04,068 - Response: b'f951\r\n'
+2024-12-04 16:57:04,068 - Scanning: forward line 951
+2024-12-04 16:57:06,408 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:06,754 - Response: b'f950\r\n'
+2024-12-04 16:57:06,754 - Scanning: forward line 950
+2024-12-04 16:57:09,093 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:09,442 - Response: b'f949\r\n'
+2024-12-04 16:57:09,442 - Scanning: forward line 949
+2024-12-04 16:57:11,781 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:12,132 - Response: b'f948\r\n'
+2024-12-04 16:57:12,132 - Scanning: forward line 948
+2024-12-04 16:57:14,477 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:14,828 - Response: b'f947\r\n'
+2024-12-04 16:57:14,828 - Scanning: forward line 947
+2024-12-04 16:57:17,166 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:17,516 - Response: b'f946\r\n'
+2024-12-04 16:57:17,516 - Scanning: forward line 946
+2024-12-04 16:57:19,859 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:20,205 - Response: b'f945\r\n'
+2024-12-04 16:57:20,205 - Scanning: forward line 945
+2024-12-04 16:57:22,543 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:22,897 - Response: b'f944\r\n'
+2024-12-04 16:57:22,897 - Scanning: forward line 944
+2024-12-04 16:57:25,245 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:25,595 - Response: b'f943\r\n'
+2024-12-04 16:57:25,595 - Scanning: forward line 943
+2024-12-04 16:57:27,935 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:28,280 - Response: b'f942\r\n'
+2024-12-04 16:57:28,281 - Scanning: forward line 942
+2024-12-04 16:57:30,628 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:30,975 - Response: b'f941\r\n'
+2024-12-04 16:57:30,975 - Scanning: forward line 941
+2024-12-04 16:57:33,314 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:33,659 - Response: b'f940\r\n'
+2024-12-04 16:57:33,659 - Scanning: forward line 940
+2024-12-04 16:57:36,007 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:36,353 - Response: b'f939\r\n'
+2024-12-04 16:57:36,353 - Scanning: forward line 939
+2024-12-04 16:57:38,698 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:39,049 - Response: b'f938\r\n'
+2024-12-04 16:57:39,049 - Scanning: forward line 938
+2024-12-04 16:57:41,390 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:41,426 - MicState b'1\r\n'
+2024-12-04 16:57:41,840 - MicState b'-1\r\n'
+2024-12-04 16:57:41,841 - Response: b'-1\r\n'
+2024-12-04 16:57:41,841 - Scan status from direct value: On
+2024-12-04 16:57:42,842 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:43,190 - Response: b'b937\r\n'
+2024-12-04 16:57:43,190 - Scanning: backward line 937
+2024-12-04 16:57:45,536 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:45,880 - Response: b'b936\r\n'
+2024-12-04 16:57:45,880 - Scanning: backward line 936
+2024-12-04 16:57:48,230 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:48,572 - Response: b'b935\r\n'
+2024-12-04 16:57:48,572 - Scanning: backward line 935
+2024-12-04 16:57:50,923 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:51,260 - Response: b'b934\r\n'
+2024-12-04 16:57:51,260 - Scanning: backward line 934
+2024-12-04 16:57:53,616 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:53,963 - Response: b'b933\r\n'
+2024-12-04 16:57:53,963 - Scanning: backward line 933
+2024-12-04 16:57:56,312 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:56,650 - Response: b'b932\r\n'
+2024-12-04 16:57:56,650 - Scanning: backward line 932
+2024-12-04 16:57:59,003 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:57:59,346 - Response: b'b931\r\n'
+2024-12-04 16:57:59,346 - Scanning: backward line 931
+2024-12-04 16:58:01,698 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:02,037 - Response: b'b930\r\n'
+2024-12-04 16:58:02,037 - Scanning: backward line 930
+2024-12-04 16:58:04,391 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:04,733 - Response: b'b929\r\n'
+2024-12-04 16:58:04,733 - Scanning: backward line 929
+2024-12-04 16:58:07,083 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:07,424 - Response: b'b928\r\n'
+2024-12-04 16:58:07,424 - Scanning: backward line 928
+2024-12-04 16:58:09,773 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:10,120 - Response: b'b927\r\n'
+2024-12-04 16:58:10,120 - Scanning: backward line 927
+2024-12-04 16:58:12,466 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:12,807 - Response: b'b926\r\n'
+2024-12-04 16:58:12,807 - Scanning: backward line 926
+2024-12-04 16:58:15,162 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:15,501 - Response: b'b925\r\n'
+2024-12-04 16:58:15,501 - Scanning: backward line 925
+2024-12-04 16:58:17,853 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:18,199 - Response: b'b924\r\n'
+2024-12-04 16:58:18,199 - Scanning: backward line 924
+2024-12-04 16:58:20,550 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:20,893 - Response: b'b923\r\n'
+2024-12-04 16:58:20,893 - Scanning: backward line 923
+2024-12-04 16:58:23,239 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:23,588 - Response: b'b922\r\n'
+2024-12-04 16:58:23,589 - Scanning: backward line 922
+2024-12-04 16:58:25,936 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:26,273 - Response: b'b921\r\n'
+2024-12-04 16:58:26,273 - Scanning: backward line 921
+2024-12-04 16:58:28,619 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:28,965 - Response: b'b920\r\n'
+2024-12-04 16:58:28,965 - Scanning: backward line 920
+2024-12-04 16:58:31,314 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:31,660 - Response: b'b919\r\n'
+2024-12-04 16:58:31,660 - Scanning: backward line 919
+2024-12-04 16:58:34,004 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:34,349 - Response: b'b918\r\n'
+2024-12-04 16:58:34,349 - Scanning: backward line 918
+2024-12-04 16:58:36,697 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:37,044 - Response: b'b917\r\n'
+2024-12-04 16:58:37,044 - Scanning: backward line 917
+2024-12-04 16:58:39,392 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:39,739 - Response: b'b916\r\n'
+2024-12-04 16:58:39,739 - Scanning: backward line 916
+2024-12-04 16:58:42,093 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:42,433 - Response: b'b915\r\n'
+2024-12-04 16:58:42,433 - Scanning: backward line 915
+2024-12-04 16:58:44,781 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:45,120 - Response: b'b914\r\n'
+2024-12-04 16:58:45,120 - Scanning: backward line 914
+2024-12-04 16:58:47,473 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:47,811 - Response: b'b913\r\n'
+2024-12-04 16:58:47,811 - Scanning: backward line 913
+2024-12-04 16:58:50,167 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:50,510 - Response: b'b912\r\n'
+2024-12-04 16:58:50,510 - Scanning: backward line 912
+2024-12-04 16:58:51,118 - MicState b'1\r\n'
+2024-12-04 16:58:52,118 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:52,119 - MicState b'-1\r\n'
+2024-12-04 16:58:52,120 - Response: b'f911\r\n'
+2024-12-04 16:58:52,121 - Scanning: forward line 911
+2024-12-04 16:58:54,352 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:54,701 - Response: b'f910\r\n'
+2024-12-04 16:58:54,701 - Scanning: forward line 910
+2024-12-04 16:58:57,043 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:58:57,392 - Response: b'f909\r\n'
+2024-12-04 16:58:57,392 - Scanning: forward line 909
+2024-12-04 16:58:59,736 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:59:00,086 - Response: b'f908\r\n'
+2024-12-04 16:59:00,086 - Scanning: forward line 908
+2024-12-04 16:59:02,435 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:59:02,779 - Response: b'f907\r\n'
+2024-12-04 16:59:02,780 - Scanning: forward line 907
+2024-12-04 16:59:05,130 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:59:05,476 - Response: b'f906\r\n'
+2024-12-04 16:59:05,476 - Scanning: forward line 906
+2024-12-04 16:59:07,826 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:59:08,170 - Response: b'f905\r\n'
+2024-12-04 16:59:08,171 - Scanning: forward line 905
+2024-12-04 16:59:10,513 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:59:10,863 - Response: b'f904\r\n'
+2024-12-04 16:59:10,863 - Scanning: forward line 904
+2024-12-04 16:59:13,203 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:59:13,550 - Response: b'f903\r\n'
+2024-12-04 16:59:13,550 - Scanning: forward line 903
+2024-12-04 16:59:15,896 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:59:16,240 - Response: b'f902\r\n'
+2024-12-04 16:59:16,241 - Scanning: forward line 902
+2024-12-04 16:59:18,583 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:59:18,932 - Response: b'f901\r\n'
+2024-12-04 16:59:18,932 - Scanning: forward line 901
+2024-12-04 16:59:21,277 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:59:21,624 - Response: b'f900\r\n'
+2024-12-04 16:59:21,624 - Scanning: forward line 900
+2024-12-04 16:59:23,972 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:59:24,320 - Response: b'f899\r\n'
+2024-12-04 16:59:24,320 - Scanning: forward line 899
+2024-12-04 16:59:26,662 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:59:27,010 - Response: b'f898\r\n'
+2024-12-04 16:59:27,010 - Scanning: forward line 898
+2024-12-04 16:59:29,355 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:59:29,710 - Response: b'f897\r\n'
+2024-12-04 16:59:29,710 - Scanning: forward line 897
+2024-12-04 16:59:32,060 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 16:59:32,060 - Scan finished at 2024-12-04 16:59:32.060347
+2024-12-04 16:59:32,062 - Response: b'DDE Cmd 10709\r\n'
+2024-12-04 16:59:32,063 - Scan completed
+2024-12-04 16:59:32,564 - 掃描完成
+2024-12-04 16:59:32,564 - 
+>>> 執行第 2/11 條 Multi-STS 線
+2024-12-04 16:59:32,564 -   Multi-STS點 (1/11): (-99.600, 4840.640)
+2024-12-04 16:59:32,564 - Sending command: SpectPara(1, -99.6);
+2024-12-04 16:59:32,569 - Response: b'DDE Cmd 10710\r\n0\r\n'
+2024-12-04 16:59:32,569 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 16:59:32,582 - Response: b'DDE Cmd 10712\r\n'
+2024-12-04 16:59:32,582 - Sending command: SpectPara(1, -99.6);
+2024-12-04 16:59:32,607 - Response: b'DDE Cmd 10713\r\n'
+2024-12-04 16:59:32,607 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 16:59:32,619 - Response: b'DDE Cmd 10714\r\n'
+2024-12-04 16:59:32,620 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:59:32,622 - Response: b'DDE Cmd 10715\r\n0\r\n'
+2024-12-04 16:59:32,623 - current state type:
+2024-12-04 16:59:32,623 - <class 'float'>
+2024-12-04 16:59:32,623 - current state:
+2024-12-04 16:59:32,623 - 0.0
+2024-12-04 16:59:32,639 - Sending command: SpectStart;
+2024-12-04 16:59:32,848 - MicState b'1\r\n'
+2024-12-04 16:59:32,848 - Response: b'1\r\n'
+2024-12-04 16:59:32,848 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 16:59:33,262 - MicState b'-1\r\n'
+2024-12-04 16:59:33,263 - Response: b'-1\r\n'
+2024-12-04 16:59:33,263 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:59:33,264 - Response: b'DDE Cmd 10717\r\n'
+2024-12-04 16:59:33,264 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:59:34,768 - Response: b'DDE Cmd 10719\r\n'
+2024-12-04 16:59:34,768 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:59:34,771 - Response: b'DDE Cmd 10720\r\n'
+2024-12-04 16:59:34,771 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:59:34,777 - Response: b'DDE Cmd 10721\r\n1\r\n'
+2024-12-04 16:59:34,777 - Feedback off
+2024-12-04 16:59:34,791 - Sending command: SpectStart;
+2024-12-04 16:59:34,791 - MicState b'1\r\n'
+2024-12-04 16:59:35,203 - MicState b'-1\r\n'
+2024-12-04 16:59:35,204 - Response: b'-1\r\n'
+2024-12-04 16:59:35,218 - Sending command: SpectStart;
+2024-12-04 16:59:35,218 - Response: b'DDE Cmd 10722\r\n'
+2024-12-04 16:59:35,255 - Sending command: SpectStart;
+2024-12-04 16:59:38,302 - Response: b'DDE Cmd 10724\r\n'
+2024-12-04 16:59:38,376 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:59:38,376 - MicState b'1\r\n'
+2024-12-04 16:59:38,732 - MicState b'-1\r\n'
+2024-12-04 16:59:38,733 - Response: b'-1\r\n'
+2024-12-04 16:59:38,733 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:59:38,735 - Response: b'DDE Cmd 10726\r\n'
+2024-12-04 16:59:38,735 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:59:38,737 - Response: b'DDE Cmd 10727\r\n'
+2024-12-04 16:59:38,737 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:59:38,742 - Response: b'DDE Cmd 10728\r\n0\r\n'
+2024-12-04 16:59:38,742 - Feedback on
+2024-12-04 16:59:38,743 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 16:59:38,744 - Response: b'DDE Cmd 10729\r\n'
+2024-12-04 16:59:38,744 - Feedback recover to 0
+2024-12-04 16:59:38,744 -   Multi-STS點 (2/11): (-79.680, 4840.640)
+2024-12-04 16:59:38,744 - Sending command: SpectPara(1, -79.67999999999999);
+2024-12-04 16:59:38,746 - Response: b'DDE Cmd 10730\r\n'
+2024-12-04 16:59:38,746 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 16:59:38,753 - Response: b'DDE Cmd 10731\r\n'
+2024-12-04 16:59:38,753 - Sending command: SpectPara(1, -79.67999999999999);
+2024-12-04 16:59:38,757 - Response: b'DDE Cmd 10732\r\n'
+2024-12-04 16:59:38,757 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 16:59:38,762 - Response: b'DDE Cmd 10733\r\n'
+2024-12-04 16:59:38,762 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:59:39,215 - Response: b'DDE Cmd 10734\r\n0\r\n'
+2024-12-04 16:59:39,215 - current state type:
+2024-12-04 16:59:39,215 - <class 'float'>
+2024-12-04 16:59:39,215 - current state:
+2024-12-04 16:59:39,215 - 0.0
+2024-12-04 16:59:39,231 - Sending command: SpectStart;
+2024-12-04 16:59:41,877 - Response: b'DDE Cmd 10735\r\n'
+2024-12-04 16:59:41,878 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 16:59:41,880 - Response: b'DDE Cmd 10736\r\n'
+2024-12-04 16:59:41,880 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:59:41,883 - Response: b'DDE Cmd 10737\r\n'
+2024-12-04 16:59:41,883 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:59:41,885 - Response: b'DDE Cmd 10738\r\n1\r\n'
+2024-12-04 16:59:41,885 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:59:41,887 - Response: b'DDE Cmd 10739\r\n'
+2024-12-04 16:59:41,887 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:59:41,889 - Response: b'DDE Cmd 10740\r\n1\r\n'
+2024-12-04 16:59:41,890 - Feedback off
+2024-12-04 16:59:41,904 - Sending command: SpectStart;
+2024-12-04 16:59:44,431 - Response: b'DDE Cmd 10741\r\n'
+2024-12-04 16:59:44,444 - Sending command: SpectStart;
+2024-12-04 16:59:47,006 - Response: b'DDE Cmd 10742\r\n'
+2024-12-04 16:59:47,020 - Sending command: SpectStart;
+2024-12-04 16:59:49,541 - Response: b'DDE Cmd 10743\r\n'
+2024-12-04 16:59:49,553 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:59:49,555 - Response: b'DDE Cmd 10744\r\n'
+2024-12-04 16:59:49,555 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:59:49,558 - Response: b'DDE Cmd 10745\r\n0\r\n'
+2024-12-04 16:59:49,558 - Sending command: FeedPara('Enable', 0);
+2024-12-04 16:59:49,560 - Response: b'DDE Cmd 10746\r\n'
+2024-12-04 16:59:49,560 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:59:49,562 - Response: b'DDE Cmd 10747\r\n0\r\n'
+2024-12-04 16:59:49,562 - Feedback on
+2024-12-04 16:59:49,562 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 16:59:49,564 - Response: b'DDE Cmd 10748\r\n'
+2024-12-04 16:59:49,564 - Feedback recover to 0
+2024-12-04 16:59:49,564 -   Multi-STS點 (3/11): (-59.760, 4840.640)
+2024-12-04 16:59:49,565 - Sending command: SpectPara(1, -59.76);
+2024-12-04 16:59:49,567 - Response: b'DDE Cmd 10749\r\n'
+2024-12-04 16:59:49,567 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 16:59:49,574 - Response: b'DDE Cmd 10750\r\n'
+2024-12-04 16:59:49,574 - Sending command: SpectPara(1, -59.76);
+2024-12-04 16:59:49,580 - Response: b'DDE Cmd 10751\r\n'
+2024-12-04 16:59:49,580 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 16:59:49,586 - Response: b'DDE Cmd 10752\r\n'
+2024-12-04 16:59:49,586 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:59:49,589 - Response: b'DDE Cmd 10753\r\n0\r\n'
+2024-12-04 16:59:49,589 - current state type:
+2024-12-04 16:59:49,589 - <class 'float'>
+2024-12-04 16:59:49,589 - current state:
+2024-12-04 16:59:49,589 - 0.0
+2024-12-04 16:59:49,700 - Sending command: SpectStart;
+2024-12-04 16:59:52,343 - Response: b'DDE Cmd 10754\r\n'
+2024-12-04 16:59:52,343 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 16:59:52,345 - Response: b'DDE Cmd 10755\r\n'
+2024-12-04 16:59:52,345 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:59:52,349 - Response: b'DDE Cmd 10756\r\n'
+2024-12-04 16:59:52,349 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:59:52,351 - Response: b'DDE Cmd 10757\r\n1\r\n'
+2024-12-04 16:59:52,351 - Sending command: FeedPara('Enable', 1);
+2024-12-04 16:59:52,354 - Response: b'DDE Cmd 10758\r\n'
+2024-12-04 16:59:52,354 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 16:59:52,356 - Response: b'DDE Cmd 10759\r\n1\r\n'
+2024-12-04 16:59:52,356 - Feedback off
+2024-12-04 16:59:52,370 - Sending command: SpectStart;
+2024-12-04 16:59:54,905 - Response: b'DDE Cmd 10760\r\n'
+2024-12-04 16:59:54,919 - Sending command: SpectStart;
+2024-12-04 16:59:57,455 - Response: b'DDE Cmd 10761\r\n'
+2024-12-04 16:59:57,469 - Sending command: SpectStart;
+2024-12-04 16:59:59,992 - Response: b'DDE Cmd 10762\r\n'
+2024-12-04 17:00:00,005 - Sending command: FeedPara('Enable', 0);
+2024-12-04 17:00:00,008 - Response: b'DDE Cmd 10763\r\n'
+2024-12-04 17:00:00,009 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:00,011 - Response: b'DDE Cmd 10764\r\n0\r\n'
+2024-12-04 17:00:00,012 - Sending command: FeedPara('Enable', 0);
+2024-12-04 17:00:00,014 - Response: b'DDE Cmd 10765\r\n'
+2024-12-04 17:00:00,014 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:00,016 - Response: b'DDE Cmd 10766\r\n0\r\n'
+2024-12-04 17:00:00,017 - Feedback on
+2024-12-04 17:00:00,017 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 17:00:00,019 - Response: b'DDE Cmd 10767\r\n'
+2024-12-04 17:00:00,019 - Feedback recover to 0
+2024-12-04 17:00:00,019 -   Multi-STS點 (4/11): (-39.840, 4840.640)
+2024-12-04 17:00:00,019 - Sending command: SpectPara(1, -39.84);
+2024-12-04 17:00:00,022 - Response: b'DDE Cmd 10768\r\n'
+2024-12-04 17:00:00,022 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 17:00:00,031 - Response: b'DDE Cmd 10769\r\n'
+2024-12-04 17:00:00,031 - Sending command: SpectPara(1, -39.84);
+2024-12-04 17:00:00,036 - Response: b'DDE Cmd 10770\r\n'
+2024-12-04 17:00:00,036 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 17:00:00,041 - Response: b'DDE Cmd 10771\r\n'
+2024-12-04 17:00:00,042 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:00,044 - Response: b'DDE Cmd 10772\r\n0\r\n'
+2024-12-04 17:00:00,044 - current state type:
+2024-12-04 17:00:00,044 - <class 'float'>
+2024-12-04 17:00:00,044 - current state:
+2024-12-04 17:00:00,044 - 0.0
+2024-12-04 17:00:00,150 - Sending command: SpectStart;
+2024-12-04 17:00:02,783 - Response: b'DDE Cmd 10773\r\n'
+2024-12-04 17:00:02,783 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 17:00:02,785 - Response: b'DDE Cmd 10774\r\n'
+2024-12-04 17:00:02,785 - Sending command: FeedPara('Enable', 1);
+2024-12-04 17:00:02,788 - Response: b'DDE Cmd 10775\r\n'
+2024-12-04 17:00:02,788 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:02,791 - Response: b'DDE Cmd 10776\r\n1\r\n'
+2024-12-04 17:00:02,791 - Sending command: FeedPara('Enable', 1);
+2024-12-04 17:00:02,793 - Response: b'DDE Cmd 10777\r\n'
+2024-12-04 17:00:02,793 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:02,795 - Response: b'DDE Cmd 10778\r\n1\r\n'
+2024-12-04 17:00:02,795 - Feedback off
+2024-12-04 17:00:02,810 - Sending command: SpectStart;
+2024-12-04 17:00:05,350 - Response: b'DDE Cmd 10779\r\n'
+2024-12-04 17:00:05,364 - Sending command: SpectStart;
+2024-12-04 17:00:07,884 - Response: b'DDE Cmd 10780\r\n'
+2024-12-04 17:00:07,897 - Sending command: SpectStart;
+2024-12-04 17:00:10,412 - Response: b'DDE Cmd 10781\r\n'
+2024-12-04 17:00:10,425 - Sending command: FeedPara('Enable', 0);
+2024-12-04 17:00:10,428 - Response: b'DDE Cmd 10782\r\n'
+2024-12-04 17:00:10,428 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:10,431 - Response: b'DDE Cmd 10783\r\n0\r\n'
+2024-12-04 17:00:10,431 - Sending command: FeedPara('Enable', 0);
+2024-12-04 17:00:10,434 - Response: b'DDE Cmd 10784\r\n'
+2024-12-04 17:00:10,435 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:10,437 - Response: b'DDE Cmd 10785\r\n0\r\n'
+2024-12-04 17:00:10,437 - Feedback on
+2024-12-04 17:00:10,437 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 17:00:10,440 - Response: b'DDE Cmd 10786\r\n'
+2024-12-04 17:00:10,440 - Feedback recover to 0
+2024-12-04 17:00:10,440 -   Multi-STS點 (5/11): (-19.920, 4840.640)
+2024-12-04 17:00:10,440 - Sending command: SpectPara(1, -19.92);
+2024-12-04 17:00:10,443 - Response: b'DDE Cmd 10787\r\n'
+2024-12-04 17:00:10,444 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 17:00:10,451 - Response: b'DDE Cmd 10788\r\n'
+2024-12-04 17:00:10,451 - Sending command: SpectPara(1, -19.92);
+2024-12-04 17:00:10,456 - Response: b'DDE Cmd 10789\r\n'
+2024-12-04 17:00:10,456 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 17:00:10,461 - Response: b'DDE Cmd 10790\r\n'
+2024-12-04 17:00:10,461 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:10,463 - Response: b'DDE Cmd 10791\r\n0\r\n'
+2024-12-04 17:00:10,463 - current state type:
+2024-12-04 17:00:10,463 - <class 'float'>
+2024-12-04 17:00:10,463 - current state:
+2024-12-04 17:00:10,464 - 0.0
+2024-12-04 17:00:10,572 - Sending command: SpectStart;
+2024-12-04 17:00:13,201 - Response: b'DDE Cmd 10792\r\n'
+2024-12-04 17:00:13,201 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 17:00:13,203 - Response: b'DDE Cmd 10793\r\n'
+2024-12-04 17:00:13,204 - Sending command: FeedPara('Enable', 1);
+2024-12-04 17:00:13,207 - Response: b'DDE Cmd 10794\r\n'
+2024-12-04 17:00:13,207 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:13,209 - Response: b'DDE Cmd 10795\r\n1\r\n'
+2024-12-04 17:00:13,210 - Sending command: FeedPara('Enable', 1);
+2024-12-04 17:00:13,212 - Response: b'DDE Cmd 10796\r\n'
+2024-12-04 17:00:13,212 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:13,214 - Response: b'DDE Cmd 10797\r\n1\r\n'
+2024-12-04 17:00:13,214 - Feedback off
+2024-12-04 17:00:13,228 - Sending command: SpectStart;
+2024-12-04 17:00:15,756 - Response: b'DDE Cmd 10798\r\n'
+2024-12-04 17:00:15,770 - Sending command: SpectStart;
+2024-12-04 17:00:18,288 - Response: b'DDE Cmd 10799\r\n'
+2024-12-04 17:00:18,302 - Sending command: SpectStart;
+2024-12-04 17:00:20,835 - Response: b'DDE Cmd 10800\r\n'
+2024-12-04 17:00:20,847 - Sending command: FeedPara('Enable', 0);
+2024-12-04 17:00:20,850 - Response: b'DDE Cmd 10801\r\n'
+2024-12-04 17:00:20,851 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:20,853 - Response: b'DDE Cmd 10802\r\n0\r\n'
+2024-12-04 17:00:20,853 - Sending command: FeedPara('Enable', 0);
+2024-12-04 17:00:20,855 - Response: b'DDE Cmd 10803\r\n'
+2024-12-04 17:00:20,855 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:20,858 - Response: b'DDE Cmd 10804\r\n0\r\n'
+2024-12-04 17:00:20,858 - Feedback on
+2024-12-04 17:00:20,858 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 17:00:20,860 - Response: b'DDE Cmd 10805\r\n'
+2024-12-04 17:00:20,860 - Feedback recover to 0
+2024-12-04 17:00:20,860 -   Multi-STS點 (6/11): (0.000, 4840.640)
+2024-12-04 17:00:20,860 - Sending command: SpectPara(1, 0.0);
+2024-12-04 17:00:20,862 - Response: b'DDE Cmd 10806\r\n'
+2024-12-04 17:00:20,862 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 17:00:20,869 - Response: b'DDE Cmd 10807\r\n'
+2024-12-04 17:00:20,869 - Sending command: SpectPara(1, 0.0);
+2024-12-04 17:00:20,875 - Response: b'DDE Cmd 10808\r\n'
+2024-12-04 17:00:20,876 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 17:00:20,882 - Response: b'DDE Cmd 10809\r\n'
+2024-12-04 17:00:20,882 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:20,885 - Response: b'DDE Cmd 10810\r\n0\r\n'
+2024-12-04 17:00:20,885 - current state type:
+2024-12-04 17:00:20,885 - <class 'float'>
+2024-12-04 17:00:20,885 - current state:
+2024-12-04 17:00:20,885 - 0.0
+2024-12-04 17:00:20,998 - Sending command: SpectStart;
+2024-12-04 17:00:23,639 - Response: b'DDE Cmd 10811\r\n'
+2024-12-04 17:00:23,639 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 17:00:23,641 - Response: b'DDE Cmd 10812\r\n'
+2024-12-04 17:00:23,641 - Sending command: FeedPara('Enable', 1);
+2024-12-04 17:00:23,645 - Response: b'DDE Cmd 10813\r\n'
+2024-12-04 17:00:23,645 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:23,647 - Response: b'DDE Cmd 10814\r\n1\r\n'
+2024-12-04 17:00:23,647 - Sending command: FeedPara('Enable', 1);
+2024-12-04 17:00:23,649 - Response: b'DDE Cmd 10815\r\n'
+2024-12-04 17:00:23,649 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:23,651 - Response: b'DDE Cmd 10816\r\n1\r\n'
+2024-12-04 17:00:23,652 - Feedback off
+2024-12-04 17:00:23,692 - Sending command: SpectStart;
+2024-12-04 17:00:26,208 - Response: b'DDE Cmd 10817\r\n'
+2024-12-04 17:00:26,222 - Sending command: SpectStart;
+2024-12-04 17:00:28,747 - Response: b'DDE Cmd 10818\r\n'
+2024-12-04 17:00:28,760 - Sending command: SpectStart;
+2024-12-04 17:00:31,285 - Response: b'DDE Cmd 10819\r\n'
+2024-12-04 17:00:31,376 - Sending command: FeedPara('Enable', 0);
+2024-12-04 17:00:31,379 - Response: b'DDE Cmd 10820\r\n'
+2024-12-04 17:00:31,379 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:31,381 - Response: b'DDE Cmd 10821\r\n0\r\n'
+2024-12-04 17:00:31,381 - Sending command: FeedPara('Enable', 0);
+2024-12-04 17:00:31,383 - Response: b'DDE Cmd 10822\r\n'
+2024-12-04 17:00:31,383 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:31,385 - Response: b'DDE Cmd 10823\r\n0\r\n'
+2024-12-04 17:00:31,385 - Feedback on
+2024-12-04 17:00:31,385 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 17:00:31,386 - Response: b'DDE Cmd 10824\r\n'
+2024-12-04 17:00:31,387 - Feedback recover to 0
+2024-12-04 17:00:31,387 -   Multi-STS點 (7/11): (19.920, 4840.640)
+2024-12-04 17:00:31,387 - Sending command: SpectPara(1, 19.919999999999987);
+2024-12-04 17:00:31,389 - Response: b'DDE Cmd 10825\r\n'
+2024-12-04 17:00:31,389 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 17:00:31,396 - Response: b'DDE Cmd 10826\r\n'
+2024-12-04 17:00:31,396 - Sending command: SpectPara(1, 19.919999999999987);
+2024-12-04 17:00:31,402 - Response: b'DDE Cmd 10827\r\n'
+2024-12-04 17:00:31,402 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 17:00:31,407 - Response: b'DDE Cmd 10828\r\n'
+2024-12-04 17:00:31,408 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:31,412 - Response: b'DDE Cmd 10829\r\n0\r\n'
+2024-12-04 17:00:31,412 - current state type:
+2024-12-04 17:00:31,412 - <class 'float'>
+2024-12-04 17:00:31,412 - current state:
+2024-12-04 17:00:31,412 - 0.0
+2024-12-04 17:00:31,497 - Sending command: SpectStart;
+2024-12-04 17:00:34,122 - Response: b'DDE Cmd 10830\r\n'
+2024-12-04 17:00:34,122 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 17:00:34,124 - Response: b'DDE Cmd 10831\r\n'
+2024-12-04 17:00:34,124 - Sending command: FeedPara('Enable', 1);
+2024-12-04 17:00:34,127 - Response: b'DDE Cmd 10832\r\n'
+2024-12-04 17:00:34,127 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:34,129 - Response: b'DDE Cmd 10833\r\n1\r\n'
+2024-12-04 17:00:34,129 - Sending command: FeedPara('Enable', 1);
+2024-12-04 17:00:34,131 - Response: b'DDE Cmd 10834\r\n'
+2024-12-04 17:00:34,131 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:34,133 - Response: b'DDE Cmd 10835\r\n1\r\n'
+2024-12-04 17:00:34,133 - Feedback off
+2024-12-04 17:00:34,148 - Sending command: SpectStart;
+2024-12-04 17:00:36,684 - Response: b'DDE Cmd 10836\r\n'
+2024-12-04 17:00:36,698 - Sending command: SpectStart;
+2024-12-04 17:00:39,258 - Response: b'DDE Cmd 10837\r\n'
+2024-12-04 17:00:39,298 - Sending command: SpectStart;
+2024-12-04 17:00:41,840 - Response: b'DDE Cmd 10838\r\n'
+2024-12-04 17:00:41,853 - Sending command: FeedPara('Enable', 0);
+2024-12-04 17:00:41,855 - Response: b'DDE Cmd 10839\r\n'
+2024-12-04 17:00:41,855 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:41,857 - Response: b'DDE Cmd 10840\r\n0\r\n'
+2024-12-04 17:00:41,858 - Sending command: FeedPara('Enable', 0);
+2024-12-04 17:00:41,860 - Response: b'DDE Cmd 10841\r\n'
+2024-12-04 17:00:41,860 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:41,862 - Response: b'DDE Cmd 10842\r\n0\r\n'
+2024-12-04 17:00:41,862 - Feedback on
+2024-12-04 17:00:41,862 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 17:00:41,864 - Response: b'DDE Cmd 10843\r\n'
+2024-12-04 17:00:41,864 - Feedback recover to 0
+2024-12-04 17:00:41,864 -   Multi-STS點 (8/11): (39.840, 4840.640)
+2024-12-04 17:00:41,864 - Sending command: SpectPara(1, 39.84);
+2024-12-04 17:00:41,867 - Response: b'DDE Cmd 10844\r\n'
+2024-12-04 17:00:41,867 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 17:00:41,874 - Response: b'DDE Cmd 10845\r\n'
+2024-12-04 17:00:41,874 - Sending command: SpectPara(1, 39.84);
+2024-12-04 17:00:41,879 - Response: b'DDE Cmd 10846\r\n'
+2024-12-04 17:00:41,879 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 17:00:41,884 - Response: b'DDE Cmd 10847\r\n'
+2024-12-04 17:00:41,884 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:41,886 - Response: b'DDE Cmd 10848\r\n0\r\n'
+2024-12-04 17:00:41,886 - current state type:
+2024-12-04 17:00:41,886 - <class 'float'>
+2024-12-04 17:00:41,887 - current state:
+2024-12-04 17:00:41,887 - 0.0
+2024-12-04 17:00:41,998 - Sending command: SpectStart;
+2024-12-04 17:00:44,649 - Response: b'DDE Cmd 10849\r\n'
+2024-12-04 17:00:44,650 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 17:00:44,652 - Response: b'DDE Cmd 10850\r\n'
+2024-12-04 17:00:44,652 - Sending command: FeedPara('Enable', 1);
+2024-12-04 17:00:44,655 - Response: b'DDE Cmd 10851\r\n'
+2024-12-04 17:00:44,655 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:44,658 - Response: b'DDE Cmd 10852\r\n1\r\n'
+2024-12-04 17:00:44,658 - Sending command: FeedPara('Enable', 1);
+2024-12-04 17:00:44,660 - Response: b'DDE Cmd 10853\r\n'
+2024-12-04 17:00:44,660 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:44,662 - Response: b'DDE Cmd 10854\r\n1\r\n'
+2024-12-04 17:00:44,662 - Feedback off
+2024-12-04 17:00:44,676 - Sending command: SpectStart;
+2024-12-04 17:00:47,222 - Response: b'DDE Cmd 10855\r\n'
+2024-12-04 17:00:47,236 - Sending command: SpectStart;
+2024-12-04 17:00:49,768 - Response: b'DDE Cmd 10856\r\n'
+2024-12-04 17:00:49,782 - Sending command: SpectStart;
+2024-12-04 17:00:52,303 - Response: b'DDE Cmd 10857\r\n'
+2024-12-04 17:00:52,316 - Sending command: FeedPara('Enable', 0);
+2024-12-04 17:00:52,318 - Response: b'DDE Cmd 10858\r\n'
+2024-12-04 17:00:52,318 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:52,321 - Response: b'DDE Cmd 10859\r\n0\r\n'
+2024-12-04 17:00:52,321 - Sending command: FeedPara('Enable', 0);
+2024-12-04 17:00:52,323 - Response: b'DDE Cmd 10860\r\n'
+2024-12-04 17:00:52,323 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:52,325 - Response: b'DDE Cmd 10861\r\n0\r\n'
+2024-12-04 17:00:52,325 - Feedback on
+2024-12-04 17:00:52,325 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 17:00:52,327 - Response: b'DDE Cmd 10862\r\n'
+2024-12-04 17:00:52,327 - Feedback recover to 0
+2024-12-04 17:00:52,328 -   Multi-STS點 (9/11): (59.760, 4840.640)
+2024-12-04 17:00:52,328 - Sending command: SpectPara(1, 59.75999999999999);
+2024-12-04 17:00:52,330 - Response: b'DDE Cmd 10863\r\n'
+2024-12-04 17:00:52,330 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 17:00:52,336 - Response: b'DDE Cmd 10864\r\n'
+2024-12-04 17:00:52,336 - Sending command: SpectPara(1, 59.75999999999999);
+2024-12-04 17:00:52,341 - Response: b'DDE Cmd 10865\r\n'
+2024-12-04 17:00:52,341 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 17:00:52,347 - Response: b'DDE Cmd 10866\r\n'
+2024-12-04 17:00:52,347 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:52,350 - Response: b'DDE Cmd 10867\r\n0\r\n'
+2024-12-04 17:00:52,350 - current state type:
+2024-12-04 17:00:52,350 - <class 'float'>
+2024-12-04 17:00:52,350 - current state:
+2024-12-04 17:00:52,350 - 0.0
+2024-12-04 17:00:52,471 - Sending command: SpectStart;
+2024-12-04 17:00:55,099 - Response: b'DDE Cmd 10868\r\n'
+2024-12-04 17:00:55,100 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 17:00:55,102 - Response: b'DDE Cmd 10869\r\n'
+2024-12-04 17:00:55,102 - Sending command: FeedPara('Enable', 1);
+2024-12-04 17:00:55,105 - Response: b'DDE Cmd 10870\r\n'
+2024-12-04 17:00:55,105 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:55,107 - Response: b'DDE Cmd 10871\r\n1\r\n'
+2024-12-04 17:00:55,107 - Sending command: FeedPara('Enable', 1);
+2024-12-04 17:00:55,109 - Response: b'DDE Cmd 10872\r\n'
+2024-12-04 17:00:55,109 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:00:55,112 - Response: b'DDE Cmd 10873\r\n1\r\n'
+2024-12-04 17:00:55,112 - Feedback off
+2024-12-04 17:00:55,126 - Sending command: SpectStart;
+2024-12-04 17:00:57,653 - Response: b'DDE Cmd 10874\r\n'
+2024-12-04 17:00:57,692 - Sending command: SpectStart;
+2024-12-04 17:01:00,205 - Response: b'DDE Cmd 10875\r\n'
+2024-12-04 17:01:00,220 - Sending command: SpectStart;
+2024-12-04 17:01:02,746 - Response: b'DDE Cmd 10876\r\n'
+2024-12-04 17:01:02,759 - Sending command: FeedPara('Enable', 0);
+2024-12-04 17:01:02,761 - Response: b'DDE Cmd 10877\r\n'
+2024-12-04 17:01:02,761 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:01:02,763 - Response: b'DDE Cmd 10878\r\n0\r\n'
+2024-12-04 17:01:02,763 - Sending command: FeedPara('Enable', 0);
+2024-12-04 17:01:02,765 - Response: b'DDE Cmd 10879\r\n'
+2024-12-04 17:01:02,765 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:01:02,768 - Response: b'DDE Cmd 10880\r\n0\r\n'
+2024-12-04 17:01:02,768 - Feedback on
+2024-12-04 17:01:02,768 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 17:01:02,770 - Response: b'DDE Cmd 10881\r\n'
+2024-12-04 17:01:02,770 - Feedback recover to 0
+2024-12-04 17:01:02,770 -   Multi-STS點 (10/11): (79.680, 4840.640)
+2024-12-04 17:01:02,770 - Sending command: SpectPara(1, 79.67999999999998);
+2024-12-04 17:01:02,773 - Response: b'DDE Cmd 10882\r\n'
+2024-12-04 17:01:02,773 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 17:01:02,781 - Response: b'DDE Cmd 10883\r\n'
+2024-12-04 17:01:02,781 - Sending command: SpectPara(1, 79.67999999999998);
+2024-12-04 17:01:02,786 - Response: b'DDE Cmd 10884\r\n'
+2024-12-04 17:01:02,787 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 17:01:02,792 - Response: b'DDE Cmd 10885\r\n'
+2024-12-04 17:01:02,792 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:01:02,795 - Response: b'DDE Cmd 10886\r\n0\r\n'
+2024-12-04 17:01:02,795 - current state type:
+2024-12-04 17:01:02,795 - <class 'float'>
+2024-12-04 17:01:02,795 - current state:
+2024-12-04 17:01:02,795 - 0.0
+2024-12-04 17:01:02,904 - Sending command: SpectStart;
+2024-12-04 17:01:05,552 - Response: b'DDE Cmd 10887\r\n'
+2024-12-04 17:01:05,552 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 17:01:05,554 - Response: b'DDE Cmd 10888\r\n'
+2024-12-04 17:01:05,554 - Sending command: FeedPara('Enable', 1);
+2024-12-04 17:01:05,557 - Response: b'DDE Cmd 10889\r\n'
+2024-12-04 17:01:05,557 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:01:05,559 - Response: b'DDE Cmd 10890\r\n1\r\n'
+2024-12-04 17:01:05,560 - Sending command: FeedPara('Enable', 1);
+2024-12-04 17:01:05,562 - Response: b'DDE Cmd 10891\r\n'
+2024-12-04 17:01:05,562 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:01:05,564 - Response: b'DDE Cmd 10892\r\n1\r\n'
+2024-12-04 17:01:05,565 - Feedback off
+2024-12-04 17:01:05,578 - Sending command: SpectStart;
+2024-12-04 17:01:08,102 - Response: b'DDE Cmd 10893\r\n'
+2024-12-04 17:01:08,116 - Sending command: SpectStart;
+2024-12-04 17:01:10,638 - Response: b'DDE Cmd 10894\r\n'
+2024-12-04 17:01:10,651 - Sending command: SpectStart;
+2024-12-04 17:01:13,185 - Response: b'DDE Cmd 10895\r\n'
+2024-12-04 17:01:13,223 - Sending command: FeedPara('Enable', 0);
+2024-12-04 17:01:13,226 - Response: b'DDE Cmd 10896\r\n'
+2024-12-04 17:01:13,226 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:01:13,228 - Response: b'DDE Cmd 10897\r\n0\r\n'
+2024-12-04 17:01:13,228 - Sending command: FeedPara('Enable', 0);
+2024-12-04 17:01:13,230 - Response: b'DDE Cmd 10898\r\n'
+2024-12-04 17:01:13,230 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:01:13,232 - Response: b'DDE Cmd 10899\r\n0\r\n'
+2024-12-04 17:01:13,232 - Feedback on
+2024-12-04 17:01:13,232 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 17:01:13,234 - Response: b'DDE Cmd 10900\r\n'
+2024-12-04 17:01:13,234 - Feedback recover to 0
+2024-12-04 17:01:13,234 -   Multi-STS點 (11/11): (99.600, 4840.640)
+2024-12-04 17:01:13,234 - Sending command: SpectPara(1, 99.6);
+2024-12-04 17:01:13,236 - Response: b'DDE Cmd 10901\r\n'
+2024-12-04 17:01:13,236 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 17:01:13,244 - Response: b'DDE Cmd 10902\r\n'
+2024-12-04 17:01:13,244 - Sending command: SpectPara(1, 99.6);
+2024-12-04 17:01:13,249 - Response: b'DDE Cmd 10903\r\n'
+2024-12-04 17:01:13,250 - Sending command: SpectPara(2, 4840.64);
+2024-12-04 17:01:13,255 - Response: b'DDE Cmd 10904\r\n'
+2024-12-04 17:01:13,255 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:01:13,257 - Response: b'DDE Cmd 10905\r\n0\r\n'
+2024-12-04 17:01:13,257 - current state type:
+2024-12-04 17:01:13,257 - <class 'float'>
+2024-12-04 17:01:13,257 - current state:
+2024-12-04 17:01:13,257 - 0.0
+2024-12-04 17:01:13,344 - Sending command: SpectStart;
+2024-12-04 17:01:15,992 - Response: b'DDE Cmd 10906\r\n'
+2024-12-04 17:01:15,992 - Sending command: FeedPara('ZOffset', 0.0);
+2024-12-04 17:01:15,994 - Response: b'DDE Cmd 10907\r\n'
+2024-12-04 17:01:15,994 - Sending command: FeedPara('Enable', 1);
+2024-12-04 17:01:15,997 - Response: b'DDE Cmd 10908\r\n'
+2024-12-04 17:01:15,998 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:01:16,000 - Response: b'DDE Cmd 10909\r\n1\r\n'
+2024-12-04 17:01:16,000 - Sending command: FeedPara('Enable', 1);
+2024-12-04 17:01:16,002 - Response: b'DDE Cmd 10910\r\n'
+2024-12-04 17:01:16,002 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:01:16,004 - Response: b'DDE Cmd 10911\r\n1\r\n'
+2024-12-04 17:01:16,004 - Feedback off
+2024-12-04 17:01:16,019 - Sending command: SpectStart;
+2024-12-04 17:01:18,543 - Response: b'DDE Cmd 10912\r\n'
+2024-12-04 17:01:18,557 - Sending command: SpectStart;
+2024-12-04 17:01:21,097 - Response: b'DDE Cmd 10913\r\n'
+2024-12-04 17:01:21,112 - Sending command: SpectStart;
+2024-12-04 17:01:23,635 - Response: b'DDE Cmd 10914\r\n'
+2024-12-04 17:01:23,648 - Sending command: FeedPara('Enable', 0);
+2024-12-04 17:01:23,650 - Response: b'DDE Cmd 10915\r\n'
+2024-12-04 17:01:23,650 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:01:23,653 - Response: b'DDE Cmd 10916\r\n0\r\n'
+2024-12-04 17:01:23,653 - Sending command: FeedPara('Enable', 0);
+2024-12-04 17:01:23,655 - Response: b'DDE Cmd 10917\r\n'
+2024-12-04 17:01:23,655 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-04 17:01:23,657 - Response: b'DDE Cmd 10918\r\n0\r\n'
+2024-12-04 17:01:23,657 - Feedback on
+2024-12-04 17:01:23,658 - Sending command: FeedPara('ZOffset', 10);
+2024-12-04 17:01:23,659 - Response: b'DDE Cmd 10919\r\n'
+2024-12-04 17:01:23,659 - Feedback recover to 0
+2024-12-04 17:01:23,660 - 
+=== 掃描第 3 段 99 條線 ===
+2024-12-04 17:01:23,660 - 開始掃描 99 條線
+2024-12-04 17:01:23,660 - Sending command: ScanLine(99);
+2024-12-04 17:01:23,668 - Scan started at 2024-12-04 17:01:23.667239
+2024-12-04 17:01:23,668 - Response: 1
+2024-12-04 17:01:23,668 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:01:25,984 - Response: b'f896\r\n'
+2024-12-04 17:01:25,984 - Scanning: forward line 896
+2024-12-04 17:01:28,325 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:01:28,670 - Response: b'f895\r\n'
+2024-12-04 17:01:28,670 - Scanning: forward line 895
+2024-12-04 17:01:31,010 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:01:31,355 - Response: b'f894\r\n'
+2024-12-04 17:01:31,356 - Scanning: forward line 894
+2024-12-04 17:01:33,698 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:01:34,042 - Response: b'f893\r\n'
+2024-12-04 17:01:34,043 - Scanning: forward line 893
+2024-12-04 17:01:36,383 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:01:36,730 - Response: b'f892\r\n'
+2024-12-04 17:01:36,730 - Scanning: forward line 892
+2024-12-04 17:01:39,070 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:01:39,417 - Response: b'f891\r\n'
+2024-12-04 17:01:39,417 - Scanning: forward line 891
+2024-12-04 17:01:41,760 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:01:42,105 - Response: b'f890\r\n'
+2024-12-04 17:01:42,106 - Scanning: forward line 890
+2024-12-04 17:01:44,449 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:01:44,794 - Response: b'f889\r\n'
+2024-12-04 17:01:44,794 - Scanning: forward line 889
+2024-12-04 17:01:47,137 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:01:47,482 - Response: b'f888\r\n'
+2024-12-04 17:01:47,482 - Scanning: forward line 888
+2024-12-04 17:01:49,824 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:01:50,169 - Response: b'f887\r\n'
+2024-12-04 17:01:50,169 - Scanning: forward line 887
+2024-12-04 17:01:52,510 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:01:52,510 - MicState b'1\r\n'
+2024-12-04 17:01:52,510 - MicState b'-1\r\n'
+2024-12-04 17:01:52,765 - Response: b'-1\r\n'
+2024-12-04 17:01:52,765 - Scan status from direct value: On
+2024-12-04 17:01:53,855 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:01:54,193 - Response: b'b886\r\n'
+2024-12-04 17:01:54,193 - Scanning: backward line 886
+2024-12-04 17:01:56,541 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:01:56,881 - Response: b'b885\r\n'
+2024-12-04 17:01:56,881 - Scanning: backward line 885
+2024-12-04 17:01:59,229 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:01:59,568 - Response: b'b884\r\n'
+2024-12-04 17:01:59,568 - Scanning: backward line 884
+2024-12-04 17:02:01,915 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:02,257 - Response: b'b883\r\n'
+2024-12-04 17:02:02,257 - Scanning: backward line 883
+2024-12-04 17:02:02,822 - MicState b'1\r\n'
+2024-12-04 17:02:03,823 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:03,823 - MicState b'-1\r\n'
+2024-12-04 17:02:03,824 - Response: b'f882\r\n'
+2024-12-04 17:02:03,824 - Scanning: forward line 882
+2024-12-04 17:02:06,057 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:06,404 - Response: b'f881\r\n'
+2024-12-04 17:02:06,404 - Scanning: forward line 881
+2024-12-04 17:02:08,745 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:09,091 - Response: b'f880\r\n'
+2024-12-04 17:02:09,091 - Scanning: forward line 880
+2024-12-04 17:02:11,433 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:11,779 - Response: b'f879\r\n'
+2024-12-04 17:02:11,779 - Scanning: forward line 879
+2024-12-04 17:02:14,120 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:14,120 - MicState b'1\r\n'
+2024-12-04 17:02:14,185 - MicState b'-1\r\n'
+2024-12-04 17:02:14,186 - Response: b'-1\r\n'
+2024-12-04 17:02:14,186 - Scan status from direct value: On
+2024-12-04 17:02:15,670 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:16,009 - Response: b'b878\r\n'
+2024-12-04 17:02:16,009 - Scanning: backward line 878
+2024-12-04 17:02:18,355 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:18,695 - Response: b'b877\r\n'
+2024-12-04 17:02:18,695 - Scanning: backward line 877
+2024-12-04 17:02:21,041 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:21,382 - Response: b'b876\r\n'
+2024-12-04 17:02:21,382 - Scanning: backward line 876
+2024-12-04 17:02:23,729 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:24,068 - Response: b'b875\r\n'
+2024-12-04 17:02:24,068 - Scanning: backward line 875
+2024-12-04 17:02:24,734 - MicState b'1\r\n'
+2024-12-04 17:02:25,735 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:25,735 - MicState b'-1\r\n'
+2024-12-04 17:02:25,737 - Response: b'f874\r\n'
+2024-12-04 17:02:25,738 - Scanning: forward line 874
+2024-12-04 17:02:27,953 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:28,288 - Response: b'f873\r\n'
+2024-12-04 17:02:28,288 - Scanning: forward line 873
+2024-12-04 17:02:30,619 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:30,962 - Response: b'f872\r\n'
+2024-12-04 17:02:30,963 - Scanning: forward line 872
+2024-12-04 17:02:33,303 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:33,649 - Response: b'f871\r\n'
+2024-12-04 17:02:33,650 - Scanning: forward line 871
+2024-12-04 17:02:35,991 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:35,991 - MicState b'1\r\n'
+2024-12-04 17:02:36,304 - MicState b'-1\r\n'
+2024-12-04 17:02:36,306 - Response: b'-1\r\n'
+2024-12-04 17:02:36,306 - Scan status from direct value: On
+2024-12-04 17:02:37,334 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:37,676 - Response: b'b870\r\n'
+2024-12-04 17:02:37,676 - Scanning: backward line 870
+2024-12-04 17:02:40,020 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:40,355 - Response: b'b869\r\n'
+2024-12-04 17:02:40,355 - Scanning: backward line 869
+2024-12-04 17:02:42,699 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:43,039 - Response: b'b868\r\n'
+2024-12-04 17:02:43,039 - Scanning: backward line 868
+2024-12-04 17:02:45,388 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:45,733 - Response: b'b867\r\n'
+2024-12-04 17:02:45,733 - Scanning: backward line 867
+2024-12-04 17:02:47,068 - MicState b'1\r\n'
+2024-12-04 17:02:48,070 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:48,070 - MicState b'-1\r\n'
+2024-12-04 17:02:48,074 - Response: b'f866\r\n'
+2024-12-04 17:02:48,075 - Scanning: forward line 866
+2024-12-04 17:02:49,820 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:50,160 - Response: b'f865\r\n'
+2024-12-04 17:02:50,160 - Scanning: forward line 865
+2024-12-04 17:02:52,493 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:52,842 - Response: b'f864\r\n'
+2024-12-04 17:02:52,842 - Scanning: forward line 864
+2024-12-04 17:02:55,184 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:55,538 - Response: b'f863\r\n'
+2024-12-04 17:02:55,538 - Scanning: forward line 863
+2024-12-04 17:02:57,879 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:02:58,229 - Response: b'f862\r\n'
+2024-12-04 17:02:58,229 - Scanning: forward line 862
+2024-12-04 17:03:00,580 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:00,580 - MicState b'1\r\n'
+2024-12-04 17:03:00,746 - MicState b'-1\r\n'
+2024-12-04 17:03:00,747 - Response: b'-1\r\n'
+2024-12-04 17:03:00,748 - Scan status from direct value: On
+2024-12-04 17:03:02,228 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:02,574 - Response: b'b861\r\n'
+2024-12-04 17:03:02,574 - Scanning: backward line 861
+2024-12-04 17:03:04,930 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:05,268 - Response: b'b860\r\n'
+2024-12-04 17:03:05,268 - Scanning: backward line 860
+2024-12-04 17:03:07,624 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:07,968 - Response: b'b859\r\n'
+2024-12-04 17:03:07,968 - Scanning: backward line 859
+2024-12-04 17:03:10,316 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:10,665 - Response: b'b858\r\n'
+2024-12-04 17:03:10,665 - Scanning: backward line 858
+2024-12-04 17:03:11,484 - MicState b'1\r\n'
+2024-12-04 17:03:12,484 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:12,485 - MicState b'-1\r\n'
+2024-12-04 17:03:12,486 - Response: b'f857\r\n'
+2024-12-04 17:03:12,486 - Scanning: forward line 857
+2024-12-04 17:03:14,718 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:15,066 - Response: b'f856\r\n'
+2024-12-04 17:03:15,066 - Scanning: forward line 856
+2024-12-04 17:03:17,409 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:17,755 - Response: b'f855\r\n'
+2024-12-04 17:03:17,755 - Scanning: forward line 855
+2024-12-04 17:03:20,109 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:20,463 - Response: b'f854\r\n'
+2024-12-04 17:03:20,463 - Scanning: forward line 854
+2024-12-04 17:03:22,805 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:23,160 - Response: b'f853\r\n'
+2024-12-04 17:03:23,160 - Scanning: forward line 853
+2024-12-04 17:03:25,509 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:25,860 - Response: b'f852\r\n'
+2024-12-04 17:03:25,860 - Scanning: forward line 852
+2024-12-04 17:03:28,209 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:28,564 - Response: b'f851\r\n'
+2024-12-04 17:03:28,564 - Scanning: forward line 851
+2024-12-04 17:03:30,908 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:31,255 - Response: b'f850\r\n'
+2024-12-04 17:03:31,255 - Scanning: forward line 850
+2024-12-04 17:03:33,601 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:33,955 - Response: b'f849\r\n'
+2024-12-04 17:03:33,955 - Scanning: forward line 849
+2024-12-04 17:03:36,299 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:36,646 - Response: b'f848\r\n'
+2024-12-04 17:03:36,646 - Scanning: forward line 848
+2024-12-04 17:03:38,992 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:39,345 - Response: b'f847\r\n'
+2024-12-04 17:03:39,345 - Scanning: forward line 847
+2024-12-04 17:03:41,689 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:42,043 - Response: b'f846\r\n'
+2024-12-04 17:03:42,043 - Scanning: forward line 846
+2024-12-04 17:03:44,388 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:44,737 - Response: b'f845\r\n'
+2024-12-04 17:03:44,737 - Scanning: forward line 845
+2024-12-04 17:03:47,078 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:47,431 - Response: b'f844\r\n'
+2024-12-04 17:03:47,431 - Scanning: forward line 844
+2024-12-04 17:03:49,778 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:50,131 - Response: b'f843\r\n'
+2024-12-04 17:03:50,131 - Scanning: forward line 843
+2024-12-04 17:03:52,472 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:52,826 - Response: b'f842\r\n'
+2024-12-04 17:03:52,826 - Scanning: forward line 842
+2024-12-04 17:03:55,165 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:55,520 - Response: b'f841\r\n'
+2024-12-04 17:03:55,520 - Scanning: forward line 841
+2024-12-04 17:03:57,869 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-04 17:03:57,870 - Scan finished at 2024-12-04 17:03:57.870123
+2024-12-04 17:03:57,873 - Response: 0
+2024-12-04 17:03:57,873 - Scan completed
+2024-12-04 17:03:58,374 - 掃描完成
+2024-12-04 17:03:58,374 - 
+>>> 執行第 3/11 條 Multi-STS 線
+2024-12-04 17:03:58,374 -   Multi-STS點 (1/11): (-99.600, 4880.480)
+2024-12-04 17:03:58,374 - Sending command: SpectPara(1, -99.6);
