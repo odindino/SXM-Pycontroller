@@ -17,7 +17,7 @@ const STSMeasurementModule = {
 
     init() {
         this.setupEventListeners();
-        this.refreshScripts();
+        // this.refreshScripts();
     },
 
     setupEventListeners() {
