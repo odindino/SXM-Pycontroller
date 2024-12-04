@@ -1190,8 +1190,30 @@ const AutoMoveMeasurementModule = {
             // 先獲取 SXM 狀態以取得掃描參數
             const sxmStatus = await pywebview.api.get_sxm_status();
             
-            // 收集所有區域的參數
-            const localAreas = this.collectLocalAreasData();
+            // 收集所有區域的參數，並轉換相對座標為絕對座標
+            const localAreas = [];
+            const containers = this.elements.localAreasContainer.querySelectorAll('.local-area-container');
+            
+            containers.forEach(container => {
+                // 獲取偏移量
+                const x_dev = parseFloat(container.querySelector('.x-dev').value);
+                const y_dev = parseFloat(container.querySelector('.y-dev').value);
+                
+                // 其他參數
+                const area = {
+                    // 計算實際起始點座標：中心點 + 偏移量
+                    start_x: sxmStatus.center_x + x_dev,
+                    start_y: sxmStatus.center_y + y_dev,
+                    dx: parseFloat(container.querySelector('.dx').value),
+                    dy: parseFloat(container.querySelector('.dy').value),
+                    nx: parseInt(container.querySelector('.nx').value),
+                    ny: parseInt(container.querySelector('.ny').value),
+                    startpoint_direction: parseInt(container.querySelector('.start-direction').value)
+                };
+                
+                localAreas.push(area);
+            });
+            
             if (!localAreas.length) {
                 this.updateStatus('No local areas defined');
                 return;
@@ -1212,8 +1234,21 @@ const AutoMoveMeasurementModule = {
             // 生成預覽
             const plotData = await pywebview.api.preview_local_cits(params);
             
+            // 設定配置選項
+            const config = {
+                responsive: true,
+                displayModeBar: true,
+                displaylogo: false,
+                modeBarButtonsToRemove: ['lasso2d', 'select2d']
+            };
+            
             // 更新預覽圖
-            Plotly.newPlot(this.elements.localPreviewCanvas, plotData.data, plotData.layout);
+            Plotly.newPlot(this.elements.localPreviewCanvas, plotData.data, plotData.layout, config);
+            
+            // 監聽視窗大小變化
+            window.addEventListener('resize', () => {
+                Plotly.Plots.resize(this.elements.localPreviewCanvas);
+            });
             
             this.updateStatus('Local CITS preview generated successfully');
             
@@ -1224,14 +1259,23 @@ const AutoMoveMeasurementModule = {
     },
     
     updateLocalPreviewInfo(status) {
-        document.getElementById('localPreviewCenter').textContent = 
-            `(${status.center_x.toFixed(2)}, ${status.center_y.toFixed(2)})`;
-        document.getElementById('localPreviewRange').textContent = 
-            status.range.toFixed(2);
-        document.getElementById('localPreviewAngle').textContent = 
-            status.angle.toFixed(2);
-        document.getElementById('localPreviewTotalPoints').textContent = 
-            this.calculateTotalPoints();
+        // 更新預覽資訊
+        if (this.elements.localPreviewCenter) {
+            this.elements.localPreviewCenter.textContent = 
+                `(${status.center_x.toFixed(2)}, ${status.center_y.toFixed(2)})`;
+        }
+        if (this.elements.localPreviewRange) {
+            this.elements.localPreviewRange.textContent = 
+                status.range.toFixed(2);
+        }
+        if (this.elements.localPreviewAngle) {
+            this.elements.localPreviewAngle.textContent = 
+                status.angle.toFixed(2);
+        }
+        if (this.elements.localPreviewTotalPoints) {
+            this.elements.localPreviewTotalPoints.textContent = 
+                this.calculateTotalPoints();
+        }
     },
     
     calculateTotalPoints() {
