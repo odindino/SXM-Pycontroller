@@ -54,10 +54,12 @@ class SMUControlAPI:
         # 設定腳本存放目錄
         self.scripts_dir = self.base_dir / "SXMPycontroller_scripts"
         # self.sts_scripts_file = self.scripts_dir / "sts_scripts.json"
+        self.sts_scripts_dir = self.scripts_dir / "sts_scripts"
         self.move_scripts_dir = self.scripts_dir / "move_scripts"
         
         # 確保目錄存在
         self.scripts_dir.mkdir(exist_ok=True)
+        self.sts_scripts_dir.mkdir(exist_ok=True)
         self.move_scripts_dir.mkdir(exist_ok=True)
 
         # # 確保 STS 腳本檔案存在
@@ -457,8 +459,7 @@ class SMUControlAPI:
             儲存是否成功
         """
         try:
-            base_dir = Path(__file__).parent
-            sts_dir = base_dir / "SXMPycontroller_scripts" / "sts_scripts"
+            sts_dir = self.sts_scripts_dir
             sts_dir.mkdir(parents=True, exist_ok=True)
 
             script_data = {
@@ -488,13 +489,11 @@ class SMUControlAPI:
             腳本名稱和內容的映射
         """
         try:
-            base_dir = Path(__file__).parent
-            sts_dir = base_dir / "SXMPycontroller_scripts" / "sts_scripts"
-            if not sts_dir.exists():
+            if not self.sts_scripts_dir.exists():
                 return {}
 
             scripts = {}
-            for script_file in sts_dir.glob("*.json"):
+            for script_file in self.sts_scripts_dir.glob("*.json"):
                 with open(script_file, encoding='utf-8') as f:
                     script_data = json.load(f)
                     scripts[script_data['name']] = script_data

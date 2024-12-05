@@ -46,9 +46,9 @@ class SXMController(SXMCITSControl):
 
     def __init__(self, debug_mode=False):
         super().__init__(debug_mode)
-        # self.sts_controller = None  # 將在連接SMU後初始
-        self.scripts_path = Path.home() / ".stm_controller" / "sts_scripts.json"
-        self.scripts_path.parent.mkdir(exist_ok=True)
+        self.base_dir = Path(__file__).parent  # 取得主程式目錄
+        self.scripts_dir = self.base_dir / "SXMPycontroller_scripts" / "sts_scripts"
+        self.scripts_dir.mkdir(parents=True, exist_ok=True)
         self.loaded_scripts: Dict[str, STSScript] = {}
         self._load_scripts()
 
@@ -771,48 +771,71 @@ class SXMController(SXMCITSControl):
 
     # ========== STSxSMU script functions ========== #
     def save_script(self, script: STSScript) -> bool:
-        """儲存STS腳本"""
+        """儲存STS腳本到獨立檔案"""
         try:
-            self.loaded_scripts[script.name] = script
-            self._save_scripts()
+            # 取得腳本存放路徑
+            sts_dir = Path(__file__).parent / "SXMPycontroller_scripts" / "sts_scripts"
+            sts_dir.mkdir(parents=True, exist_ok=True)
+
+            script_file = sts_dir / f"{script.name}.json"
+            with open(script_file, 'w', encoding='utf-8') as f:
+                json.dump(script.to_dict(), f, indent=2, ensure_ascii=False)
+
             return True
         except Exception as e:
             print(f"Save script error: {str(e)}")
             return False
 
     def get_script(self, name: str) -> Optional[STSScript]:
-        """取得指定腳本"""
-        return self.loaded_scripts.get(name)
+        """從獨立檔案讀取指定腳本"""
+        try:
+            script_file = Path(__file__).parent / "SXMPycontroller_scripts" / "sts_scripts" / f"{name}.json"
+            if not script_file.exists():
+                return None
+
+            with open(script_file, encoding='utf-8') as f:
+                data = json.load(f)
+                return STSScript.from_dict(data)
+
+        except Exception as e:
+            print(f"Get script error: {str(e)}")
+            return None
 
     def get_all_scripts(self) -> Dict[str, STSScript]:
-        """取得所有腳本"""
-        return self.loaded_scripts
+        """讀取所有STS腳本"""
+        try:
+            scripts_dir = Path(__file__).parent / "SXMPycontroller_scripts" / "sts_scripts"
+            if not scripts_dir.exists():
+                return {}
+
+            scripts = {}
+            for script_file in scripts_dir.glob("*.json"):
+                with open(script_file, encoding='utf-8') as f:
+                    data = json.load(f)
+                    scripts[data['name']] = STSScript.from_dict(data)
+
+            return scripts
+
+        except Exception as e:
+            print(f"Get all scripts error: {str(e)}")
+            return {}
 
     def _load_scripts(self):
-        """從檔案載入腳本"""
+        """從檔案夾載入所有STS腳本"""
         try:
-            if self.scripts_path.exists():
-                with open(self.scripts_path) as f:
+            if not self.scripts_dir.exists():
+                return
+
+            self.loaded_scripts = {}
+            for script_file in self.scripts_dir.glob("*.json"):
+                with open(script_file, encoding='utf-8') as f:
                     data = json.load(f)
-                    self.loaded_scripts = {
-                        name: STSScript.from_dict(script_data)
-                        for name, script_data in data.items()
-                    }
+                    self.loaded_scripts[data['name']] = STSScript.from_dict(data)
+
         except Exception as e:
             print(f"Load scripts error: {str(e)}")
             self.loaded_scripts = {}
 
-    def _save_scripts(self):
-        """儲存腳本到檔案"""
-        try:
-            data = {
-                name: script.to_dict()
-                for name, script in self.loaded_scripts.items()
-            }
-            with open(self.scripts_path, 'w') as f:
-                json.dump(data, f, indent=2)
-        except Exception as e:
-            print(f"Save scripts error: {str(e)}")
     # ========== STSxSMU script functions END ========== #
 
     @track_function
