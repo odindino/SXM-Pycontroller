@@ -1,0 +1,84 @@
+2024-12-05 21:28:00,920 - 進入函式：auto_move_local_msts_CITS
+2024-12-05 21:28:00,920 - 離開函式：auto_move_local_msts_CITS
+2024-12-05 21:28:25,361 - 進入函式：auto_move_local_msts_CITS
+2024-12-05 21:28:25,362 - 離開函式：auto_move_local_msts_CITS
+2024-12-05 21:29:11,693 - 進入函式：auto_move_local_msts_CITS
+2024-12-05 21:29:11,693 - 離開函式：auto_move_local_msts_CITS
+2024-12-05 21:30:02,111 - 進入函式：auto_move_local_msts_CITS
+2024-12-05 21:30:02,111 - 離開函式：auto_move_local_msts_CITS
+2024-12-05 21:32:11,231 - 進入函式：auto_move_local_msts_CITS
+2024-12-05 21:32:11,240 - 進入函式：standard_local_msts_cits
+2024-12-05 21:32:11,282 - === 時間戳記 2024-12-05 21:32:11.282526 ===
+目前執行函式：auto_move_local_msts_CITS -> standard_local_msts_cits
+
+2024-12-05 21:32:11,300 - 進入函式：wait_for_scan_complete
+2024-12-05 21:32:11,300 - 進入函式：check_scan
+2024-12-05 21:32:12,614 - 離開函式：check_scan
+2024-12-05 21:32:14,945 - 進入函式：check_scan
+2024-12-05 21:32:15,286 - 離開函式：check_scan
+2024-12-05 21:32:16,294 - === 時間戳記 2024-12-05 21:32:16.294742 ===
+目前執行函式：wait_for_scan_complete -> auto_move_local_msts_CITS -> standard_local_msts_cits
+
+2024-12-05 21:32:17,622 - 進入函式：check_scan
+2024-12-05 21:32:17,962 - 離開函式：check_scan
+2024-12-05 21:32:20,296 - 進入函式：check_scan
+2024-12-05 21:32:20,636 - 離開函式：check_scan
+2024-12-05 21:32:21,300 - === 時間戳記 2024-12-05 21:32:21.300772 ===
+目前執行函式：wait_for_scan_complete -> auto_move_local_msts_CITS -> standard_local_msts_cits
+
+2024-12-05 21:32:22,971 - 進入函式：check_scan
+2024-12-05 21:32:23,310 - 離開函式：check_scan
+2024-12-05 21:32:25,646 - 進入函式：check_scan
+2024-12-05 21:32:25,981 - 離開函式：check_scan
+2024-12-05 21:32:26,309 - === 時間戳記 2024-12-05 21:32:26.309202 ===
+目前執行函式：wait_for_scan_complete -> auto_move_local_msts_CITS -> standard_local_msts_cits
+
+2024-12-05 21:32:28,314 - 進入函式：check_scan
+2024-12-05 21:32:28,649 - 離開函式：check_scan
+2024-12-05 21:32:30,983 - 進入函式：check_scan
+2024-12-05 21:32:31,318 - === 時間戳記 2024-12-05 21:32:31.318354 ===
+目前執行函式：wait_for_scan_complete -> auto_move_local_msts_CITS -> check_scan -> standard_local_msts_cits
+
+2024-12-05 21:32:31,325 - 離開函式：check_scan
+2024-12-05 21:32:33,663 - 進入函式：check_scan
+2024-12-05 21:32:34,006 - 離開函式：check_scan
+2024-12-05 21:32:36,327 - === 時間戳記 2024-12-05 21:32:36.327825 ===
+目前執行函式：wait_for_scan_complete -> auto_move_local_msts_CITS -> standard_local_msts_cits
+
+2024-12-05 21:32:36,345 - 進入函式：check_scan
+2024-12-05 21:32:36,689 - 離開函式：check_scan
+2024-12-05 21:32:39,019 - 進入函式：check_scan
+2024-12-05 21:32:39,355 - 離開函式：check_scan
+2024-12-05 21:32:41,334 - === 時間戳記 2024-12-05 21:32:41.334535 ===
+目前執行函式：wait_for_scan_complete -> auto_move_local_msts_CITS -> standard_local_msts_cits
+
+2024-12-05 21:32:41,688 - 進入函式：check_scan
+2024-12-05 21:32:42,029 - 離開函式：check_scan
+2024-12-05 21:32:44,369 - 進入函式：check_scan
+2024-12-05 21:32:44,712 - 離開函式：check_scan
+2024-12-05 21:32:46,341 - === 時間戳記 2024-12-05 21:32:46.341027 ===
+目前執行函式：wait_for_scan_complete -> auto_move_local_msts_CITS -> standard_local_msts_cits
+
+2024-12-05 21:32:47,048 - 進入函式：check_scan
+2024-12-05 21:32:47,383 - 離開函式：check_scan
+2024-12-05 21:32:49,713 - 進入函式：check_scan
+2024-12-05 21:32:50,049 - 離開函式：check_scan
+2024-12-05 21:32:51,347 - === 時間戳記 2024-12-05 21:32:51.347057 ===
+目前執行函式：wait_for_scan_complete -> auto_move_local_msts_CITS -> standard_local_msts_cits
+
+2024-12-05 21:32:51,359 - 進入函式：check_scan
+2024-12-05 21:32:56,353 - === 時間戳記 2024-12-05 21:32:56.353000 ===
+目前執行函式：wait_for_scan_complete -> auto_move_local_msts_CITS -> check_scan -> standard_local_msts_cits
+
+2024-12-05 21:33:01,361 - === 時間戳記 2024-12-05 21:33:01.361557 ===
+目前執行函式：wait_for_scan_complete -> auto_move_local_msts_CITS -> check_scan -> standard_local_msts_cits
+
+2024-12-05 21:33:06,012 - 離開函式：check_scan
+2024-12-05 21:33:06,012 - 離開函式：wait_for_scan_complete
+2024-12-05 21:33:06,369 - === 時間戳記 2024-12-05 21:33:06.369531 ===
+目前執行函式：auto_move_local_msts_CITS -> standard_local_msts_cits
+
+2024-12-05 21:33:11,377 - === 時間戳記 2024-12-05 21:33:11.377291 ===
+目前執行函式：auto_move_local_msts_CITS -> standard_local_msts_cits
+
+2024-12-05 21:33:11,462 - 進入函式：perform_multi_sts

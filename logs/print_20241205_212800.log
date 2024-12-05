@@ -1,0 +1,255 @@
+2024-12-05 21:28:00,920 - Auto move Local Multi-STS CITS error: 找不到腳本: script_003
+2024-12-05 21:28:25,327 - Ensuring STM controller...
+2024-12-05 21:28:25,328 - Connection lost, recreating controller...
+2024-12-05 21:28:25,328 - Ensuring STM controller...
+2024-12-05 21:28:25,328 - Creating new STM controller...
+2024-12-05 21:28:25,352 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-05 21:28:25,357 - Response: b'DDE Cmd 11765\r\n0\r\n'
+2024-12-05 21:28:25,357 - current state type:
+2024-12-05 21:28:25,357 - <class 'float'>
+2024-12-05 21:28:25,357 - current state:
+2024-12-05 21:28:25,357 - 0.0
+2024-12-05 21:28:25,358 - STM controller created
+2024-12-05 21:28:25,358 - SMU controller initialized
+2024-12-05 21:28:25,361 - Auto move Local Multi-STS CITS error: 找不到腳本: script_003
+2024-12-05 21:29:11,614 - Ensuring STM controller...
+2024-12-05 21:29:11,615 - Connection lost, recreating controller...
+2024-12-05 21:29:11,615 - Ensuring STM controller...
+2024-12-05 21:29:11,615 - Creating new STM controller...
+2024-12-05 21:29:11,684 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-05 21:29:11,688 - Response: b'DDE Cmd 11767\r\n0\r\n'
+2024-12-05 21:29:11,688 - current state type:
+2024-12-05 21:29:11,688 - <class 'float'>
+2024-12-05 21:29:11,688 - current state:
+2024-12-05 21:29:11,688 - 0.0
+2024-12-05 21:29:11,689 - STM controller created
+2024-12-05 21:29:11,689 - SMU controller initialized
+2024-12-05 21:29:11,693 - Auto move Local Multi-STS CITS error: 找不到腳本: script_003
+2024-12-05 21:30:02,057 - Ensuring STM controller...
+2024-12-05 21:30:02,057 - Connection lost, recreating controller...
+2024-12-05 21:30:02,058 - Ensuring STM controller...
+2024-12-05 21:30:02,058 - Creating new STM controller...
+2024-12-05 21:30:02,100 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-05 21:30:02,106 - Response: b'DDE Cmd 11769\r\n0\r\n'
+2024-12-05 21:30:02,106 - current state type:
+2024-12-05 21:30:02,106 - <class 'float'>
+2024-12-05 21:30:02,106 - current state:
+2024-12-05 21:30:02,106 - 0.0
+2024-12-05 21:30:02,107 - STM controller created
+2024-12-05 21:30:02,107 - SMU controller initialized
+2024-12-05 21:30:02,111 - Auto move Local Multi-STS CITS error: 找不到腳本: script_002
+2024-12-05 21:32:11,115 - Ensuring STM controller...
+2024-12-05 21:32:11,115 - Connection lost, recreating controller...
+2024-12-05 21:32:11,115 - Ensuring STM controller...
+2024-12-05 21:32:11,115 - Creating new STM controller...
+2024-12-05 21:32:11,220 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-05 21:32:11,227 - Response: b'DDE Cmd 11771\r\n0\r\n'
+2024-12-05 21:32:11,227 - current state type:
+2024-12-05 21:32:11,227 - <class 'float'>
+2024-12-05 21:32:11,227 - current state:
+2024-12-05 21:32:11,227 - 0.0
+2024-12-05 21:32:11,228 - STM controller created
+2024-12-05 21:32:11,228 - SMU controller initialized
+2024-12-05 21:32:11,231 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2024-12-05 21:32:11,233 - Response: b'DDE Cmd 11773\r\n439.29\r\n'
+2024-12-05 21:32:11,233 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2024-12-05 21:32:11,236 - Response: b'DDE Cmd 11774\r\n-673.76\r\n'
+2024-12-05 21:32:11,236 - Sending command: a := 0.0;
+a := GetScanPara('Angle');
+Writeln(a);
+2024-12-05 21:32:11,239 - Response: b'DDE Cmd 11775\r\n0\r\n'
+2024-12-05 21:32:11,239 - 
+Starting auto move Local Multi-STS CITS sequence:
+2024-12-05 21:32:11,239 - Initial center: (439.29, -673.76)
+2024-12-05 21:32:11,239 - Number of local areas: 4
+2024-12-05 21:32:11,239 - Script name: script_001
+2024-12-05 21:32:11,239 - Scan angle: 0.0°
+2024-12-05 21:32:11,239 - Repeat count: 1
+2024-12-05 21:32:11,239 - 
+Generating movement positions:
+2024-12-05 21:32:11,240 - Start position: (439.29, -673.76)
+2024-12-05 21:32:11,240 - Movement script: U
+2024-12-05 21:32:11,240 - Distance: 200 nm
+2024-12-05 21:32:11,240 - Position 1: (439.29, -473.76)
+2024-12-05 21:32:11,240 - 
+Starting Local Multi-STS CITS sequence at initial position, repeat 1/1, direction: down
+2024-12-05 21:32:11,240 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2024-12-05 21:32:11,243 - Response: b'DDE Cmd 11776\r\n439.29\r\n'
+2024-12-05 21:32:11,243 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2024-12-05 21:32:11,246 - Response: b'DDE Cmd 11777\r\n-673.76\r\n'
+2024-12-05 21:32:11,247 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-05 21:32:11,249 - Response: b'DDE Cmd 11778\r\n1\r\n'
+2024-12-05 21:32:11,249 - Sending command: a := 0.0;
+a := GetScanPara('Range');
+Writeln(a);
+2024-12-05 21:32:11,252 - Response: b'DDE Cmd 11779\r\n100\r\n'
+2024-12-05 21:32:11,252 - Sending command: a := 0.0;
+a := GetScanPara('Angle');
+Writeln(a);
+2024-12-05 21:32:11,255 - Response: b'DDE Cmd 11780\r\n0\r\n'
+2024-12-05 21:32:11,255 - Sending command: a := 0.0;
+a := GetScanPara('Pixel');
+Writeln(a);
+2024-12-05 21:32:11,258 - Response: b'DDE Cmd 11781\r\n500\r\n'
+2024-12-05 21:32:11,258 - Sending command: a := 0.0;
+a := GetScanPara('PixelRatio');
+Writeln(a);
+2024-12-05 21:32:11,262 - Response: b'DDE Cmd 11782\r\nError 34 (unknown function) at line 3.    Program stopped!\r\n'
+2024-12-05 21:32:11,262 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-05 21:32:11,265 - Response: b'DDE Cmd 11783\r\n1\r\n'
+2024-12-05 21:32:11,265 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-05 21:32:11,267 - Response: b'DDE Cmd 11784\r\n1\r\n'
+2024-12-05 21:32:11,287 - sorted_indices:
+2024-12-05 21:32:11,287 - [   0   22   21 ... 1293 1284 1294]
+2024-12-05 21:32:11,287 - sorted_positions:
+2024-12-05 21:32:11,287 - [ 53  53  53 ... 425 425 425]
+2024-12-05 21:32:11,288 - sorted_coords:
+2024-12-05 21:32:11,288 - [[ 417.29 -634.56]
+ [ 461.29 -634.56]
+ [ 459.29 -634.56]
+ ...
+ [ 463.29 -708.76]
+ [ 436.29 -708.76]
+ [ 466.29 -708.76]]
+2024-12-05 21:32:11,289 - 
+Validation Results:
+2024-12-05 21:32:11,289 - Total coordinates: Original=1295, Distributed=1295
+2024-12-05 21:32:11,289 - Distribution segments: Coordinates=57, Scanlines=58
+2024-12-05 21:32:11,289 - Total scanlines: Calculated=500, Expected=500
+2024-12-05 21:32:11,290 - 
+開始局部 Multi-STS CITS 量測:
+2024-12-05 21:32:11,290 - 腳本名稱: script_001
+2024-12-05 21:32:11,290 - 局部區域數: 4
+2024-12-05 21:32:11,290 - 掃描線分配: [53, 5, 3, 5, 4, 3, 5, 3, 5, 4, 3, 5, 3, 5, 4, 3, 5, 3, 5, 4, 3, 5, 3, 5, 4, 3, 5, 3, 5, 4, 3, 5, 3, 5, 4, 3, 5, 3, 5, 4, 3, 5, 3, 5, 4, 3, 5, 3, 5, 4, 25, 25, 25, 25, 25, 25, 25, 75]
+2024-12-05 21:32:11,290 - 總量測點數: 1295
+2024-12-05 21:32:11,290 - 
+=== 掃描第 1 段 53 條線 ===
+2024-12-05 21:32:11,290 - 開始掃描 53 條線
+2024-12-05 21:32:11,290 - Sending command: ScanLine(53);
+2024-12-05 21:32:11,300 - Scan started at 2024-12-05 21:32:11.299067
+2024-12-05 21:32:11,300 - Response: 1
+2024-12-05 21:32:11,300 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-05 21:32:12,613 - Response: b'f1\r\n'
+2024-12-05 21:32:12,614 - Scanning: forward line 1
+2024-12-05 21:32:14,945 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-05 21:32:15,286 - Response: b'f2\r\n'
+2024-12-05 21:32:15,286 - Scanning: forward line 2
+2024-12-05 21:32:17,622 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-05 21:32:17,961 - Response: b'f3\r\n'
+2024-12-05 21:32:17,962 - Scanning: forward line 3
+2024-12-05 21:32:20,296 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-05 21:32:20,636 - Response: b'f4\r\n'
+2024-12-05 21:32:20,636 - Scanning: forward line 4
+2024-12-05 21:32:22,971 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-05 21:32:23,310 - Response: b'f5\r\n'
+2024-12-05 21:32:23,310 - Scanning: forward line 5
+2024-12-05 21:32:25,646 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-05 21:32:25,981 - Response: b'f6\r\n'
+2024-12-05 21:32:25,981 - Scanning: forward line 6
+2024-12-05 21:32:28,314 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-05 21:32:28,649 - Response: b'f7\r\n'
+2024-12-05 21:32:28,649 - Scanning: forward line 7
+2024-12-05 21:32:30,983 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-05 21:32:31,324 - Response: b'f8\r\n'
+2024-12-05 21:32:31,325 - Scanning: forward line 8
+2024-12-05 21:32:33,663 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-05 21:32:34,006 - Response: b'f9\r\n'
+2024-12-05 21:32:34,006 - Scanning: forward line 9
+2024-12-05 21:32:36,345 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-05 21:32:36,688 - Response: b'f10\r\n'
+2024-12-05 21:32:36,689 - Scanning: forward line 10
+2024-12-05 21:32:39,019 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-05 21:32:39,355 - Response: b'f11\r\n'
+2024-12-05 21:32:39,355 - Scanning: forward line 11
+2024-12-05 21:32:41,688 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-05 21:32:42,029 - Response: b'f12\r\n'
+2024-12-05 21:32:42,029 - Scanning: forward line 12
+2024-12-05 21:32:44,369 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-05 21:32:44,711 - Response: b'f13\r\n'
+2024-12-05 21:32:44,712 - Scanning: forward line 13
+2024-12-05 21:32:47,048 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-05 21:32:47,382 - Response: b'f14\r\n'
+2024-12-05 21:32:47,383 - Scanning: forward line 14
+2024-12-05 21:32:49,713 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-05 21:32:50,049 - Response: b'f15\r\n'
+2024-12-05 21:32:50,049 - Scanning: forward line 15
+2024-12-05 21:32:50,358 - Scan finished at 2024-12-05 21:32:50.358474
+2024-12-05 21:32:51,359 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-05 21:33:06,011 - Scan started at 2024-12-05 21:33:06.011144
+2024-12-05 21:33:06,012 - Response: 1
+2024-12-05 21:33:06,012 - Scan completed
+2024-12-05 21:33:06,513 - 掃描完成
+2024-12-05 21:33:06,513 - 
+>>> 執行第 1/57 群組的 Multi-STS 量測
+2024-12-05 21:33:06,513 -   Multi-STS點 (1/23): (417.290, -634.560)
+2024-12-05 21:33:06,513 - Sending command: SpectPara(1, 417.29);
+2024-12-05 21:33:08,331 - Response: b'f15\r\n'
+2024-12-05 21:33:08,331 - Sending command: SpectPara(2, -634.56);
+2024-12-05 21:33:08,700 - Scan finished at 2024-12-05 21:33:08.700896
+2024-12-05 21:33:08,700 - Response: 0
+2024-12-05 21:33:08,700 - Sending command: SpectPara(1, 417.29);
+2024-12-05 21:33:10,228 - Scan started at 2024-12-05 21:33:10.228276
+2024-12-05 21:33:10,228 - Response: 1
+2024-12-05 21:33:10,228 - Sending command: SpectPara(2, -634.56);
+2024-12-05 21:33:11,462 - Scan finished at 2024-12-05 21:33:11.462894
+2024-12-05 21:33:11,462 - Response: 0
+2024-12-05 21:33:11,462 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2024-12-05 21:33:14,044 - 視窗已關閉，正在清理資源...
+2024-12-05 21:33:14,068 - 
+正在關閉程式...
