@@ -46,7 +46,7 @@ class SXMController(SXMCITSControl):
 
     def __init__(self, debug_mode=False):
         super().__init__(debug_mode)
-        self.base_dir = Path(__file__).parent  # 取得主程式目錄
+        self.base_dir = Path(__file__).parent.parent  # 取得主程式目錄
         self.scripts_dir = self.base_dir / "SXMPycontroller_scripts" / "sts_scripts"
         self.scripts_dir.mkdir(parents=True, exist_ok=True)
         self.loaded_scripts: Dict[str, STSScript] = {}
@@ -774,7 +774,7 @@ class SXMController(SXMCITSControl):
         """儲存STS腳本到獨立檔案"""
         try:
             # 取得腳本存放路徑
-            sts_dir = Path(__file__).parent / "SXMPycontroller_scripts" / "sts_scripts"
+            sts_dir = Path(__file__).parent.parent / "SXMPycontroller_scripts" / "sts_scripts"
             sts_dir.mkdir(parents=True, exist_ok=True)
 
             script_file = sts_dir / f"{script.name}.json"
@@ -789,7 +789,7 @@ class SXMController(SXMCITSControl):
     def get_script(self, name: str) -> Optional[STSScript]:
         """從獨立檔案讀取指定腳本"""
         try:
-            script_file = Path(__file__).parent / "SXMPycontroller_scripts" / "sts_scripts" / f"{name}.json"
+            script_file = Path(__file__).parent.parent / "SXMPycontroller_scripts" / "sts_scripts" / f"{name}.json"
             if not script_file.exists():
                 return None
 
@@ -804,7 +804,7 @@ class SXMController(SXMCITSControl):
     def get_all_scripts(self) -> Dict[str, STSScript]:
         """讀取所有STS腳本"""
         try:
-            scripts_dir = Path(__file__).parent / "SXMPycontroller_scripts" / "sts_scripts"
+            scripts_dir = Path(__file__).parent.parent / "SXMPycontroller_scripts" / "sts_scripts"
             if not scripts_dir.exists():
                 return {}
 

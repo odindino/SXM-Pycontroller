@@ -1,0 +1,128 @@
+2024-12-05 22:08:42,320 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2024-12-05 22:08:42,325 - Response: b'DDE Cmd 11928\r\n439.29\r\n'
+2024-12-05 22:08:42,325 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2024-12-05 22:08:42,329 - Response: b'DDE Cmd 11929\r\n-673.76\r\n'
+2024-12-05 22:08:42,329 - Sending command: a := 0.0;
+a := GetScanPara('Angle');
+Writeln(a);
+2024-12-05 22:08:42,332 - Response: b'DDE Cmd 11930\r\n0\r\n'
+2024-12-05 22:08:42,332 - 
+Starting auto move Local Multi-STS CITS sequence:
+2024-12-05 22:08:42,332 - Initial center: (439.29, -673.76)
+2024-12-05 22:08:42,332 - Number of local areas: 1
+2024-12-05 22:08:42,332 - Script name: script_003
+2024-12-05 22:08:42,333 - Scan angle: 0.0°
+2024-12-05 22:08:42,333 - Repeat count: 1
+2024-12-05 22:08:42,333 - 
+Generating movement positions:
+2024-12-05 22:08:42,333 - Start position: (439.29, -673.76)
+2024-12-05 22:08:42,333 - Movement script: U
+2024-12-05 22:08:42,333 - Distance: 200 nm
+2024-12-05 22:08:42,333 - Position 1: (439.29, -473.76)
+2024-12-05 22:08:42,333 - 
+Starting Local Multi-STS CITS sequence at initial position, repeat 1/1, direction: up
+2024-12-05 22:08:42,334 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2024-12-05 22:08:42,336 - Response: b'DDE Cmd 11931\r\n439.29\r\n'
+2024-12-05 22:08:42,336 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2024-12-05 22:08:42,339 - Response: b'DDE Cmd 11932\r\n-673.76\r\n'
+2024-12-05 22:08:42,339 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-05 22:08:42,341 - Response: b'DDE Cmd 11933\r\n1\r\n'
+2024-12-05 22:08:42,342 - Sending command: a := 0.0;
+a := GetScanPara('Range');
+Writeln(a);
+2024-12-05 22:08:42,344 - Response: b'DDE Cmd 11934\r\n100\r\n'
+2024-12-05 22:08:42,344 - Sending command: a := 0.0;
+a := GetScanPara('Angle');
+Writeln(a);
+2024-12-05 22:08:42,346 - Response: b'DDE Cmd 11935\r\n0\r\n'
+2024-12-05 22:08:42,347 - Sending command: a := 0.0;
+a := GetScanPara('Pixel');
+Writeln(a);
+2024-12-05 22:08:42,349 - Response: b'DDE Cmd 11936\r\n500\r\n'
+2024-12-05 22:08:42,349 - Sending command: a := 0.0;
+a := GetScanPara('PixelRatio');
+Writeln(a);
+2024-12-05 22:08:42,352 - Response: b'DDE Cmd 11937\r\nError 34 (unknown function) at line 3.    Program stopped!\r\n'
+2024-12-05 22:08:42,352 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-05 22:08:42,355 - Response: b'DDE Cmd 11938\r\n1\r\n'
+2024-12-05 22:08:42,355 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2024-12-05 22:08:42,358 - Response: b'DDE Cmd 11939\r\n1\r\n'
+2024-12-05 22:08:42,358 - sorted_indices:
+2024-12-05 22:08:42,359 - [ 0  1  2  3  4  5  6  7  8  9 14 13 12 11 10 15 16 17 18 19 20 21 22 23
+ 24]
+2024-12-05 22:08:42,359 - sorted_positions:
+2024-12-05 22:08:42,359 - [250 250 250 250 250 255 255 255 255 255 260 260 260 260 260 265 265 265
+ 265 265 270 270 270 270 270]
+2024-12-05 22:08:42,359 - sorted_coords:
+2024-12-05 22:08:42,359 - [[ 439.29 -673.76]
+ [ 440.29 -673.76]
+ [ 441.29 -673.76]
+ [ 442.29 -673.76]
+ [ 443.29 -673.76]
+ [ 439.29 -672.76]
+ [ 440.29 -672.76]
+ [ 441.29 -672.76]
+ [ 442.29 -672.76]
+ [ 443.29 -672.76]
+ [ 443.29 -671.76]
+ [ 442.29 -671.76]
+ [ 441.29 -671.76]
+ [ 440.29 -671.76]
+ [ 439.29 -671.76]
+ [ 439.29 -670.76]
+ [ 440.29 -670.76]
+ [ 441.29 -670.76]
+ [ 442.29 -670.76]
+ [ 443.29 -670.76]
+ [ 439.29 -669.76]
+ [ 440.29 -669.76]
+ [ 441.29 -669.76]
+ [ 442.29 -669.76]
+ [ 443.29 -669.76]]
+2024-12-05 22:08:42,359 - 
+Validation Results:
+2024-12-05 22:08:42,359 - Total coordinates: Original=25, Distributed=25
+2024-12-05 22:08:42,359 - Distribution segments: Coordinates=5, Scanlines=6
+2024-12-05 22:08:42,360 - Total scanlines: Calculated=500, Expected=500
+2024-12-05 22:08:42,360 - 
+開始局部 Multi-STS CITS 量測:
+2024-12-05 22:08:42,360 - 腳本名稱: script_003
+2024-12-05 22:08:42,360 - 局部區域數: 1
+2024-12-05 22:08:42,360 - 掃描線分配: [250, 5, 5, 5, 5, 230]
+2024-12-05 22:08:42,360 - 總量測點數: 25
+2024-12-05 22:08:42,360 - 
+=== 掃描第 1 段 250 條線 ===
+2024-12-05 22:08:42,360 - 開始掃描 250 條線
+2024-12-05 22:08:42,360 - Sending command: ScanLine(250);
+2024-12-05 22:08:42,368 - Scan started at 2024-12-05 22:08:42.368583
+2024-12-05 22:08:42,368 - Response: 1
+2024-12-05 22:08:42,368 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-05 22:08:43,543 - Response: b'f500\r\n'
+2024-12-05 22:08:43,543 - Scanning: forward line 500
+2024-12-05 22:08:45,873 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-05 22:08:46,209 - Response: b'f499\r\n'
+2024-12-05 22:08:46,209 - Scanning: forward line 499
+2024-12-05 22:08:48,547 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2024-12-05 22:08:48,882 - Response: b'f498\r\n'
+2024-12-05 22:08:48,882 - Scanning: forward line 498
+2024-12-05 22:08:50,301 - 視窗已關閉，正在清理資源...
