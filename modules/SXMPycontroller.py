@@ -770,21 +770,21 @@ class SXMController(SXMCITSControl):
     # ========== STSxSMU functions END ========== #
 
     # ========== STSxSMU script functions ========== #
-    def save_script(self, script: STSScript) -> bool:
-        """儲存STS腳本到獨立檔案"""
-        try:
-            # 取得腳本存放路徑
-            sts_dir = Path(__file__).parent.parent / "SXMPycontroller_scripts" / "sts_scripts"
-            sts_dir.mkdir(parents=True, exist_ok=True)
+    # def save_script(self, script: STSScript) -> bool:
+    #     """儲存STS腳本到獨立檔案"""
+    #     try:
+    #         # 取得腳本存放路徑
+    #         sts_dir = Path(__file__).parent.parent / "SXMPycontroller_scripts" / "sts_scripts"
+    #         sts_dir.mkdir(parents=True, exist_ok=True)
 
-            script_file = sts_dir / f"{script.name}.json"
-            with open(script_file, 'w', encoding='utf-8') as f:
-                json.dump(script.to_dict(), f, indent=2, ensure_ascii=False)
+    #         script_file = sts_dir / f"{script.name}.json"
+    #         with open(script_file, 'w', encoding='utf-8') as f:
+    #             json.dump(script.to_dict(), f, indent=2, ensure_ascii=False)
 
-            return True
-        except Exception as e:
-            print(f"Save script error: {str(e)}")
-            return False
+    #         return True
+    #     except Exception as e:
+    #         print(f"Save script error: {str(e)}")
+    #         return False
 
     def get_script(self, name: str) -> Optional[STSScript]:
         """從獨立檔案讀取指定腳本"""
