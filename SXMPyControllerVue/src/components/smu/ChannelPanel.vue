@@ -17,6 +17,29 @@
           </select>
         </div>
         
+        <!-- Compliance Setting -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">
+            Compliance:
+          </label>
+          <div class="flex items-center space-x-2">
+            <input
+              v-model.number="compliance"
+              type="number"
+              step="0.001"
+              class="w-40 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            />
+            <span class="text-gray-600">A</span>
+            <button
+              @click="handleSetCompliance"
+              class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+            >
+              Set
+            </button>
+            
+          </div>
+        </div>
+        
         <!-- Output Value -->
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">
@@ -77,7 +100,7 @@
     state: { type: Object, required: true }
   })
   
-  const emit = defineEmits(['set-value', 'toggle-output', 'read-values'])
+  const emit = defineEmits(['set-value', 'toggle-output', 'read-values', 'set-compliance', 'read-compliance'])
   
   const reading = ref({
     voltage: 0,
@@ -85,11 +108,24 @@
     lastRead: null
   })
   
+  const compliance = ref(0.01) // 預設值 0.01 A
+  
   const handleSetValue = () => {
     emit('set-value', props.channel, props.state.mode, props.state.value)
   }
   
   const handleToggleOutput = () => {
     emit('toggle-output', props.channel)
+  }
+  
+  const handleSetCompliance = () => {
+    emit('set-compliance', props.channel, compliance.value)
+  }
+  
+  const handleReadCompliance = async () => {
+    const value = await emit('read-compliance', props.channel)
+    if (value) {
+      compliance.value = value
+    }
   }
   </script>

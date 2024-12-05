@@ -15,6 +15,7 @@
 import { ref } from 'vue'
 import Navigation from './components/Navigation.vue'
 import SMUConfig from './components/smu/SMUConfig.vue'
+import STSMeasurement from './components/sts/STSMeasurement.vue'
 
 const activeTab = ref('smu-config')
 
