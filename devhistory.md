@@ -33,3 +33,12 @@ After add "self.scan_on" before "if not self.is_scanning()", the problem is solv
 2024/11/28 Zi-Liang Yang:
 Testing the CITS function.
 Found that problem is, when SXM is scanning, it can not listen to other command. But Python would keep sending the rest of command and end the program (function, script).
+
+2024/12/05 Zi-Liang Yang:
+About two weeks past, the program almost fits what I want. But there are still some things need to be done.
+
+1. Auto detect the scan direction.
+2. Fix local CITS function in java script.
+3. Local CITS scripts
+4. Transform the front end to Vue structure.
+5. Loading the last image from the SXM data folder.
