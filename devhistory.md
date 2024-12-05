@@ -42,3 +42,32 @@ About two weeks past, the program almost fits what I want. But there are still s
 3. Local CITS scripts
 4. Transform the front end to Vue structure.
 5. Loading the last image from the SXM data folder.
+
+2024/12/06 Zi-Liang Yang:
+Structure for Vue based front end
+src/
+├── App.vue                 # 主應用程式組件
+├── components/             # 共用組件
+│   ├── Navigation.vue      # 導覽列組件
+│   └── smu/               # SMU 相關組件
+│       ├── SMUConfig.vue           # SMU 配置主組件
+│       ├── ConnectionPanel.vue     # 連接控制面板
+│       ├── ChannelPanel.vue        # 通道控制面板
+│       └── ReadingDisplay.vue      # 讀數顯示面板
+├── composables/           # 可重用的邏輯
+│   └── useSMU.js         # SMU 控制邏輯
+└── styles/               # 樣式
+    └── main.css          # 主要樣式檔
+
+Some other files are also needed, like vite.config.js, tailwind.config.js, postcss.config.js, and so on.
+sxm-controller/              # 專案根目錄
+├── src/                    # 源碼目錄
+│   ├── components/         # 組件目錄
+│   ├── composables/        # 可重用的邏輯
+│   └── styles/             # 樣式檔案
+├── public/                 # 靜態資源
+├── index.html             # 入口 HTML 檔案
+├── package.json           # 專案配置檔案
+├── vite.config.js         # Vite 配置檔案
+├── tailwind.config.js     # Tailwind 配置檔案  <-- 放這裡
+└── postcss.config.js      # PostCSS 配置檔案   <-- 放這裡

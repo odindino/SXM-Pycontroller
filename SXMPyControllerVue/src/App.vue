@@ -1,30 +1,24 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="min-h-screen bg-gray-100">
+    <Navigation :active-tab="activeTab" @change-tab="handleTabChange" />
+    
+    <main class="container mx-auto px-4 py-8">
+      <SMUConfig v-if="activeTab === 'smu-config'" />
+      <div v-else-if="activeTab === 'sts-measurement'">STS Measurement</div>
+      <div v-else-if="activeTab === 'cits-measurement'">CITS Measurement</div>
+      <div v-else-if="activeTab === 'auto-move-measurement'">Auto Move Measurement</div>
+    </main>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<script setup>
+import { ref } from 'vue'
+import Navigation from './components/Navigation.vue'
+import SMUConfig from './components/smu/SMUConfig.vue'
+
+const activeTab = ref('smu-config')
+
+const handleTabChange = (tab) => {
+  activeTab.value = tab
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+</script>
