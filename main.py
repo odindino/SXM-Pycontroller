@@ -27,10 +27,12 @@ def main():
     try:
         # 獲取GUI HTML檔案路徑
         base_dir = Path(__file__).parent
-        gui_path = os.path.join(base_dir, 'GUIs', 'SXMPycontroller-GUI.html')
+        # gui_path = os.path.join(base_dir, 'GUIs', 'SXMPycontroller-GUI.html')
+        # gui_path = os.path.join(base_dir, 'SXMPyControllerVue', 'index.html')
+        gui_path = 'http://localhost:5173/'
 
-        if not os.path.exists(gui_path):
-            raise FileNotFoundError(f"GUI file not found at: {gui_path}")
+        # if not os.path.exists(gui_path):
+        #     raise FileNotFoundError(f"GUI file not found at: {gui_path}")
 
         # 設定Ctrl+C信號處理
         signal.signal(signal.SIGINT, signal_handler)

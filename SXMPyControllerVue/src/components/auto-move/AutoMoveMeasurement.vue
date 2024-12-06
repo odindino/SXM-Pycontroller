@@ -197,20 +197,20 @@
   }
 
   const addLocalArea = () => {
-    // 創建新的區域預設值
-    const newArea = {
-        x_dev: 200,  // 預設偏移
-        y_dev: 200,
-        dx: 20,      // 預設步進
-        dy: 20,
-        nx: 5,       // 預設點數
-        ny: 3,
-        startpoint_direction: 1
-    }
-    
-    // 將新區域加入到陣列中
-    localAreas.value.push(newArea)
- }
+    localAreas.value.push({
+      x_dev: 200,    // 預設偏移
+      y_dev: 200,
+      dx: 20,        // 預設步進
+      dy: 20,
+      nx: 5,         // 預設點數
+      ny: 3,
+      startpoint_direction: 1
+    })
+  }
+
+ const removeLocalArea = (index) => {
+    localAreas.value.splice(index, 1)
+  }
   
   // 初始化
   onMounted(() => {
