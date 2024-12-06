@@ -1,0 +1,42 @@
+// composables/useAutoMove.js
+import { ref } from 'vue'
+
+export function useAutoMove() {
+  const isLoading = ref(false)
+  const currentOperation = ref(null)
+  
+  const loadMoveScripts = async () => {
+    try {
+      return await window.pywebview.api.get_auto_move_scripts()
+    } catch (error) {
+      console.error('Failed to load movement scripts:', error)
+      throw error
+    }
+  }
+  
+  const saveMoveScript = async (scriptData) => {
+    try {
+      return await window.pywebview.api.save_auto_move_script(scriptData)
+    } catch (error) {
+      console.error('Failed to save movement script:', error)
+      throw error
+    }
+  }
+  
+  const previewAutoMove = async (params) => {
+    try {
+      return await window.pywebview.api.preview_auto_move(params)
+    } catch (error) {
+      console.error('Preview generation error:', error)
+      throw error
+    }
+  }
+  
+  return {
+    isLoading,
+    currentOperation,
+    loadMoveScripts,
+    saveMoveScript,
+    previewAutoMove
+  }
+}

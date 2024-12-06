@@ -3,23 +3,46 @@
     <Navigation :active-tab="activeTab" @change-tab="handleTabChange" />
     
     <main class="container mx-auto px-4 py-8">
-      <SMUConfig v-if="activeTab === 'smu-config'" />
-      <div v-else-if="activeTab === 'sts-measurement'">STS Measurement</div>
-      <div v-else-if="activeTab === 'cits-measurement'">CITS Measurement</div>
-      <div v-else-if="activeTab === 'auto-move-measurement'">Auto Move Measurement</div>
+      <component
+        :is="currentComponent"
+        v-if="currentComponent"
+      />
     </main>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import Navigation from './components/Navigation.vue'
 import SMUConfig from './components/smu/SMUConfig.vue'
 import STSMeasurement from './components/sts/STSMeasurement.vue'
+import CITSMeasurement from './components/cits/CITSMeasurement.vue'
+import AutoMoveMeasurement from './components/auto-move/AutoMoveMeasurement.vue'
 
 const activeTab = ref('smu-config')
+
+const currentComponent = computed(() => {
+  switch (activeTab.value) {
+    case 'smu-config':
+      return SMUConfig
+    case 'sts-measurement':
+      return STSMeasurement
+    case 'cits-measurement':
+      return CITSMeasurement
+    case 'auto-move-measurement':
+      return AutoMoveMeasurement
+    default:
+      return null
+  }
+})
 
 const handleTabChange = (tab) => {
   activeTab.value = tab
 }
 </script>
+
+<style>
+.container {
+  max-width: 1400px;
+}
+</style>
