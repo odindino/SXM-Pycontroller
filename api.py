@@ -53,7 +53,6 @@ class SMUControlAPI:
         
         # 設定腳本存放目錄
         self.scripts_dir = self.base_dir / "SXMPycontroller_scripts"
-        # self.sts_scripts_file = self.scripts_dir / "sts_scripts.json"
         self.sts_scripts_dir = self.scripts_dir / "sts_scripts"
         self.move_scripts_dir = self.scripts_dir / "move_scripts"
         
@@ -61,11 +60,6 @@ class SMUControlAPI:
         self.scripts_dir.mkdir(exist_ok=True)
         self.sts_scripts_dir.mkdir(exist_ok=True)
         self.move_scripts_dir.mkdir(exist_ok=True)
-
-        # # 確保 STS 腳本檔案存在
-        # if not self.sts_scripts_file.exists():
-        #     with open(self.sts_scripts_file, 'w') as f:
-        #         f.write('{}')
 
     # ========== SMU General functions ========== #
     def connect_smu(self, address: str) -> bool:
@@ -440,69 +434,6 @@ class SMUControlAPI:
             print(f"Multi-STS execution error: {str(e)}")
             raise Exception(f"執行Multi-STS失敗: {str(e)}")
 
-    def save_sts_script(self, name: str, vds_list: list[float], vg_list: list[float]) -> bool:
-        """
-        儲存 STS 腳本
-        
-        Parameters
-        ----------
-        name : str
-            腳本名稱
-        vds_list : list[float]
-            Vds 電壓列表
-        vg_list : list[float]
-            Vg 電壓列表
-        
-        Returns
-        -------
-        bool
-            儲存是否成功
-        """
-        try:
-            sts_dir = self.sts_scripts_dir
-            sts_dir.mkdir(parents=True, exist_ok=True)
-
-            script_data = {
-                'name': name,
-                'vds_list': vds_list,
-                'vg_list': vg_list,
-                'created_time': time.strftime("%Y-%m-%d %H:%M:%S")
-            }
-
-            script_file = sts_dir / f"{name}.json"
-            with open(script_file, 'w', encoding='utf-8') as f:
-                json.dump(script_data, f, indent=2, ensure_ascii=False)
-
-            return True
-
-        except Exception as e:
-            print(f"儲存 STS 腳本失敗: {str(e)}")
-            raise Exception(f"無法儲存腳本: {str(e)}")
-
-    def get_sts_scripts(self) -> dict:
-        """
-        獲取所有 STS 腳本
-        
-        Returns
-        -------
-        dict
-            腳本名稱和內容的映射
-        """
-        try:
-            if not self.sts_scripts_dir.exists():
-                return {}
-
-            scripts = {}
-            for script_file in self.sts_scripts_dir.glob("*.json"):
-                with open(script_file, encoding='utf-8') as f:
-                    script_data = json.load(f)
-                    scripts[script_data['name']] = script_data
-
-            return scripts
-
-        except Exception as e:
-            print(f"讀取 STS 腳本失敗: {str(e)}")
-            return {}
     # ========== STS functions END ========== #
 
     # ========== CITS functions ========== #
