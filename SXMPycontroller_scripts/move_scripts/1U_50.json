@@ -1,0 +1,8 @@
+{
+  "name": "1U_50",
+  "script": "U",
+  "distance": 50.0,
+  "waitTime": 10.0,
+  "repeatCount": 1,
+  "created_time": "2024-12-05 22:10:42"
+}

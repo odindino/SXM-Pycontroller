@@ -434,25 +434,29 @@ class LocalCITSCalculator:
         fast_proj = coordinates @ fast_axis
         slow_proj = coordinates @ slow_axis
 
-        # 將投影值四捨五入到特定精度以處理浮點數誤差
+        # # 將投影值四捨五入到特定精度以處理浮點數誤差
         precision = 1e-10
         fast_proj = np.round(fast_proj / precision) * precision
         slow_proj = np.round(slow_proj / precision) * precision
 
+        # 使用 np.lexsort 進行多重排序，先按慢軸排序，再按快軸排序
+        sorted_indices = np.lexsort((fast_proj, slow_proj))
+        
+
         # 建立複合排序鍵
         # 首先依據慢軸線上的群組進行排序
-        slow_groups = np.unique(slow_proj)
-        sorted_indices = []
+        # slow_groups = np.unique(slow_proj)
+        # sorted_indices = []
 
-        for slow_val in slow_groups:
-            # 找出在同一慢軸線上的點
-            group_mask = (slow_proj == slow_val)
-            group_indices = np.where(group_mask)[0]
+        # for slow_val in slow_groups:
+        #     # 找出在同一慢軸線上的點
+        #     group_mask = (slow_proj == slow_val)
+        #     group_indices = np.where(group_mask)[0]
 
-            # 依據快軸投影值排序同一慢軸線上的點
-            group_fast_proj = fast_proj[group_indices]
-            group_sorted = group_indices[np.argsort(group_fast_proj)]
-            sorted_indices.extend(group_sorted)
+        #     # 依據快軸投影值排序同一慢軸線上的點
+        #     group_fast_proj = fast_proj[group_indices]
+        #     group_sorted = group_indices[np.argsort(group_fast_proj)]
+        #     sorted_indices.extend(group_sorted)
 
         return coordinates[sorted_indices]
 
@@ -561,7 +565,7 @@ class LocalCITSCalculator:
             scan_positions = np.floor(scaled_projections).astype(int)
 
             # Sort coordinates by their scan line positions
-            sorted_indices = np.argsort(scan_positions)
+            sorted_indices = np.argsort(scan_positions, kind='stable')
             print("sorted_indices: ", sorted_indices)
             sorted_positions = scan_positions[sorted_indices]
             print("sorted_positions: ", sorted_positions)
@@ -598,6 +602,8 @@ class LocalCITSCalculator:
             # Handle last group
             if current_group:
                 coordinate_distribution.append(np.array(current_group))
+
+            print("coordinate_distribution: ", coordinate_distribution)
 
             # Add remaining lines to reach total_lines
             remaining_lines = total_lines - current_line
@@ -648,8 +654,6 @@ class LocalCITSCalculator:
                   f"Scanlines={len(scanline_distribution)}")
             print(f"Total scanlines: Calculated={total_scanlines}, "
                   f"Expected={total_lines}")
-
-            return scanline_distribution, coordinate_distribution
 
             return scanline_distribution, coordinate_distribution
 
