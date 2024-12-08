@@ -5,24 +5,21 @@ export function useSMUScripts() {
   const rawScripts = ref({})
 
   const scripts = computed(() => {
-    const scriptData = rawScripts.value
-    return Object.entries(scriptData).map(([name, data]) => ({
-      name,
-      vds_list: data.vds_list || [],
-      vg_list: data.vg_list || []
-    }))
+    return rawScripts.value || {}
   })
 
   const loadScripts = async () => {
     try {
       isLoading.value = true
+      console.log('Fetching scripts from API...')
       const response = await window.pywebview.api.get_sts_scripts()
+      console.log('API response:', response)
       rawScripts.value = response || {}
-      return scripts.value
+      return response
     } catch (error) {
       console.error('Script loading error:', error)
       rawScripts.value = {}
-      return []
+      throw error
     } finally {
       isLoading.value = false
     }

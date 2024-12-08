@@ -11,8 +11,8 @@
           </label>
           <select
             :value="selectedScript"
-            @change="handleScriptChange"
             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            @change="handleScriptChange"
           >
             <option value="">Select Script...</option>
             <option
@@ -26,7 +26,7 @@
         </div>
 
         <button
-          @click="$emit('refresh-scripts')"
+          @click="handleRefreshScripts"
           class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
         >
           Update Scripts
@@ -56,10 +56,12 @@
   </template>
   
   <script setup>
-  defineProps({
+  import { ref, watch, onMounted } from 'vue'
+  
+  const props = defineProps({
     availableSMUScripts: {
       type: Array,
-      default: () => []
+      default: () => [],  // 移除 required: true
     },
     selectedScript: {
       type: String,
@@ -71,9 +73,23 @@
     }
   })
 
-  defineEmits(['select-script', 'refresh-scripts', 'start-single-sts', 'start-multi-sts'])
+const emit = defineEmits(['select-script', 'refresh-scripts', 'start-single-sts', 'start-multi-sts'])
 
-  const handleScriptChange = (event) => {
-    event.target.value && emit('select-script', event.target.value)
-  }
-  </script>
+const handleScriptChange = (event) => {
+  emit('select-script', event.target.value)
+}
+
+const handleRefreshScripts = async () => {
+  console.log('Requesting script refresh')
+  await emit('refresh-scripts')
+  console.log('Current available scripts:', props.availableSMUScripts)
+}
+
+onMounted(() => {
+  console.log('Control panel mounted with scripts:', props.availableSMUScripts)
+})
+
+watch(() => props.availableSMUScripts, (newScripts) => {
+  console.log('Scripts updated:', newScripts)
+}, { deep: true })
+</script>

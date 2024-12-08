@@ -45,19 +45,18 @@ const {
   saveScript: saveSMUScriptToAPI
 } = useSMUScripts()
 
-// // 改用 computed 屬性
-// const availableSMUScripts = computed(() => {
-//   const scriptData = scripts.value
-//   if (!scriptData || Object.keys(scriptData).length === 0) return []
+// 改用 computed 屬性
+const availableSMUScripts = computed(() => {
+  const scriptData = scripts.value
+  if (!scriptData || Object.keys(scriptData).length === 0) return []
   
-//   return Object.entries(scriptData).map(([name, data]) => ({
-//     name,
-//     vds_list: Array.isArray(data.vds_list) ? data.vds_list : [],
-//     vg_list: Array.isArray(data.vg_list) ? data.vg_list : []
-//   }))
-// })
+  return Object.entries(scriptData).map(([name, data]) => ({
+    name,
+    vds_list: Array.isArray(data.vds_list) ? data.vds_list : [],
+    vg_list: Array.isArray(data.vg_list) ? data.vg_list : []
+  }))
+})
 
-const availableSMUScripts = ref([])
 
 const {
   startSTS,
@@ -107,32 +106,11 @@ const saveSMUScript = async () => {
   }
 }
 
-// // 修改 refreshSMUScripts 函數
-// const refreshSMUScripts = async () => {
-//   try {
-//     status.value = 'Refreshing SMU scripts...'
-//     await loadSMUScripts()
-//     const currentScripts = availableSMUScripts.value
-//     console.log('Scripts after refresh:', currentScripts)
-//     status.value = currentScripts.length > 0 ? 'SMU scripts refreshed' : 'No scripts found'
-//   } catch (error) {
-//     console.error('Error loading scripts:', error)
-//     status.value = `Error loading SMU scripts: ${error.message}`
-//   }
-// }
-
 const refreshSMUScripts = async () => {
   try {
     status.value = 'Refreshing SMU scripts...'
-    const result = await loadSMUScripts()
-    if (result) {
-      availableSMUScripts.value = Object.entries(result).map(([name, data]) => ({
-        name,
-        vds_list: data.vds_list || [],
-        vg_list: data.vg_list || []
-      }))
-      status.value = 'SMU scripts refreshed'
-    }
+    await loadSMUScripts()
+    status.value = 'SMU scripts refreshed'
   } catch (error) {
     console.error('Error loading scripts:', error)
     status.value = `Error loading SMU scripts: ${error.message}`
