@@ -436,6 +436,72 @@ class SMUControlAPI:
 
     # ========== STS functions END ========== #
 
+    def save_sts_script(self, name: str, vds_list: list[float], vg_list: list[float]) -> bool:
+        """
+        儲存 STS 腳本
+        
+        Parameters
+        ----------
+        name : str
+            腳本名稱
+        vds_list : list[float]
+            Vds 電壓列表
+        vg_list : list[float]
+            Vg 電壓列表
+        
+        Returns
+        -------
+        bool
+            儲存是否成功
+        """
+        try:
+            sts_dir = self.sts_scripts_dir
+            sts_dir.mkdir(parents=True, exist_ok=True)
+
+            script_data = {
+                'name': name,
+                'vds_list': vds_list,
+                'vg_list': vg_list,
+                'created_time': time.strftime("%Y-%m-%d %H:%M:%S")
+            }
+
+            script_file = sts_dir / f"{name}.json"
+            with open(script_file, 'w', encoding='utf-8') as f:
+                json.dump(script_data, f, indent=2, ensure_ascii=False)
+
+            return True
+
+        except Exception as e:
+            print(f"儲存 STS 腳本失敗: {str(e)}")
+            raise Exception(f"無法儲存腳本: {str(e)}")
+
+    def get_sts_scripts(self) -> dict:
+        """
+        獲取所有 STS 腳本
+        
+        Returns
+        -------
+        dict
+            腳本名稱和內容的映射
+        """
+        try:
+            if not self.sts_scripts_dir.exists():
+                return {}
+
+            scripts = {}
+            for script_file in self.sts_scripts_dir.glob("*.json"):
+                with open(script_file, encoding='utf-8') as f:
+                    script_data = json.load(f)
+                    scripts[script_data['name']] = script_data
+
+            return scripts
+
+        except Exception as e:
+            print(f"讀取 STS 腳本失敗: {str(e)}")
+            return {}
+
+
+
     # ========== CITS functions ========== #
     def start_ssts_cits(self, points_x: int, points_y: int, use_multi_sts: bool = False, scan_direction: int = 1) -> bool:
         """
