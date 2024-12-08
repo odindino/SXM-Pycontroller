@@ -45,17 +45,29 @@ const {
   saveScript: saveSMUScriptToAPI
 } = useSMUScripts()
 
-// 改用 computed 屬性
-const availableSMUScripts = computed(() => {
-  const scriptData = scripts.value
-  if (!scriptData || Object.keys(scriptData).length === 0) return []
+// // 改用 computed 屬性
+// const availableSMUScripts = computed(() => {
+
+//   // 顯示scripts.value的內容
+//   console.log('scripts.value:', scripts.value)
+
+//   const scriptData = scripts.value
+//   if (!scriptData || Object.keys(scriptData).length === 0) return []
   
-  return Object.entries(scriptData).map(([name, data]) => ({
-    name,
-    vds_list: Array.isArray(data.vds_list) ? data.vds_list : [],
-    vg_list: Array.isArray(data.vg_list) ? data.vg_list : []
-  }))
+//   return Object.entries(scriptData).map(([name, data]) => ({
+//     name,
+//     vds_list: Array.isArray(data.vds_list) ? data.vds_list : [],
+//     vg_list: Array.isArray(data.vg_list) ? data.vg_list : []
+//   }))
+// })
+
+const availableSMUScripts = computed(() => {
+  console.log('Raw scripts:', scripts.value)
+  return scripts.value || {}
 })
+
+
+console.log('availableSMUScripts:', availableSMUScripts.value)
 
 
 const {

@@ -15,12 +15,19 @@
             @change="handleScriptChange"
           >
             <option value="">Select Script...</option>
-            <option
+            <!-- <option
               v-for="script in availableSMUScripts"
               :key="script.name"
               :value="script.name"
             >
               {{ script.name }}
+            </option> -->
+            <option
+              v-for="(script, name) in availableSMUScripts"
+              :key="name"
+              :value="name"
+            >
+              {{ name }}
             </option>
           </select>
         </div>
@@ -60,8 +67,8 @@
   
   const props = defineProps({
     availableSMUScripts: {
-      type: Array,
-      default: () => [],  // 移除 required: true
+      type: Object,  // 改為 Object 類型
+      default: () => ({})
     },
     selectedScript: {
       type: String,
