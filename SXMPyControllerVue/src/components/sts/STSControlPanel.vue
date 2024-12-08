@@ -10,24 +10,16 @@
             Select SMU Script
           </label>
           <select
-            :value="selectedScript"
+            v-model="selectedScriptLocal"
             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-            @change="handleScriptChange"
           >
             <option value="">Select Script...</option>
-            <!-- <option
-              v-for="script in availableSMUScripts"
+            <option
+              v-for="script in availableScripts"
               :key="script.name"
               :value="script.name"
             >
               {{ script.name }}
-            </option> -->
-            <option
-              v-for="(script, name) in availableSMUScripts"
-              :key="name"
-              :value="name"
-            >
-              {{ name }}
             </option>
           </select>
         </div>
@@ -39,64 +31,67 @@
           Update Scripts
         </button>
       </div>
-  
-        <!-- STS控制按鈕 -->
-        <div class="grid grid-cols-2 gap-4">
-          <button
-            @click="$emit('start-single-sts')"
-            :disabled="isRunning"
-            class="px-4 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Start Single STS
-          </button>
-  
-          <button
-            @click="$emit('start-multi-sts')"
-            :disabled="isRunning || !selectedScript"
-            class="px-4 py-3 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Start Multi-STS
-          </button>
-        </div>
+
+      <!-- STS控制按鈕 -->
+      <div class="grid grid-cols-2 gap-4">
+        <button
+          @click="$emit('start-single-sts')"
+          :disabled="isRunning"
+          class="px-4 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Start Single STS
+        </button>
+
+        <button
+          @click="$emit('start-multi-sts')"
+          :disabled="isRunning || !selectedScriptLocal"
+          class="px-4 py-3 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Start Multi-STS
+        </button>
       </div>
     </div>
-  </template>
-  
-  <script setup>
-  import { ref, watch, onMounted } from 'vue'
-  
-  const props = defineProps({
-    availableSMUScripts: {
-      type: Object,  // 改為 Object 類型
-      default: () => ({})
-    },
-    selectedScript: {
-      type: String,
-      default: ''
-    },
-    isRunning: {
-      type: Boolean,
-      default: false
-    }
-  })
+  </div>
+</template>
 
-const emit = defineEmits(['select-script', 'refresh-scripts', 'start-single-sts', 'start-multi-sts'])
+<script setup>
+import { ref, onMounted, watch } from 'vue'
+import { useSMUScripts } from '../../composables/useSMUScripts'
 
-const handleScriptChange = (event) => {
-  emit('select-script', event.target.value)
-}
+const { loadScripts } = useSMUScripts()
+
+// 在組件內部管理狀態
+const availableScripts = ref([])
+const selectedScriptLocal = ref('')
+const isRunning = ref(false)
 
 const handleRefreshScripts = async () => {
-  console.log('Requesting script refresh')
-  await emit('refresh-scripts')
-  console.log('Current available scripts:', props.availableSMUScripts)
+  try {
+    console.log('Requesting script refresh')
+    const response = await loadScripts()
+    
+    // 直接處理回應數據
+    availableScripts.value = Object.entries(response).map(([_, script]) => ({
+      name: script.name,
+      vds_list: script.vds_list,
+      vg_list: script.vg_list
+    }))
+    
+    console.log('Available scripts updated:', availableScripts.value)
+  } catch (error) {
+    console.error('Script refresh error:', error)
+  }
 }
 
-onMounted(() => {
-  console.log('Control panel mounted with scripts:', props.availableSMUScripts)
+// 監視本地選擇的腳本變化
+watch(selectedScriptLocal, (newValue) => {
+  emit('select-script', newValue)
 })
 
-watch(() => props.availableSMUScripts, (newScripts) => {
-  console.log('Scripts updated:', newScripts)
-}, { deep: true })
+// 組件掛載時載入腳本
+onMounted(() => {
+  handleRefreshScripts()
+})
+
+const emit = defineEmits(['select-script', 'start-single-sts', 'start-multi-sts'])
 </script>

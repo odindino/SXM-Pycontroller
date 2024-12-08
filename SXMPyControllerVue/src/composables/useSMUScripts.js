@@ -8,14 +8,31 @@ export function useSMUScripts() {
     return rawScripts.value || {}
   })
 
+  // const loadScripts = async () => {
+  //   try {
+  //     isLoading.value = true
+  //     const response = await window.pywebview.api.get_sts_scripts()
+  //     // 確保回傳的數據被正確解構
+  //     rawScripts.value = JSON.parse(JSON.stringify(response)) || {}
+  //     return rawScripts.value
+  //   } catch (error) {
+  //     console.error('Script loading error:', error)
+  //     rawScripts.value = {}
+  //     throw error
+  //   } finally {
+  //     isLoading.value = false
+  //   }
+  // }
   const loadScripts = async () => {
     try {
       isLoading.value = true
-      console.log('Fetching scripts from API...')
       const response = await window.pywebview.api.get_sts_scripts()
-      console.log('API response:', response)
       rawScripts.value = response || {}
-      return response
+      return Object.keys(rawScripts.value).map(key => ({
+        name: rawScripts.value[key].name,
+        vds_list: rawScripts.value[key].vds_list,
+        vg_list: rawScripts.value[key].vg_list
+      }))
     } catch (error) {
       console.error('Script loading error:', error)
       rawScripts.value = {}

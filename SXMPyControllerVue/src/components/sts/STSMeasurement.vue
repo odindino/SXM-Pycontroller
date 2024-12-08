@@ -13,7 +13,7 @@
 
     <!-- STS控制面板 -->
     <STSControlPanel
-      :available-smu-scripts="availableSMUScripts"
+      :available-smu-scripts="scriptsList"
       :selected-script="selectedScript"
       :is-running="isRunning"
       @select-script="loadSMUScript"
@@ -62,8 +62,17 @@ const {
 // })
 
 const availableSMUScripts = computed(() => {
-  console.log('Raw scripts:', scripts.value)
-  return scripts.value || {}
+
+  console.log("raw scripts:", scripts.value)
+  const scriptData = scripts.value
+  if (!scriptData) return []
+  
+  // 將物件轉換為陣列格式
+  return Object.keys(scriptData).map(key => ({
+    name: scriptData[key].name,
+    vds_list: scriptData[key].vds_list,
+    vg_list: scriptData[key].vg_list
+  }))
 })
 
 
@@ -118,10 +127,33 @@ const saveSMUScript = async () => {
   }
 }
 
+const scriptsList = ref([])
+
+// const refreshSMUScripts = async () => {
+//   try {
+//     status.value = 'Refreshing SMU scripts...'
+//     const scripts = await loadSMUScripts()
+//     console.log('Scripts refreshed:', scripts)
+//     status.value = 'SMU scripts refreshed'
+//     return scripts
+//   } catch (error) {
+//     console.error('Error loading scripts:', error)
+//     status.value = `Error loading SMU scripts: ${error.message}`
+//   }
+// }
 const refreshSMUScripts = async () => {
   try {
     status.value = 'Refreshing SMU scripts...'
-    await loadSMUScripts()
+    const response = await loadSMUScripts()
+    
+    // 將物件轉換為陣列格式並儲存
+    scriptsList.value = Object.entries(response).map(([_, script]) => ({
+      name: script.name,
+      vds_list: script.vds_list,
+      vg_list: script.vg_list
+    }))
+    
+    console.log('Scripts refreshed:', scriptsList.value)
     status.value = 'SMU scripts refreshed'
   } catch (error) {
     console.error('Error loading scripts:', error)
