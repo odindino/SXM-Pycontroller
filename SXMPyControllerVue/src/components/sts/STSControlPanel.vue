@@ -10,9 +10,9 @@
             Select SMU Script
           </label>
           <select
-            v-model="localSelectedScript"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            :value="selectedScript"
             @change="handleScriptChange"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
           >
             <option value="">Select Script...</option>
             <option
@@ -26,7 +26,7 @@
         </div>
 
         <button
-          @click="handleRefreshScripts"
+          @click="$emit('refresh-scripts')"
           class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
         >
           Update Scripts
@@ -56,42 +56,24 @@
   </template>
   
   <script setup>
-import { ref, watch } from 'vue'
+  defineProps({
+    availableSMUScripts: {
+      type: Array,
+      default: () => []
+    },
+    selectedScript: {
+      type: String,
+      default: ''
+    },
+    isRunning: {
+      type: Boolean,
+      default: false
+    }
+  })
 
-const props = defineProps({
-  availableSMUScripts: {
-    type: Array,
-    required: true,
-    default: () => []
-  },
-  selectedScript: {
-    type: String,
-    default: ''
-  },
-  isRunning: {
-    type: Boolean,
-    default: false
+  defineEmits(['select-script', 'refresh-scripts', 'start-single-sts', 'start-multi-sts'])
+
+  const handleScriptChange = (event) => {
+    event.target.value && emit('select-script', event.target.value)
   }
-})
-
-const emit = defineEmits(['select-script', 'refresh-scripts', 'start-single-sts', 'start-multi-sts'])
-
-const localSelectedScript = ref(props.selectedScript)
-
-watch(() => props.selectedScript, (newValue) => {
-  localSelectedScript.value = newValue
-})
-
-watch(() => props.availableSMUScripts, (newScripts) => {
-  console.log('Scripts updated in control panel:', newScripts)
-}, { deep: true })
-
-const handleScriptChange = () => {
-  emit('select-script', localSelectedScript.value)
-}
-
-const handleRefreshScripts = () => {
-  console.log('Requesting script refresh')
-  emit('refresh-scripts')
-}
-</script>
+  </script>

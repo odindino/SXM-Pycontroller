@@ -1,20 +1,28 @@
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 export function useSMUScripts() {
   const isLoading = ref(false)
-  const scripts = ref({})  // 新增這行來存儲腳本
+  const rawScripts = ref({})
+
+  const scripts = computed(() => {
+    const scriptData = rawScripts.value
+    return Object.entries(scriptData).map(([name, data]) => ({
+      name,
+      vds_list: data.vds_list || [],
+      vg_list: data.vg_list || []
+    }))
+  })
 
   const loadScripts = async () => {
     try {
       isLoading.value = true
-      console.log('Fetching scripts from API...')  // 新增除錯訊息
       const response = await window.pywebview.api.get_sts_scripts()
-      console.log('API response:', response)  // 新增除錯訊息
-      scripts.value = response
-      return response
+      rawScripts.value = response || {}
+      return scripts.value
     } catch (error) {
-      console.error('Script loading error:', error)  // 新增錯誤訊息
-      throw error
+      console.error('Script loading error:', error)
+      rawScripts.value = {}
+      return []
     } finally {
       isLoading.value = false
     }

@@ -31,35 +31,33 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import SMUScriptEditor from './SMUScriptEditor.vue'
 import STSControlPanel from './STSControlPanel.vue'
 import STSStatusDisplay from './STSStatusDisplay.vue'
 import { useSMUScripts } from '../../composables/useSMUScripts'
 import { useSTS } from '../../composables/useSTS'
 
-const availableSMUScripts = ref([])
+
 const {
-  scripts: scripts,
+  scripts,
   loadScripts: loadSMUScripts,
   saveScript: saveSMUScriptToAPI
 } = useSMUScripts()
 
-// 修改 availableSMUScripts 的計算方式
+// // 改用 computed 屬性
 // const availableSMUScripts = computed(() => {
-//   console.log('Computing available scripts:', scripts.value)
-//   if (!scripts.value) return []
-//   return Object.entries(scripts.value).map(([name, data]) => {
-//     console.log('Processing script:', name, data)
-//     return {
-//       name,
-//       vds_list: data.vds_list || [],
-//       vg_list: data.vg_list || []
-//     }
-//   })
+//   const scriptData = scripts.value
+//   if (!scriptData || Object.keys(scriptData).length === 0) return []
+  
+//   return Object.entries(scriptData).map(([name, data]) => ({
+//     name,
+//     vds_list: Array.isArray(data.vds_list) ? data.vds_list : [],
+//     vg_list: Array.isArray(data.vg_list) ? data.vg_list : []
+//   }))
 // })
 
-
+const availableSMUScripts = ref([])
 
 const {
   startSTS,
@@ -109,57 +107,37 @@ const saveSMUScript = async () => {
   }
 }
 
-// // 重新整理 SMU 腳本列表
+// // 修改 refreshSMUScripts 函數
 // const refreshSMUScripts = async () => {
 //   try {
 //     status.value = 'Refreshing SMU scripts...'
-//     const result = await loadSMUScripts()
-//     console.log('Loaded scripts result:', result)
-    
-//     if (result) {
-//       scripts.value = result
-//       console.log('Updated scripts value:', scripts.value)
-//       console.log('Available scripts computed:', availableSMUScripts.value)
-//       status.value = 'SMU scripts refreshed'
-//     } else {
-//       status.value = 'No scripts found'
-//     }
+//     await loadSMUScripts()
+//     const currentScripts = availableSMUScripts.value
+//     console.log('Scripts after refresh:', currentScripts)
+//     status.value = currentScripts.length > 0 ? 'SMU scripts refreshed' : 'No scripts found'
 //   } catch (error) {
 //     console.error('Error loading scripts:', error)
 //     status.value = `Error loading SMU scripts: ${error.message}`
 //   }
 // }
 
-const processScripts = (scriptsData) => {
-  if (!scriptsData) return []
-  return Object.entries(scriptsData).map(([name, data]) => ({
-    name,
-    vds_list: data.vds_list || [],
-    vg_list: data.vg_list || []
-  }))
-}
-
 const refreshSMUScripts = async () => {
   try {
     status.value = 'Refreshing SMU scripts...'
     const result = await loadSMUScripts()
-    console.log('Loaded scripts:', result)
-    
     if (result) {
-      availableSMUScripts.value = processScripts(result)
-      console.log('Processed scripts:', availableSMUScripts.value)
+      availableSMUScripts.value = Object.entries(result).map(([name, data]) => ({
+        name,
+        vds_list: data.vds_list || [],
+        vg_list: data.vg_list || []
+      }))
       status.value = 'SMU scripts refreshed'
-    } else {
-      availableSMUScripts.value = []
-      status.value = 'No scripts found'
     }
   } catch (error) {
     console.error('Error loading scripts:', error)
-    availableSMUScripts.value = []
     status.value = `Error loading SMU scripts: ${error.message}`
   }
 }
-
 
 // 載入選定的 SMU 腳本
 const loadSMUScript = async (name) => {
