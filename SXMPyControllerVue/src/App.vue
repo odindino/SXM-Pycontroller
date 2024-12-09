@@ -2,7 +2,7 @@
   <div class="min-h-screen bg-gray-100">
     <Navigation :active-tab="activeTab" @change-tab="handleTabChange" />
     
-    <main class="container mx-auto px-4 py-8">
+    <main class="container mx-auto px-4 py-8 mt-16"> <!-- 添加 mt-16 -->
       <component
         :is="currentComponent"
         v-if="currentComponent"
