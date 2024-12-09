@@ -9,15 +9,14 @@
       @add-row="addSettingRow"
       @remove-row="removeSettingRow"
       @save-script="saveSMUScript"
+      @script-selected="handleScriptSelect"
+      @scripts-refreshed="handleScriptsRefreshed"
     />
 
     <!-- STS控制面板 -->
     <STSControlPanel
-      :available-smu-scripts="scriptsList"
       :selected-script="selectedScript"
       :is-running="isRunning"
-      @select-script="loadSMUScript"
-      @refresh-scripts="refreshSMUScripts"
       @start-single-sts="startSingleSTS"
       @start-multi-sts="startMultiSTS"
     />
@@ -31,59 +30,22 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref } from 'vue'
 import SMUScriptEditor from './SMUScriptEditor.vue'
 import STSControlPanel from './STSControlPanel.vue'
 import STSStatusDisplay from './STSStatusDisplay.vue'
 import { useSMUScripts } from '../../composables/useSMUScripts'
 import { useSTS } from '../../composables/useSTS'
 
-
 const {
-  scripts,
-  loadScripts: loadSMUScripts,
   saveScript: saveSMUScriptToAPI
 } = useSMUScripts()
-
-// // 改用 computed 屬性
-// const availableSMUScripts = computed(() => {
-
-//   // 顯示scripts.value的內容
-//   console.log('scripts.value:', scripts.value)
-
-//   const scriptData = scripts.value
-//   if (!scriptData || Object.keys(scriptData).length === 0) return []
-  
-//   return Object.entries(scriptData).map(([name, data]) => ({
-//     name,
-//     vds_list: Array.isArray(data.vds_list) ? data.vds_list : [],
-//     vg_list: Array.isArray(data.vg_list) ? data.vg_list : []
-//   }))
-// })
-
-const availableSMUScripts = computed(() => {
-
-  console.log("raw scripts:", scripts.value)
-  const scriptData = scripts.value
-  if (!scriptData) return []
-  
-  // 將物件轉換為陣列格式
-  return Object.keys(scriptData).map(key => ({
-    name: scriptData[key].name,
-    vds_list: scriptData[key].vds_list,
-    vg_list: scriptData[key].vg_list
-  }))
-})
-
-
-console.log('availableSMUScripts:', availableSMUScripts.value)
-
 
 const {
   startSTS,
   startMultiSTS: startMultiSTSMeasurement
 } = useSTS()
-  
+
 // 基本狀態管理
 const scriptName = ref('')
 const vdsList = ref([])
@@ -110,6 +72,20 @@ const removeSettingRow = (index) => {
   vgList.value.splice(index, 1)
 }
 
+// 處理腳本選擇
+const handleScriptSelect = (script) => {
+  selectedScript.value = script.name
+  scriptName.value = script.name
+  vdsList.value = [...script.vds_list]
+  vgList.value = [...script.vg_list]
+  status.value = `Loaded script: ${script.name}`
+}
+
+// 處理腳本更新
+const handleScriptsRefreshed = (scripts) => {
+  status.value = 'Scripts refreshed'
+}
+
 // 保存 SMU 腳本
 const saveSMUScript = async () => {
   if (!scriptName.value.trim()) {
@@ -121,61 +97,8 @@ const saveSMUScript = async () => {
     status.value = 'Saving SMU script...'
     await saveSMUScriptToAPI(scriptName.value, vdsList.value, vgList.value)
     status.value = 'SMU script saved successfully'
-    await refreshSMUScripts()
   } catch (error) {
     status.value = `Error saving SMU script: ${error.message}`
-  }
-}
-
-const scriptsList = ref([])
-
-// const refreshSMUScripts = async () => {
-//   try {
-//     status.value = 'Refreshing SMU scripts...'
-//     const scripts = await loadSMUScripts()
-//     console.log('Scripts refreshed:', scripts)
-//     status.value = 'SMU scripts refreshed'
-//     return scripts
-//   } catch (error) {
-//     console.error('Error loading scripts:', error)
-//     status.value = `Error loading SMU scripts: ${error.message}`
-//   }
-// }
-const refreshSMUScripts = async () => {
-  try {
-    status.value = 'Refreshing SMU scripts...'
-    const response = await loadSMUScripts()
-    
-    // 將物件轉換為陣列格式並儲存
-    scriptsList.value = Object.entries(response).map(([_, script]) => ({
-      name: script.name,
-      vds_list: script.vds_list,
-      vg_list: script.vg_list
-    }))
-    
-    console.log('Scripts refreshed:', scriptsList.value)
-    status.value = 'SMU scripts refreshed'
-  } catch (error) {
-    console.error('Error loading scripts:', error)
-    status.value = `Error loading SMU scripts: ${error.message}`
-  }
-}
-
-// 載入選定的 SMU 腳本
-const loadSMUScript = async (name) => {
-  try {
-    selectedScript.value = name
-    const scripts = await loadSMUScripts()
-    const script = scripts[name]
-    
-    if (script) {
-      scriptName.value = script.name
-      vdsList.value = [...script.vds_list]
-      vgList.value = [...script.vg_list]
-      status.value = `Loaded SMU script: ${name}`
-    }
-  } catch (error) {
-    status.value = `Error loading SMU script: ${error.message}`
   }
 }
 
@@ -209,10 +132,4 @@ const startMultiSTS = async () => {
     isRunning.value = false
   }
 }
-
-// 在組件掛載時載入腳本
-onMounted(async () => {
-  console.log('Component mounted, refreshing scripts...')
-  await refreshSMUScripts()
-})
 </script>
