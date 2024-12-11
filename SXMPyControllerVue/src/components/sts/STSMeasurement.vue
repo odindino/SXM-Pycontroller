@@ -2,7 +2,7 @@
   <div class="space-y-8">
     <!-- SMU腳本編輯區域 -->
     <SMUScriptEditor
-      :script-name="scriptName"
+      v-model:script-name="scriptName"
       :vds-list="vdsList"
       :vg-list="vgList"
       @update:script-name="updateScriptName"
@@ -10,12 +10,10 @@
       @remove-row="removeSettingRow"
       @save-script="saveSMUScript"
       @script-selected="handleScriptSelect"
-      @scripts-refreshed="handleScriptsRefreshed"
     />
 
     <!-- STS控制面板 -->
     <STSControlPanel
-      :selected-script="selectedScript"
       :is-running="isRunning"
       @start-single-sts="startSingleSTS"
       @start-multi-sts="startMultiSTS"
@@ -37,23 +35,17 @@ import STSStatusDisplay from './STSStatusDisplay.vue'
 import { useSMUScripts } from '../../composables/useSMUScripts'
 import { useSTS } from '../../composables/useSTS'
 
-const {
-  saveScript: saveSMUScriptToAPI
-} = useSMUScripts()
-
-const {
-  startSTS,
-  startMultiSTS: startMultiSTSMeasurement
-} = useSTS()
-
 // 基本狀態管理
 const scriptName = ref('')
-const vdsList = ref([])
-const vgList = ref([])
-const selectedScript = ref('')
+const vdsList = ref([0])
+const vgList = ref([0])
 const isRunning = ref(false)
 const status = ref('Ready')
 const lastMeasurement = ref(null)
+
+// 使用 composables
+const { saveScript: saveSMUScriptToAPI } = useSMUScripts()
+const { startSTS, startMultiSTS: startMultiSTSMeasurement } = useSTS()
 
 // 更新腳本名稱
 const updateScriptName = (name) => {
@@ -74,16 +66,10 @@ const removeSettingRow = (index) => {
 
 // 處理腳本選擇
 const handleScriptSelect = (script) => {
-  selectedScript.value = script.name
   scriptName.value = script.name
   vdsList.value = [...script.vds_list]
   vgList.value = [...script.vg_list]
   status.value = `Loaded script: ${script.name}`
-}
-
-// 處理腳本更新
-const handleScriptsRefreshed = (scripts) => {
-  status.value = 'Scripts refreshed'
 }
 
 // 保存 SMU 腳本
@@ -111,6 +97,11 @@ const startSingleSTS = async () => {
     status.value = 'Starting STS measurement...'
     await startSTS()
     status.value = 'STS measurement completed'
+    lastMeasurement.value = {
+      type: 'Single STS',
+      timestamp: new Date().toISOString(),
+      script: null
+    }
   } catch (error) {
     status.value = `Error during STS measurement: ${error.message}`
   } finally {
@@ -119,13 +110,18 @@ const startSingleSTS = async () => {
 }
 
 const startMultiSTS = async () => {
-  if (isRunning.value || !selectedScript.value) return
+  if (isRunning.value || !scriptName.value) return
   
   try {
     isRunning.value = true
-    status.value = 'Starting Multi-STS with SMU script...'
-    await startMultiSTSMeasurement(selectedScript.value)
+    status.value = 'Starting Multi-STS measurement...'
+    await startMultiSTSMeasurement(scriptName.value)
     status.value = 'Multi-STS measurement completed'
+    lastMeasurement.value = {
+      type: 'Multi-STS',
+      timestamp: new Date().toISOString(),
+      script: scriptName.value
+    }
   } catch (error) {
     status.value = `Error during Multi-STS measurement: ${error.message}`
   } finally {

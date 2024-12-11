@@ -113,6 +113,7 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 import { useSMUScripts } from '../../composables/useSMUScripts'
+import { useSharedSTSState } from '../../composables/useSharedSTSState'
 
 const props = defineProps({
   scriptName: {
@@ -134,14 +135,14 @@ const emit = defineEmits([
   'add-row',
   'remove-row',
   'save-script',
-  'script-selected',
-  'scripts-refreshed'
+  'script-selected'
 ])
 
 // 本地狀態
 const selectedScript = ref('')
 const availableScripts = ref([])
 const { loadScripts } = useSMUScripts()
+const { updateSelectedScript, updateAvailableScripts } = useSharedSTSState()
 
 // 載入可用腳本
 const handleRefreshScripts = async () => {
@@ -152,7 +153,7 @@ const handleRefreshScripts = async () => {
       vds_list: script.vds_list,
       vg_list: script.vg_list
     }))
-    emit('scripts-refreshed', availableScripts.value)
+    updateAvailableScripts(availableScripts.value)
   } catch (error) {
     console.error('Script refresh error:', error)
   }
@@ -162,6 +163,7 @@ const handleRefreshScripts = async () => {
 const handleScriptSelect = () => {
   const script = availableScripts.value.find(s => s.name === selectedScript.value)
   if (script) {
+    updateSelectedScript(script.name)
     emit('script-selected', {
       name: script.name,
       vds_list: script.vds_list,
@@ -170,7 +172,7 @@ const handleScriptSelect = () => {
   }
 }
 
-// 監聽外部腳本名稱變化
+// 監聽腳本名稱變化
 watch(() => props.scriptName, (newName) => {
   if (newName !== selectedScript.value) {
     selectedScript.value = newName
