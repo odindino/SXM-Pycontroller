@@ -115,6 +115,7 @@ import { ref, onMounted, watch } from 'vue'
 import { useSMUScripts } from '../../composables/useSMUScripts'
 import { useSharedSTSState } from '../../composables/useSharedSTSState'
 
+// Props 定義
 const props = defineProps({
   scriptName: {
     type: String,
@@ -130,6 +131,7 @@ const props = defineProps({
   }
 })
 
+// Emits 定義
 const emit = defineEmits([
   'update:script-name',
   'add-row',
@@ -138,11 +140,47 @@ const emit = defineEmits([
   'script-selected'
 ])
 
-// 本地狀態
-const selectedScript = ref('')
-const availableScripts = ref([])
+// Composables
 const { loadScripts } = useSMUScripts()
-const { updateSelectedScript, updateAvailableScripts } = useSharedSTSState()
+const { 
+  selectedScript: sharedScript, 
+  scriptSettings,
+  updateSelectedScript 
+} = useSharedSTSState()
+
+// 本地狀態
+const selectedScript = ref(sharedScript.value || '')
+const availableScripts = ref([])
+
+// 初始化時載入腳本
+onMounted(async () => {
+  await handleRefreshScripts()
+  if (scriptSettings.value && sharedScript.value) {
+    selectedScript.value = sharedScript.value
+  }
+})
+
+// 處理腳本選擇
+const handleScriptSelect = () => {
+  const script = availableScripts.value.find(s => s.name === selectedScript.value)
+  if (script) {
+    // 更新共享狀態
+    updateSelectedScript(script.name, {
+      vds_list: script.vds_list,
+      vg_list: script.vg_list
+    })
+    
+    // 觸發父組件更新
+    emit('script-selected', {
+      name: script.name,
+      vds_list: script.vds_list,
+      vg_list: script.vg_list
+    })
+    
+    // 更新本地輸入框的值
+    emit('update:script-name', script.name)
+  }
+}
 
 // 載入可用腳本
 const handleRefreshScripts = async () => {
@@ -153,34 +191,42 @@ const handleRefreshScripts = async () => {
       vds_list: script.vds_list,
       vg_list: script.vg_list
     }))
-    updateAvailableScripts(availableScripts.value)
+    
+    // 如果有已保存的腳本設定，恢復它
+    if (scriptSettings.value && sharedScript.value) {
+      const script = availableScripts.value.find(s => s.name === sharedScript.value)
+      if (script) {
+        selectedScript.value = script.name
+        emit('script-selected', {
+          name: script.name,
+          vds_list: scriptSettings.value.vds_list,
+          vg_list: scriptSettings.value.vg_list
+        })
+      }
+    }
   } catch (error) {
     console.error('Script refresh error:', error)
   }
 }
 
-// 處理腳本選擇
-const handleScriptSelect = () => {
-  const script = availableScripts.value.find(s => s.name === selectedScript.value)
-  if (script) {
-    updateSelectedScript(script.name)
-    emit('script-selected', {
-      name: script.name,
-      vds_list: script.vds_list,
-      vg_list: script.vg_list
-    })
+// 監聽共享狀態的變化
+watch(sharedScript, (newValue) => {
+  if (newValue !== selectedScript.value) {
+    selectedScript.value = newValue
   }
-}
+})
 
-// 監聽腳本名稱變化
+// 監聽本地選擇的變化
+watch(selectedScript, (newValue) => {
+  if (newValue !== sharedScript.value) {
+    handleScriptSelect()
+  }
+})
+
+// 監聽外部腳本名稱變化
 watch(() => props.scriptName, (newName) => {
   if (newName !== selectedScript.value) {
     selectedScript.value = newName
   }
-})
-
-// 組件掛載時載入腳本
-onMounted(() => {
-  handleRefreshScripts()
 })
 </script>
