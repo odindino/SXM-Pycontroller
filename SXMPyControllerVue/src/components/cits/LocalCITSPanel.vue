@@ -202,12 +202,19 @@
       </div>
     </div>
   </div>
+
+  <LocalCITSPreviewPanel
+  :local-areas="localAreas"
+  :scan-direction="globalDirection"
+/>
+
 </template>
 
 <script setup>
 import { ref, computed } from 'vue';
 import { useSharedSTSState } from '../../composables/useSharedSTSState';
 import LocalCITSScriptEditor from './LocalCITSScriptEditor.vue';
+import LocalCITSPreviewPanel from './LocalCITSPreviewPanel.vue';
 
 const props = defineProps({
   globalDirection: {

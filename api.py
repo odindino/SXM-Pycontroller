@@ -802,14 +802,43 @@ class SMUControlAPI:
             print(error_message)
             raise Exception(error_message)
 
+    # def get_sxm_status(self) -> dict:
+    #     """獲取STM當前狀態"""
+    #     try:
+    #         if not self.ensure_controller():
+    #             raise Exception("STM控制器未初始化")
+    #         return self.stm.get_sxm_status()
+    #     except Exception as e:
+    #         raise Exception(f"獲取SXM狀態失敗: {str(e)}")
     def get_sxm_status(self) -> dict:
-        """獲取STM當前狀態"""
+        """
+        獲取STM當前狀態，並轉換為前端所需的格式
+        
+        Returns
+        -------
+        dict
+            轉換後的狀態資訊
+        """
         try:
             if not self.ensure_controller():
                 raise Exception("STM控制器未初始化")
-            return self.stm.get_sxm_status()
+                
+            # 從 SXMController 獲取完整狀態
+            status = self.stm.get_sxm_status()
+            
+            # 轉換為前端所需的格式
+            return {
+                'center_x': float(status['center_x']),
+                'center_y': float(status['center_y']),
+                'scan_range': float(status['range']),  # 注意這裡的鍵名轉換
+                'scan_angle': float(status['angle']),  # 注意這裡的鍵名轉換
+                'total_lines': int(status['total_lines']),
+                'aspect_ratio': float(status['aspect_ratio'])
+            }
+            
         except Exception as e:
-            raise Exception(f"獲取SXM狀態失敗: {str(e)}")
+            print(f"獲取SXM狀態失敗: {str(e)}")
+            raise
         
     def save_local_cits_area_script(self, script_data: dict) -> bool:
         """

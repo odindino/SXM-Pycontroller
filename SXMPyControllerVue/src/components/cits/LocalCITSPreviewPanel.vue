@@ -2,12 +2,21 @@
     <div class="bg-white p-6 rounded-lg shadow">
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-xl font-semibold text-gray-900">Preview Settings</h2>
-        <button
-          @click="handleGetSXMStatus"
-          class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          Get SXM Status
-        </button>
+        <div class="flex space-x-4">
+          <button
+            @click="handleGetSXMStatus"
+            class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Get SXM Status
+          </button>
+          <button
+            @click="generatePreview"
+            :disabled="isGenerating"
+            class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50"
+          >
+            Preview Local CITS
+          </button>
+        </div>
       </div>
   
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -90,7 +99,7 @@
         </div>
       </div>
   
-      <!-- 預覽資訊顯示 -->
+      <!-- 預覽資訊和圖表 -->
       <div v-if="previewData" class="space-y-4">
         <div class="grid grid-cols-2 gap-4 p-4 bg-gray-50 rounded-md">
           <div>
@@ -114,7 +123,7 @@
   </template>
   
   <script setup>
-  import { ref, onMounted, onUnmounted, watch } from 'vue';
+  import { ref, onUnmounted } from 'vue';
   
   const props = defineProps({
     localAreas: {
@@ -137,8 +146,9 @@
     aspect_ratio: 0.5
   });
   
-  // 預覽資料
+  // 預覽資料和狀態
   const previewData = ref(null);
+  const isGenerating = ref(false);
   
   // 從 SXM 獲取狀態
   async function handleGetSXMStatus() {
@@ -161,7 +171,10 @@
   
   // 生成預覽
   async function generatePreview() {
+    if (isGenerating.value) return;
+  
     try {
+      isGenerating.value = true;
       const params = {
         ...previewSettings.value,
         scan_direction: props.scanDirection,
@@ -186,17 +199,12 @@
     } catch (error) {
       console.error('Preview generation error:', error);
       alert('Failed to generate preview. Check settings and try again.');
+    } finally {
+      isGenerating.value = false;
     }
   }
   
-  // 監聽設定變化
-  watch([() => props.localAreas, () => props.scanDirection, previewSettings], generatePreview, { deep: true });
-  
-  // 元件生命週期
-  onMounted(() => {
-    generatePreview();
-  });
-  
+  // 元件清理
   onUnmounted(() => {
     const plotElement = document.getElementById('previewPlot');
     if (plotElement && window.Plotly) {
