@@ -810,6 +810,77 @@ class SMUControlAPI:
             return self.stm.get_sxm_status()
         except Exception as e:
             raise Exception(f"獲取SXM狀態失敗: {str(e)}")
+        
+    def save_local_cits_area_script(self, script_data: dict) -> bool:
+        """
+        儲存局部 CITS 區域腳本
+
+        Parameters
+        ----------
+        script_data : dict
+            腳本資料，包含：
+            - name: str, 腳本名稱
+            - areas: list, 區域設定列表
+            - description: str, 可選的描述
+        
+        Returns
+        -------
+        bool
+            儲存是否成功
+        """
+        try:
+            # 驗證必要欄位
+            if not all(key in script_data for key in ['name', 'areas']):
+                raise ValueError("缺少必要的腳本資料欄位")
+            
+            # 設定腳本存放路徑
+            local_cits_dir = self.scripts_dir / "local_cits_areas"
+            local_cits_dir.mkdir(parents=True, exist_ok=True)
+
+            # 準備腳本資料
+            script = {
+                'name': script_data['name'],
+                'areas': script_data['areas'],
+                'description': script_data.get('description', ''),
+                'created_time': time.strftime("%Y-%m-%d %H:%M:%S")
+            }
+
+            # 儲存腳本
+            script_file = local_cits_dir / f"{script_data['name']}.json"
+            with open(script_file, 'w', encoding='utf-8') as f:
+                json.dump(script, f, indent=2, ensure_ascii=False)
+
+            return True
+
+        except Exception as e:
+            print(f"儲存局部 CITS 區域腳本失敗: {str(e)}")
+            raise Exception(f"無法儲存腳本: {str(e)}")
+
+    def get_local_cits_area_scripts(self) -> dict:
+        """
+        獲取所有已儲存的局部 CITS 區域腳本
+
+        Returns
+        -------
+        dict
+            腳本名稱和內容的映射
+        """
+        try:
+            local_cits_dir = self.scripts_dir / "local_cits_areas"
+            if not local_cits_dir.exists():
+                return {}
+
+            scripts = {}
+            for script_file in local_cits_dir.glob("*.json"):
+                with open(script_file, encoding='utf-8') as f:
+                    script_data = json.load(f)
+                    scripts[script_data['name']] = script_data
+
+            return scripts
+
+        except Exception as e:
+            print(f"讀取局部 CITS 區域腳本失敗: {str(e)}")
+            return {}
     # ========== Local CITS functions END ========== #
 
     # ========== Auto move measurement functions ========== #
