@@ -104,7 +104,7 @@
         <div>
           <span class="text-sm text-gray-500">Scan Center:</span>
           <p class="font-mono">
-            ({{ previewData.center_x?.toFixed(2) }}, {{ previewData.center_y?.toFixed(2) }}) nm
+            ({{ formatNumber(previewSettings.center_x) }}, {{ formatNumber(previewSettings.center_y) }}) nm
           </p>
         </div>
         <div>
@@ -139,13 +139,18 @@ const props = defineProps({
 const previewSettings = ref({
   center_x: 0,
   center_y: 0,
-  scan_range: 50,
+  scan_range: 100,
   scan_angle: 0,
-  total_lines: 1000,
-  aspect_ratio: 0.5
+  total_lines: 500,
+  aspect_ratio: 1
 });
 const previewData = ref(null);
 const isGenerating = ref(false);
+
+// 格式化數字
+const formatNumber = (value) => {
+  return Number(value).toFixed(2);
+};
 
 // 計算總點數
 const getTotalPoints = () => {
@@ -158,14 +163,25 @@ const getTotalPoints = () => {
 async function handleGetSXMStatus() {
   try {
     const status = await window.pywebview.api.get_sxm_status();
+    
+    // 更新所有預覽設定
     previewSettings.value = {
       center_x: Number(status.center_x || 0),
       center_y: Number(status.center_y || 0),
-      scan_range: Number(status.range || 50),
+      scan_range: Number(status.range || 100),
       scan_angle: Number(status.angle || 0),
-      total_lines: Number(status.total_lines || 1000),
-      aspect_ratio: Number(status.aspect_ratio || 0.5)
+      total_lines: Number(status.total_lines || 500),
+      aspect_ratio: Number(status.aspect_ratio || 1)
     };
+    
+    // 強制更新預覽資訊
+    if (previewData.value) {
+      previewData.value = {
+        ...previewData.value,
+        center_x: previewSettings.value.center_x,
+        center_y: previewSettings.value.center_y
+      };
+    }
   } catch (error) {
     console.error('Failed to get SXM status:', error);
     alert('Failed to get SXM status. Check connection and try again.');
@@ -191,7 +207,6 @@ async function generatePreview() {
 
   try {
     isGenerating.value = true;
-    console.log('Local areas:', props.localAreas);
 
     // 準備預覽參數
     const previewParams = {
@@ -205,19 +220,21 @@ async function generatePreview() {
       local_areas: transformAreas()
     };
 
-    console.log('Preview parameters:', previewParams);
-
     const preview = await window.pywebview.api.preview_local_cits(previewParams);
-    previewData.value = preview;
+    previewData.value = {
+      ...preview,
+      center_x: previewSettings.value.center_x,
+      center_y: previewSettings.value.center_y
+    };
 
     // 更新圖表
     const plotElement = document.getElementById('previewPlot');
     if (plotElement && window.Plotly) {
-      const config = {
-        responsive: true,
-        displayModeBar: true,
-        displaylogo: false
-      };
+      // 配置預設視圖範圍
+      const range = Number(previewSettings.value.scan_range);
+      const center_x = Number(previewSettings.value.center_x);
+      const center_y = Number(previewSettings.value.center_y);
+      const margin = range * 0.2; // 加入20%的邊距
 
       const layout = {
         ...preview.layout,
@@ -225,7 +242,36 @@ async function generatePreview() {
           bgcolor: '#FFF',
           font: { size: 12 }
         },
-        margin: { l: 50, r: 30, t: 30, b: 50 }
+        margin: { l: 50, r: 50, t: 30, b: 50 },
+        showlegend: true,
+        legend: {
+          x: 1.05,
+          y: 1,
+          xanchor: 'left',
+          yanchor: 'top'
+        },
+        xaxis: {
+          range: [center_x - range - margin, center_x + range + margin],
+          title: 'X Position (nm)'
+        },
+        yaxis: {
+          range: [center_y - range - margin, center_y + range + margin],
+          title: 'Y Position (nm)',
+          scaleanchor: 'x',
+          scaleratio: 1
+        },
+        dragmode: 'pan'
+      };
+
+      const config = {
+        responsive: true,
+        displayModeBar: true,
+        displaylogo: false,
+        modeBarButtonsToRemove: ['lasso2d', 'select2d'],
+        toImageButtonOptions: {
+          format: 'svg',
+          filename: 'local_cits_preview'
+        }
       };
 
       await window.Plotly.newPlot(plotElement, preview.data, layout, config);
