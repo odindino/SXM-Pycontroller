@@ -175,12 +175,12 @@
           Add Local Area
         </button>
 
-        <button
+        <!-- <button
           @click="previewLocalCITS"
           class="w-full px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700"
         >
           Preview Local CITS
-        </button>
+        </button> -->
 
         <div class="grid grid-cols-2 gap-4">
           <button
@@ -230,7 +230,6 @@ const props = defineProps({
 
 const emit = defineEmits([
   'update:global-direction',
-  'preview-local-cits',
   'start-local-single-cits',
   'start-local-multi-cits'
 ]);
@@ -283,11 +282,6 @@ function removeArea(index) {
   if (localAreas.value.length > 1) {
     localAreas.value.splice(index, 1);
   }
-}
-
-// 預覽
-function previewLocalCITS() {
-  emit('preview-local-cits');
 }
 
 // 開始測量
