@@ -69,10 +69,37 @@
  }
   
   const handleToggleOutput = async (channel) => {
-    await toggleOutput(channel)
+    try {
+      const success = await toggleOutput(channel)
+      if (success) {
+        // 強制更新通道狀態
+        channelStates[channel] = {
+          ...channelStates[channel],
+          outputOn: !channelStates[channel].outputOn
+        }
+      }
+    } catch (error) {
+      console.error('Toggle output error:', error)
+    }
   }
   
   const handleReadValues = async (channel) => {
-    await readValues(channel)
+    try {
+      const result = await readValues(channel)
+      // 觸發 UI 更新
+      if (result) {
+        channelStates[channel] = {
+          ...channelStates[channel],
+          lastReading: {
+            voltage: result.voltage,
+            current: result.current,
+            lastRead: new Date().toLocaleString()
+          }
+        }
+      }
+      return result
+    } catch (error) {
+      console.error('Read values error:', error)
+    }
   }
   </script>

@@ -75,7 +75,7 @@
           </button>
           
           <button
-            @click="$emit('read-values', channel)"
+            @click="handleReadValues"
             class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700"
           >
             Read Values
@@ -92,7 +92,7 @@
   </template>
   
   <script setup>
-  import { ref } from 'vue'
+  import { ref, watch } from 'vue'
   import ReadingDisplay from './ReadingDisplay.vue'
   
   const props = defineProps({
@@ -114,8 +114,30 @@
     emit('set-value', props.channel, props.state.mode, props.state.value)
   }
   
-  const handleToggleOutput = () => {
-    emit('toggle-output', props.channel)
+  const handleToggleOutput = async () => {
+    try {
+      await emit('toggle-output', props.channel)
+      console.log(`Channel ${props.channel} output state:`, props.state.outputOn)
+    } catch (error) {
+      console.error('Toggle output error:', error)
+    }
+  }
+
+  // 讀值處理函數
+  const handleReadValues = async () => {
+    try {
+      const values = await window.pywebview.api.read_channel(props.channel)
+      if (values) {
+        reading.value = {
+          voltage: values.voltage,
+          current: values.current,
+          lastRead: new Date().toLocaleString()
+        }
+        console.log('Updated reading values:', reading.value)
+      }
+    } catch (error) {
+      console.error('Error reading values:', error)
+    }
   }
   
   const handleSetCompliance = () => {
@@ -127,5 +149,16 @@
     if (value) {
       compliance.value = value
     }
+
+  // 監聽狀態變化
+  watch(() => props.state.outputOn, (newValue) => {
+    console.log(`Channel ${props.channel} output state changed to:`, newValue)
+  })
+
+  // 監聽讀值更新
+  watch(() => reading.value, (newValue) => {
+    console.log(`Channel ${props.channel} reading updated:`, newValue)
+  }, { deep: true })
+
   }
   </script>

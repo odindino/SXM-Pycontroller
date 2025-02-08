@@ -212,37 +212,42 @@ class SMUControlAPI:
                 raise Exception("SMU未連接")
 
             with self._lock:
+                # 清除錯誤佇列和狀態
+                self.smu.smu.write("*CLS")
+                self.smu.smu.write(":STAT:PRES")
 
                 # 讀取前儲存原始輸出狀態
-                original_output_state = bool(
-                    int(self.smu.smu.query(f":OUTP{channel}?")))
+                original_output_state = bool(int(self.smu.smu.query(f":OUTP{channel}?")))
 
-                # 使用正確的smu物件
-                self.smu.smu.write("*CLS")
-                self.smu.smu.write(f":CONF:VOLT (@{channel})")
-                self.smu.smu.write(f":CONF:CURR (@{channel})")
+                # 配置測量設定
                 self.smu.smu.write(f":SENS{channel}:CURR:NPLC 0.1")
+                self.smu.smu.write(":FORM:ELEM:SENS VOLT,CURR")
 
                 try:
-                    voltage = float(self.smu.smu.query(
-                        f":MEAS:VOLT? (@{channel})"))
-                    time.sleep(0.05)
-                    current = float(self.smu.smu.query(
-                        f":MEAS:CURR? (@{channel})"))
+                    # 執行測量
+                    voltage = float(self.smu.smu.query(f":MEAS:VOLT? (@{channel})"))
+                    time.sleep(0.05)  # 增加適當的延遲
+                    current = float(self.smu.smu.query(f":MEAS:CURR? (@{channel})"))
+
+                    # 確認是否有錯誤發生
+                    error_check = self.smu.smu.query("SYST:ERR?")
+                    if not error_check.startswith("+0"):
+                        print(f"Warning: SMU reported error: {error_check}")
+
                     self.beep()  # 讀值成功時發出聲音
 
                     return {
                         'voltage': voltage,
                         'current': current
                     }
+
                 finally:
                     # 確保輸出狀態不變
                     if not original_output_state:
                         self.smu.smu.write(f":OUTP{channel} OFF")
 
-                # except Exception as e:
-                #     self.logger.error(f"測量錯誤: {str(e)}")
-                #     raise
+                    # 再次清除任何可能的錯誤狀態
+                    self.smu.smu.write("*CLS")
 
         except Exception as e:
             raise Exception(f"讀取通道{channel}失敗: {str(e)}")
