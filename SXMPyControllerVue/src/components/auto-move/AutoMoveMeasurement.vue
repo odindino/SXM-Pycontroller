@@ -71,12 +71,19 @@
     </div>
 
     <!-- 預覽與狀態顯示 -->
-    <PreviewStatusPanel
+    <!-- <PreviewStatusPanel
       :status="status"
       :preview-data="previewData"
       :last-measurement="lastMeasurement"
       @get-status="getSXMStatus"
       @preview-auto-move="previewAutoMove"
+    /> -->
+    <!-- 預覽設定面板 -->
+    <PreviewStatusPanel
+      :preview-data="previewData"
+      :movement-script="movementScript"
+      :move-distance="moveDistance"
+      @update:preview-data="previewData = $event"
     />
   </div>
 </template>
