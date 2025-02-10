@@ -14,6 +14,7 @@
 
     <!-- STS控制面板 -->
     <STSControlPanel
+      :selected-script="scriptName"
       :is-running="isRunning"
       @start-single-sts="startSingleSTS"
       @start-multi-sts="startMultiSTS"
