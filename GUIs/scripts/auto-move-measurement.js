@@ -157,6 +157,53 @@ const AutoMoveMeasurementModule = {
         } else {
             console.error('Preview Local CITS button not found');
         }
+
+        const abortButton = document.getElementById('abortButton');
+            if (abortButton) {
+                abortButton.addEventListener('click', () => this.handleAbort());
+            }
+
+            // 當開始測量時顯示Abort按鈕
+            this.elements.startAutoMoveSstsBtn.addEventListener('click', () => {
+                abortButton.style.display = 'block';
+            });
+            this.elements.startAutoMoveMstsBtn.addEventListener('click', () => {
+                abortButton.style.display = 'block';
+            });
+        },
+
+    handleAbort: async function() {
+        try {
+            // 顯示確認對話框
+            if (!confirm('確定要停止當前測量?\n這會中斷所有操作並重置系統。')) {
+                return;
+            }
+
+            this.updateStatus('Aborting measurement...');
+
+            // 調用API停止測量
+            const success = await window.pywebview.api.stop_measurement();
+
+            if (success) {
+                this.updateStatus('Measurement aborted, system reset complete');
+                // // 隱藏Abort按鈕
+                // document.getElementById('abortButton').style.display = 'none';
+                
+                // 重置所有相關狀態
+                this.state.isRunning = false;
+                this.elements.startAutoMoveSstsBtn.disabled = false;
+                this.elements.startAutoMoveMstsBtn.disabled = false;
+                this.elements.startLocalSstsBtn.disabled = false;
+                this.elements.startLocalMstsBtn.disabled = false;
+            } else {
+                this.updateStatus('Failed to abort measurement');
+            }
+
+        } catch (error) {
+            console.error('Abort error:', error);
+            this.updateStatus(`Abort error: ${error.message}`);
+        }
+        
     },
 
     async refreshMovementScripts() {

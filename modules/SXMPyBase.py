@@ -2,6 +2,33 @@ from . import SXMRemote
 import time
 from config.SXMParameters import SXMParameters
 from typing import Optional
+# from functools import wraps
+
+# def interruptible(func):
+#     """
+#     使函數可中斷的裝飾器。
+#     當函數執行過程中檢查到停止標記時，會立即中斷執行。
+
+#     Parameters
+#     ----------
+#     func : callable
+#         要裝飾的函數
+
+#     Returns
+#     -------
+#     callable
+#         裝飾後的函數，具有可中斷的能力
+#     """
+#     @wraps(func)  # 保留原始函數的元資料
+#     def wrapper(self, *args, **kwargs):
+#         try:
+#             return func(self, *args, **kwargs)
+#         except StopIteration:
+#             if self.debug_mode:
+#                 print(f"{func.__name__} was interrupted")
+#             self.scan_off()
+#             return False
+#     return wrapper
 
 class SXMBase:
     """
@@ -12,6 +39,7 @@ class SXMBase:
         # DDE客戶端
         self.MySXM = SXMRemote.DDEClient("SXM", "Remote")
         self.debug_mode = debug_mode
+        
         
         # 參數定義
         self.parameters = SXMParameters()

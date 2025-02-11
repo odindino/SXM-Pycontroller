@@ -38,6 +38,9 @@ class SMUControlAPI:
 
         self.smu = None
         self.stm = None
+
+        self._stop_flag = threading.Event()  # 新增停止標記
+
         self._lock = threading.Lock()
         self._reading_active = {1: False, 2: False}
         self._reading_threads: Dict[int, threading.Thread] = {}
@@ -61,6 +64,20 @@ class SMUControlAPI:
         self.sts_scripts_dir.mkdir(exist_ok=True)
         self.move_scripts_dir.mkdir(exist_ok=True)
 
+    def stop_measurement(self) -> bool:
+        """中止當前測量"""
+        try:
+            if self.stm:
+                self.stm.stop_operation()  # 呼叫stop_operation
+                if self.stm.debug_mode:
+                    print("Measurement stopped")
+                    
+                return True
+            return False
+        except Exception as e:
+            print(f"停止測量錯誤: {str(e)}")
+            return False
+        
     # ========== SMU General functions ========== #
     def connect_smu(self, address: str) -> bool:
         """
@@ -835,7 +852,7 @@ class SMUControlAPI:
             執行是否成功
         """
         try:
-            if not self.stm:
+            if not self.ensure_controller():
                 raise Exception("STM控制器未初始化")
 
             return self.stm.auto_move_scan_area(

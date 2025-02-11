@@ -79,6 +79,7 @@ class SXMController(SXMCITSControl):
             量測是否成功完成
         """
         try:
+            self.clear_stop_flag()
             # 驗證輸入
             if len(script.vds_list) != len(script.vg_list):
                 raise ValueError("Vds和Vg列表長度必須相同")
@@ -143,6 +144,7 @@ class SXMController(SXMCITSControl):
             
             # 執行剩餘的STS量測
             for vds, vg in zip(script.vds_list[1:], script.vg_list[1:]):
+                self.check_if_stopped()
                 self.smu.configure_source(
                     channel=Channel(1),
                     mode=OutputMode.VOLTAGE,
@@ -193,6 +195,7 @@ class SXMController(SXMCITSControl):
 
             except Exception as e:
                 print(f"Error restoring original states: {str(e)}")
+    
 
     @track_function
     def standard_msts_cits(self, num_points_x: int, num_points_y: int,
@@ -231,6 +234,7 @@ class SXMController(SXMCITSControl):
         5. 確保系統回到安全狀態
         """
         try:
+            self.clear_stop_flag()
             # 驗證和獲取 Multi-STS 腳本
             if not script_name:
                 raise ValueError("必須提供 Multi-STS 腳本名稱")
@@ -266,6 +270,7 @@ class SXMController(SXMCITSControl):
 
             # 執行主要量測循環
             for i, (sts_line, scan_count) in enumerate(zip(coordinates, scanlines[:-1])):
+                self.check_if_stopped()
                 # 執行掃描線（如果需要）
                 if scan_count > 0:
                     if self.debug_mode:
@@ -280,6 +285,7 @@ class SXMController(SXMCITSControl):
                     print(f"\n>>> 執行第 {i+1}/{num_points_y} 條 Multi-STS 線")
 
                 for j, point in enumerate(sts_line):
+                    self.check_if_stopped()
                     try:
                         if self.debug_mode:
                             print(f"  Multi-STS點 ({j+1}/{len(sts_line)}): "
@@ -347,6 +353,7 @@ class SXMController(SXMCITSControl):
             量測是否成功完成
         """
         try:
+            self.clear_stop_flag()
             # 驗證和獲取 Multi-STS 腳本
             if not script_name:
                 raise ValueError("必須提供 Multi-STS 腳本名稱")
@@ -389,6 +396,7 @@ class SXMController(SXMCITSControl):
 
             # 執行量測循環
             for i, (coords_group, scan_count) in enumerate(zip(coordinate_distribution, scanline_distribution[:-1])):
+                self.check_if_stopped()
                 # 執行掃描線
                 if scan_count > 0:
                     if self.debug_mode:
@@ -404,6 +412,7 @@ class SXMController(SXMCITSControl):
                         f"\n>>> 執行第 {i+1}/{len(coordinate_distribution)} 群組的 Multi-STS 量測")
 
                 for j, (x, y) in enumerate(coords_group):
+                    self.check_if_stopped()
                     try:
                         if self.debug_mode:
                             print(f"  Multi-STS點 ({j+1}/{len(coords_group)}): "
@@ -488,6 +497,7 @@ class SXMController(SXMCITSControl):
             序列是否成功完成
         """
         try:
+            self.clear_stop_flag()
             # 驗證 CITS 參數
             if not (1 <= num_points_x <= 512 and 1 <= num_points_y <= 512):
                 raise ValueError("CITS 點數必須在 1 到 512 之間")
@@ -535,6 +545,7 @@ class SXMController(SXMCITSControl):
 
                 # 在每個位置執行 CITS（包含初始位置）
                 for i, (x, y) in enumerate(positions):
+                    self.check_if_stopped()
                     # 除了初始位置外，需要先移動
                     if i > 0:
                         if self.debug_mode:
@@ -554,6 +565,7 @@ class SXMController(SXMCITSControl):
 
                     # 在當前位置重複執行CITS
                     for repeat in range(repeat_count):
+                        self.check_if_stopped()
                         if self.debug_mode:
                             print(f"Starting Multi-STS CITS at {position_type}, "
                                   f"repeat {repeat + 1}/{repeat_count}, "
@@ -638,6 +650,7 @@ class SXMController(SXMCITSControl):
             序列是否成功完成
         """
         try:
+            self.clear_stop_flag()
             # 參數驗證
             if not local_areas_params:
                 raise ValueError("必須提供至少一個小區參數")
@@ -695,6 +708,7 @@ class SXMController(SXMCITSControl):
 
             # 在每個位置執行 Local Multi-STS CITS
             for i, (center_x, center_y) in enumerate(positions):
+                self.check_if_stopped()
                 # 除了初始位置外，需要先移動中心點
                 if i > 0:
                     if self.debug_mode:
@@ -714,6 +728,7 @@ class SXMController(SXMCITSControl):
 
                 # 在當前位置重複執行 Local Multi-STS CITS
                 for repeat in range(repeat_count):
+                    self.check_if_stopped()
                     if self.debug_mode:
                         print(f"\nStarting Local Multi-STS CITS sequence at {position_type}, "
                               f"repeat {repeat + 1}/{repeat_count}, "
