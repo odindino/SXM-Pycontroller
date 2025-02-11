@@ -1,20 +1,28 @@
+// composables/useSMU.js
 import { ref, reactive } from 'vue'
 
-export function useSMU() {
-  const isConnected = ref(false)
-  const channelStates = reactive({
+// 建立全域狀態儲存
+const globalState = {
+  isConnected: false,
+  visaAddress: 'TCPIP0::172.30.32.98::inst0::INSTR',
+  channelStates: {
     1: { outputOn: false, mode: 'VOLTAGE', value: 0 },
     2: { outputOn: false, mode: 'VOLTAGE', value: 0 }
-  })
-  
+  }
+}
+
+export function useSMU() {
+  const isConnected = ref(globalState.isConnected)
+  const visaAddress = ref(globalState.visaAddress)
+  const channelStates = reactive(globalState.channelStates)
+
   const connect = async (address) => {
     try {
       const success = await window.pywebview.api.connect_smu(address)
       if (success) {
         isConnected.value = true
-        // 確保兩個通道都是關閉狀態
-        channelStates[1].outputOn = false
-        channelStates[2].outputOn = false
+        globalState.isConnected = true
+        visaAddress.value = address
       }
       return success
     } catch (error) {
@@ -22,40 +30,43 @@ export function useSMU() {
       throw error
     }
   }
-  
+
   const disconnect = async () => {
     try {
       const success = await window.pywebview.api.disconnect_smu()
-      isConnected.value = false
+      if (success) {
+        isConnected.value = false
+        globalState.isConnected = false
+        channelStates[1].outputOn = false
+        channelStates[2].outputOn = false
+      }
       return success
     } catch (error) {
       console.error('Disconnect error:', error)
       throw error
     }
   }
-  
+
   const setChannelValue = async (channel, mode, value) => {
     try {
-      return await window.pywebview.api.set_channel_value(channel, mode, value)
+      const success = await window.pywebview.api.set_channel_value(channel, mode, value)
+      if (success) {
+        channelStates[channel].mode = mode
+        channelStates[channel].value = value
+      }
+      return success
     } catch (error) {
       console.error('Set value error:', error)
       throw error
     }
   }
-  
+
   const toggleOutput = async (channel) => {
     try {
-      const currentState = channelStates[channel].outputOn
-      const newState = !currentState
+      const newState = !channelStates[channel].outputOn
       const success = await window.pywebview.api.set_channel_output(channel, newState)
-      
       if (success) {
-        // 使用響應式更新
-        channelStates[channel] = {
-          ...channelStates[channel],
-          outputOn: newState
-        }
-        console.log(`Channel ${channel} output state updated to: ${newState}`)
+        channelStates[channel].outputOn = newState
       }
       return success
     } catch (error) {
@@ -63,19 +74,15 @@ export function useSMU() {
       throw error
     }
   }
-  
+
   const readValues = async (channel) => {
     try {
       const result = await window.pywebview.api.read_channel(channel)
       if (result) {
-        // 更新通道狀態
-        channelStates[channel] = {
-          ...channelStates[channel],
-          lastReading: {
-            voltage: result.voltage,
-            current: result.current,
-            lastRead: new Date().toLocaleString()
-          }
+        channelStates[channel].lastReading = {
+          voltage: result.voltage,
+          current: result.current,
+          lastRead: new Date().toLocaleString()
         }
       }
       return result
@@ -87,6 +94,8 @@ export function useSMU() {
 
   return {
     isConnected,
+    visaAddress,
+    channelStates,
     connect,
     disconnect,
     setChannelValue,
