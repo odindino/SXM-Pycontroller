@@ -35,6 +35,9 @@ class SXMCITSControl(SXMSpectroControl):
             量測是否成功完成
         """
         try:
+            # 開始新操作前先清除停止標記
+            self.clear_stop_flag()
+            
             # 獲取掃描參數
             center_x = self.GetScanPara('X')
             center_y = self.GetScanPara('Y')
@@ -64,6 +67,7 @@ class SXMCITSControl(SXMSpectroControl):
             # 執行量測循環
             for i, (sts_line, scan_count) in enumerate(zip(coordinates, scanlines[:-1])):
                 # 執行掃描
+                self.check_if_stopped()
                 if scan_count > 0:
                     if self.debug_mode:
                         print(f"\n=== 掃描第 {i+1} 段 {scan_count} 條線 ===")
@@ -77,6 +81,7 @@ class SXMCITSControl(SXMSpectroControl):
                     print(f"\n>>> 執行第 {i+1}/{num_points_y} 條 STS 線")
 
                 for j, (x, y) in enumerate(sts_line):
+                    self.check_if_stopped()
                     try:
                         if self.debug_mode:
                             print(
@@ -141,6 +146,7 @@ class SXMCITSControl(SXMSpectroControl):
             量測是否成功完成
         """
         try:
+            self.clear_stop_flag()
             # 獲取掃描參數
             center_x = self.GetScanPara('X')
             center_y = self.GetScanPara('Y')
@@ -181,6 +187,7 @@ class SXMCITSControl(SXMSpectroControl):
 
             # 執行量測循環
             for i, (coords_group, scan_count) in enumerate(zip(coordinate_distribution, scanline_distribution[:-1])):
+                self.check_if_stopped()
                 # 執行掃描線
                 if scan_count > 0:
                     if self.debug_mode:
@@ -195,6 +202,7 @@ class SXMCITSControl(SXMSpectroControl):
                         f"\n>>> 執行第 {i+1}/{len(coordinate_distribution)} 群組的 STS 量測")
 
                 for j, (x, y) in enumerate(coords_group):
+                    self.check_if_stopped()
                     try:
                         if self.debug_mode:
                             print(
@@ -273,6 +281,7 @@ class SXMCITSControl(SXMSpectroControl):
             序列是否成功完成
         """
         try:
+            self.clear_stop_flag()
             # 驗證 CITS 參數
             if not (1 <= num_points_x <= 512 and 1 <= num_points_y <= 512):
                 raise ValueError("CITS 點數必須在 1 到 512 之間")
@@ -314,6 +323,7 @@ class SXMCITSControl(SXMSpectroControl):
 
                 # 在每個位置執行 CITS（包含初始位置）
                 for i, (x, y) in enumerate(positions):
+                    self.check_if_stopped()
                     # 除了初始位置外，需要先移動
                     if i > 0:
                         if self.debug_mode:
@@ -333,6 +343,7 @@ class SXMCITSControl(SXMSpectroControl):
 
                     # 在當前位置重複執行CITS
                     for repeat in range(repeat_count):
+                        self.check_if_stopped()
                         if self.debug_mode:
                             print(f"Starting CITS at {position_type}, "
                                   f"repeat {repeat + 1}/{repeat_count}, "
@@ -412,6 +423,7 @@ class SXMCITSControl(SXMSpectroControl):
             序列是否成功完成
         """
         try:
+            self.clear_stop_flag()
             # 參數驗證
             if not local_areas_params:
                 raise ValueError("必須提供至少一個小區參數")
@@ -463,6 +475,7 @@ class SXMCITSControl(SXMSpectroControl):
 
             # 在每個位置執行 Local CITS
             for i, (center_x, center_y) in enumerate(positions):
+                self.check_if_stopped()
                 # 除了初始位置外，需要先移動中心點
                 if i > 0:
                     if self.debug_mode:
@@ -482,6 +495,7 @@ class SXMCITSControl(SXMSpectroControl):
 
                 # 在當前位置重複執行 Local CITS
                 for repeat in range(repeat_count):
+                    self.check_if_stopped()
                     if self.debug_mode:
                         print(f"\nStarting Local CITS sequence at {position_type}, "
                               f"repeat {repeat + 1}/{repeat_count}, "

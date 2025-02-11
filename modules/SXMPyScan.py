@@ -4,6 +4,7 @@ from . import SXMRemote
 from .SXMPyEvent import SXMEventHandler
 from utils.logger import get_logger, track_function
 from utils.SXMPyCalc import AutoMoveCalculator
+import threading
 
 
 class SXMScanControl(SXMEventHandler):
@@ -15,6 +16,24 @@ class SXMScanControl(SXMEventHandler):
     def __init__(self, debug_mode=False):
         super().__init__(debug_mode)
         self.current_angle = 0
+        self._stop_flag = threading.Event()
+        
+    def check_if_stopped(self):
+        """
+        檢查停止標記是否被設置
+        如果已設置則拋出 StopIteration 以中斷執行
+        """
+        if self._stop_flag.is_set():
+            raise StopIteration()
+        
+    def stop_operation(self):
+        """設置停止標記"""
+        self._stop_flag.set()
+        self.scan_off()
+
+    def clear_stop_flag(self):
+        """清除停止標記"""
+        self._stop_flag.clear()
 
     # ========== 位置控制功能 ========== #
     @track_function
