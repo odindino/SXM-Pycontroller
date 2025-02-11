@@ -144,6 +144,14 @@ const previewSettings = ref({
   total_lines: 500,
   aspect_ratio: 1
 });
+
+// 導出設定與方法
+defineExpose({
+  previewSettings,
+  handleGetSXMStatus,
+  generatePreview,
+  getSettings: () => previewSettings.value
+});
 const previewData = ref(null);
 const isGenerating = ref(false);
 
@@ -189,15 +197,28 @@ async function handleGetSXMStatus() {
 }
 
 // 轉換區域參數
+// function transformAreas() {
+//   return props.localAreas.map(area => ({
+//     start_x: Number(previewSettings.value.center_x) + Number(area.x_dev || 0),
+//     start_y: Number(previewSettings.value.center_y) + Number(area.y_dev || 0),
+//     dx: Number(area.dx || 1),
+//     dy: Number(area.dy || 1),
+//     nx: Number(area.nx || 1),
+//     ny: Number(area.ny || 1),
+//     startpoint_direction: area.startpoint_direction === 'Up' ? 1 : -1
+//   }));
+// }
 function transformAreas() {
   return props.localAreas.map(area => ({
-    start_x: Number(previewSettings.value.center_x) + Number(area.x_dev || 0),
-    start_y: Number(previewSettings.value.center_y) + Number(area.y_dev || 0),
-    dx: Number(area.dx || 1),
-    dy: Number(area.dy || 1),
-    nx: Number(area.nx || 1),
-    ny: Number(area.ny || 1),
-    startpoint_direction: area.startpoint_direction === 'Up' ? 1 : -1
+    start_x: Number(area.x_dev || 0),
+    start_y: Number(area.y_dev || 0),
+    // start_x: Number(area.start_x),
+    // start_y: Number(area.start_y),
+    dx: Number(area.dx),
+    dy: Number(area.dy) * (area.startpoint_direction === -1 ? -1 : 1),
+    nx: Number(area.nx),
+    ny: Number(area.ny),
+    startpoint_direction: Number(area.startpoint_direction)
   }));
 }
 

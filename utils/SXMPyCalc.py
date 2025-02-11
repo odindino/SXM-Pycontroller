@@ -500,6 +500,9 @@ class LocalCITSCalculator:
         start_points = coordinates[:-1]
         end_points = coordinates[1:]
 
+        # 將座標位移至掃描中心
+        coordinates = np.array([scan_center_x, scan_center_y]) + coordinates
+
         return coordinates, start_points, end_points, (slow_axis, fast_axis)
 
     @staticmethod
@@ -548,7 +551,9 @@ class LocalCITSCalculator:
             ]) * scan_direction
 
             # Translate coordinates to origin
+            print("coordinates: ", coordinates)
             translated_coords = coordinates - np.array([center_x, center_y])
+            print("translated_coords: ", translated_coords)
 
             # Project points onto slow axis
             projections = np.dot(translated_coords, slow_axis)

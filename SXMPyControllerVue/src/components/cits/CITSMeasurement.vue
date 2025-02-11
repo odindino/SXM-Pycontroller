@@ -143,53 +143,132 @@ const previewLocalCITS = async () => {
   }
 }
 
-const startLocalSingleCITS = async () => {
-  if (isRunning.value) return
+// const startLocalSingleCITS = async () => {
+//   if (isRunning.value) return
+  
+//   try {
+//     isRunning.value = true
+//     status.value = 'Starting Local Single-STS CITS...'
+//     await startLocalSingleCITSMeasurement(
+//       localAreas.value,
+//       globalDirection.value
+//     )
+//     status.value = 'Local CITS completed'
+//     lastMeasurement.value = {
+//       type: 'Local Single-STS CITS',
+//       timestamp: new Date().toISOString(),
+//       total_points: localAreas.value.reduce((sum, area) => sum + area.nx * area.ny, 0),
+//       duration: null
+//     }
+//   } catch (error) {
+//     status.value = `Error during Local CITS: ${error.message}`
+//   } finally {
+//     isRunning.value = false
+//   }
+// }
+// const startLocalSingleCITS = async (areasData) => {
+//   if (isRunning.value) return;
+  
+//   try {
+//     isRunning.value = true;
+//     status.value = 'Starting Local Single-STS CITS...';
+    
+//     // 使用處理過的區域資料
+//     await startLocalSingleCITSMeasurement(
+//       areasData,
+//       globalDirection.value
+//     );
+    
+//     status.value = 'Local CITS completed';
+//     lastMeasurement.value = {
+//       type: 'Local Single-STS CITS',
+//       timestamp: new Date().toISOString(),
+//       total_points: areasData.reduce((sum, area) => sum + area.nx * area.ny, 0),
+//       duration: null
+//     };
+//   } catch (error) {
+//     status.value = `Error during Local CITS: ${error.message}`;
+//   } finally {
+//     isRunning.value = false;
+//   }
+// };
+const startLocalSingleCITS = async (data) => {
+  if (isRunning.value) return;
   
   try {
-    isRunning.value = true
-    status.value = 'Starting Local Single-STS CITS...'
+    isRunning.value = true;
+    status.value = 'Starting Local Single-STS CITS...';
+    
     await startLocalSingleCITSMeasurement(
-      localAreas.value,
-      globalDirection.value
-    )
-    status.value = 'Local CITS completed'
+      data.areas,
+      globalDirection.value,
+      data.scanSettings
+    );
+    
+    status.value = 'Local CITS completed';
     lastMeasurement.value = {
       type: 'Local Single-STS CITS',
       timestamp: new Date().toISOString(),
-      total_points: localAreas.value.reduce((sum, area) => sum + area.nx * area.ny, 0),
+      total_points: data.areas.reduce((sum, area) => sum + area.nx * area.ny, 0),
       duration: null
-    }
+    };
   } catch (error) {
-    status.value = `Error during Local CITS: ${error.message}`
+    status.value = `Error during Local CITS: ${error.message}`;
   } finally {
-    isRunning.value = false
+    isRunning.value = false;
   }
-}
+};
 
-const startLocalMultiCITS = async () => {
-  if (isRunning.value || !selectedScript.value) return
+// const startLocalMultiCITS = async () => {
+//   if (isRunning.value || !selectedScript.value) return
+  
+//   try {
+//     isRunning.value = true
+//     status.value = 'Starting Local Multi-STS CITS...'
+//     await startLocalMultiCITSMeasurement(
+//       localAreas.value,
+//       selectedScript.value,
+//       globalDirection.value
+//     )
+//     status.value = 'Local Multi-STS CITS completed'
+//     lastMeasurement.value = {
+//       type: 'Local Multi-STS CITS',
+//       timestamp: new Date().toISOString(),
+//       total_points: localAreas.value.reduce((sum, area) => sum + area.nx * area.ny, 0),
+//       script: selectedScript.value,
+//       duration: null
+//     }
+//   } catch (error) {
+//     status.value = `Error during Local Multi-STS CITS: ${error.message}`
+//   } finally {
+//     isRunning.value = false
+//   }
+// }
+const startLocalMultiCITS = async (areasData) => {
+  if (isRunning.value || !selectedScript.value) return;
   
   try {
-    isRunning.value = true
-    status.value = 'Starting Local Multi-STS CITS...'
+    isRunning.value = true;
+    status.value = 'Starting Local Multi-STS CITS...';
+    
     await startLocalMultiCITSMeasurement(
-      localAreas.value,
+      areasData,
       selectedScript.value,
       globalDirection.value
-    )
-    status.value = 'Local Multi-STS CITS completed'
+    );
+    
+    status.value = 'Local Multi-STS CITS completed';
     lastMeasurement.value = {
       type: 'Local Multi-STS CITS',
       timestamp: new Date().toISOString(),
-      total_points: localAreas.value.reduce((sum, area) => sum + area.nx * area.ny, 0),
+      total_points: areasData.reduce((sum, area) => sum + area.nx * area.ny, 0),
       script: selectedScript.value,
       duration: null
-    }
+    };
   } catch (error) {
-    status.value = `Error during Local Multi-STS CITS: ${error.message}`
+    status.value = `Error during Local Multi-STS CITS: ${error.message}`;
   } finally {
-    isRunning.value = false
+    isRunning.value = false;
   }
 }
 

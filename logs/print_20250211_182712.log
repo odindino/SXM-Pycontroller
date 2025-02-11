@@ -1,0 +1,1969 @@
+2025-02-11 18:27:12,884 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:27:14,260 - Response: b'f1\r\n'
+2025-02-11 18:27:14,260 - Scanning: forward line 1
+2025-02-11 18:27:16,597 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:27:16,938 - Response: b'f2\r\n'
+2025-02-11 18:27:16,939 - Scanning: forward line 2
+2025-02-11 18:27:19,373 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:27:19,709 - Response: b'f3\r\n'
+2025-02-11 18:27:19,709 - Scanning: forward line 3
+2025-02-11 18:27:22,056 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:27:22,398 - Response: b'f4\r\n'
+2025-02-11 18:27:22,398 - Scanning: forward line 4
+2025-02-11 18:27:24,739 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:27:25,084 - Response: b'f5\r\n'
+2025-02-11 18:27:25,084 - Scanning: forward line 5
+2025-02-11 18:27:27,426 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:27:27,771 - Response: b'f6\r\n'
+2025-02-11 18:27:27,772 - Scanning: forward line 6
+2025-02-11 18:27:30,112 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:27:30,455 - Response: b'f7\r\n'
+2025-02-11 18:27:30,455 - Scanning: forward line 7
+2025-02-11 18:27:32,796 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:27:33,141 - Response: b'f8\r\n'
+2025-02-11 18:27:33,141 - Scanning: forward line 8
+2025-02-11 18:27:35,471 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:27:35,807 - Response: b'f9\r\n'
+2025-02-11 18:27:35,807 - Scanning: forward line 9
+2025-02-11 18:27:38,138 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:27:38,473 - Response: b'f10\r\n'
+2025-02-11 18:27:38,474 - Scanning: forward line 10
+2025-02-11 18:27:40,804 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:27:41,143 - Response: b'f11\r\n'
+2025-02-11 18:27:41,144 - Scanning: forward line 11
+2025-02-11 18:27:43,478 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:27:43,814 - Response: b'f12\r\n'
+2025-02-11 18:27:43,814 - Scanning: forward line 12
+2025-02-11 18:27:46,144 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:27:46,482 - Response: b'f13\r\n'
+2025-02-11 18:27:46,482 - Scanning: forward line 13
+2025-02-11 18:27:48,819 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:27:49,155 - Response: b'f14\r\n'
+2025-02-11 18:27:49,155 - Scanning: forward line 14
+2025-02-11 18:27:51,485 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:27:51,821 - Response: b'f15\r\n'
+2025-02-11 18:27:51,821 - Scanning: forward line 15
+2025-02-11 18:27:54,156 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:27:54,500 - Response: b'f16\r\n'
+2025-02-11 18:27:54,500 - Scanning: forward line 16
+2025-02-11 18:27:56,838 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:27:57,183 - Response: b'f17\r\n'
+2025-02-11 18:27:57,183 - Scanning: forward line 17
+2025-02-11 18:27:59,522 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:27:59,866 - Response: b'f18\r\n'
+2025-02-11 18:27:59,866 - Scanning: forward line 18
+2025-02-11 18:28:02,206 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:02,550 - Response: b'f19\r\n'
+2025-02-11 18:28:02,550 - Scanning: forward line 19
+2025-02-11 18:28:04,890 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:05,234 - Response: b'f20\r\n'
+2025-02-11 18:28:05,235 - Scanning: forward line 20
+2025-02-11 18:28:07,574 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:07,918 - Response: b'f21\r\n'
+2025-02-11 18:28:07,918 - Scanning: forward line 21
+2025-02-11 18:28:10,258 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:10,601 - Response: b'f22\r\n'
+2025-02-11 18:28:10,601 - Scanning: forward line 22
+2025-02-11 18:28:12,940 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:13,286 - Response: b'f23\r\n'
+2025-02-11 18:28:13,286 - Scanning: forward line 23
+2025-02-11 18:28:15,624 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:15,968 - Response: b'f24\r\n'
+2025-02-11 18:28:15,968 - Scanning: forward line 24
+2025-02-11 18:28:18,307 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:18,652 - Response: b'f25\r\n'
+2025-02-11 18:28:18,652 - Scanning: forward line 25
+2025-02-11 18:28:20,992 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:21,338 - Response: b'f26\r\n'
+2025-02-11 18:28:21,338 - Scanning: forward line 26
+2025-02-11 18:28:23,677 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:24,031 - Response: b'f27\r\n'
+2025-02-11 18:28:24,031 - Scanning: forward line 27
+2025-02-11 18:28:26,369 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:26,715 - Response: b'f28\r\n'
+2025-02-11 18:28:26,715 - Scanning: forward line 28
+2025-02-11 18:28:29,054 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:29,400 - Response: b'f29\r\n'
+2025-02-11 18:28:29,400 - Scanning: forward line 29
+2025-02-11 18:28:31,739 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:32,085 - Response: b'f30\r\n'
+2025-02-11 18:28:32,085 - Scanning: forward line 30
+2025-02-11 18:28:34,430 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:34,773 - Response: b'f31\r\n'
+2025-02-11 18:28:34,774 - Scanning: forward line 31
+2025-02-11 18:28:37,113 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:37,457 - Response: b'f32\r\n'
+2025-02-11 18:28:37,458 - Scanning: forward line 32
+2025-02-11 18:28:39,797 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:40,141 - Response: b'f33\r\n'
+2025-02-11 18:28:40,142 - Scanning: forward line 33
+2025-02-11 18:28:42,481 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:42,826 - Response: b'f34\r\n'
+2025-02-11 18:28:42,826 - Scanning: forward line 34
+2025-02-11 18:28:45,166 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:45,510 - Response: b'f35\r\n'
+2025-02-11 18:28:45,510 - Scanning: forward line 35
+2025-02-11 18:28:47,849 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:48,193 - Response: b'f36\r\n'
+2025-02-11 18:28:48,193 - Scanning: forward line 36
+2025-02-11 18:28:50,529 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:50,864 - Response: b'f37\r\n'
+2025-02-11 18:28:50,864 - Scanning: forward line 37
+2025-02-11 18:28:53,194 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:53,530 - Response: b'f38\r\n'
+2025-02-11 18:28:53,531 - Scanning: forward line 38
+2025-02-11 18:28:55,869 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:56,220 - Response: b'f39\r\n'
+2025-02-11 18:28:56,221 - Scanning: forward line 39
+2025-02-11 18:28:58,558 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:28:58,904 - Response: b'f40\r\n'
+2025-02-11 18:28:58,905 - Scanning: forward line 40
+2025-02-11 18:29:01,244 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:01,588 - Response: b'f41\r\n'
+2025-02-11 18:29:01,588 - Scanning: forward line 41
+2025-02-11 18:29:03,929 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:04,273 - Response: b'f42\r\n'
+2025-02-11 18:29:04,273 - Scanning: forward line 42
+2025-02-11 18:29:06,617 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:06,961 - Response: b'f43\r\n'
+2025-02-11 18:29:06,961 - Scanning: forward line 43
+2025-02-11 18:29:09,300 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:09,646 - Response: b'f44\r\n'
+2025-02-11 18:29:09,646 - Scanning: forward line 44
+2025-02-11 18:29:11,988 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:12,332 - Response: b'f45\r\n'
+2025-02-11 18:29:12,332 - Scanning: forward line 45
+2025-02-11 18:29:14,672 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:15,015 - Response: b'f46\r\n'
+2025-02-11 18:29:15,016 - Scanning: forward line 46
+2025-02-11 18:29:17,359 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:17,703 - Response: b'f47\r\n'
+2025-02-11 18:29:17,703 - Scanning: forward line 47
+2025-02-11 18:29:20,042 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:20,386 - Response: b'f48\r\n'
+2025-02-11 18:29:20,386 - Scanning: forward line 48
+2025-02-11 18:29:22,725 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:23,068 - Response: b'f49\r\n'
+2025-02-11 18:29:23,069 - Scanning: forward line 49
+2025-02-11 18:29:25,407 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:25,757 - Response: b'f50\r\n'
+2025-02-11 18:29:25,757 - Scanning: forward line 50
+2025-02-11 18:29:28,096 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:28,441 - Response: b'f51\r\n'
+2025-02-11 18:29:28,442 - Scanning: forward line 51
+2025-02-11 18:29:30,782 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:31,131 - Response: b'f52\r\n'
+2025-02-11 18:29:31,131 - Scanning: forward line 52
+2025-02-11 18:29:33,469 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:33,813 - Response: b'f53\r\n'
+2025-02-11 18:29:33,814 - Scanning: forward line 53
+2025-02-11 18:29:36,154 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:36,498 - Response: b'f54\r\n'
+2025-02-11 18:29:36,498 - Scanning: forward line 54
+2025-02-11 18:29:38,837 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:39,182 - Response: b'f55\r\n'
+2025-02-11 18:29:39,182 - Scanning: forward line 55
+2025-02-11 18:29:41,522 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:41,866 - Response: b'f56\r\n'
+2025-02-11 18:29:41,866 - Scanning: forward line 56
+2025-02-11 18:29:44,206 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:44,551 - Response: b'f57\r\n'
+2025-02-11 18:29:44,551 - Scanning: forward line 57
+2025-02-11 18:29:46,890 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:47,235 - Response: b'f58\r\n'
+2025-02-11 18:29:47,235 - Scanning: forward line 58
+2025-02-11 18:29:49,575 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:49,919 - Response: b'f59\r\n'
+2025-02-11 18:29:49,919 - Scanning: forward line 59
+2025-02-11 18:29:52,258 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:52,603 - Response: b'f60\r\n'
+2025-02-11 18:29:52,603 - Scanning: forward line 60
+2025-02-11 18:29:54,942 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:55,285 - Response: b'f61\r\n'
+2025-02-11 18:29:55,285 - Scanning: forward line 61
+2025-02-11 18:29:57,625 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:29:57,969 - Response: b'f62\r\n'
+2025-02-11 18:29:57,969 - Scanning: forward line 62
+2025-02-11 18:30:00,308 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:00,652 - Response: b'f63\r\n'
+2025-02-11 18:30:00,653 - Scanning: forward line 63
+2025-02-11 18:30:02,992 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:03,336 - Response: b'f64\r\n'
+2025-02-11 18:30:03,336 - Scanning: forward line 64
+2025-02-11 18:30:05,678 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:06,022 - Response: b'f65\r\n'
+2025-02-11 18:30:06,022 - Scanning: forward line 65
+2025-02-11 18:30:08,362 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:08,707 - Response: b'f66\r\n'
+2025-02-11 18:30:08,707 - Scanning: forward line 66
+2025-02-11 18:30:11,047 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:11,391 - Response: b'f67\r\n'
+2025-02-11 18:30:11,392 - Scanning: forward line 67
+2025-02-11 18:30:13,731 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:14,076 - Response: b'f68\r\n'
+2025-02-11 18:30:14,076 - Scanning: forward line 68
+2025-02-11 18:30:16,416 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:16,761 - Response: b'f69\r\n'
+2025-02-11 18:30:16,762 - Scanning: forward line 69
+2025-02-11 18:30:19,100 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:19,446 - Response: b'f70\r\n'
+2025-02-11 18:30:19,446 - Scanning: forward line 70
+2025-02-11 18:30:21,785 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:22,129 - Response: b'f71\r\n'
+2025-02-11 18:30:22,129 - Scanning: forward line 71
+2025-02-11 18:30:24,470 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:24,815 - Response: b'f72\r\n'
+2025-02-11 18:30:24,815 - Scanning: forward line 72
+2025-02-11 18:30:27,155 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:27,500 - Response: b'f73\r\n'
+2025-02-11 18:30:27,500 - Scanning: forward line 73
+2025-02-11 18:30:29,840 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:30,184 - Response: b'f74\r\n'
+2025-02-11 18:30:30,184 - Scanning: forward line 74
+2025-02-11 18:30:32,524 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:32,868 - Response: b'f75\r\n'
+2025-02-11 18:30:32,868 - Scanning: forward line 75
+2025-02-11 18:30:35,207 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:35,554 - Response: b'f76\r\n'
+2025-02-11 18:30:35,554 - Scanning: forward line 76
+2025-02-11 18:30:37,893 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:38,239 - Response: b'f77\r\n'
+2025-02-11 18:30:38,239 - Scanning: forward line 77
+2025-02-11 18:30:40,577 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:40,922 - Response: b'f78\r\n'
+2025-02-11 18:30:40,923 - Scanning: forward line 78
+2025-02-11 18:30:43,260 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:43,605 - Response: b'f79\r\n'
+2025-02-11 18:30:43,605 - Scanning: forward line 79
+2025-02-11 18:30:45,948 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:46,294 - Response: b'f80\r\n'
+2025-02-11 18:30:46,294 - Scanning: forward line 80
+2025-02-11 18:30:48,634 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:48,979 - Response: b'f81\r\n'
+2025-02-11 18:30:48,979 - Scanning: forward line 81
+2025-02-11 18:30:51,320 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:51,663 - Response: b'f82\r\n'
+2025-02-11 18:30:51,663 - Scanning: forward line 82
+2025-02-11 18:30:54,004 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:54,349 - Response: b'f83\r\n'
+2025-02-11 18:30:54,349 - Scanning: forward line 83
+2025-02-11 18:30:56,689 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:57,033 - Response: b'f84\r\n'
+2025-02-11 18:30:57,033 - Scanning: forward line 84
+2025-02-11 18:30:59,373 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:30:59,718 - Response: b'f85\r\n'
+2025-02-11 18:30:59,718 - Scanning: forward line 85
+2025-02-11 18:31:02,058 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:02,403 - Response: b'f86\r\n'
+2025-02-11 18:31:02,403 - Scanning: forward line 86
+2025-02-11 18:31:04,742 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:05,087 - Response: b'f87\r\n'
+2025-02-11 18:31:05,087 - Scanning: forward line 87
+2025-02-11 18:31:07,427 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:07,772 - Response: b'f88\r\n'
+2025-02-11 18:31:07,772 - Scanning: forward line 88
+2025-02-11 18:31:10,112 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:10,457 - Response: b'f89\r\n'
+2025-02-11 18:31:10,457 - Scanning: forward line 89
+2025-02-11 18:31:12,797 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:13,141 - Response: b'f90\r\n'
+2025-02-11 18:31:13,141 - Scanning: forward line 90
+2025-02-11 18:31:15,481 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:15,825 - Response: b'f91\r\n'
+2025-02-11 18:31:15,825 - Scanning: forward line 91
+2025-02-11 18:31:18,167 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:18,511 - Response: b'f92\r\n'
+2025-02-11 18:31:18,511 - Scanning: forward line 92
+2025-02-11 18:31:20,850 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:21,196 - Response: b'f93\r\n'
+2025-02-11 18:31:21,196 - Scanning: forward line 93
+2025-02-11 18:31:23,538 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:23,882 - Response: b'f94\r\n'
+2025-02-11 18:31:23,882 - Scanning: forward line 94
+2025-02-11 18:31:26,222 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:26,566 - Response: b'f95\r\n'
+2025-02-11 18:31:26,566 - Scanning: forward line 95
+2025-02-11 18:31:28,905 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:29,249 - Response: b'f96\r\n'
+2025-02-11 18:31:29,249 - Scanning: forward line 96
+2025-02-11 18:31:31,588 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:31,933 - Response: b'f97\r\n'
+2025-02-11 18:31:31,933 - Scanning: forward line 97
+2025-02-11 18:31:34,274 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:34,618 - Response: b'f98\r\n'
+2025-02-11 18:31:34,619 - Scanning: forward line 98
+2025-02-11 18:31:36,958 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:37,303 - Response: b'f99\r\n'
+2025-02-11 18:31:37,304 - Scanning: forward line 99
+2025-02-11 18:31:39,643 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:39,988 - Response: b'f100\r\n'
+2025-02-11 18:31:39,989 - Scanning: forward line 100
+2025-02-11 18:31:42,328 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:42,673 - Response: b'f101\r\n'
+2025-02-11 18:31:42,674 - Scanning: forward line 101
+2025-02-11 18:31:45,013 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:45,357 - Response: b'f102\r\n'
+2025-02-11 18:31:45,357 - Scanning: forward line 102
+2025-02-11 18:31:47,696 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:48,041 - Response: b'f103\r\n'
+2025-02-11 18:31:48,041 - Scanning: forward line 103
+2025-02-11 18:31:50,381 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:50,725 - Response: b'f104\r\n'
+2025-02-11 18:31:50,726 - Scanning: forward line 104
+2025-02-11 18:31:53,066 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:53,411 - Response: b'f105\r\n'
+2025-02-11 18:31:53,411 - Scanning: forward line 105
+2025-02-11 18:31:55,750 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:56,095 - Response: b'f106\r\n'
+2025-02-11 18:31:56,096 - Scanning: forward line 106
+2025-02-11 18:31:58,435 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:31:58,779 - Response: b'f107\r\n'
+2025-02-11 18:31:58,780 - Scanning: forward line 107
+2025-02-11 18:32:01,121 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:01,466 - Response: b'f108\r\n'
+2025-02-11 18:32:01,466 - Scanning: forward line 108
+2025-02-11 18:32:03,805 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:04,150 - Response: b'f109\r\n'
+2025-02-11 18:32:04,150 - Scanning: forward line 109
+2025-02-11 18:32:06,490 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:06,836 - Response: b'f110\r\n'
+2025-02-11 18:32:06,836 - Scanning: forward line 110
+2025-02-11 18:32:09,176 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:09,521 - Response: b'f111\r\n'
+2025-02-11 18:32:09,521 - Scanning: forward line 111
+2025-02-11 18:32:11,862 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:12,206 - Response: b'f112\r\n'
+2025-02-11 18:32:12,206 - Scanning: forward line 112
+2025-02-11 18:32:14,546 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:14,891 - Response: b'f113\r\n'
+2025-02-11 18:32:14,891 - Scanning: forward line 113
+2025-02-11 18:32:17,231 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:17,574 - Response: b'f114\r\n'
+2025-02-11 18:32:17,575 - Scanning: forward line 114
+2025-02-11 18:32:19,916 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:20,261 - Response: b'f115\r\n'
+2025-02-11 18:32:20,261 - Scanning: forward line 115
+2025-02-11 18:32:22,601 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:22,947 - Response: b'f116\r\n'
+2025-02-11 18:32:22,947 - Scanning: forward line 116
+2025-02-11 18:32:25,286 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:25,631 - Response: b'f117\r\n'
+2025-02-11 18:32:25,631 - Scanning: forward line 117
+2025-02-11 18:32:27,971 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:28,317 - Response: b'f118\r\n'
+2025-02-11 18:32:28,318 - Scanning: forward line 118
+2025-02-11 18:32:30,658 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:31,003 - Response: b'f119\r\n'
+2025-02-11 18:32:31,003 - Scanning: forward line 119
+2025-02-11 18:32:33,344 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:33,688 - Response: b'f120\r\n'
+2025-02-11 18:32:33,688 - Scanning: forward line 120
+2025-02-11 18:32:36,029 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:36,373 - Response: b'f121\r\n'
+2025-02-11 18:32:36,373 - Scanning: forward line 121
+2025-02-11 18:32:38,714 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:39,060 - Response: b'f122\r\n'
+2025-02-11 18:32:39,061 - Scanning: forward line 122
+2025-02-11 18:32:41,401 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:41,745 - Response: b'f123\r\n'
+2025-02-11 18:32:41,745 - Scanning: forward line 123
+2025-02-11 18:32:44,086 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:44,431 - Response: b'f124\r\n'
+2025-02-11 18:32:44,431 - Scanning: forward line 124
+2025-02-11 18:32:46,771 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:47,115 - Response: b'f125\r\n'
+2025-02-11 18:32:47,115 - Scanning: forward line 125
+2025-02-11 18:32:49,456 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:49,800 - Response: b'f126\r\n'
+2025-02-11 18:32:49,800 - Scanning: forward line 126
+2025-02-11 18:32:52,141 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:52,486 - Response: b'f127\r\n'
+2025-02-11 18:32:52,486 - Scanning: forward line 127
+2025-02-11 18:32:54,826 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:55,171 - Response: b'f128\r\n'
+2025-02-11 18:32:55,171 - Scanning: forward line 128
+2025-02-11 18:32:57,511 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:32:57,856 - Response: b'f129\r\n'
+2025-02-11 18:32:57,856 - Scanning: forward line 129
+2025-02-11 18:33:00,198 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:00,541 - Response: b'f130\r\n'
+2025-02-11 18:33:00,541 - Scanning: forward line 130
+2025-02-11 18:33:02,880 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:03,225 - Response: b'f131\r\n'
+2025-02-11 18:33:03,225 - Scanning: forward line 131
+2025-02-11 18:33:05,566 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:05,913 - Response: b'f132\r\n'
+2025-02-11 18:33:05,913 - Scanning: forward line 132
+2025-02-11 18:33:08,252 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:08,596 - Response: b'f133\r\n'
+2025-02-11 18:33:08,596 - Scanning: forward line 133
+2025-02-11 18:33:10,935 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:11,281 - Response: b'f134\r\n'
+2025-02-11 18:33:11,281 - Scanning: forward line 134
+2025-02-11 18:33:13,621 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:13,965 - Response: b'f135\r\n'
+2025-02-11 18:33:13,966 - Scanning: forward line 135
+2025-02-11 18:33:16,306 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:16,652 - Response: b'f136\r\n'
+2025-02-11 18:33:16,652 - Scanning: forward line 136
+2025-02-11 18:33:18,993 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:19,338 - Response: b'f137\r\n'
+2025-02-11 18:33:19,338 - Scanning: forward line 137
+2025-02-11 18:33:21,678 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:22,025 - Response: b'f138\r\n'
+2025-02-11 18:33:22,025 - Scanning: forward line 138
+2025-02-11 18:33:24,364 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:24,708 - Response: b'f139\r\n'
+2025-02-11 18:33:24,709 - Scanning: forward line 139
+2025-02-11 18:33:27,049 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:27,394 - Response: b'f140\r\n'
+2025-02-11 18:33:27,394 - Scanning: forward line 140
+2025-02-11 18:33:29,733 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:30,079 - Response: b'f141\r\n'
+2025-02-11 18:33:30,079 - Scanning: forward line 141
+2025-02-11 18:33:32,418 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:32,763 - Response: b'f142\r\n'
+2025-02-11 18:33:32,763 - Scanning: forward line 142
+2025-02-11 18:33:35,105 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:35,449 - Response: b'f143\r\n'
+2025-02-11 18:33:35,450 - Scanning: forward line 143
+2025-02-11 18:33:37,790 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:38,139 - Response: b'f144\r\n'
+2025-02-11 18:33:38,139 - Scanning: forward line 144
+2025-02-11 18:33:40,477 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:40,822 - Response: b'f145\r\n'
+2025-02-11 18:33:40,822 - Scanning: forward line 145
+2025-02-11 18:33:43,162 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:43,508 - Response: b'f146\r\n'
+2025-02-11 18:33:43,508 - Scanning: forward line 146
+2025-02-11 18:33:45,848 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:46,192 - Response: b'f147\r\n'
+2025-02-11 18:33:46,192 - Scanning: forward line 147
+2025-02-11 18:33:48,533 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:48,877 - Response: b'f148\r\n'
+2025-02-11 18:33:48,877 - Scanning: forward line 148
+2025-02-11 18:33:51,218 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:51,562 - Response: b'f149\r\n'
+2025-02-11 18:33:51,563 - Scanning: forward line 149
+2025-02-11 18:33:53,903 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:54,249 - Response: b'f150\r\n'
+2025-02-11 18:33:54,249 - Scanning: forward line 150
+2025-02-11 18:33:56,590 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:56,934 - Response: b'f151\r\n'
+2025-02-11 18:33:56,935 - Scanning: forward line 151
+2025-02-11 18:33:59,274 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:33:59,619 - Response: b'f152\r\n'
+2025-02-11 18:33:59,619 - Scanning: forward line 152
+2025-02-11 18:34:01,960 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:02,305 - Response: b'f153\r\n'
+2025-02-11 18:34:02,305 - Scanning: forward line 153
+2025-02-11 18:34:04,644 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:04,990 - Response: b'f154\r\n'
+2025-02-11 18:34:04,990 - Scanning: forward line 154
+2025-02-11 18:34:07,329 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:07,674 - Response: b'f155\r\n'
+2025-02-11 18:34:07,674 - Scanning: forward line 155
+2025-02-11 18:34:10,014 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:10,359 - Response: b'f156\r\n'
+2025-02-11 18:34:10,359 - Scanning: forward line 156
+2025-02-11 18:34:12,700 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:13,043 - Response: b'f157\r\n'
+2025-02-11 18:34:13,044 - Scanning: forward line 157
+2025-02-11 18:34:15,382 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:15,727 - Response: b'f158\r\n'
+2025-02-11 18:34:15,727 - Scanning: forward line 158
+2025-02-11 18:34:18,067 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:18,412 - Response: b'f159\r\n'
+2025-02-11 18:34:18,413 - Scanning: forward line 159
+2025-02-11 18:34:20,752 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:21,097 - Response: b'f160\r\n'
+2025-02-11 18:34:21,097 - Scanning: forward line 160
+2025-02-11 18:34:23,437 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:23,784 - Response: b'f161\r\n'
+2025-02-11 18:34:23,784 - Scanning: forward line 161
+2025-02-11 18:34:26,122 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:26,468 - Response: b'f162\r\n'
+2025-02-11 18:34:26,469 - Scanning: forward line 162
+2025-02-11 18:34:28,808 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:29,153 - Response: b'f163\r\n'
+2025-02-11 18:34:29,153 - Scanning: forward line 163
+2025-02-11 18:34:31,495 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:31,840 - Response: b'f164\r\n'
+2025-02-11 18:34:31,840 - Scanning: forward line 164
+2025-02-11 18:34:34,179 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:34,523 - Response: b'f165\r\n'
+2025-02-11 18:34:34,523 - Scanning: forward line 165
+2025-02-11 18:34:36,864 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:37,209 - Response: b'f166\r\n'
+2025-02-11 18:34:37,210 - Scanning: forward line 166
+2025-02-11 18:34:39,549 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:39,893 - Response: b'f167\r\n'
+2025-02-11 18:34:39,893 - Scanning: forward line 167
+2025-02-11 18:34:42,233 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:42,578 - Response: b'f168\r\n'
+2025-02-11 18:34:42,578 - Scanning: forward line 168
+2025-02-11 18:34:44,919 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:45,264 - Response: b'f169\r\n'
+2025-02-11 18:34:45,264 - Scanning: forward line 169
+2025-02-11 18:34:47,604 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:47,948 - Response: b'f170\r\n'
+2025-02-11 18:34:47,948 - Scanning: forward line 170
+2025-02-11 18:34:50,289 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:50,635 - Response: b'f171\r\n'
+2025-02-11 18:34:50,636 - Scanning: forward line 171
+2025-02-11 18:34:52,976 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:53,321 - Response: b'f172\r\n'
+2025-02-11 18:34:53,321 - Scanning: forward line 172
+2025-02-11 18:34:55,663 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:56,010 - Response: b'f173\r\n'
+2025-02-11 18:34:56,010 - Scanning: forward line 173
+2025-02-11 18:34:58,349 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:34:58,696 - Response: b'f174\r\n'
+2025-02-11 18:34:58,696 - Scanning: forward line 174
+2025-02-11 18:35:01,034 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:01,379 - Response: b'f175\r\n'
+2025-02-11 18:35:01,379 - Scanning: forward line 175
+2025-02-11 18:35:03,719 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:04,064 - Response: b'f176\r\n'
+2025-02-11 18:35:04,065 - Scanning: forward line 176
+2025-02-11 18:35:06,404 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:06,750 - Response: b'f177\r\n'
+2025-02-11 18:35:06,751 - Scanning: forward line 177
+2025-02-11 18:35:09,091 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:09,435 - Response: b'f178\r\n'
+2025-02-11 18:35:09,435 - Scanning: forward line 178
+2025-02-11 18:35:11,776 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:12,121 - Response: b'f179\r\n'
+2025-02-11 18:35:12,121 - Scanning: forward line 179
+2025-02-11 18:35:14,461 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:14,808 - Response: b'f180\r\n'
+2025-02-11 18:35:14,808 - Scanning: forward line 180
+2025-02-11 18:35:17,147 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:17,491 - Response: b'f181\r\n'
+2025-02-11 18:35:17,492 - Scanning: forward line 181
+2025-02-11 18:35:19,832 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:20,179 - Response: b'f182\r\n'
+2025-02-11 18:35:20,179 - Scanning: forward line 182
+2025-02-11 18:35:22,518 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:22,862 - Response: b'f183\r\n'
+2025-02-11 18:35:22,863 - Scanning: forward line 183
+2025-02-11 18:35:25,203 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:25,547 - Response: b'f184\r\n'
+2025-02-11 18:35:25,547 - Scanning: forward line 184
+2025-02-11 18:35:27,887 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:28,232 - Response: b'f185\r\n'
+2025-02-11 18:35:28,232 - Scanning: forward line 185
+2025-02-11 18:35:30,572 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:30,916 - Response: b'f186\r\n'
+2025-02-11 18:35:30,916 - Scanning: forward line 186
+2025-02-11 18:35:33,255 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:33,600 - Response: b'f187\r\n'
+2025-02-11 18:35:33,600 - Scanning: forward line 187
+2025-02-11 18:35:35,939 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:36,285 - Response: b'f188\r\n'
+2025-02-11 18:35:36,285 - Scanning: forward line 188
+2025-02-11 18:35:38,624 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:38,968 - Response: b'f189\r\n'
+2025-02-11 18:35:38,968 - Scanning: forward line 189
+2025-02-11 18:35:41,309 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:41,654 - Response: b'f190\r\n'
+2025-02-11 18:35:41,654 - Scanning: forward line 190
+2025-02-11 18:35:43,994 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:44,339 - Response: b'f191\r\n'
+2025-02-11 18:35:44,340 - Scanning: forward line 191
+2025-02-11 18:35:46,679 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:47,025 - Response: b'f192\r\n'
+2025-02-11 18:35:47,026 - Scanning: forward line 192
+2025-02-11 18:35:49,364 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:49,709 - Response: b'f193\r\n'
+2025-02-11 18:35:49,710 - Scanning: forward line 193
+2025-02-11 18:35:52,049 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:52,395 - Response: b'f194\r\n'
+2025-02-11 18:35:52,395 - Scanning: forward line 194
+2025-02-11 18:35:54,733 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:55,078 - Response: b'f195\r\n'
+2025-02-11 18:35:55,078 - Scanning: forward line 195
+2025-02-11 18:35:57,418 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:35:57,765 - Response: b'f196\r\n'
+2025-02-11 18:35:57,765 - Scanning: forward line 196
+2025-02-11 18:36:00,104 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:00,449 - Response: b'f197\r\n'
+2025-02-11 18:36:00,450 - Scanning: forward line 197
+2025-02-11 18:36:02,789 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:03,134 - Response: b'f198\r\n'
+2025-02-11 18:36:03,135 - Scanning: forward line 198
+2025-02-11 18:36:05,476 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:05,820 - Response: b'f199\r\n'
+2025-02-11 18:36:05,820 - Scanning: forward line 199
+2025-02-11 18:36:08,160 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:08,504 - Response: b'f200\r\n'
+2025-02-11 18:36:08,505 - Scanning: forward line 200
+2025-02-11 18:36:10,846 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:11,190 - Response: b'f201\r\n'
+2025-02-11 18:36:11,190 - Scanning: forward line 201
+2025-02-11 18:36:13,529 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:13,874 - Response: b'f202\r\n'
+2025-02-11 18:36:13,875 - Scanning: forward line 202
+2025-02-11 18:36:16,214 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:16,560 - Response: b'f203\r\n'
+2025-02-11 18:36:16,560 - Scanning: forward line 203
+2025-02-11 18:36:18,900 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:19,243 - Response: b'f204\r\n'
+2025-02-11 18:36:19,243 - Scanning: forward line 204
+2025-02-11 18:36:21,584 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:21,929 - Response: b'f205\r\n'
+2025-02-11 18:36:21,929 - Scanning: forward line 205
+2025-02-11 18:36:24,269 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:24,615 - Response: b'f206\r\n'
+2025-02-11 18:36:24,616 - Scanning: forward line 206
+2025-02-11 18:36:26,956 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:27,303 - Response: b'f207\r\n'
+2025-02-11 18:36:27,304 - Scanning: forward line 207
+2025-02-11 18:36:29,642 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:29,987 - Response: b'f208\r\n'
+2025-02-11 18:36:29,988 - Scanning: forward line 208
+2025-02-11 18:36:32,328 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:32,673 - Response: b'f209\r\n'
+2025-02-11 18:36:32,674 - Scanning: forward line 209
+2025-02-11 18:36:35,013 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:35,358 - Response: b'f210\r\n'
+2025-02-11 18:36:35,358 - Scanning: forward line 210
+2025-02-11 18:36:37,697 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:38,043 - Response: b'f211\r\n'
+2025-02-11 18:36:38,043 - Scanning: forward line 211
+2025-02-11 18:36:40,382 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:40,726 - Response: b'f212\r\n'
+2025-02-11 18:36:40,726 - Scanning: forward line 212
+2025-02-11 18:36:43,067 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:43,412 - Response: b'f213\r\n'
+2025-02-11 18:36:43,412 - Scanning: forward line 213
+2025-02-11 18:36:45,750 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:46,095 - Response: b'f214\r\n'
+2025-02-11 18:36:46,096 - Scanning: forward line 214
+2025-02-11 18:36:48,437 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:48,781 - Response: b'f215\r\n'
+2025-02-11 18:36:48,781 - Scanning: forward line 215
+2025-02-11 18:36:51,121 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:51,466 - Response: b'f216\r\n'
+2025-02-11 18:36:51,467 - Scanning: forward line 216
+2025-02-11 18:36:53,808 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:54,152 - Response: b'f217\r\n'
+2025-02-11 18:36:54,152 - Scanning: forward line 217
+2025-02-11 18:36:56,492 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:56,837 - Response: b'f218\r\n'
+2025-02-11 18:36:56,837 - Scanning: forward line 218
+2025-02-11 18:36:59,177 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:36:59,522 - Response: b'f219\r\n'
+2025-02-11 18:36:59,522 - Scanning: forward line 219
+2025-02-11 18:37:01,862 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:02,210 - Response: b'f220\r\n'
+2025-02-11 18:37:02,211 - Scanning: forward line 220
+2025-02-11 18:37:04,550 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:04,895 - Response: b'f221\r\n'
+2025-02-11 18:37:04,896 - Scanning: forward line 221
+2025-02-11 18:37:07,236 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:07,580 - Response: b'f222\r\n'
+2025-02-11 18:37:07,580 - Scanning: forward line 222
+2025-02-11 18:37:09,921 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:10,265 - Response: b'f223\r\n'
+2025-02-11 18:37:10,265 - Scanning: forward line 223
+2025-02-11 18:37:12,606 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:12,950 - Response: b'f224\r\n'
+2025-02-11 18:37:12,950 - Scanning: forward line 224
+2025-02-11 18:37:15,290 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:15,635 - Response: b'f225\r\n'
+2025-02-11 18:37:15,635 - Scanning: forward line 225
+2025-02-11 18:37:17,975 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:18,319 - Response: b'f226\r\n'
+2025-02-11 18:37:18,319 - Scanning: forward line 226
+2025-02-11 18:37:20,659 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:21,004 - Response: b'f227\r\n'
+2025-02-11 18:37:21,005 - Scanning: forward line 227
+2025-02-11 18:37:23,345 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:23,689 - Response: b'f228\r\n'
+2025-02-11 18:37:23,689 - Scanning: forward line 228
+2025-02-11 18:37:26,029 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:26,373 - Response: b'f229\r\n'
+2025-02-11 18:37:26,374 - Scanning: forward line 229
+2025-02-11 18:37:28,714 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:29,059 - Response: b'f230\r\n'
+2025-02-11 18:37:29,059 - Scanning: forward line 230
+2025-02-11 18:37:31,401 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:31,745 - Response: b'f231\r\n'
+2025-02-11 18:37:31,745 - Scanning: forward line 231
+2025-02-11 18:37:34,085 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:34,429 - Response: b'f232\r\n'
+2025-02-11 18:37:34,429 - Scanning: forward line 232
+2025-02-11 18:37:36,771 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:37,115 - Response: b'f233\r\n'
+2025-02-11 18:37:37,115 - Scanning: forward line 233
+2025-02-11 18:37:39,454 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:39,799 - Response: b'f234\r\n'
+2025-02-11 18:37:39,799 - Scanning: forward line 234
+2025-02-11 18:37:42,140 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:42,485 - Response: b'f235\r\n'
+2025-02-11 18:37:42,485 - Scanning: forward line 235
+2025-02-11 18:37:44,825 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:45,169 - Response: b'f236\r\n'
+2025-02-11 18:37:45,170 - Scanning: forward line 236
+2025-02-11 18:37:47,510 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:47,854 - Response: b'f237\r\n'
+2025-02-11 18:37:47,854 - Scanning: forward line 237
+2025-02-11 18:37:50,195 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:50,539 - Response: b'f238\r\n'
+2025-02-11 18:37:50,539 - Scanning: forward line 238
+2025-02-11 18:37:52,879 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:53,226 - Response: b'f239\r\n'
+2025-02-11 18:37:53,227 - Scanning: forward line 239
+2025-02-11 18:37:55,565 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:55,909 - Response: b'f240\r\n'
+2025-02-11 18:37:55,909 - Scanning: forward line 240
+2025-02-11 18:37:58,250 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:37:58,595 - Response: b'f241\r\n'
+2025-02-11 18:37:58,595 - Scanning: forward line 241
+2025-02-11 18:38:00,935 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:38:01,282 - Response: b'f242\r\n'
+2025-02-11 18:38:01,283 - Scanning: forward line 242
+2025-02-11 18:38:03,613 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:38:03,950 - Response: b'f243\r\n'
+2025-02-11 18:38:03,950 - Scanning: forward line 243
+2025-02-11 18:38:06,279 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:38:06,624 - Response: b'f244\r\n'
+2025-02-11 18:38:06,624 - Scanning: forward line 244
+2025-02-11 18:38:08,965 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:38:09,309 - Response: b'f245\r\n'
+2025-02-11 18:38:09,309 - Scanning: forward line 245
+2025-02-11 18:38:11,651 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:38:11,997 - Response: b'f246\r\n'
+2025-02-11 18:38:11,997 - Scanning: forward line 246
+2025-02-11 18:38:14,339 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:38:14,678 - Response: b'f247\r\n'
+2025-02-11 18:38:14,678 - Scanning: forward line 247
+2025-02-11 18:38:17,006 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:38:17,341 - Response: b'f248\r\n'
+2025-02-11 18:38:17,341 - Scanning: forward line 248
+2025-02-11 18:38:19,682 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:38:20,027 - Response: b'f249\r\n'
+2025-02-11 18:38:20,027 - Scanning: forward line 249
+2025-02-11 18:38:22,369 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:38:22,712 - Response: b'f250\r\n'
+2025-02-11 18:38:22,713 - Scanning: forward line 250
+2025-02-11 18:38:25,052 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:38:25,052 - Scan finished at 2025-02-11 18:38:25.052270
+2025-02-11 18:38:25,053 - Response: b'DDE Cmd 11499\r\n'
+2025-02-11 18:38:25,053 - Scan completed
+2025-02-11 18:38:25,553 - 掃描完成
+2025-02-11 18:38:25,553 - 
+>>> 執行第 1/5 群組的 STS 量測
+2025-02-11 18:38:25,554 -   STS點 (1/5): (-80.000, -200.000)
+2025-02-11 18:38:25,554 - Sending command: SpectPara(1, -80.0);
+2025-02-11 18:38:25,555 - Response: b'DDE Cmd 11500\r\n0\r\n'
+2025-02-11 18:38:25,555 - Sending command: SpectPara(2, -200.0);
+2025-02-11 18:38:25,563 - Response: b'DDE Cmd 11502\r\n'
+2025-02-11 18:38:25,563 - Sending command: SpectPara(1, -80.0);
+2025-02-11 18:38:25,569 - Response: b'DDE Cmd 11503\r\n'
+2025-02-11 18:38:25,570 - Sending command: SpectPara(2, -200.0);
+2025-02-11 18:38:25,576 - Response: b'DDE Cmd 11504\r\n'
+2025-02-11 18:38:25,576 - Sending command: SpectStart;
+2025-02-11 18:38:29,288 - Response: b'DDE Cmd 11505\r\n'
+2025-02-11 18:38:30,288 -   STS點 (2/5): (-79.000, -200.000)
+2025-02-11 18:38:30,288 - Sending command: SpectPara(1, -79.0);
+2025-02-11 18:38:30,296 - Response: b'DDE Cmd 11506\r\n'
+2025-02-11 18:38:30,296 - Sending command: SpectPara(2, -200.0);
+2025-02-11 18:38:30,301 - Response: b'DDE Cmd 11507\r\n'
+2025-02-11 18:38:30,301 - Sending command: SpectPara(1, -79.0);
+2025-02-11 18:38:30,306 - Response: b'DDE Cmd 11508\r\n'
+2025-02-11 18:38:30,306 - Sending command: SpectPara(2, -200.0);
+2025-02-11 18:38:30,311 - Response: b'DDE Cmd 11509\r\n'
+2025-02-11 18:38:30,311 - Sending command: SpectStart;
+2025-02-11 18:38:33,505 - Response: b'DDE Cmd 11510\r\n'
+2025-02-11 18:38:34,506 -   STS點 (3/5): (-78.000, -200.000)
+2025-02-11 18:38:34,506 - Sending command: SpectPara(1, -78.0);
+2025-02-11 18:38:34,513 - Response: b'DDE Cmd 11511\r\n'
+2025-02-11 18:38:34,513 - Sending command: SpectPara(2, -200.0);
+2025-02-11 18:38:34,519 - Response: b'DDE Cmd 11512\r\n'
+2025-02-11 18:38:34,519 - Sending command: SpectPara(1, -78.0);
+2025-02-11 18:38:34,524 - Response: b'DDE Cmd 11513\r\n'
+2025-02-11 18:38:34,524 - Sending command: SpectPara(2, -200.0);
+2025-02-11 18:38:34,529 - Response: b'DDE Cmd 11514\r\n'
+2025-02-11 18:38:34,529 - Sending command: SpectStart;
+2025-02-11 18:38:37,733 - Response: b'DDE Cmd 11515\r\n'
+2025-02-11 18:38:38,734 -   STS點 (4/5): (-77.000, -200.000)
+2025-02-11 18:38:38,734 - Sending command: SpectPara(1, -77.0);
+2025-02-11 18:38:38,741 - Response: b'DDE Cmd 11516\r\n'
+2025-02-11 18:38:38,742 - Sending command: SpectPara(2, -200.0);
+2025-02-11 18:38:38,747 - Response: b'DDE Cmd 11517\r\n'
+2025-02-11 18:38:38,747 - Sending command: SpectPara(1, -77.0);
+2025-02-11 18:38:38,752 - Response: b'DDE Cmd 11518\r\n'
+2025-02-11 18:38:38,752 - Sending command: SpectPara(2, -200.0);
+2025-02-11 18:38:38,757 - Response: b'DDE Cmd 11519\r\n'
+2025-02-11 18:38:38,757 - Sending command: SpectStart;
+2025-02-11 18:38:41,949 - Response: b'DDE Cmd 11520\r\n'
+2025-02-11 18:38:42,951 -   STS點 (5/5): (-76.000, -200.000)
+2025-02-11 18:38:42,951 - Sending command: SpectPara(1, -76.0);
+2025-02-11 18:38:42,959 - Response: b'DDE Cmd 11521\r\n'
+2025-02-11 18:38:42,959 - Sending command: SpectPara(2, -200.0);
+2025-02-11 18:38:42,964 - Response: b'DDE Cmd 11522\r\n'
+2025-02-11 18:38:42,965 - Sending command: SpectPara(1, -76.0);
+2025-02-11 18:38:42,969 - Response: b'DDE Cmd 11523\r\n'
+2025-02-11 18:38:42,969 - Sending command: SpectPara(2, -200.0);
+2025-02-11 18:38:42,974 - Response: b'DDE Cmd 11524\r\n'
+2025-02-11 18:38:42,974 - Sending command: SpectStart;
+2025-02-11 18:38:46,183 - Response: b'DDE Cmd 11525\r\n'
+2025-02-11 18:38:47,184 - <<< 完成第 1/5 群組
+2025-02-11 18:38:47,184 - 
+=== 掃描第 2 段 5 條線 ===
+2025-02-11 18:38:47,184 - 開始掃描 5 條線
+2025-02-11 18:38:47,184 - Sending command: ScanLine(5);
+2025-02-11 18:38:47,191 - Scan started at 2025-02-11 18:38:47.191718
+2025-02-11 18:38:47,191 - Response: 1
+2025-02-11 18:38:47,192 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:38:49,034 - Response: b'f251\r\n'
+2025-02-11 18:38:49,034 - Scanning: forward line 251
+2025-02-11 18:38:51,375 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:38:51,721 - Response: b'f252\r\n'
+2025-02-11 18:38:51,721 - Scanning: forward line 252
+2025-02-11 18:38:54,061 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:38:54,405 - Response: b'f253\r\n'
+2025-02-11 18:38:54,405 - Scanning: forward line 253
+2025-02-11 18:38:56,751 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:38:57,094 - Response: b'f254\r\n'
+2025-02-11 18:38:57,094 - Scanning: forward line 254
+2025-02-11 18:38:59,435 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:38:59,780 - Response: b'f255\r\n'
+2025-02-11 18:38:59,780 - Scanning: forward line 255
+2025-02-11 18:39:02,121 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:39:02,121 - Scan finished at 2025-02-11 18:39:02.121003
+2025-02-11 18:39:02,122 - Response: b'DDE Cmd 11531\r\n'
+2025-02-11 18:39:02,122 - Scan completed
+2025-02-11 18:39:02,622 - 掃描完成
+2025-02-11 18:39:02,622 - 
+>>> 執行第 2/5 群組的 STS 量測
+2025-02-11 18:39:02,622 -   STS點 (1/5): (-80.000, -199.000)
+2025-02-11 18:39:02,623 - Sending command: SpectPara(1, -80.0);
+2025-02-11 18:39:02,623 - Response: b'DDE Cmd 11532\r\n0\r\n'
+2025-02-11 18:39:02,624 - Sending command: SpectPara(2, -199.0);
+2025-02-11 18:39:02,625 - Response: b'DDE Cmd 11534\r\n'
+2025-02-11 18:39:02,625 - Sending command: SpectPara(1, -80.0);
+2025-02-11 18:39:02,631 - Response: b'DDE Cmd 11535\r\n'
+2025-02-11 18:39:02,631 - Sending command: SpectPara(2, -199.0);
+2025-02-11 18:39:02,636 - Response: b'DDE Cmd 11536\r\n'
+2025-02-11 18:39:02,636 - Sending command: SpectStart;
+2025-02-11 18:39:06,441 - Response: b'DDE Cmd 11537\r\n'
+2025-02-11 18:39:07,442 -   STS點 (2/5): (-79.000, -199.000)
+2025-02-11 18:39:07,442 - Sending command: SpectPara(1, -79.0);
+2025-02-11 18:39:07,444 - Response: b'DDE Cmd 11538\r\n'
+2025-02-11 18:39:07,444 - Sending command: SpectPara(2, -199.0);
+2025-02-11 18:39:07,451 - Response: b'DDE Cmd 11539\r\n'
+2025-02-11 18:39:07,451 - Sending command: SpectPara(1, -79.0);
+2025-02-11 18:39:07,456 - Response: b'DDE Cmd 11540\r\n'
+2025-02-11 18:39:07,456 - Sending command: SpectPara(2, -199.0);
+2025-02-11 18:39:07,461 - Response: b'DDE Cmd 11541\r\n'
+2025-02-11 18:39:07,461 - Sending command: SpectStart;
+2025-02-11 18:39:10,675 - Response: b'DDE Cmd 11542\r\n'
+2025-02-11 18:39:11,676 -   STS點 (3/5): (-78.000, -199.000)
+2025-02-11 18:39:11,676 - Sending command: SpectPara(1, -78.0);
+2025-02-11 18:39:11,678 - Response: b'DDE Cmd 11543\r\n'
+2025-02-11 18:39:11,678 - Sending command: SpectPara(2, -199.0);
+2025-02-11 18:39:11,685 - Response: b'DDE Cmd 11544\r\n'
+2025-02-11 18:39:11,685 - Sending command: SpectPara(1, -78.0);
+2025-02-11 18:39:11,690 - Response: b'DDE Cmd 11545\r\n'
+2025-02-11 18:39:11,691 - Sending command: SpectPara(2, -199.0);
+2025-02-11 18:39:11,695 - Response: b'DDE Cmd 11546\r\n'
+2025-02-11 18:39:11,695 - Sending command: SpectStart;
+2025-02-11 18:39:14,888 - Response: b'DDE Cmd 11547\r\n'
+2025-02-11 18:39:15,889 -   STS點 (4/5): (-77.000, -199.000)
+2025-02-11 18:39:15,889 - Sending command: SpectPara(1, -77.0);
+2025-02-11 18:39:15,891 - Response: b'DDE Cmd 11548\r\n'
+2025-02-11 18:39:15,891 - Sending command: SpectPara(2, -199.0);
+2025-02-11 18:39:15,898 - Response: b'DDE Cmd 11549\r\n'
+2025-02-11 18:39:15,898 - Sending command: SpectPara(1, -77.0);
+2025-02-11 18:39:15,904 - Response: b'DDE Cmd 11550\r\n'
+2025-02-11 18:39:15,904 - Sending command: SpectPara(2, -199.0);
+2025-02-11 18:39:15,908 - Response: b'DDE Cmd 11551\r\n'
+2025-02-11 18:39:15,909 - Sending command: SpectStart;
+2025-02-11 18:39:19,116 - Response: b'DDE Cmd 11552\r\n'
+2025-02-11 18:39:20,118 -   STS點 (5/5): (-76.000, -199.000)
+2025-02-11 18:39:20,118 - Sending command: SpectPara(1, -76.0);
+2025-02-11 18:39:20,120 - Response: b'DDE Cmd 11553\r\n'
+2025-02-11 18:39:20,120 - Sending command: SpectPara(2, -199.0);
+2025-02-11 18:39:20,127 - Response: b'DDE Cmd 11554\r\n'
+2025-02-11 18:39:20,127 - Sending command: SpectPara(1, -76.0);
+2025-02-11 18:39:20,132 - Response: b'DDE Cmd 11555\r\n'
+2025-02-11 18:39:20,132 - Sending command: SpectPara(2, -199.0);
+2025-02-11 18:39:20,137 - Response: b'DDE Cmd 11556\r\n'
+2025-02-11 18:39:20,137 - Sending command: SpectStart;
+2025-02-11 18:39:23,332 - Response: b'DDE Cmd 11557\r\n'
+2025-02-11 18:39:24,332 - <<< 完成第 2/5 群組
+2025-02-11 18:39:24,332 - 
+=== 掃描第 3 段 5 條線 ===
+2025-02-11 18:39:24,332 - 開始掃描 5 條線
+2025-02-11 18:39:24,333 - Sending command: ScanLine(5);
+2025-02-11 18:39:24,335 - Scan started at 2025-02-11 18:39:24.335219
+2025-02-11 18:39:24,335 - Response: 1
+2025-02-11 18:39:24,335 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:39:26,177 - Response: b'f256\r\n'
+2025-02-11 18:39:26,177 - Scanning: forward line 256
+2025-02-11 18:39:28,516 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:39:28,862 - Response: b'f257\r\n'
+2025-02-11 18:39:28,862 - Scanning: forward line 257
+2025-02-11 18:39:31,201 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:39:31,545 - Response: b'f258\r\n'
+2025-02-11 18:39:31,545 - Scanning: forward line 258
+2025-02-11 18:39:33,884 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:39:34,227 - Response: b'f259\r\n'
+2025-02-11 18:39:34,227 - Scanning: forward line 259
+2025-02-11 18:39:36,568 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:39:36,912 - Response: b'f260\r\n'
+2025-02-11 18:39:36,912 - Scanning: forward line 260
+2025-02-11 18:39:39,252 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:39:39,252 - Scan finished at 2025-02-11 18:39:39.252352
+2025-02-11 18:39:39,252 - Response: b'DDE Cmd 11563\r\n'
+2025-02-11 18:39:39,252 - Scan completed
+2025-02-11 18:39:39,754 - 掃描完成
+2025-02-11 18:39:39,754 - 
+>>> 執行第 3/5 群組的 STS 量測
+2025-02-11 18:39:39,754 -   STS點 (1/5): (-76.000, -198.000)
+2025-02-11 18:39:39,754 - Sending command: SpectPara(1, -76.0);
+2025-02-11 18:39:39,754 - Response: b'DDE Cmd 11564\r\n0\r\n'
+2025-02-11 18:39:39,754 - Sending command: SpectPara(2, -198.0);
+2025-02-11 18:39:39,756 - Response: b'DDE Cmd 11566\r\n'
+2025-02-11 18:39:39,756 - Sending command: SpectPara(1, -76.0);
+2025-02-11 18:39:39,763 - Response: b'DDE Cmd 11567\r\n'
+2025-02-11 18:39:39,763 - Sending command: SpectPara(2, -198.0);
+2025-02-11 18:39:39,770 - Response: b'DDE Cmd 11568\r\n'
+2025-02-11 18:39:39,770 - Sending command: SpectStart;
+2025-02-11 18:39:43,616 - Response: b'DDE Cmd 11569\r\n'
+2025-02-11 18:39:44,617 -   STS點 (2/5): (-77.000, -198.000)
+2025-02-11 18:39:44,617 - Sending command: SpectPara(1, -77.0);
+2025-02-11 18:39:44,620 - Response: b'DDE Cmd 11570\r\n'
+2025-02-11 18:39:44,620 - Sending command: SpectPara(2, -198.0);
+2025-02-11 18:39:44,627 - Response: b'DDE Cmd 11571\r\n'
+2025-02-11 18:39:44,627 - Sending command: SpectPara(1, -77.0);
+2025-02-11 18:39:44,632 - Response: b'DDE Cmd 11572\r\n'
+2025-02-11 18:39:44,632 - Sending command: SpectPara(2, -198.0);
+2025-02-11 18:39:44,637 - Response: b'DDE Cmd 11573\r\n'
+2025-02-11 18:39:44,637 - Sending command: SpectStart;
+2025-02-11 18:39:47,828 - Response: b'DDE Cmd 11574\r\n'
+2025-02-11 18:39:48,829 -   STS點 (3/5): (-78.000, -198.000)
+2025-02-11 18:39:48,829 - Sending command: SpectPara(1, -78.0);
+2025-02-11 18:39:48,831 - Response: b'DDE Cmd 11575\r\n'
+2025-02-11 18:39:48,832 - Sending command: SpectPara(2, -198.0);
+2025-02-11 18:39:48,838 - Response: b'DDE Cmd 11576\r\n'
+2025-02-11 18:39:48,838 - Sending command: SpectPara(1, -78.0);
+2025-02-11 18:39:48,843 - Response: b'DDE Cmd 11577\r\n'
+2025-02-11 18:39:48,844 - Sending command: SpectPara(2, -198.0);
+2025-02-11 18:39:48,848 - Response: b'DDE Cmd 11578\r\n'
+2025-02-11 18:39:48,848 - Sending command: SpectStart;
+2025-02-11 18:39:52,042 - Response: b'DDE Cmd 11579\r\n'
+2025-02-11 18:39:53,042 -   STS點 (4/5): (-79.000, -198.000)
+2025-02-11 18:39:53,042 - Sending command: SpectPara(1, -79.0);
+2025-02-11 18:39:53,045 - Response: b'DDE Cmd 11580\r\n'
+2025-02-11 18:39:53,045 - Sending command: SpectPara(2, -198.0);
+2025-02-11 18:39:53,051 - Response: b'DDE Cmd 11581\r\n'
+2025-02-11 18:39:53,051 - Sending command: SpectPara(1, -79.0);
+2025-02-11 18:39:53,057 - Response: b'DDE Cmd 11582\r\n'
+2025-02-11 18:39:53,057 - Sending command: SpectPara(2, -198.0);
+2025-02-11 18:39:53,062 - Response: b'DDE Cmd 11583\r\n'
+2025-02-11 18:39:53,062 - Sending command: SpectStart;
+2025-02-11 18:39:56,184 - Response: b'DDE Cmd 11584\r\n'
+2025-02-11 18:39:57,185 -   STS點 (5/5): (-80.000, -198.000)
+2025-02-11 18:39:57,185 - Sending command: SpectPara(1, -80.0);
+2025-02-11 18:39:57,188 - Response: b'DDE Cmd 11585\r\n'
+2025-02-11 18:39:57,188 - Sending command: SpectPara(2, -198.0);
+2025-02-11 18:39:57,194 - Response: b'DDE Cmd 11586\r\n'
+2025-02-11 18:39:57,194 - Sending command: SpectPara(1, -80.0);
+2025-02-11 18:39:57,200 - Response: b'DDE Cmd 11587\r\n'
+2025-02-11 18:39:57,200 - Sending command: SpectPara(2, -198.0);
+2025-02-11 18:39:57,205 - Response: b'DDE Cmd 11588\r\n'
+2025-02-11 18:39:57,205 - Sending command: SpectStart;
+2025-02-11 18:40:00,410 - Response: b'DDE Cmd 11589\r\n'
+2025-02-11 18:40:01,411 - <<< 完成第 3/5 群組
+2025-02-11 18:40:01,411 - 
+=== 掃描第 4 段 5 條線 ===
+2025-02-11 18:40:01,411 - 開始掃描 5 條線
+2025-02-11 18:40:01,411 - Sending command: ScanLine(5);
+2025-02-11 18:40:01,413 - Scan started at 2025-02-11 18:40:01.413714
+2025-02-11 18:40:01,413 - Response: 1
+2025-02-11 18:40:01,413 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:40:03,215 - Response: b'f261\r\n'
+2025-02-11 18:40:03,215 - Scanning: forward line 261
+2025-02-11 18:40:05,555 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:40:05,900 - Response: b'f262\r\n'
+2025-02-11 18:40:05,900 - Scanning: forward line 262
+2025-02-11 18:40:08,242 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:40:08,586 - Response: b'f263\r\n'
+2025-02-11 18:40:08,586 - Scanning: forward line 263
+2025-02-11 18:40:10,925 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:40:11,270 - Response: b'f264\r\n'
+2025-02-11 18:40:11,270 - Scanning: forward line 264
+2025-02-11 18:40:13,608 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:40:13,955 - Response: b'f265\r\n'
+2025-02-11 18:40:13,955 - Scanning: forward line 265
+2025-02-11 18:40:16,293 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:40:16,293 - Scan finished at 2025-02-11 18:40:16.293610
+2025-02-11 18:40:16,294 - Response: b'DDE Cmd 11595\r\n'
+2025-02-11 18:40:16,294 - Scan completed
+2025-02-11 18:40:16,795 - 掃描完成
+2025-02-11 18:40:16,795 - 
+>>> 執行第 4/5 群組的 STS 量測
+2025-02-11 18:40:16,795 -   STS點 (1/5): (-80.000, -197.000)
+2025-02-11 18:40:16,795 - Sending command: SpectPara(1, -80.0);
+2025-02-11 18:40:16,796 - Response: b'DDE Cmd 11596\r\n0\r\n'
+2025-02-11 18:40:16,796 - Sending command: SpectPara(2, -197.0);
+2025-02-11 18:40:16,800 - Response: b'DDE Cmd 11598\r\n'
+2025-02-11 18:40:16,800 - Sending command: SpectPara(1, -80.0);
+2025-02-11 18:40:16,808 - Response: b'DDE Cmd 11599\r\n'
+2025-02-11 18:40:16,808 - Sending command: SpectPara(2, -197.0);
+2025-02-11 18:40:16,814 - Response: b'DDE Cmd 11600\r\n'
+2025-02-11 18:40:16,815 - Sending command: SpectStart;
+2025-02-11 18:40:20,529 - Response: b'DDE Cmd 11601\r\n'
+2025-02-11 18:40:21,530 -   STS點 (2/5): (-79.000, -197.000)
+2025-02-11 18:40:21,530 - Sending command: SpectPara(1, -79.0);
+2025-02-11 18:40:21,532 - Response: b'DDE Cmd 11602\r\n'
+2025-02-11 18:40:21,533 - Sending command: SpectPara(2, -197.0);
+2025-02-11 18:40:21,541 - Response: b'DDE Cmd 11603\r\n'
+2025-02-11 18:40:21,541 - Sending command: SpectPara(1, -79.0);
+2025-02-11 18:40:21,546 - Response: b'DDE Cmd 11604\r\n'
+2025-02-11 18:40:21,546 - Sending command: SpectPara(2, -197.0);
+2025-02-11 18:40:21,551 - Response: b'DDE Cmd 11605\r\n'
+2025-02-11 18:40:21,551 - Sending command: SpectStart;
+2025-02-11 18:40:24,659 - Response: b'DDE Cmd 11606\r\n'
+2025-02-11 18:40:25,659 -   STS點 (3/5): (-78.000, -197.000)
+2025-02-11 18:40:25,659 - Sending command: SpectPara(1, -78.0);
+2025-02-11 18:40:25,662 - Response: b'DDE Cmd 11607\r\n'
+2025-02-11 18:40:25,663 - Sending command: SpectPara(2, -197.0);
+2025-02-11 18:40:25,669 - Response: b'DDE Cmd 11608\r\n'
+2025-02-11 18:40:25,670 - Sending command: SpectPara(1, -78.0);
+2025-02-11 18:40:25,674 - Response: b'DDE Cmd 11609\r\n'
+2025-02-11 18:40:25,675 - Sending command: SpectPara(2, -197.0);
+2025-02-11 18:40:25,679 - Response: b'DDE Cmd 11610\r\n'
+2025-02-11 18:40:25,680 - Sending command: SpectStart;
+2025-02-11 18:40:28,885 - Response: b'DDE Cmd 11611\r\n'
+2025-02-11 18:40:29,887 -   STS點 (4/5): (-77.000, -197.000)
+2025-02-11 18:40:29,887 - Sending command: SpectPara(1, -77.0);
+2025-02-11 18:40:29,890 - Response: b'DDE Cmd 11612\r\n'
+2025-02-11 18:40:29,890 - Sending command: SpectPara(2, -197.0);
+2025-02-11 18:40:29,896 - Response: b'DDE Cmd 11613\r\n'
+2025-02-11 18:40:29,896 - Sending command: SpectPara(1, -77.0);
+2025-02-11 18:40:29,901 - Response: b'DDE Cmd 11614\r\n'
+2025-02-11 18:40:29,901 - Sending command: SpectPara(2, -197.0);
+2025-02-11 18:40:29,906 - Response: b'DDE Cmd 11615\r\n'
+2025-02-11 18:40:29,906 - Sending command: SpectStart;
+2025-02-11 18:40:33,007 - Response: b'DDE Cmd 11616\r\n'
+2025-02-11 18:40:34,008 -   STS點 (5/5): (-76.000, -197.000)
+2025-02-11 18:40:34,008 - Sending command: SpectPara(1, -76.0);
+2025-02-11 18:40:34,011 - Response: b'DDE Cmd 11617\r\n'
+2025-02-11 18:40:34,011 - Sending command: SpectPara(2, -197.0);
+2025-02-11 18:40:34,018 - Response: b'DDE Cmd 11618\r\n'
+2025-02-11 18:40:34,018 - Sending command: SpectPara(1, -76.0);
+2025-02-11 18:40:34,024 - Response: b'DDE Cmd 11619\r\n'
+2025-02-11 18:40:34,024 - Sending command: SpectPara(2, -197.0);
+2025-02-11 18:40:34,029 - Response: b'DDE Cmd 11620\r\n'
+2025-02-11 18:40:34,029 - Sending command: SpectStart;
+2025-02-11 18:40:37,235 - Response: b'DDE Cmd 11621\r\n'
+2025-02-11 18:40:38,236 - <<< 完成第 4/5 群組
+2025-02-11 18:40:38,236 - 
+=== 掃描第 5 段 5 條線 ===
+2025-02-11 18:40:38,236 - 開始掃描 5 條線
+2025-02-11 18:40:38,236 - Sending command: ScanLine(5);
+2025-02-11 18:40:38,238 - Scan started at 2025-02-11 18:40:38.238625
+2025-02-11 18:40:38,238 - Response: 1
+2025-02-11 18:40:38,238 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:40:40,081 - Response: b'f266\r\n'
+2025-02-11 18:40:40,082 - Scanning: forward line 266
+2025-02-11 18:40:42,421 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:40:42,766 - Response: b'f267\r\n'
+2025-02-11 18:40:42,766 - Scanning: forward line 267
+2025-02-11 18:40:45,106 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:40:45,452 - Response: b'f268\r\n'
+2025-02-11 18:40:45,453 - Scanning: forward line 268
+2025-02-11 18:40:47,793 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:40:48,138 - Response: b'f269\r\n'
+2025-02-11 18:40:48,138 - Scanning: forward line 269
+2025-02-11 18:40:50,478 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:40:50,822 - Response: b'f270\r\n'
+2025-02-11 18:40:50,822 - Scanning: forward line 270
+2025-02-11 18:40:53,161 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:40:53,162 - Scan finished at 2025-02-11 18:40:53.162259
+2025-02-11 18:40:53,162 - Response: b'DDE Cmd 11627\r\n'
+2025-02-11 18:40:53,162 - Scan completed
+2025-02-11 18:40:53,663 - 掃描完成
+2025-02-11 18:40:53,663 - 
+>>> 執行第 5/5 群組的 STS 量測
+2025-02-11 18:40:53,663 -   STS點 (1/5): (-80.000, -196.000)
+2025-02-11 18:40:53,663 - Sending command: SpectPara(1, -80.0);
+2025-02-11 18:40:53,663 - Response: b'DDE Cmd 11628\r\n0\r\n'
+2025-02-11 18:40:53,664 - Sending command: SpectPara(2, -196.0);
+2025-02-11 18:40:53,665 - Response: b'DDE Cmd 11630\r\n'
+2025-02-11 18:40:53,665 - Sending command: SpectPara(1, -80.0);
+2025-02-11 18:40:53,673 - Response: b'DDE Cmd 11631\r\n'
+2025-02-11 18:40:53,673 - Sending command: SpectPara(2, -196.0);
+2025-02-11 18:40:53,679 - Response: b'DDE Cmd 11632\r\n'
+2025-02-11 18:40:53,680 - Sending command: SpectStart;
+2025-02-11 18:40:57,490 - Response: b'DDE Cmd 11633\r\n'
+2025-02-11 18:40:58,491 -   STS點 (2/5): (-79.000, -196.000)
+2025-02-11 18:40:58,491 - Sending command: SpectPara(1, -79.0);
+2025-02-11 18:40:58,494 - Response: b'DDE Cmd 11634\r\n'
+2025-02-11 18:40:58,494 - Sending command: SpectPara(2, -196.0);
+2025-02-11 18:40:58,500 - Response: b'DDE Cmd 11635\r\n'
+2025-02-11 18:40:58,500 - Sending command: SpectPara(1, -79.0);
+2025-02-11 18:40:58,505 - Response: b'DDE Cmd 11636\r\n'
+2025-02-11 18:40:58,506 - Sending command: SpectPara(2, -196.0);
+2025-02-11 18:40:58,511 - Response: b'DDE Cmd 11637\r\n'
+2025-02-11 18:40:58,511 - Sending command: SpectStart;
+2025-02-11 18:41:01,616 - Response: b'DDE Cmd 11638\r\n'
+2025-02-11 18:41:02,618 -   STS點 (3/5): (-78.000, -196.000)
+2025-02-11 18:41:02,618 - Sending command: SpectPara(1, -78.0);
+2025-02-11 18:41:02,621 - Response: b'DDE Cmd 11639\r\n'
+2025-02-11 18:41:02,621 - Sending command: SpectPara(2, -196.0);
+2025-02-11 18:41:02,628 - Response: b'DDE Cmd 11640\r\n'
+2025-02-11 18:41:02,628 - Sending command: SpectPara(1, -78.0);
+2025-02-11 18:41:02,632 - Response: b'DDE Cmd 11641\r\n'
+2025-02-11 18:41:02,633 - Sending command: SpectPara(2, -196.0);
+2025-02-11 18:41:02,638 - Response: b'DDE Cmd 11642\r\n'
+2025-02-11 18:41:02,638 - Sending command: SpectStart;
+2025-02-11 18:41:05,828 - Response: b'DDE Cmd 11643\r\n'
+2025-02-11 18:41:06,829 -   STS點 (4/5): (-77.000, -196.000)
+2025-02-11 18:41:06,829 - Sending command: SpectPara(1, -77.0);
+2025-02-11 18:41:06,832 - Response: b'DDE Cmd 11644\r\n'
+2025-02-11 18:41:06,832 - Sending command: SpectPara(2, -196.0);
+2025-02-11 18:41:06,838 - Response: b'DDE Cmd 11645\r\n'
+2025-02-11 18:41:06,838 - Sending command: SpectPara(1, -77.0);
+2025-02-11 18:41:06,843 - Response: b'DDE Cmd 11646\r\n'
+2025-02-11 18:41:06,844 - Sending command: SpectPara(2, -196.0);
+2025-02-11 18:41:06,848 - Response: b'DDE Cmd 11647\r\n'
+2025-02-11 18:41:06,848 - Sending command: SpectStart;
+2025-02-11 18:41:10,046 - Response: b'DDE Cmd 11648\r\n'
+2025-02-11 18:41:11,047 -   STS點 (5/5): (-76.000, -196.000)
+2025-02-11 18:41:11,047 - Sending command: SpectPara(1, -76.0);
+2025-02-11 18:41:11,050 - Response: b'DDE Cmd 11649\r\n'
+2025-02-11 18:41:11,050 - Sending command: SpectPara(2, -196.0);
+2025-02-11 18:41:11,057 - Response: b'DDE Cmd 11650\r\n'
+2025-02-11 18:41:11,057 - Sending command: SpectPara(1, -76.0);
+2025-02-11 18:41:11,062 - Response: b'DDE Cmd 11651\r\n'
+2025-02-11 18:41:11,062 - Sending command: SpectPara(2, -196.0);
+2025-02-11 18:41:11,066 - Response: b'DDE Cmd 11652\r\n'
+2025-02-11 18:41:11,066 - Sending command: SpectStart;
+2025-02-11 18:41:14,180 - Response: b'DDE Cmd 11653\r\n'
+2025-02-11 18:41:15,180 - <<< 完成第 5/5 群組
+2025-02-11 18:41:15,180 - 
+=== 執行最後 230 條掃描線 ===
+2025-02-11 18:41:15,180 - 開始掃描 230 條線
+2025-02-11 18:41:15,180 - Sending command: ScanLine(230);
+2025-02-11 18:41:15,187 - Scan started at 2025-02-11 18:41:15.187875
+2025-02-11 18:41:15,187 - Response: 1
+2025-02-11 18:41:15,188 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:41:17,030 - Response: b'f271\r\n'
+2025-02-11 18:41:17,030 - Scanning: forward line 271
+2025-02-11 18:41:19,370 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:41:19,713 - Response: b'f272\r\n'
+2025-02-11 18:41:19,713 - Scanning: forward line 272
+2025-02-11 18:41:22,052 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:41:22,397 - Response: b'f273\r\n'
+2025-02-11 18:41:22,397 - Scanning: forward line 273
+2025-02-11 18:41:24,738 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:41:25,086 - Response: b'f274\r\n'
+2025-02-11 18:41:25,086 - Scanning: forward line 274
+2025-02-11 18:41:27,429 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:41:27,774 - Response: b'f275\r\n'
+2025-02-11 18:41:27,774 - Scanning: forward line 275
+2025-02-11 18:41:30,113 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:41:30,457 - Response: b'f276\r\n'
+2025-02-11 18:41:30,457 - Scanning: forward line 276
+2025-02-11 18:41:32,797 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:41:33,152 - Response: b'f277\r\n'
+2025-02-11 18:41:33,152 - Scanning: forward line 277
+2025-02-11 18:41:35,491 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:41:35,837 - Response: b'f278\r\n'
+2025-02-11 18:41:35,837 - Scanning: forward line 278
+2025-02-11 18:41:38,177 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:41:38,523 - Response: b'f279\r\n'
+2025-02-11 18:41:38,523 - Scanning: forward line 279
+2025-02-11 18:41:40,864 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:41:41,209 - Response: b'f280\r\n'
+2025-02-11 18:41:41,209 - Scanning: forward line 280
+2025-02-11 18:41:43,550 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:41:43,894 - Response: b'f281\r\n'
+2025-02-11 18:41:43,894 - Scanning: forward line 281
+2025-02-11 18:41:46,235 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:41:46,582 - Response: b'f282\r\n'
+2025-02-11 18:41:46,582 - Scanning: forward line 282
+2025-02-11 18:41:48,922 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:41:49,267 - Response: b'f283\r\n'
+2025-02-11 18:41:49,267 - Scanning: forward line 283
+2025-02-11 18:41:51,608 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:41:51,952 - Response: b'f284\r\n'
+2025-02-11 18:41:51,953 - Scanning: forward line 284
+2025-02-11 18:41:54,291 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:41:54,635 - Response: b'f285\r\n'
+2025-02-11 18:41:54,636 - Scanning: forward line 285
+2025-02-11 18:41:56,975 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:41:57,319 - Response: b'f286\r\n'
+2025-02-11 18:41:57,320 - Scanning: forward line 286
+2025-02-11 18:41:59,660 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:00,004 - Response: b'f287\r\n'
+2025-02-11 18:42:00,005 - Scanning: forward line 287
+2025-02-11 18:42:02,344 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:02,689 - Response: b'f288\r\n'
+2025-02-11 18:42:02,689 - Scanning: forward line 288
+2025-02-11 18:42:05,040 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:05,383 - Response: b'f289\r\n'
+2025-02-11 18:42:05,384 - Scanning: forward line 289
+2025-02-11 18:42:07,723 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:08,068 - Response: b'f290\r\n'
+2025-02-11 18:42:08,068 - Scanning: forward line 290
+2025-02-11 18:42:10,407 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:10,754 - Response: b'f291\r\n'
+2025-02-11 18:42:10,754 - Scanning: forward line 291
+2025-02-11 18:42:13,094 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:13,438 - Response: b'f292\r\n'
+2025-02-11 18:42:13,438 - Scanning: forward line 292
+2025-02-11 18:42:15,778 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:16,121 - Response: b'f293\r\n'
+2025-02-11 18:42:16,121 - Scanning: forward line 293
+2025-02-11 18:42:18,462 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:18,806 - Response: b'f294\r\n'
+2025-02-11 18:42:18,806 - Scanning: forward line 294
+2025-02-11 18:42:21,146 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:21,492 - Response: b'f295\r\n'
+2025-02-11 18:42:21,492 - Scanning: forward line 295
+2025-02-11 18:42:23,832 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:24,176 - Response: b'f296\r\n'
+2025-02-11 18:42:24,176 - Scanning: forward line 296
+2025-02-11 18:42:26,523 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:26,866 - Response: b'f297\r\n'
+2025-02-11 18:42:26,866 - Scanning: forward line 297
+2025-02-11 18:42:29,206 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:29,552 - Response: b'f298\r\n'
+2025-02-11 18:42:29,553 - Scanning: forward line 298
+2025-02-11 18:42:31,890 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:32,234 - Response: b'f299\r\n'
+2025-02-11 18:42:32,234 - Scanning: forward line 299
+2025-02-11 18:42:34,574 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:34,924 - Response: b'f300\r\n'
+2025-02-11 18:42:34,924 - Scanning: forward line 300
+2025-02-11 18:42:37,261 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:37,606 - Response: b'f301\r\n'
+2025-02-11 18:42:37,606 - Scanning: forward line 301
+2025-02-11 18:42:39,946 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:40,290 - Response: b'f302\r\n'
+2025-02-11 18:42:40,291 - Scanning: forward line 302
+2025-02-11 18:42:42,631 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:42,976 - Response: b'f303\r\n'
+2025-02-11 18:42:42,977 - Scanning: forward line 303
+2025-02-11 18:42:45,316 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:45,662 - Response: b'f304\r\n'
+2025-02-11 18:42:45,662 - Scanning: forward line 304
+2025-02-11 18:42:48,001 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:48,345 - Response: b'f305\r\n'
+2025-02-11 18:42:48,345 - Scanning: forward line 305
+2025-02-11 18:42:50,684 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:51,028 - Response: b'f306\r\n'
+2025-02-11 18:42:51,029 - Scanning: forward line 306
+2025-02-11 18:42:53,368 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:53,712 - Response: b'f307\r\n'
+2025-02-11 18:42:53,712 - Scanning: forward line 307
+2025-02-11 18:42:56,060 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:56,403 - Response: b'f308\r\n'
+2025-02-11 18:42:56,403 - Scanning: forward line 308
+2025-02-11 18:42:58,743 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:42:59,088 - Response: b'f309\r\n'
+2025-02-11 18:42:59,088 - Scanning: forward line 309
+2025-02-11 18:43:01,429 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:43:01,773 - Response: b'f310\r\n'
+2025-02-11 18:43:01,773 - Scanning: forward line 310
+2025-02-11 18:43:04,112 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:43:04,457 - Response: b'f311\r\n'
+2025-02-11 18:43:04,457 - Scanning: forward line 311
+2025-02-11 18:43:06,802 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:43:07,145 - Response: b'f312\r\n'
+2025-02-11 18:43:07,146 - Scanning: forward line 312
+2025-02-11 18:43:09,484 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:43:09,830 - Response: b'f313\r\n'
+2025-02-11 18:43:09,830 - Scanning: forward line 313
+2025-02-11 18:43:12,168 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:43:12,513 - Response: b'f314\r\n'
+2025-02-11 18:43:12,513 - Scanning: forward line 314
+2025-02-11 18:43:14,852 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:43:15,199 - Response: b'f315\r\n'
+2025-02-11 18:43:15,200 - Scanning: forward line 315
+2025-02-11 18:43:17,539 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:43:17,885 - Response: b'f316\r\n'
+2025-02-11 18:43:17,885 - Scanning: forward line 316
+2025-02-11 18:43:20,227 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:43:20,570 - Response: b'f317\r\n'
+2025-02-11 18:43:20,570 - Scanning: forward line 317
+2025-02-11 18:43:22,910 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:43:23,244 - Response: b'f318\r\n'
+2025-02-11 18:43:23,245 - Scanning: forward line 318
+2025-02-11 18:43:25,581 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:43:25,915 - Response: b'f319\r\n'
+2025-02-11 18:43:25,916 - Scanning: forward line 319
+2025-02-11 18:43:28,249 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:43:28,585 - Response: b'f320\r\n'
+2025-02-11 18:43:28,585 - Scanning: forward line 320
+2025-02-11 18:43:30,914 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:43:31,254 - Response: b'f321\r\n'
+2025-02-11 18:43:31,255 - Scanning: forward line 321
+2025-02-11 18:43:33,583 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 18:43:33,918 - Response: b'f322\r\n'
+2025-02-11 18:43:33,918 - Scanning: forward line 322
+2025-02-11 18:43:35,803 - 視窗已關閉，正在清理資源...
+2025-02-11 18:43:36,589 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);

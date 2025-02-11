@@ -203,10 +203,12 @@
     </div>
   </div>
 
+  <!-- 預覽面板 -->
   <LocalCITSPreviewPanel
-  :local-areas="localAreas"
-  :scan-direction="globalDirection"
-/>
+      ref="previewPanelRef"
+      :local-areas="localAreas"
+      :scan-direction="globalDirection"
+    />
 
 </template>
 
@@ -215,6 +217,9 @@ import { ref, computed } from 'vue';
 import { useSharedSTSState } from '../../composables/useSharedSTSState';
 import LocalCITSScriptEditor from './LocalCITSScriptEditor.vue';
 import LocalCITSPreviewPanel from './LocalCITSPreviewPanel.vue';
+
+const previewPanelRef = ref(null);
+
 
 const props = defineProps({
   globalDirection: {
@@ -230,6 +235,7 @@ const props = defineProps({
 
 const emit = defineEmits([
   'update:global-direction',
+
   'start-local-single-cits',
   'start-local-multi-cits'
 ]);
@@ -250,8 +256,8 @@ function createDefaultArea() {
   return {
     start_x: 0,
     start_y: 0,
-    dx: 20,
-    dy: 20,
+    dx: 1,
+    dy: 1,
     nx: 5,
     ny: 3,
     startpoint_direction: 1
@@ -284,12 +290,99 @@ function removeArea(index) {
   }
 }
 
-// 開始測量
-function startLocalSingleCITS() {
-  emit('start-local-single-cits');
+// 開始測量前的資料預處理
+function prepareAreasData() {
+  return localAreas.value.map(area => ({
+    start_x: Number(area.start_x),
+    start_y: Number(area.start_y),
+    dx: Number(area.dx),
+    dy: Number(area.dy),
+    nx: Number(area.nx),
+    ny: Number(area.ny),
+    startpoint_direction: Number(area.startpoint_direction)
+  }));
 }
 
+// // 開始測量
+// function startLocalSingleCITS() {
+//   emit('start-local-single-cits');
+// }
+
+// function startLocalMultiCITS() {
+//   emit('start-local-multi-cits');
+// }
+// 開始測量
+// function startLocalSingleCITS() {
+//   const areasData = prepareAreasData();
+//   emit('start-local-single-cits', areasData);
+// }
+// 修改開始測量的函數
+// function startLocalSingleCITS() {
+//   const areasData = prepareAreasData();
+//   const scanSettings = previewPanelRef.value?.getSettings() || {
+//     center_x: 0,
+//     center_y: 0,
+//     scan_angle: 0
+//   };
+  
+//   emit('start-local-single-cits', {
+//     areas: areasData,
+//     scanSettings
+//   });
+// }
+
+// function startLocalMultiCITS() {
+//   const areasData = prepareAreasData();
+//   emit('start-local-multi-cits', areasData);
+// }
+function startLocalSingleCITS() {
+  const areasData = prepareAreasData();
+  const scanSettings = previewPanelRef.value?.getSettings() || {
+    center_x: 0,
+    center_y: 0,
+    scan_angle: 0
+  };
+  
+  // 確保每個區域都包含必要的參數
+  const processedAreas = areasData.map(area => ({
+    start_x: Number(area.start_x),
+    start_y: Number(area.start_y),
+    dx: Number(area.dx),
+    dy: Number(area.dy) * (area.startpoint_direction === -1 ? -1 : 1), // 修正 startpoint direction
+    nx: Number(area.nx),
+    ny: Number(area.ny),
+    startpoint_direction: Number(area.startpoint_direction)
+  }));
+
+  emit('start-local-single-cits', {
+    areas: processedAreas,
+    scanSettings
+  });
+}
+
+// 同樣修改 startLocalMultiCITS 函數
 function startLocalMultiCITS() {
-  emit('start-local-multi-cits');
+  const areasData = prepareAreasData();
+  const scanSettings = previewPanelRef.value?.getSettings() || {
+    center_x: 0,
+    center_y: 0,
+    scan_angle: 0
+  };
+
+  const processedAreas = areasData.map(area => ({
+    start_x: Number(area.start_x),
+    start_y: Number(area.start_y),
+    dx: Number(area.dx),
+    dy: Number(area.dy) * (area.startpoint_direction === -1 ? -1 : 1),
+    nx: Number(area.nx),
+    ny: Number(area.ny),
+    startpoint_direction: Number(area.startpoint_direction)
+  }));
+
+  emit('start-local-multi-cits', {
+    areas: processedAreas,
+    scanSettings,
+    script: selectedScript
+  });
 }
 </script>
