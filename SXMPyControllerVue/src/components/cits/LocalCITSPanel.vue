@@ -361,6 +361,30 @@ function startLocalSingleCITS() {
 }
 
 // 同樣修改 startLocalMultiCITS 函數
+// function startLocalMultiCITS() {
+//   const areasData = prepareAreasData();
+//   const scanSettings = previewPanelRef.value?.getSettings() || {
+//     center_x: 0,
+//     center_y: 0,
+//     scan_angle: 0
+//   };
+
+//   const processedAreas = areasData.map(area => ({
+//     start_x: Number(area.start_x),
+//     start_y: Number(area.start_y),
+//     dx: Number(area.dx),
+//     dy: Number(area.dy) * (area.startpoint_direction === -1 ? -1 : 1),
+//     nx: Number(area.nx),
+//     ny: Number(area.ny),
+//     startpoint_direction: Number(area.startpoint_direction)
+//   }));
+
+//   emit('start-local-multi-cits', {
+//     areas: processedAreas,
+//     scanSettings,
+//     script: selectedScript
+//   });
+// }
 function startLocalMultiCITS() {
   const areasData = prepareAreasData();
   const scanSettings = previewPanelRef.value?.getSettings() || {
@@ -382,7 +406,7 @@ function startLocalMultiCITS() {
   emit('start-local-multi-cits', {
     areas: processedAreas,
     scanSettings,
-    script: selectedScript
+    selectedScript: selectedScript.value
   });
-}
+  }
 </script>

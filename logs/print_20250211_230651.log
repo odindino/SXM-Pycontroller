@@ -1,0 +1,173 @@
+2025-02-11 23:06:51,790 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:06:52,967 - Response: b'f500\r\n'
+2025-02-11 23:06:52,967 - Scanning: forward line 500
+2025-02-11 23:06:55,299 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:06:55,642 - Response: b'f499\r\n'
+2025-02-11 23:06:55,642 - Scanning: forward line 499
+2025-02-11 23:06:57,974 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:06:58,327 - Response: b'f498\r\n'
+2025-02-11 23:06:58,327 - Scanning: forward line 498
+2025-02-11 23:07:00,665 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:07:01,010 - Response: b'f497\r\n'
+2025-02-11 23:07:01,010 - Scanning: forward line 497
+2025-02-11 23:07:03,349 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:07:03,694 - Response: b'f496\r\n'
+2025-02-11 23:07:03,694 - Scanning: forward line 496
+2025-02-11 23:07:06,035 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:07:06,378 - Response: b'f495\r\n'
+2025-02-11 23:07:06,378 - Scanning: forward line 495
+2025-02-11 23:07:08,719 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:07:09,071 - Response: b'f494\r\n'
+2025-02-11 23:07:09,071 - Scanning: forward line 494
+2025-02-11 23:07:11,409 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:07:11,754 - Response: b'f493\r\n'
+2025-02-11 23:07:11,754 - Scanning: forward line 493
+2025-02-11 23:07:14,094 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:07:14,446 - Response: b'f492\r\n'
+2025-02-11 23:07:14,446 - Scanning: forward line 492
+2025-02-11 23:07:16,782 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:07:17,131 - Response: b'f491\r\n'
+2025-02-11 23:07:17,131 - Scanning: forward line 491
+2025-02-11 23:07:19,468 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:07:19,812 - Response: b'f490\r\n'
+2025-02-11 23:07:19,813 - Scanning: forward line 490
+2025-02-11 23:07:22,157 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:07:22,498 - Response: b'f489\r\n'
+2025-02-11 23:07:22,498 - Scanning: forward line 489
+2025-02-11 23:07:24,835 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:07:25,171 - Response: b'f488\r\n'
+2025-02-11 23:07:25,171 - Scanning: forward line 488
+2025-02-11 23:07:27,501 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:07:27,836 - Response: b'f487\r\n'
+2025-02-11 23:07:27,837 - Scanning: forward line 487
+2025-02-11 23:07:30,170 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:07:30,505 - Response: b'f486\r\n'
+2025-02-11 23:07:30,505 - Scanning: forward line 486
+2025-02-11 23:07:32,835 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:07:32,876 - Ensuring STM controller...
+2025-02-11 23:07:32,877 - Connection lost, recreating controller...
+2025-02-11 23:07:32,877 - Ensuring STM controller...
+2025-02-11 23:07:32,877 - Creating new STM controller...
+2025-02-11 23:07:32,953 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2025-02-11 23:07:33,172 - Response: b'f485\r\n'
+2025-02-11 23:07:33,172 - Response: b'f485\r\n'
+2025-02-11 23:07:33,172 - current state type:
+2025-02-11 23:07:33,172 - <class 'NoneType'>
+2025-02-11 23:07:33,172 - Scanning: forward line 485
+2025-02-11 23:07:33,172 - current state:
+2025-02-11 23:07:33,172 - None
+2025-02-11 23:07:33,173 - STM controller created
+2025-02-11 23:07:33,173 - SMU controller initialized
+2025-02-11 23:07:34,516 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2025-02-11 23:07:35,517 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:07:35,861 - Response: b'f484\r\n'
+2025-02-11 23:07:35,861 - Response: b'f484\r\n'
+2025-02-11 23:07:35,861 - Scanning: forward line 484
+2025-02-11 23:07:35,861 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2025-02-11 23:07:37,199 - Response: b'b484\r\n'
+2025-02-11 23:07:37,199 - Sending command: a := 0.0;
+a := GetScanPara('Range');
+Writeln(a);
+2025-02-11 23:07:38,199 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:07:38,534 - Response: b'f483\r\n'
+2025-02-11 23:07:38,534 - Response: b'f483\r\n'
+2025-02-11 23:07:38,535 - Sending command: a := 0.0;
+a := GetScanPara('Angle');
+Writeln(a);
+2025-02-11 23:07:38,535 - Scanning: forward line 483
+2025-02-11 23:07:39,871 - Response: b'b483\r\n'
+2025-02-11 23:07:39,871 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2025-02-11 23:07:40,872 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:07:41,208 - Response: b'f482\r\n'
+2025-02-11 23:07:41,208 - Response: b'f482\r\n'
+2025-02-11 23:07:41,208 - Scanning: forward line 482
+2025-02-11 23:07:41,208 - Sending command: a := 0.0;
+a := GetScanPara('Range');
+Writeln(a);
+2025-02-11 23:07:42,546 - Response: b'b482\r\n'
+2025-02-11 23:07:42,546 - Sending command: a := 0.0;
+a := GetScanPara('Pixel');
+Writeln(a);
+2025-02-11 23:07:43,546 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:07:43,890 - Response: b'f481\r\n'
+2025-02-11 23:07:43,890 - Response: b'f481\r\n'
+2025-02-11 23:07:43,890 - Sending command: a := 0.0;
+a := GetScanPara('PixelRatio');
+Writeln(a);
+2025-02-11 23:07:43,890 - Scanning: forward line 481
+2025-02-11 23:07:45,219 - Response: b'b481\r\n'
+2025-02-11 23:07:45,219 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2025-02-11 23:07:46,220 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:07:46,559 - Response: b'f480\r\n'
+2025-02-11 23:07:46,559 - Response: b'f480\r\n'
+2025-02-11 23:07:46,560 - Scanning: forward line 480
+2025-02-11 23:07:46,560 - Sending command: a := 0.0;
+a := GetScanPara('PixelRatio');
+Writeln(a);
+2025-02-11 23:07:47,895 - Response: b'b480\r\n'
+2025-02-11 23:07:47,895 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2025-02-11 23:07:48,896 - Sending command: a := 0.0;
+a := GetScanPara('Scan');
+Writeln(a);
+2025-02-11 23:07:49,241 - Response: b'f479\r\n'
+2025-02-11 23:07:49,241 - Response: b'f479\r\n'
+2025-02-11 23:07:49,242 - 獲取SXM狀態失敗: float() argument must be a string or a real number, not 'NoneType'
+2025-02-11 23:07:49,242 - Scanning: forward line 479
+2025-02-11 23:26:17,124 - Ensuring STM controller...
+2025-02-11 23:26:19,396 - Ensuring STM controller...
+2025-02-11 23:26:29,534 - Ensuring STM controller...
+2025-02-11 23:26:56,393 - 視窗已關閉，正在清理資源...

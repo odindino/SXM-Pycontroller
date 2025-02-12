@@ -244,7 +244,34 @@ const startLocalSingleCITS = async (data) => {
 //     isRunning.value = false
 //   }
 // }
-const startLocalMultiCITS = async (areasData) => {
+// const startLocalMultiCITS = async (areasData) => {
+//   if (isRunning.value || !selectedScript.value) return;
+  
+//   try {
+//     isRunning.value = true;
+//     status.value = 'Starting Local Multi-STS CITS...';
+    
+//     await startLocalMultiCITSMeasurement(
+//       areasData,
+//       selectedScript.value,
+//       globalDirection.value
+//     );
+    
+//     status.value = 'Local Multi-STS CITS completed';
+//     lastMeasurement.value = {
+//       type: 'Local Multi-STS CITS',
+//       timestamp: new Date().toISOString(),
+//       total_points: areasData.reduce((sum, area) => sum + area.nx * area.ny, 0),
+//       script: selectedScript.value,
+//       duration: null
+//     };
+//   } catch (error) {
+//     status.value = `Error during Local Multi-STS CITS: ${error.message}`;
+//   } finally {
+//     isRunning.value = false;
+//   }
+// }
+const startLocalMultiCITS = async (data) => {
   if (isRunning.value || !selectedScript.value) return;
   
   try {
@@ -252,17 +279,18 @@ const startLocalMultiCITS = async (areasData) => {
     status.value = 'Starting Local Multi-STS CITS...';
     
     await startLocalMultiCITSMeasurement(
-      areasData,
-      selectedScript.value,
-      globalDirection.value
+      data.areas,
+      data.selectedScript,
+      globalDirection.value,
+      data.scanSettings
     );
     
     status.value = 'Local Multi-STS CITS completed';
     lastMeasurement.value = {
       type: 'Local Multi-STS CITS',
       timestamp: new Date().toISOString(),
-      total_points: areasData.reduce((sum, area) => sum + area.nx * area.ny, 0),
-      script: selectedScript.value,
+      total_points: data.areas.reduce((sum, area) => sum + area.nx * area.ny, 0),
+      script: data.selectedScript,
       duration: null
     };
   } catch (error) {
@@ -270,7 +298,7 @@ const startLocalMultiCITS = async (areasData) => {
   } finally {
     isRunning.value = false;
   }
-}
+};
 
 // 初始化
 onMounted(() => {

@@ -2,17 +2,13 @@
   <div class="min-h-screen bg-gray-100">
     <Navigation :active-tab="activeTab" @change-tab="handleTabChange" />
     
-    <AbortButton 
-      :is-running="isRunning"
-      @measurement-stopped="handleMeasurementStopped" 
-    />
+    <AbortButton @measurement-stopped="handleMeasurementStopped" />
+
 
     <main class="container mx-auto px-4 py-8 mt-16"> <!-- 添加 mt-16 -->
       <component
         :is="currentComponent"
         v-if="currentComponent"
-        @measurement-started="handleMeasurementStarted"
-        @measurement-completed="handleMeasurementCompleted"
       />
     </main>
   </div>
@@ -28,7 +24,6 @@ import CITSMeasurement from './components/cits/CITSMeasurement.vue'
 import AutoMoveMeasurement from './components/auto-move/AutoMoveMeasurement.vue'
 
 const activeTab = ref('smu-config')
-const isRunning = ref(false)
 
 const currentComponent = computed(() => {
   switch (activeTab.value) {
@@ -50,16 +45,9 @@ const handleTabChange = (tab) => {
   activeTab.value = tab
 }
 
-const handleMeasurementStarted = () => {
-  isRunning.value = true
-}
-
-const handleMeasurementCompleted = () => {
-  isRunning.value = false
-}
-
 const handleMeasurementStopped = () => {
-  isRunning.value = false
+  // 這裡可以添加全局的測量停止處理邏輯
+  console.log('Measurement stopped')
 }
 </script>
 
