@@ -210,8 +210,8 @@ async function handleGetSXMStatus() {
 // }
 function transformAreas() {
   return props.localAreas.map(area => ({
-    start_x: Number(area.x_dev || 0),
-    start_y: Number(area.y_dev || 0),
+    start_x: Number(area.start_x || 0),
+    start_y: Number(area.start_y || 0),
     // start_x: Number(area.start_x),
     // start_y: Number(area.start_y),
     dx: Number(area.dx),
