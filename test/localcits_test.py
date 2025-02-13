@@ -269,31 +269,47 @@ class LocalCITSVisualizer:
 def main():
     """主測試函數"""
     # 測試參數設定
+    # test_params = {
+    #     'scan_center_x': 0,
+    #     'scan_center_y': 0,
+    #     'scan_range': 100,
+    #     'scan_angle': 0,
+    #     'total_lines': 500,
+    #     'scan_direction': 1,
+    #     'local_areas': [
+    #         LocalCITSParams(
+    #             start_x=5, start_y=5,
+    #             dx=1, dy=1,
+    #             nx=3, ny=3,
+    #             startpoint_direction=1
+    #         ),
+    #         LocalCITSParams(
+    #             start_x=-5, start_y=-5,
+    #             dx=2, dy=2,
+    #             nx=3, ny=3,
+    #             startpoint_direction=-1
+    #         ),
+    #         LocalCITSParams(
+    #             start_x=-5, start_y=5,
+    #             dx=1, dy=1,
+    #             nx=3, ny=3,
+    #             startpoint_direction=-1
+    #         )
+    #     ]
+    # }
     test_params = {
-        'scan_center_x': 250,
-        'scan_center_y': 250,
-        'scan_range': 500,
-        'scan_angle': 60,
+        'scan_center_x': -357.66,
+        'scan_center_y': 228.19,
+        'scan_range': 50,
+        'scan_angle': 0,
         'total_lines': 500,
         'scan_direction': -1,
         'local_areas': [
             LocalCITSParams(
-                start_x=125, start_y=125,
-                dx=0.1, dy=0.1,
-                nx=5, ny=20,
+                start_x=-8, start_y=-6,
+                dx=0.4, dy=0.8,
+                nx=45, ny=15,
                 startpoint_direction=1
-            ),
-            LocalCITSParams(
-                start_x=125, start_y=125,
-                dx=20, dy=20,
-                nx=5, ny=5,
-                startpoint_direction=-1
-            ),
-            LocalCITSParams(
-                start_x=230, start_y=180,
-                dx=40, dy=40,
-                nx=3, ny=3,
-                startpoint_direction=-1
             )
         ]
     }
