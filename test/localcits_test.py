@@ -308,7 +308,7 @@ def main():
             LocalCITSParams(
                 start_x=-8, start_y=-6,
                 dx=0.4, dy=0.8,
-                nx=45, ny=15,
+                nx=45, ny=2,
                 startpoint_direction=1
             )
         ]
