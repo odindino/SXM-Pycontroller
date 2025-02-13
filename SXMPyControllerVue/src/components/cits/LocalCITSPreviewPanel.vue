@@ -176,8 +176,8 @@ async function handleGetSXMStatus() {
     previewSettings.value = {
       center_x: Number(status.center_x || 0),
       center_y: Number(status.center_y || 0),
-      scan_range: Number(status.range || 100),
-      scan_angle: Number(status.angle || 0),
+      scan_range: Number(status.scan_range || 100),
+      scan_angle: Number(status.scan_angle || 0),
       total_lines: Number(status.total_lines || 500),
       aspect_ratio: Number(status.aspect_ratio || 1)
     };
