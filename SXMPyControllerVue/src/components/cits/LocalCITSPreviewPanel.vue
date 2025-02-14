@@ -99,7 +99,7 @@
     </div>
 
     <!-- 預覽資訊顯示 -->
-    <div v-if="previewData" class="space-y-4">
+    <div v-if="storedPreviewData" class="space-y-4">
       <div class="grid grid-cols-2 gap-4 p-4 bg-gray-50 rounded-md">
         <div>
           <span class="text-sm text-gray-500">Scan Center:</span>
@@ -122,7 +122,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, watch } from 'vue';
+import { useLocalCITSPreview } from '../../composables/useLocalCITSPreview';
 
 const props = defineProps({
   localAreas: {
@@ -135,25 +136,16 @@ const props = defineProps({
   }
 });
 
-// 預覽狀態
-const previewSettings = ref({
-  center_x: 0,
-  center_y: 0,
-  scan_range: 100,
-  scan_angle: 0,
-  total_lines: 500,
-  aspect_ratio: 1
-});
+// 使用預覽狀態管理
+const { 
+  previewSettings, 
+  previewData: storedPreviewData, 
+  updatePreviewSettings,
+  updatePreviewData 
+} = useLocalCITSPreview();
 
-// 導出設定與方法
-defineExpose({
-  previewSettings,
-  handleGetSXMStatus,
-  generatePreview,
-  getSettings: () => previewSettings.value
-});
-const previewData = ref(null);
 const isGenerating = ref(false);
+let plot = null;
 
 // 格式化數字
 const formatNumber = (value) => {
@@ -172,24 +164,16 @@ async function handleGetSXMStatus() {
   try {
     const status = await window.pywebview.api.get_sxm_status();
     
-    // 更新所有預覽設定
-    previewSettings.value = {
+    // 更新預覽設定
+    updatePreviewSettings({
       center_x: Number(status.center_x || 0),
       center_y: Number(status.center_y || 0),
       scan_range: Number(status.scan_range || 100),
       scan_angle: Number(status.scan_angle || 0),
       total_lines: Number(status.total_lines || 500),
       aspect_ratio: Number(status.aspect_ratio || 1)
-    };
+    });
     
-    // 強制更新預覽資訊
-    if (previewData.value) {
-      previewData.value = {
-        ...previewData.value,
-        center_x: previewSettings.value.center_x,
-        center_y: previewSettings.value.center_y
-      };
-    }
   } catch (error) {
     console.error('Failed to get SXM status:', error);
     alert('Failed to get SXM status. Check connection and try again.');
@@ -197,29 +181,71 @@ async function handleGetSXMStatus() {
 }
 
 // 轉換區域參數
-// function transformAreas() {
-//   return props.localAreas.map(area => ({
-//     start_x: Number(previewSettings.value.center_x) + Number(area.x_dev || 0),
-//     start_y: Number(previewSettings.value.center_y) + Number(area.y_dev || 0),
-//     dx: Number(area.dx || 1),
-//     dy: Number(area.dy || 1),
-//     nx: Number(area.nx || 1),
-//     ny: Number(area.ny || 1),
-//     startpoint_direction: area.startpoint_direction === 'Up' ? 1 : -1
-//   }));
-// }
 function transformAreas() {
   return props.localAreas.map(area => ({
     start_x: Number(area.start_x || 0),
     start_y: Number(area.start_y || 0),
-    // start_x: Number(area.start_x),
-    // start_y: Number(area.start_y),
     dx: Number(area.dx),
     dy: Number(area.dy) * (area.startpoint_direction === -1 ? -1 : 1),
     nx: Number(area.nx),
     ny: Number(area.ny),
     startpoint_direction: Number(area.startpoint_direction)
   }));
+}
+
+// 更新預覽圖
+function updatePreviewPlot(data) {
+  const plotElement = document.getElementById('previewPlot');
+  if (!plotElement) return;
+  
+  if (plot) {
+    Plotly.purge(plotElement);
+  }
+  
+  const range = Number(previewSettings.value.scan_range);
+  const center_x = Number(previewSettings.value.center_x);
+  const center_y = Number(previewSettings.value.center_y);
+  const margin = range * 0.2;
+
+  const layout = {
+    ...data.layout,
+    hoverlabel: {
+      bgcolor: '#FFF',
+      font: { size: 12 }
+    },
+    margin: { l: 50, r: 50, t: 30, b: 50 },
+    showlegend: true,
+    legend: {
+      x: 1.05,
+      y: 1,
+      xanchor: 'left',
+      yanchor: 'top'
+    },
+    xaxis: {
+      range: [center_x - range - margin, center_x + range + margin],
+      title: 'X Position (nm)'
+    },
+    yaxis: {
+      range: [center_y - range - margin, center_y + range + margin],
+      title: 'Y Position (nm)',
+      scaleanchor: 'x',
+      scaleratio: 1
+    },
+    dragmode: 'pan'
+  };
+
+  const config = {
+    responsive: true,
+    displayModeBar: true,
+    displaylogo: false,
+    modeBarButtonsToRemove: ['lasso2d', 'select2d'],
+    toImageButtonOptions: {
+      format: 'svg',
+      filename: 'local_cits_preview'
+    }
+  };
+
+  plot = Plotly.newPlot(plotElement, data.data, layout, config);
 }
 
 // 生成預覽
@@ -229,7 +255,6 @@ async function generatePreview() {
   try {
     isGenerating.value = true;
 
-    // 準備預覽參數
     const previewParams = {
       scan_center_x: Number(previewSettings.value.center_x),
       scan_center_y: Number(previewSettings.value.center_y),
@@ -242,61 +267,17 @@ async function generatePreview() {
     };
 
     const preview = await window.pywebview.api.preview_local_cits(previewParams);
-    previewData.value = {
+    
+    // 更新預覽數據
+    updatePreviewData({
       ...preview,
       center_x: previewSettings.value.center_x,
       center_y: previewSettings.value.center_y
-    };
+    });
 
     // 更新圖表
-    const plotElement = document.getElementById('previewPlot');
-    if (plotElement && window.Plotly) {
-      // 配置預設視圖範圍
-      const range = Number(previewSettings.value.scan_range);
-      const center_x = Number(previewSettings.value.center_x);
-      const center_y = Number(previewSettings.value.center_y);
-      const margin = range * 0.2; // 加入20%的邊距
+    updatePreviewPlot(preview);
 
-      const layout = {
-        ...preview.layout,
-        hoverlabel: {
-          bgcolor: '#FFF',
-          font: { size: 12 }
-        },
-        margin: { l: 50, r: 50, t: 30, b: 50 },
-        showlegend: true,
-        legend: {
-          x: 1.05,
-          y: 1,
-          xanchor: 'left',
-          yanchor: 'top'
-        },
-        xaxis: {
-          range: [center_x - range - margin, center_x + range + margin],
-          title: 'X Position (nm)'
-        },
-        yaxis: {
-          range: [center_y - range - margin, center_y + range + margin],
-          title: 'Y Position (nm)',
-          scaleanchor: 'x',
-          scaleratio: 1
-        },
-        dragmode: 'pan'
-      };
-
-      const config = {
-        responsive: true,
-        displayModeBar: true,
-        displaylogo: false,
-        modeBarButtonsToRemove: ['lasso2d', 'select2d'],
-        toImageButtonOptions: {
-          format: 'svg',
-          filename: 'local_cits_preview'
-        }
-      };
-
-      await window.Plotly.newPlot(plotElement, preview.data, layout, config);
-    }
   } catch (error) {
     console.error('Preview generation error:', error);
     alert(`Preview error: ${error.message}`);
@@ -305,11 +286,40 @@ async function generatePreview() {
   }
 }
 
-// 組件清理
-onUnmounted(() => {
-  const plotElement = document.getElementById('previewPlot');
-  if (plotElement && window.Plotly) {
-    window.Plotly.purge(plotElement);
+// 監聽預覽數據變化
+watch(() => storedPreviewData.value, (newData) => {
+  if (newData && window.Plotly) {
+    updatePreviewPlot(newData);
   }
+}, { deep: true });
+
+// 視窗大小調整處理
+const handleResize = () => {
+  if (plot && storedPreviewData.value) {
+    Plotly.Plots.resize(document.getElementById('previewPlot'));
+  }
+};
+
+// 生命週期處理
+onMounted(() => {
+  if (storedPreviewData.value) {
+    updatePreviewPlot(storedPreviewData.value);
+  }
+  window.addEventListener('resize', handleResize);
+});
+
+onUnmounted(() => {
+  if (plot) {
+    Plotly.purge(document.getElementById('previewPlot'));
+  }
+  window.removeEventListener('resize', handleResize);
+});
+
+// 導出設定與方法
+defineExpose({
+  previewSettings,
+  handleGetSXMStatus,
+  generatePreview,
+  getSettings: () => previewSettings.value
 });
 </script>

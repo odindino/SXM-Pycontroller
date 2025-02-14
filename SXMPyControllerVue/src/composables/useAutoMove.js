@@ -1,4 +1,3 @@
-// composables/useAutoMove.js
 import { ref } from 'vue'
 
 export function useAutoMove() {
