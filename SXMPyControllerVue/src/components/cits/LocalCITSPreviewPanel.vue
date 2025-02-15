@@ -98,6 +98,56 @@
       </div>
     </div>
 
+    <!-- 預覽疊圖圖片 -->
+    <div class="space-y-4 mb-6">
+    <h3 class="text-lg font-medium text-gray-900">Background Image</h3>
+    
+    <div class="flex items-center space-x-4">
+      <div class="flex-1">
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Upload Background Image
+        </label>
+        <input
+          ref="fileInput"
+          type="file"
+          accept="image/*"
+          @change="handleImageUpload"
+          class="block w-full text-sm text-gray-500
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-md file:border-0
+                file:text-sm file:font-semibold
+                file:bg-indigo-50 file:text-indigo-700
+                hover:file:bg-indigo-100"
+        />
+      </div>
+        
+        <!-- 清除圖片按鈕 -->
+        <button
+          v-if="backgroundImage"
+          @click="clearBackgroundImage"
+          class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+        >
+          Clear Image
+        </button>
+      </div>
+
+      <!-- 圖片設定 -->
+      <div v-if="backgroundImage" class="grid grid-cols-2 gap-4">
+          <label class="block text-sm font-medium text-gray-700">
+            Image Opacity
+          </label>
+          <input
+            type="range"
+            v-model.number="imageSettings.opacity"
+            @input="handleOpacityChange"
+            min="0"
+            max="1"
+            step="0.1"
+            class="w-full"
+          />
+      </div>
+    </div>
+
     <!-- 預覽資訊顯示 -->
     <div v-if="storedPreviewData" class="space-y-4">
       <div class="grid grid-cols-2 gap-4 p-4 bg-gray-50 rounded-md">
@@ -145,6 +195,7 @@ const {
 } = useLocalCITSPreview();
 
 const isGenerating = ref(false);
+const fileInput = ref(null);
 let plot = null;
 
 // 格式化數字
@@ -191,6 +242,46 @@ function transformAreas() {
     ny: Number(area.ny),
     startpoint_direction: Number(area.startpoint_direction)
   }));
+}
+
+// 背景圖片相關狀態
+const { 
+  backgroundImage,
+  imageSettings,
+  updateBackgroundImage,
+  updateImageSettings
+} = useLocalCITSPreview();
+
+// 處理圖片上傳
+async function handleImageUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  try {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      updateBackgroundImage(e.target.result);
+      if (storedPreviewData.value) {
+        updatePreviewPlot(storedPreviewData.value);
+      }
+    };
+    reader.readAsDataURL(file);
+  } catch (error) {
+    console.error('Image upload error:', error);
+    alert('Failed to load image');
+  }
+}
+
+// 清除背景圖片
+function clearBackgroundImage() {
+  updateBackgroundImage(null);
+  // 重置檔案輸入
+  if (fileInput.value) {
+    fileInput.value.value = '';
+  }
+  if (storedPreviewData.value) {
+    updatePreviewPlot(storedPreviewData.value);
+  }
 }
 
 // 更新預覽圖
@@ -245,7 +336,44 @@ function updatePreviewPlot(data) {
     }
   };
 
+  if (backgroundImage.value) {
+    // 定義掃描區域的邊界
+    const scanArea = {
+      x0: center_x - range/2,
+      x1: center_x + range/2,
+      y0: center_y - range/2,
+      y1: center_y + range/2
+    };
+
+    layout.images = [{
+      source: backgroundImage.value,
+      x: scanArea.x0,            // 左邊界對齊掃描區域
+      y: scanArea.y1,            // 上邊界對齊掃描區域
+      sizex: scanArea.x1 - scanArea.x0,  // 寬度等於掃描區域寬度
+      sizey: scanArea.y1 - scanArea.y0,  // 高度等於掃描區域高度
+      xref: 'x',
+      yref: 'y',
+      opacity: imageSettings.value.opacity,
+      layer: 'below',
+      sizing: 'fill',           // 使用 'fill' 而不是 'contain' 來確保圖片完全填充區域
+      xanchor: 'left',          // 確保圖片左對齊
+      yanchor: 'top'            // 確保圖片頂部對齊
+    }];
+
+    // 更新視圖範圍以確保掃描區域和圖片都完全可見
+    layout.xaxis.range = [scanArea.x0 - margin, scanArea.x1 + margin];
+    layout.yaxis.range = [scanArea.y0 - margin, scanArea.y1 + margin];
+  }
+
   plot = Plotly.newPlot(plotElement, data.data, layout, config);
+}
+
+// 添加在其他函數附近
+function handleOpacityChange(event) {
+  updateImageSettings({ opacity: Number(event.target.value) });
+  if (storedPreviewData.value) {
+    updatePreviewPlot(storedPreviewData.value);
+  }
 }
 
 // 生成預覽
@@ -322,4 +450,11 @@ defineExpose({
   generatePreview,
   getSettings: () => previewSettings.value
 });
+
+//添加對 imageSettings 的監聽
+watch(() => imageSettings.value, (newSettings) => {
+  if (storedPreviewData.value) {
+    updatePreviewPlot(storedPreviewData.value);
+  }
+}, { deep: true });
 </script>
