@@ -83837,3 +83837,127 @@ Validation Results:
 2025-02-14 10:50:09,533 - Total coordinates: Original=1125, Distributed=1125
 2025-02-14 10:50:09,533 - Distribution segments: Coordinates=25, Scanlines=26
 2025-02-14 10:50:09,533 - Total scanlines: Calculated=500, Expected=500
+2025-02-14 13:26:42,703 - Ensuring STM controller...
+2025-02-14 13:26:42,704 - Connection lost, recreating controller...
+2025-02-14 13:26:42,704 - Ensuring STM controller...
+2025-02-14 13:26:42,704 - Creating new STM controller...
+2025-02-14 13:26:42,785 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2025-02-14 13:26:42,794 - Response: b'DDE Cmd 0\r\n0\r\n'
+2025-02-14 13:26:42,794 - current state type:
+2025-02-14 13:26:42,794 - <class 'float'>
+2025-02-14 13:26:42,794 - current state:
+2025-02-14 13:26:42,794 - 0.0
+2025-02-14 13:26:42,795 - STM controller created
+2025-02-14 13:26:42,795 - SMU controller initialized
+2025-02-14 13:26:42,801 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2025-02-14 13:26:42,807 - Response: b'DDE Cmd 2\r\n-72.126\r\n'
+2025-02-14 13:26:42,807 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2025-02-14 13:26:42,816 - Response: b'DDE Cmd 3\r\n235.33\r\n'
+2025-02-14 13:26:42,816 - Sending command: a := 0.0;
+a := GetScanPara('Range');
+Writeln(a);
+2025-02-14 13:26:42,824 - Response: b'DDE Cmd 4\r\n50\r\n'
+2025-02-14 13:26:42,824 - Sending command: a := 0.0;
+a := GetScanPara('Angle');
+Writeln(a);
+2025-02-14 13:26:42,832 - Response: b'DDE Cmd 5\r\n0\r\n'
+2025-02-14 13:26:42,832 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2025-02-14 13:26:42,839 - Response: b'DDE Cmd 6\r\n1\r\n'
+2025-02-14 13:26:42,839 - Sending command: a := 0.0;
+a := GetScanPara('Pixel');
+Writeln(a);
+2025-02-14 13:26:42,847 - Response: b'DDE Cmd 7\r\n500\r\n'
+2025-02-14 13:26:42,847 - Sending command: a := 0.0;
+a := GetScanPara('PixelRatio');
+Writeln(a);
+2025-02-14 13:26:42,856 - Response: b'DDE Cmd 8\r\nError 34 (unknown function) at line 3.    Program stopped!\r\n'
+2025-02-14 13:26:42,856 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2025-02-14 13:26:42,859 - Response: b'DDE Cmd 9\r\n1\r\n'
+2025-02-14 13:26:42,859 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2025-02-14 13:26:42,862 - Response: b'DDE Cmd 10\r\n1\r\n'
+2025-02-14 13:26:42,862 - Sending command: a := 0.0;
+a := GetScanPara('PixelRatio');
+Writeln(a);
+2025-02-14 13:26:42,864 - Response: b'DDE Cmd 11\r\nError 34 (unknown function) at line 3.    Program stopped!\r\n'
+2025-02-14 13:26:42,864 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2025-02-14 13:26:42,867 - Response: b'DDE Cmd 12\r\n1\r\n'
+2025-02-14 13:26:44,446 - coordinates:
+2025-02-14 13:26:44,446 - [[-80.126 220.33 ]
+ [-79.726 220.33 ]
+ [-79.326 220.33 ]
+ ...
+ [-63.326 239.53 ]
+ [-62.926 239.53 ]
+ [-62.526 239.53 ]]
+2025-02-14 13:26:44,447 - translated_coords:
+2025-02-14 13:26:44,447 - [[ -8.  -15. ]
+ [ -7.6 -15. ]
+ [ -7.2 -15. ]
+ ...
+ [  8.8   4.2]
+ [  9.2   4.2]
+ [  9.6   4.2]]
+2025-02-14 13:26:44,447 - sorted_indices:
+2025-02-14 13:26:44,447 - [   0    1    2 ... 1122 1123 1124]
+2025-02-14 13:26:44,447 - sorted_positions:
+2025-02-14 13:26:44,448 - [100 100 100 ... 292 292 292]
+2025-02-14 13:26:44,448 - sorted_coords:
+2025-02-14 13:26:44,448 - [[-80.126 220.33 ]
+ [-79.726 220.33 ]
+ [-79.326 220.33 ]
+ ...
+ [-63.326 239.53 ]
+ [-62.926 239.53 ]
+ [-62.526 239.53 ]]
+2025-02-14 13:26:44,449 - 
+Validation Results:
+2025-02-14 13:26:44,449 - Total coordinates: Original=1125, Distributed=1125
+2025-02-14 13:26:44,449 - Distribution segments: Coordinates=25, Scanlines=26
+2025-02-14 13:26:44,449 - Total scanlines: Calculated=500, Expected=500
+2025-02-14 13:26:46,707 - coordinates:
+2025-02-14 13:26:46,707 - [[-80.126 220.33 ]
+ [-79.726 220.33 ]
+ [-79.326 220.33 ]
+ ...
+ [-63.326 239.53 ]
+ [-62.926 239.53 ]
+ [-62.526 239.53 ]]
+2025-02-14 13:26:46,707 - translated_coords:
+2025-02-14 13:26:46,708 - [[ -8.  -15. ]
+ [ -7.6 -15. ]
+ [ -7.2 -15. ]
+ ...
+ [  8.8   4.2]
+ [  9.2   4.2]
+ [  9.6   4.2]]
+2025-02-14 13:26:46,708 - sorted_indices:
+2025-02-14 13:26:46,708 - [   0    1    2 ... 1122 1123 1124]
+2025-02-14 13:26:46,708 - sorted_positions:
+2025-02-14 13:26:46,708 - [100 100 100 ... 292 292 292]
+2025-02-14 13:26:46,708 - sorted_coords:
+2025-02-14 13:26:46,708 - [[-80.126 220.33 ]
+ [-79.726 220.33 ]
+ [-79.326 220.33 ]
+ ...
+ [-63.326 239.53 ]
+ [-62.926 239.53 ]
+ [-62.526 239.53 ]]
+2025-02-14 13:26:46,709 - 
+Validation Results:
+2025-02-14 13:26:46,709 - Total coordinates: Original=1125, Distributed=1125
+2025-02-14 13:26:46,709 - Distribution segments: Coordinates=25, Scanlines=26
+2025-02-14 13:26:46,709 - Total scanlines: Calculated=500, Expected=500
