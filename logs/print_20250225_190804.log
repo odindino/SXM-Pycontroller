@@ -1,0 +1,182 @@
+2025-02-25 19:08:04,631 - Starting auto move scan:
+Movement script: RULLDDRR
+Distance: 1500 nm
+Wait time: 20 s
+Repeat count: 2
+2025-02-25 19:08:04,631 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2025-02-25 19:08:04,632 - Command error: Unable to send command (err=0x4006)
+2025-02-25 19:08:04,632 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2025-02-25 19:08:04,632 - Command error: Unable to send command (err=0x4006)
+2025-02-25 19:08:04,632 - Sending command: a := 0.0;
+a := GetScanPara('Angle');
+Writeln(a);
+2025-02-25 19:08:04,632 - Command error: Unable to send command (err=0x4006)
+2025-02-25 19:08:04,632 - Auto move scan error: 無法獲取掃描參數
+2025-02-25 19:08:16,151 - Starting auto move scan:
+Movement script: RULLDDRR
+Distance: 1500 nm
+Wait time: 20 s
+Repeat count: 2
+2025-02-25 19:08:16,151 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2025-02-25 19:08:16,151 - Command error: Unable to send command (err=0x4006)
+2025-02-25 19:08:16,152 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2025-02-25 19:08:16,152 - Command error: Unable to send command (err=0x4006)
+2025-02-25 19:08:16,152 - Sending command: a := 0.0;
+a := GetScanPara('Angle');
+Writeln(a);
+2025-02-25 19:08:16,152 - Command error: Unable to send command (err=0x4006)
+2025-02-25 19:08:16,152 - Auto move scan error: 無法獲取掃描參數
+2025-02-25 19:08:29,889 - Ensuring STM controller...
+2025-02-25 19:08:29,889 - Connection lost, recreating controller...
+2025-02-25 19:08:29,889 - Ensuring STM controller...
+2025-02-25 19:08:29,889 - Creating new STM controller...
+2025-02-25 19:08:29,979 - Sending command: a := 0.0;
+a := GetFeedPara('Enable');
+Writeln(a);
+2025-02-25 19:08:29,983 - Response: b'DDE Cmd 264\r\n0\r\n'
+2025-02-25 19:08:29,983 - current state type:
+2025-02-25 19:08:29,984 - <class 'float'>
+2025-02-25 19:08:29,984 - current state:
+2025-02-25 19:08:29,984 - 0.0
+2025-02-25 19:08:29,985 - STM controller created
+2025-02-25 19:08:29,985 - SMU controller initialized
+2025-02-25 19:08:29,988 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2025-02-25 19:08:29,995 - Response: b'DDE Cmd 266\r\n0\r\n'
+2025-02-25 19:08:29,996 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2025-02-25 19:08:30,002 - Response: b'DDE Cmd 267\r\n0\r\n'
+2025-02-25 19:08:30,002 - Sending command: a := 0.0;
+a := GetScanPara('Range');
+Writeln(a);
+2025-02-25 19:08:30,009 - Response: b'DDE Cmd 268\r\n1000\r\n'
+2025-02-25 19:08:30,009 - Sending command: a := 0.0;
+a := GetScanPara('Angle');
+Writeln(a);
+2025-02-25 19:08:30,018 - Response: b'DDE Cmd 269\r\n0\r\n'
+2025-02-25 19:08:30,018 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2025-02-25 19:08:30,026 - Response: b'DDE Cmd 270\r\n1\r\n'
+2025-02-25 19:08:30,027 - Sending command: a := 0.0;
+a := GetScanPara('Pixel');
+Writeln(a);
+2025-02-25 19:08:30,034 - Response: b'DDE Cmd 271\r\n500\r\n'
+2025-02-25 19:08:30,035 - Sending command: a := 0.0;
+a := GetScanPara('PixelRatio');
+Writeln(a);
+2025-02-25 19:08:30,041 - Response: b'DDE Cmd 272\r\nError 34 (unknown function) at line 3.    Program stopped!\r\n'
+2025-02-25 19:08:30,041 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2025-02-25 19:08:30,044 - Response: b'DDE Cmd 273\r\n1\r\n'
+2025-02-25 19:08:30,044 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2025-02-25 19:08:30,046 - Response: b'DDE Cmd 274\r\n1\r\n'
+2025-02-25 19:08:30,046 - Sending command: a := 0.0;
+a := GetScanPara('PixelRatio');
+Writeln(a);
+2025-02-25 19:08:30,048 - Response: b'DDE Cmd 275\r\nError 34 (unknown function) at line 3.    Program stopped!\r\n'
+2025-02-25 19:08:30,048 - Sending command: a := 0.0;
+a := GetScanPara('AspectRatio');
+Writeln(a);
+2025-02-25 19:08:30,051 - Response: b'DDE Cmd 276\r\n1\r\n'
+2025-02-25 19:08:34,658 - 
+Generating movement positions:
+2025-02-25 19:08:34,658 - Start position: (0, 0)
+2025-02-25 19:08:34,658 - Movement script: RULLDDRR
+2025-02-25 19:08:34,658 - Distance: 1500 nm
+2025-02-25 19:08:34,658 - Position 1: (1500.0, 0.0)
+2025-02-25 19:08:34,658 - Position 2: (1500.0, 1500.0)
+2025-02-25 19:08:34,658 - Position 3: (0.0, 1500.0)
+2025-02-25 19:08:34,658 - Position 4: (-1500.0, 1500.0)
+2025-02-25 19:08:34,658 - Position 5: (-1500.0, 0.0)
+2025-02-25 19:08:34,658 - Position 6: (-1500.0, -1500.0)
+2025-02-25 19:08:34,658 - Position 7: (0.0, -1500.0)
+2025-02-25 19:08:34,658 - Position 8: (1500.0, -1500.0)
+2025-02-25 19:08:34,659 - 
+Generating movement positions:
+2025-02-25 19:08:34,659 - Start position: (0, 0)
+2025-02-25 19:08:34,659 - Movement script: RULLDDRR
+2025-02-25 19:08:34,659 - Distance: 1500 nm
+2025-02-25 19:08:34,659 - Position 1: (1500.0, 0.0)
+2025-02-25 19:08:34,659 - Position 2: (1500.0, 1500.0)
+2025-02-25 19:08:34,659 - Position 3: (0.0, 1500.0)
+2025-02-25 19:08:34,659 - Position 4: (-1500.0, 1500.0)
+2025-02-25 19:08:34,659 - Position 5: (-1500.0, 0.0)
+2025-02-25 19:08:34,659 - Position 6: (-1500.0, -1500.0)
+2025-02-25 19:08:34,659 - Position 7: (0.0, -1500.0)
+2025-02-25 19:08:34,659 - Position 8: (1500.0, -1500.0)
+2025-02-25 19:08:39,045 - 
+Generating movement positions:
+2025-02-25 19:08:39,046 - Start position: (0, 0)
+2025-02-25 19:08:39,046 - Movement script: RULLDDRR
+2025-02-25 19:08:39,046 - Distance: 1500 nm
+2025-02-25 19:08:39,046 - Position 1: (1500.0, 0.0)
+2025-02-25 19:08:39,046 - Position 2: (1500.0, 1500.0)
+2025-02-25 19:08:39,046 - Position 3: (0.0, 1500.0)
+2025-02-25 19:08:39,046 - Position 4: (-1500.0, 1500.0)
+2025-02-25 19:08:39,046 - Position 5: (-1500.0, 0.0)
+2025-02-25 19:08:39,046 - Position 6: (-1500.0, -1500.0)
+2025-02-25 19:08:39,046 - Position 7: (0.0, -1500.0)
+2025-02-25 19:08:39,046 - Position 8: (1500.0, -1500.0)
+2025-02-25 19:08:39,046 - 
+Generating movement positions:
+2025-02-25 19:08:39,046 - Start position: (0, 0)
+2025-02-25 19:08:39,047 - Movement script: RULLDDRR
+2025-02-25 19:08:39,047 - Distance: 1500 nm
+2025-02-25 19:08:39,047 - Position 1: (1500.0, 0.0)
+2025-02-25 19:08:39,047 - Position 2: (1500.0, 1500.0)
+2025-02-25 19:08:39,047 - Position 3: (0.0, 1500.0)
+2025-02-25 19:08:39,047 - Position 4: (-1500.0, 1500.0)
+2025-02-25 19:08:39,047 - Position 5: (-1500.0, 0.0)
+2025-02-25 19:08:39,047 - Position 6: (-1500.0, -1500.0)
+2025-02-25 19:08:39,047 - Position 7: (0.0, -1500.0)
+2025-02-25 19:08:39,047 - Position 8: (1500.0, -1500.0)
+2025-02-25 19:08:45,353 - Starting auto move scan:
+Movement script: RULLDDRR
+Distance: 1500 nm
+Wait time: 20 s
+Repeat count: 2
+2025-02-25 19:08:45,354 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2025-02-25 19:08:45,354 - Command error: Unable to send command (err=0x4006)
+2025-02-25 19:08:45,354 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2025-02-25 19:08:45,354 - Command error: Unable to send command (err=0x4006)
+2025-02-25 19:08:45,354 - Sending command: a := 0.0;
+a := GetScanPara('Angle');
+Writeln(a);
+2025-02-25 19:08:45,354 - Command error: Unable to send command (err=0x4006)
+2025-02-25 19:08:45,354 - Auto move scan error: 無法獲取掃描參數
+2025-02-25 19:09:04,912 - Starting auto move scan:
+Movement script: RULLDDRR
+Distance: 1500 nm
+Wait time: 20 s
+Repeat count: 2
+2025-02-25 19:09:04,913 - Sending command: a := 0.0;
+a := GetScanPara('X');
+Writeln(a);
+2025-02-25 19:09:04,913 - Command error: Unable to send command (err=0x4006)
+2025-02-25 19:09:04,913 - Sending command: a := 0.0;
+a := GetScanPara('Y');
+Writeln(a);
+2025-02-25 19:09:04,913 - Command error: Unable to send command (err=0x4006)
+2025-02-25 19:09:04,913 - Sending command: a := 0.0;
+a := GetScanPara('Angle');
+Writeln(a);
+2025-02-25 19:09:04,913 - Command error: Unable to send command (err=0x4006)
+2025-02-25 19:09:04,913 - Auto move scan error: 無法獲取掃描參數

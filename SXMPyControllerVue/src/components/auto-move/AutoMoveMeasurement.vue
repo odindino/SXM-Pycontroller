@@ -92,10 +92,10 @@
 import { ref, onMounted } from "vue";
 import MoveScriptPanel from "./MoveScriptPanel.vue";
 import PreviewStatusPanel from "./PreviewStatusPanel.vue";
-import { useAutoMove } from "../../composables/useAutoMove";
-import { useSharedSTSState } from "../../composables/useSharedSTSState";
-import { useSharedAutoMoveState } from "../../composables/useSharedAutoMoveState";
-import { useLocalCITSAreas } from "../../composables/useLocalCITSAreas";
+import { useAutoMove } from "../../composables/useAutoMove.js";
+import { useSharedSTSState } from "../../composables/useSharedSTSState.js";
+import { useSharedAutoMoveState } from "../../composables/useSharedAutoMoveState.js";
+import { useLocalCITSAreas } from "../../composables/useLocalCITSAreas.js";
 
 // 基本狀態管理
 const scriptName = ref("");
